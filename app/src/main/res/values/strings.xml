@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Robokart - Learn Robotics</string>
+    <string name="login">Login</string>
+    <string name="please_enter_your_mobile_number">Please enter your mobile number</string>
+    <string name="enter_your_number">Enter your number</string>
+    <string name="we_will_send_a_5_digit_otp_to_verify">We will send a 5 digit OTP to verify</string>
+    <string name="btn_login">Login</string>
+    <string name="or_login_with_social_account">or login with social account</string>
+
+
+    <string name="facebook_app_id">113020080140872</string>
+    <string name="fb_login_protocol_scheme">fb113020080140872</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="registration">Registration</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="by_signing_up_you_agree_to_robokart_s">By signing up you agree to Robokart\'s</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+
+    <string name="ob_header1">Learn Online</string>
+    <string name="ob_header2">Get Contents</string>
+    <string name="ob_header3">Progress Reports</string>
+
+    <string name="ob_desc1">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
+    <string name="ob_desc2">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
+    <string name="ob_desc3">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
+    <string name="fullname">Fullname</string>
+    <string name="parent_number">Parent Number</string>
+    <string name="your_number">Your Number</string>
+    <string name="password">Password</string>
+    <string name="referal_code">Referal Code</string>
+    <string name="verification">Verification</string>
+    <string name="enter_5_digit_verification_code">Enter 5 digit verification code</string>
+    <string name="verify">Verify</string>
+    <string name="enter_10_digit_number">Enter 10 digit number</string>
+</resources>

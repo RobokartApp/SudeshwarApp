@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "235339287345",
+    "firebase_url": "https://robokart-6b26d.firebaseio.com",
+    "project_id": "robokart-6b26d",
+    "storage_bucket": "robokart-6b26d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235339287345:android:8d1717a1c6a4f5148afe10",
+        "android_client_info": {
+          "package_name": "com.ark.robokart_robotics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235339287345-5lp39ep1pnl1reah26nkl2ko4ke205jp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ark.robokart_robotics",
+            "certificate_hash": "d704949055cebda9a23165508f948f0312e0ebe2"
+          }
+        },
+        {
+          "client_id": "235339287345-3573ief40eoenvcaidkv9v3em826f4b2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP96bFvIIHGg22-wq1TcqhWSIc3uvw21Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235339287345-3573ief40eoenvcaidkv9v3em826f4b2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

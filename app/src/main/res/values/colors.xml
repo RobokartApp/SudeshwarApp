@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="btn_shadow">#9F673AB7</color>
+    <color name="black">#000000</color>
+    <color name="grey">#707070</color>
+    <color name="lightgrey">#EBEBEB</color>
+    <color name="darkgrey">#535353</color>
+    <color name="white">#ffffff</color>
+    <color name="purple">#9C27B0</color>
+
+
+    <!--OnBoard-->
+
+    <color name="selected_dot">#9C27B0</color>
+    <color name="idle_dot">#779C27B0</color>
+    <color name="ob_header">#4A4A4A</color>
+    <color name="ob_desc">#4A4A4A</color>
+</resources>
