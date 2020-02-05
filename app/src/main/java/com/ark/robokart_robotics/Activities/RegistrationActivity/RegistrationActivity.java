@@ -39,13 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public static final int RC_SIGN_IN = 100;
 
-    LoginButton btn_fb;
-
     private CallbackManager callbackManager;
-
-    GoogleSignInClient mGoogleSignInClient;
-
-    SignInButton signInButton;
 
     TextView login_btn;
 
@@ -69,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
         login_btn = findViewById(R.id.login_btn);
         fullname_edt_text = findViewById(R.id.fullname_edt_text);
         student_number_edt_text = findViewById(R.id.student_number_edt_text);
-        parent_number_edt_text = findViewById(R.id.student_number_edt_text);
+        parent_number_edt_text = findViewById(R.id.parent_number_edt_text);
         email_edt_text = findViewById(R.id.email_edt_text);
         username_edt_text = findViewById(R.id.username_edt_text);
         password_edt_text = findViewById(R.id.password_edt_text);

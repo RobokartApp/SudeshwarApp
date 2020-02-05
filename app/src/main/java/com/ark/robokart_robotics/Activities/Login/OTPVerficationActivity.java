@@ -88,7 +88,7 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
         client.startSmsUserConsent(null).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "On Success", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "On Success", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
