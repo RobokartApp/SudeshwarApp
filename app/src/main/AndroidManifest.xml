@@ -15,12 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Login.OTPVerficationActivity"></activity>
-        <activity android:name=".Activities.OnBoarding.OnBoardingActivity">
-
-        </activity>
+        <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity"></activity>
+        <activity android:name=".Activities.Login.OTPVerficationActivity" />
+        <activity android:name=".Activities.OnBoarding.OnBoardingActivity"></activity>
         <activity android:name=".Activities.RegistrationActivity.RegistrationActivity" />
-        <activity android:name=".Activities.Login.LoginActivity"></activity>
+        <activity android:name=".Activities.Login.LoginActivity" />
         <activity android:name=".Activities.Splash.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

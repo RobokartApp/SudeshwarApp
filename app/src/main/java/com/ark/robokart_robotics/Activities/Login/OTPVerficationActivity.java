@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.R;
 import com.ark.robokart_robotics.Reciever.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.Auth;
@@ -135,7 +136,7 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnVerify:{
-
+                    startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
                 break;
             }
         }
