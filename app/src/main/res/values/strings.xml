@@ -35,4 +35,5 @@
     <string name="enter_5_digit_verification_code">Enter 5 digit verification code</string>
     <string name="verify">Verify</string>
     <string name="enter_10_digit_number">Enter 10 digit number</string>
+    <string name="get_started">Get Started</string>
 </resources>

@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toBottomOf="@id/reg_text" />
 
 
-            <TextView
+            <carbon.widget.TextView
                 android:id="@+id/login_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -343,38 +343,25 @@
         </LinearLayout>
 
 
-        <com.subsub.library.BeautyLayout
+        <carbon.widget.Button
             android:id="@+id/btn_login"
-            android:layout_width="0dp"
+            style="@style/carbon_Button.Colored"
+            android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/btn_login"
-            android:elevation="15dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:text="@string/registration"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/referal_linear"
-            app:shadowColor="@color/btn_shadow"
-            app:shadowPercentHeight="0.8"
-            app:shadowPercentWidth="0.8"
-            app:shadowRadius="30dp"
-            app:shadowYOffset="30"
-            app:text="Button1">
+            android:background="@drawable/btn_login"
+            android:shadowRadius="10.0"
+            android:shadowDy="10.0"
+            app:carbon_elevation="10dp"
+            app:carbon_elevationAmbientShadowColor="@color/purple"
+            app:carbon_elevationShadowColor="@color/purple"/>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="@string/register"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-        </com.subsub.library.BeautyLayout>
 
 
         <LinearLayout
@@ -387,7 +374,7 @@
             app:layout_constraintTop_toBottomOf="@id/btn_login">
 
 
-            <TextView
+            <carbon.widget.TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/by_signing_up_you_agree_to_robokart_s"
@@ -400,7 +387,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <carbon.widget.TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="terms &amp; conditions"
@@ -409,7 +396,7 @@
 
                     android:textStyle="bold" />
 
-                <TextView
+                <carbon.widget.TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -417,7 +404,7 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <TextView
+                <carbon.widget.TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"

@@ -37,14 +37,36 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recommendation_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="335dp"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             tools:listitem="@layout/row_recommendation"
-            android:layout_marginEnd="40dp"/>
+
+            />
 
 
     </LinearLayout>
+
+
+    <carbon.widget.Button
+        android:id="@+id/btnVerify"
+        style="@style/carbon_Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="@string/get_started"
+        android:layout_marginStart="@dimen/margin_left"
+        android:layout_marginEnd="@dimen/margin_right"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/btn_login"
+        android:shadowRadius="0.0"
+        android:shadowDy="5.0"
+        app:carbon_elevation="10dp"
+        app:carbon_elevationAmbientShadowColor="@color/purple"
+        app:carbon_elevationShadowColor="@color/purple"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

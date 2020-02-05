@@ -13,6 +13,10 @@ import android.os.Bundle;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
 import com.ark.robokart_robotics.Model.Recommendations;
 import com.ark.robokart_robotics.R;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect__recommendation);
 
-        getSupportActionBar().hide();
+
 
         recyclerView = findViewById(R.id.recommendation_recyclerview);
 
@@ -48,7 +52,12 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
     private void prepareRecyclerView(List<Recommendations> recommendationsList) {
         recommendationAdapter = new RecommendationAdapter(recommendationsList);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        recyclerView.setLayoutManager(layoutManager);
+
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recommendationAdapter);
         recommendationAdapter.notifyDataSetChanged();

@@ -149,42 +149,31 @@
         android:layout_marginTop="10dp"/>
 
 
-
-    <com.subsub.library.BeautyButton
+    <carbon.widget.Button
         android:id="@+id/btn_login"
-        android:layout_width="0dp"
+        style="@style/carbon_Button.Colored"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/btn_login"
-        android:elevation="15dp"
-        android:padding="10dp"
-        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:text="@string/login"
         app:layout_constraintTop_toBottomOf="@id/send_otp_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:shadowColor="@color/btn_shadow"
-        app:shadowPercentHeight="0.8"
-        app:shadowPercentWidth="0.8"
-        app:shadowRadius="30dp"
-        app:shadowYOffset="30"
-        >
+        android:background="@drawable/btn_login"
+        android:shadowRadius="10.0"
+        android:shadowDy="10.0"
+        app:carbon_elevation="10dp"
+        app:carbon_elevationAmbientShadowColor="@color/purple"
+        app:carbon_elevationShadowColor="@color/purple"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>
 
 
-    </com.subsub.library.BeautyButton>
 
 
-    <TextView
+    <carbon.widget.TextView
         android:id="@+id/social_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -242,7 +231,7 @@
         app:layout_constraintTop_toBottomOf="@id/social_linear">
 
 
-        <TextView
+        <carbon.widget.TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/don_t_have_account"

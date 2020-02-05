@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +27,7 @@ import com.subsub.library.BeautyButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import carbon.widget.Button;
 import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
 
@@ -37,7 +37,7 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
 
     private OtpTextView otpTextView;
 
-    BeautyButton btnVerify;
+    Button btnVerify;
 
     SmsBroadcastReceiver smsBroadcastReceiver;
 
@@ -46,7 +46,7 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverfication);
 
-        getSupportActionBar().hide();
+
 
         init();
 

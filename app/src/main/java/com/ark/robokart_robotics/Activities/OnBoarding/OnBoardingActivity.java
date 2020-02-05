@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -20,6 +19,8 @@ import com.ark.robokart_robotics.Model.OnBoardItem;
 import com.ark.robokart_robotics.R;
 
 import java.util.ArrayList;
+
+import carbon.widget.Button;
 
 public class OnBoardingActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
-        getSupportActionBar().hide();
+
 
         init();
 
@@ -59,7 +60,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     }
 
     public void init(){
-        btn_get_started = (Button) findViewById(R.id.get_started_btn);
+        btn_get_started =  findViewById(R.id.get_started_btn);
         onboard_pager = (ViewPager) findViewById(R.id.viewPager);
         pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
 

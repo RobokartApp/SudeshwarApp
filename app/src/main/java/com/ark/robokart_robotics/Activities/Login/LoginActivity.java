@@ -40,13 +40,15 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import carbon.widget.Button;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
     public static final int RC_SIGN_IN = 100;
 
-    BeautyButton btn_login;
+    Button btn_login;
 
     LoginButton btn_fb;
 
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getSupportActionBar().hide();
+
 
         init();
 
