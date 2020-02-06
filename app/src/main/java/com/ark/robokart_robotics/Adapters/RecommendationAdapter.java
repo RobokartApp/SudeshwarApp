@@ -3,6 +3,7 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -80,18 +81,20 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 @Override
                 public void onClick(View v) {
                     if(isSelected == false) {
+                        isSelected = true;
                         r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
                         r_name.setTextColor(v.getResources().getColor(R.color.white));
-                        isSelected = true;
+
                     }
                     else{
+                        isSelected = false;
                         r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_transparent_background));
                         r_name.setTextColor(v.getResources().getColor(R.color.black));
-                        isSelected = false;
-                    }
 
+                    }
                 }
             });
+
 
         }
     }

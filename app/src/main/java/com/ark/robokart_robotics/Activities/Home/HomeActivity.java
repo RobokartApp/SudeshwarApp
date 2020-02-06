@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ark.robokart_robotics.R;
+import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import carbon.widget.TextView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SlidingRootNav slidingRootNav;
 
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withMenuOpened(false)
+                .withGravity(SlideGravity.LEFT)
                 .withContentClickableWhenMenuOpened(false)
                 .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.menu_left_drawer)
@@ -59,6 +61,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }
