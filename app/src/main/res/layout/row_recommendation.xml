@@ -4,7 +4,8 @@
     android:layout_height="55dp"
     android:paddingBottom="10dp"
     android:layout_marginEnd="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/recom_linear">
 
     <carbon.widget.TextView
         android:id="@+id/r_id"

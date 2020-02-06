@@ -50,7 +50,7 @@
 
 
     <carbon.widget.Button
-        android:id="@+id/btnVerify"
+        android:id="@+id/btncollect"
         style="@style/carbon_Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="55dp"

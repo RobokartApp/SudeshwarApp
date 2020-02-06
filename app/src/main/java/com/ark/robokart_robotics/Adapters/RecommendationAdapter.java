@@ -1,18 +1,14 @@
 package com.ark.robokart_robotics.Adapters;
 
-import android.animation.ObjectAnimator;
+
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Model.Recommendations;
@@ -24,6 +20,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     private static final String TAG = "BlogAdapter";
     private List<Recommendations> mrecommendationsList;
+    private boolean isSelected = false;
 
 
     public RecommendationAdapter(List<Recommendations> recommendationsList) {
@@ -54,12 +51,14 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         TextView r_id;
         TextView r_name;
+        LinearLayout recom_linear;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             r_id = itemView.findViewById(R.id.r_id);
             r_name = itemView.findViewById(R.id.r_name);
+            recom_linear = itemView.findViewById(R.id.recom_linear);
 
         }
         protected void clear() {
@@ -77,6 +76,22 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 r_name.setText(recommendations.getR_name());
             }
 
+            recom_linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isSelected == false) {
+                        r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
+                        r_name.setTextColor(v.getResources().getColor(R.color.white));
+                        isSelected = true;
+                    }
+                    else{
+                        r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_transparent_background));
+                        r_name.setTextColor(v.getResources().getColor(R.color.black));
+                        isSelected = false;
+                    }
+
+                }
+            });
 
         }
     }
