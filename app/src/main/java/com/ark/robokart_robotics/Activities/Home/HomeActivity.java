@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-
         transaction.add(R.id.mainFrameLayout,dashboardFragment,"dashboard");
         transaction.addToBackStack(null);
         transaction.commit();

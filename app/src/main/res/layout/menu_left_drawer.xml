@@ -30,23 +30,210 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bhakti Jaiswal"
+        android:text="Charul Dalvi"
         android:textColor="@color/white"
         android:textSize="22sp"
-        android:layout_margin="14dp"/>
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="25dp"/>
 
 
     <Space
         android:layout_width="wrap_content"
         android:layout_height="36dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_courses"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Courses"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_download"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_payment"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_help"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_about"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/drawer_rate"/>
+
+        <Space
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"/>
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate Us"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
 
     <Space
         android:layout_width="wrap_content"
         android:layout_height="40dp" />
+
+    <carbon.widget.Button
+        style="@style/carbon_Button.Flat"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:background="@drawable/logout_btn"
+        android:text="Logout"
+        android:textColor="@color/purple"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:layout_marginStart="25dp"/>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
+import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
@@ -42,7 +44,9 @@ public class DashboardFragment extends Fragment {
 
     private CourseListAdapter courseListAdapter;
 
+    private IntermediateCourseListAdapter intermediateCourseListAdapter;
 
+    private RelativeLayout parent;
 
     public DashboardFragment(){}
 
@@ -56,12 +60,16 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        parent = view.findViewById(R.id.parent);
         rvJustStartingVideos = view.findViewById(R.id.rvJustStartingVideos);
         rvKnowBitVideos = view.findViewById(R.id.rvKnowBitVideos);
 
-        Transition transition = new Slide(Gravity.LEFT);
+        Transition transition = new Slide(Gravity.RIGHT);
         transition.setDuration(600);
-        transition.addTarget(rvJustStartingVideos);
+        transition.addTarget(R.id.rvJustStartingVideos);
+
+        TransitionManager.beginDelayedTransition(parent, transition);
+
 
 
 
@@ -78,11 +86,11 @@ public class DashboardFragment extends Fragment {
 
     private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
         courseListAdapter = new CourseListAdapter(courseListModelList);
-
+        intermediateCourseListAdapter = new IntermediateCourseListAdapter(courseListModelList);
 
         rvJustStartingVideos.setItemAnimator(new DefaultItemAnimator());
         rvJustStartingVideos.setAdapter(courseListAdapter);
-//        rvKnowBitVideos.setAdapter(courseListAdapter);
+        rvKnowBitVideos.setAdapter(intermediateCourseListAdapter);
         courseListAdapter.notifyDataSetChanged();
 
 
