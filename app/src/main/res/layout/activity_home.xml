@@ -49,7 +49,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="26dp"
                 android:gravity="end"
-                android:text="Charul"
+                android:text="Bhakti"
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 android:textSize="24sp"

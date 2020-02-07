@@ -15,24 +15,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ark.robokart_robotics.Model.Recommendations;
 import com.ark.robokart_robotics.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG = "BlogAdapter";
     private List<Recommendations> mrecommendationsList;
-    private boolean isSelected = false;
+    private ArrayList<String> selectedItemList;
 
 
     public RecommendationAdapter(List<Recommendations> recommendationsList) {
         mrecommendationsList = recommendationsList;
     }
+
+
+
+
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.onBind(position);
     }
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        selectedItemList = new ArrayList<>();
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recommendation, parent, false));
     }
@@ -53,6 +59,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         TextView r_id;
         TextView r_name;
         LinearLayout recom_linear;
+        public boolean isSelected;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -77,21 +84,27 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 r_name.setText(recommendations.getR_name());
             }
 
+
             recom_linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isSelected == false) {
-                        isSelected = true;
-                        r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
-                        r_name.setTextColor(v.getResources().getColor(R.color.white));
 
-                    }
-                    else{
-                        isSelected = false;
+
+                    String re_id =r_id.getText().toString();
+
+                    if(selectedItemList.contains(re_id)){
+                        selectedItemList.remove(re_id);
                         r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_transparent_background));
                         r_name.setTextColor(v.getResources().getColor(R.color.black));
-
+                        isSelected = false;
+                    }else{
+                        selectedItemList.add(re_id);
+                        r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
+                        r_name.setTextColor(v.getResources().getColor(R.color.white));
+                        isSelected = true;
                     }
+
+
                 }
             });
 

@@ -43,6 +43,8 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
         btncollect = findViewById(R.id.btncollect);
 
+
+
         recyclerView = findViewById(R.id.recommendation_recyclerview);
 
         collectRecomViewModel = new ViewModelProvider(this).get(CollectRecomViewModel.class);
@@ -69,6 +71,8 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
     private void prepareRecyclerView(List<Recommendations> recommendationsList) {
         recommendationAdapter = new RecommendationAdapter(recommendationsList);
+
+
 
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
         layoutManager.setFlexDirection(FlexDirection.ROW);

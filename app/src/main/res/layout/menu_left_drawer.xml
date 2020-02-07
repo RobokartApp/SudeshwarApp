@@ -30,7 +30,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Charul Dalvi"
+        android:text="Bhakti Jaiswal"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:layout_margin="14dp"/>
