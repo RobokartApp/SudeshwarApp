@@ -73,7 +73,7 @@
                 app:width="40dp"
                 app:bar_enabled="true"
                 app:bar_height="2dp"
-                app:length="5"
+                app:length="6"
                 app:hide_otp="false"
                 app:hide_otp_drawable="@drawable/otp_drawable"
                 app:otp_text_size="24dp"/>
