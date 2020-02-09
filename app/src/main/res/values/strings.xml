@@ -36,4 +36,7 @@
     <string name="verify">Verify</string>
     <string name="enter_10_digit_number">Enter 10 digit number</string>
     <string name="get_started">Get Started</string>
+    <string name="maker_space_courses">Maker Space Courses</string>
+    <string name="free_courses">Free Courses</string>
+    <string name="school_curiculum">School Curiculum</string>
 </resources>

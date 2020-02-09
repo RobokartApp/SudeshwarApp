@@ -137,6 +137,7 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
         switch (v.getId()){
             case R.id.btnVerify:{
                     startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
+                    finish();
                 break;
             }
         }

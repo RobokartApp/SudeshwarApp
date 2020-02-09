@@ -65,6 +65,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
             }
         });
     }
