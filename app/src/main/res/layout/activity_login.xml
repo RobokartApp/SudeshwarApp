@@ -140,7 +140,7 @@
         android:id="@+id/send_otp_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/we_will_send_a_5_digit_otp_to_verify"
+        android:text="@string/we_will_send_a_6_digit_otp_to_verify"
         app:layout_constraintTop_toBottomOf="@id/view"
         android:textColor="#C5C4C4"
         android:textStyle="bold"

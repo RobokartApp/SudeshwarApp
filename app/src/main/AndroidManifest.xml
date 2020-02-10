@@ -15,9 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Home.HomeActivity">
-
-        </activity>
+        <activity android:name=".Activities.View_all_search.ViewAllSearchActivity"></activity>
+        <activity android:name=".Activities.Home.HomeActivity"></activity>
         <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
         <activity android:name=".Activities.Login.OTPVerficationActivity" />
         <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />

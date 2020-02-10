@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="@color/transparent">
 
     <RelativeLayout
         android:id="@+id/rlMaker"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/maker_space_bg">
@@ -27,7 +28,8 @@
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
             android:text="@string/maker_space_courses"
-            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:textColor="@color/black"/>
     </RelativeLayout>
 
@@ -36,7 +38,7 @@
         android:layout_below="@+id/rlMaker"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/free_course_bg">
         <ImageView
@@ -54,7 +56,8 @@
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
             android:text="@string/free_courses"
-            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:textColor="@color/black"/>
     </RelativeLayout>
 
@@ -63,7 +66,7 @@
         android:layout_below="@id/rlFreeCourse"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/school_curi_bg">
         <ImageView
@@ -81,7 +84,8 @@
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
             android:text="@string/school_curiculum"
-            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:textColor="@color/black"/>
     </RelativeLayout>
 

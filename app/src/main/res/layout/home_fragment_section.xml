@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_below="@+id/mainFrameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"/>
+                android:layout_height="match_parent"/>
         </RelativeLayout>
     </ScrollView>
 
@@ -60,14 +60,16 @@
                     android:gravity="center_horizontal"
                     android:layout_marginLeft="20dp">
                     <ImageView
+                        android:id="@+id/imgdashboard"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/dashboard_btn_active"/>
+                        android:background="@drawable/dashboard_btn_active"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dashboard"
+                        android:text="@string/dashboard"
                         android:layout_marginTop="4dp"
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -85,6 +87,7 @@
                     android:gravity="center_horizontal"
                     android:layout_marginLeft="20dp">
                     <ImageView
+                        android:id="@+id/imgcourses"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/course_btn"/>

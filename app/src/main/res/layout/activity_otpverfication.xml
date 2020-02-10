@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/login_text"
-        android:text="@string/enter_5_digit_verification_code"
+        android:text="@string/enter_6_digit_verification_code"
         android:layout_marginStart="20sp"
         android:layout_marginTop="10sp"
         android:textColor="@color/darkgrey"

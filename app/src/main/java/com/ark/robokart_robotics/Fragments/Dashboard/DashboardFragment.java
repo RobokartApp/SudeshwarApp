@@ -1,11 +1,13 @@
-package com.ark.robokart_robotics.Fragments;
+package com.ark.robokart_robotics.Fragments.Dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchActivity;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
@@ -48,6 +51,8 @@ public class DashboardFragment extends Fragment {
 
     private RelativeLayout parent;
 
+    private TextView view_all_js, view_all_iknow_just_bits;
+
     public DashboardFragment(){}
 
     @Nullable
@@ -61,14 +66,12 @@ public class DashboardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         parent = view.findViewById(R.id.parent);
+        view_all_js = view.findViewById(R.id.view_all_js);
+        view_all_iknow_just_bits = view.findViewById(R.id.view_all_iknow_just_bits);
         rvJustStartingVideos = view.findViewById(R.id.rvJustStartingVideos);
         rvKnowBitVideos = view.findViewById(R.id.rvKnowBitVideos);
 
-        Transition transition = new Slide(Gravity.RIGHT);
-        transition.setDuration(600);
-        transition.addTarget(R.id.rvJustStartingVideos);
 
-        TransitionManager.beginDelayedTransition(parent, transition);
 
 
 
@@ -80,6 +83,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onChanged(List<CourseListModel> courseListModelList) {
                 prepareRecyclerView(courseListModelList);
+            }
+        });
+
+
+        view_all_js.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
             }
         });
     }

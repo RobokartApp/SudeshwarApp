@@ -1,14 +1,20 @@
 package com.ark.robokart_robotics.Activities.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.ark.robokart_robotics.Fragments.DashboardFragment;
+import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
+import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
 import com.ark.robokart_robotics.R;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -16,7 +22,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import carbon.widget.TextView;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity {
 
     private SlidingRootNav slidingRootNav;
 
@@ -26,12 +32,46 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     FragmentManager fragmentManager;
 
+    private int drawerOpened = 0;
+
+    LinearLayout llDashboard, llCourse;
+
+    ImageView imgdashboard,imgCourses;
+
+    Handler mHandler;
+
+    public static Context mContext;
+
+    public Fragment fragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        init(savedInstanceState);
+
+        listeners();
+
+    }
+
+
+    public void init(Bundle savedInstanceState){
+
+        mContext = HomeActivity.this;
+
         drawer_btn = findViewById(R.id.drawer_btn);
+
+        llCourse = findViewById(R.id.llCourse);
+
+        llDashboard = findViewById(R.id.llDashboard);
+
+        imgdashboard = findViewById(R.id.imgdashboard);
+
+        imgCourses = findViewById(R.id.imgcourses);
+
+        mHandler = new Handler();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -39,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withMenuOpened(false)
                 .withGravity(SlideGravity.LEFT)
-                .withContentClickableWhenMenuOpened(false)
+                .withContentClickableWhenMenuOpened(true)
                 .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.menu_left_drawer)
                 .inject();
@@ -48,14 +88,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         back_arrow = findViewById(R.id.back_arrow);
 
-        DashboardFragment dashboardFragment = new DashboardFragment();
+        setFragment("dashboard");
+    }
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.mainFrameLayout,dashboardFragment,"dashboard");
-        transaction.addToBackStack(null);
-        transaction.commit();
-
+    public void listeners(){
         back_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,16 +103,78 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         drawer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slidingRootNav.openMenu();
+                if(drawerOpened == 0){
+                    drawerOpened = 1;
+                    slidingRootNav.openMenu();
+                }
+                else{
+                    drawerOpened = 0;
+                    slidingRootNav.closeMenu();
+                }
+
+
             }
         });
+
+        llCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               setFragment("courses");
+            }
+        });
+
+        llDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               setFragment("dashboard");
+            }
+        });
+    }
+
+
+    public void setFragment(String screen){
+        if(screen.equals("courses")){
+            imgCourses.setBackground(getResources().getDrawable(R.drawable.course_selected));
+            imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_deselected));
+
+            fragment = new CoursesFragment();
+            setFragment(fragment);
+        }
+        else if(screen.equals("dashboard")){
+            imgCourses.setBackground(getResources().getDrawable(R.drawable.courses_deselected));
+            imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_btn_active));
+
+            fragment = new DashboardFragment();
+            setFragment(fragment);
+        }
+    }
+
+
+
+    public static void setFragment( Fragment fragment) {
+
+        try {
+            FragmentManager fragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
+            String fragmentTag = fragment.getClass().getName();
+            boolean fragmentPopped = fragmentManager.popBackStackImmediate(fragmentTag, 0);
+
+            if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null) {
+                fragmentManager.popBackStack();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_up_anim, R.anim.slide_down_anim);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.mainFrameLayout, fragment);
+                fragmentTransaction.commit();
+            }
+        }catch (Exception e){
+            Toast.makeText(mContext, "Memory management error!", Toast.LENGTH_LONG).show();
+        }
 
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
-
-
 }

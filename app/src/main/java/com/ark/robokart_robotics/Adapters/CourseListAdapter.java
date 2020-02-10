@@ -74,6 +74,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             recom_linear = itemView.findViewById(R.id.recom_linear);
 
 
+            setScaleAnimation(ivVideo);
+
 
         }
         protected void clear() {
@@ -96,7 +98,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
 
-            if(position %2 == 1)
+            if(position %3 == 1)
             {
                 overlay.setBackground(itemView.getResources().getDrawable(R.drawable.color1));
             }
@@ -108,7 +110,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         private void setScaleAnimation(View view) {
-            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
             anim.setDuration(FADE_DURATION);
             view.startAnimation(anim);
         }
