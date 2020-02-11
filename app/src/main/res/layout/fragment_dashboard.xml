@@ -1,100 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent">
+
     <RelativeLayout
         android:id="@+id/rlJustStarting"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="12dp"
-        android:layout_marginLeft="18dp">
+        android:layout_marginEnd="24dp"
+        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:text="Just Starting"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/view_all_js"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="View All"
-            android:textStyle="bold"
-            android:layout_marginEnd="10dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:text="View All"
             android:textColor="@color/purple"
-            />
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rlJustStartingVideos"
-        android:layout_below="@id/rlJustStarting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginLeft="4dp">
+        android:layout_height="0dp"
+        android:layout_below="@id/rlJustStarting"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlJustStarting">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvJustStartingVideos"
             android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_video_item"
-            android:layout_height="150dp"/>
+            tools:listitem="@layout/row_video_item" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlKnowBit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/rlJustStartingVideos"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="18dp"
-        android:layout_marginLeft="18dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlJustStartingVideos">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:text="I know just bits"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/view_all_iknow_just_bits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="View All"
-            android:textStyle="bold"
-            android:layout_marginEnd="10dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:text="View All"
             android:textColor="@color/purple"
-            />
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rlKnowBitVideos"
-        android:layout_below="@id/rlKnowBit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginLeft="4dp">
+        android:layout_height="0dp"
+        android:layout_below="@id/rlKnowBit"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlKnowBit">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvKnowBitVideos"
             android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:orientation="horizontal"
-            tools:listitem="@layout/row_video_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="170dp"/>
+            tools:listitem="@layout/row_video_item" />
     </RelativeLayout>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

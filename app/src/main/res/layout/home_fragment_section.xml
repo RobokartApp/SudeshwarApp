@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,30 +12,36 @@
     -->
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginLeft="2dp">
+        android:id="@+id/scrollView"
+        android:layout_width="411dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/rlBottomLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <FrameLayout
                 android:id="@+id/mainFrameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <RelativeLayout
-                android:layout_below="@+id/mainFrameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </RelativeLayout>
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/rlBottomLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        >
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -45,7 +51,6 @@
             app:cardBackgroundColor="@color/white"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="40dp"
             >
             <RelativeLayout
@@ -135,4 +140,10 @@
 
 
     </RelativeLayout>
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="19dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

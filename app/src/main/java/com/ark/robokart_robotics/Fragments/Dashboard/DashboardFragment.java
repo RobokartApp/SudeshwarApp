@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -49,7 +50,7 @@ public class DashboardFragment extends Fragment {
 
     private IntermediateCourseListAdapter intermediateCourseListAdapter;
 
-    private RelativeLayout parent;
+    private ConstraintLayout parent;
 
     private TextView view_all_js, view_all_iknow_just_bits;
 

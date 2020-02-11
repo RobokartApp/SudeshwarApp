@@ -91,63 +91,14 @@
 <!--                android:textColor="@color/black"-->
 <!--                android:textSize="30sp" />-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/etDigitTwo"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:ems="1"-->
-<!--                android:inputType="numberPassword"-->
-<!--                android:maxLength="1"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="30sp" />-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/etDigitThree"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:ems="1"-->
-<!--                android:inputType="numberPassword"-->
-<!--                android:maxLength="1"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="30dp" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/etDigitFour"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:ems="1"-->
-<!--                android:inputType="numberPassword"-->
-<!--                android:maxLength="1"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="30sp" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/etDigitFive"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:ems="1"-->
-<!--                android:inputType="numberPassword"-->
-<!--                android:maxLength="1"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="30sp" />-->
 
 
         </LinearLayout>
 
 
     </RelativeLayout>
+
 
 
     <carbon.widget.Button
@@ -166,8 +117,6 @@
         app:carbon_elevation="10dp"
         app:carbon_elevationAmbientShadowColor="@color/purple"
         app:carbon_elevationShadowColor="@color/purple"/>
-
-
 
 
 
