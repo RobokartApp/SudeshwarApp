@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
+
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/video_frame"
             android:layout_width="match_parent"
             android:layout_height="250dp">
 
@@ -31,7 +30,7 @@
                 android:id="@+id/universalVideoController"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone" />
+                 />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -40,6 +39,7 @@
                 android:src="@drawable/play_btn" />
 
             <ImageView
+                android:id="@+id/back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/back_btn_purple"
@@ -50,17 +50,13 @@
     </LinearLayout>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ScrollView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="510dp"
+        android:layout_alignParentTop="true"
+
         android:layout_alignParentBottom="true"
-        android:background="@drawable/white_bg"
+        android:layout_marginTop="250dp"
         android:orientation="vertical">
 
 
@@ -71,6 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
                 android:orientation="vertical">
 
 
@@ -267,7 +264,7 @@ initiate world-class methods of empowerment vis-a-"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/lightgrey"/>
+                    android:background="@color/lightgrey" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,21 +275,49 @@ initiate world-class methods of empowerment vis-a-"
                     <carbon.widget.TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="This Course Includes"
-                        android:textSize="17sp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center_horizontal"
-                        android:layout_marginTop="20dp"/>
+                        android:text="This Course Includes"
+                        android:textSize="17sp" />
 
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/courseInclusionRecyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        tools:listitem="@layout/row_courseinclusion_item"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_margin="10dp" />
 
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentBottom="true">
+
+
+                    <carbon.widget.Button
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/btn_login"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="₹ 11200 Enroll now"
+                        android:textAllCaps="false"
+                        android:textSize="16sp"
+                        android:shadowDy="3.0"
+                        app:carbon_elevation="12dp"
+                        app:carbon_elevationShadowColor="@color/purple"/>
+
+                </LinearLayout>
+
+
             </LinearLayout>
+
 
 
         </ScrollView>
@@ -300,25 +325,7 @@ initiate world-class methods of empowerment vis-a-"
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
 
-
-        <carbon.widget.Button
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/btn_login"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="20dp"
-            android:text="Rs. 11200 Enroll now"
-            android:textAllCaps="false"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

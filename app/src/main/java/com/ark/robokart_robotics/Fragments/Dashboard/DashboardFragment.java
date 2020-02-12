@@ -22,8 +22,10 @@ import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchActivity;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
+import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
@@ -47,6 +49,8 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
 
     private CourseListAdapter courseListAdapter;
+
+    private CustomAdapter customAdapter;
 
     private IntermediateCourseListAdapter intermediateCourseListAdapter;
 
@@ -94,14 +98,33 @@ public class DashboardFragment extends Fragment {
                 startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
             }
         });
+
+        try{
+            courseListAdapter.setOnItemClickListener(new CourseListAdapter.onClick() {
+                @Override
+                public void setOnClickListener(boolean isClicked) {
+                    if(isClicked == true){
+                        startActivity(new Intent(getApplicationContext(),CourseDetailsActivity.class));
+                    }
+                }
+            });
+        }catch(Exception e){
+
+        }
+
+
+
     }
 
     private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
         courseListAdapter = new CourseListAdapter(courseListModelList);
+
+        customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
+
         intermediateCourseListAdapter = new IntermediateCourseListAdapter(courseListModelList);
 
         rvJustStartingVideos.setItemAnimator(new DefaultItemAnimator());
-        rvJustStartingVideos.setAdapter(courseListAdapter);
+        rvJustStartingVideos.setAdapter(customAdapter);
         rvKnowBitVideos.setAdapter(intermediateCourseListAdapter);
         courseListAdapter.notifyDataSetChanged();
 

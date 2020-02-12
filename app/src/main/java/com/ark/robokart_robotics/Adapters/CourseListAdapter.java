@@ -9,6 +9,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<CourseListModel> mcourseList;
     private ArrayList<String> selectedItemList;
     private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
+
+    public onClick listener;
 
     public CourseListAdapter(List<CourseListModel> courseListModelList) {
         mcourseList = courseListModelList;
@@ -60,7 +63,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         ImageView ivVideo, overlay;
         TextView tvVideoName;
         TextView tvPeople,tvRating;
-        LinearLayout recom_linear;
+        RelativeLayout video_relative;
 
 
         public ViewHolder(View itemView) {
@@ -71,10 +74,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             tvVideoName = itemView.findViewById(R.id.tvVideoName);
             tvPeople = itemView.findViewById(R.id.tvPeople);
             tvRating = itemView.findViewById(R.id.tvRating);
-            recom_linear = itemView.findViewById(R.id.recom_linear);
+            video_relative = itemView.findViewById(R.id.video_relative);
 
 
             setScaleAnimation(ivVideo);
+
+
+
 
 
         }
@@ -107,6 +113,17 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 overlay.setBackground(itemView.getResources().getDrawable(R.drawable.color2));
             }
 
+//
+            video_relative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.setOnClickListener(true);
+                    }
+                }
+            });
+
+
         }
 
         private void setScaleAnimation(View view) {
@@ -114,5 +131,16 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             anim.setDuration(FADE_DURATION);
             view.startAnimation(anim);
         }
+
+
+
+    }
+
+    public interface onClick{
+         void setOnClickListener(boolean isClicked);
+    }
+
+    public void setOnItemClickListener(onClick listener){
+        this.listener = listener;
     }
 }

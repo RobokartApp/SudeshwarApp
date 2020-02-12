@@ -1,37 +1,34 @@
 package com.ark.robokart_robotics.Adapters;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
+import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
 
 import java.util.List;
 
-public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.CustomHolder>  {
+public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseInclusionAdapter.CustomHolder> {
 
     private OnItemClickListener listener;
-    private List<CourseListModel> mcourseList;
+    private List<CourseInclusionModel> mcourseList;
     private Context mContext;
 
-    public CustomAdapter(Context context, List<CourseListModel> courseListModelList) {
+    public CourseInclusionAdapter(Context context, List<CourseInclusionModel> courseListModelList) {
         super(DIFF_CALLBACK);
         this.mContext = context;
         this.mcourseList = courseListModelList;
@@ -53,36 +50,33 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
     @Override
     public CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_video_item,parent,false);
+                .inflate(R.layout.row_courseinclusion_item,parent,false);
         return new CustomHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        CourseListModel answers = mcourseList.get(position);
-        holder.tvVideoName.setText(String.valueOf(answers.getCourse_name()));
-        holder.tvPeople.setText(answers.getCourse_enrolled());
-        holder.tvRating.setText(answers.getCustomer_rating());
+        CourseInclusionModel answers = mcourseList.get(position);
+        holder.chapter_num.setText(String.valueOf(answers.getCi_cname()));
+        holder.video_name.setText(answers.getCi_vname());
+        holder.video_mins.setText(answers.getCi_vmins());
+//
+        holder.pb.setProgress(50,true);
 
+        String quiz = holder.video_name.getText().toString();
 
-        holder.video_relative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext,CourseDetailsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
-            }
-        });
-
-
-        if(position %3 == 1)
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color1));
+        if(quiz.equals("Package")){
+            holder.pb.setVisibility(View.GONE);
         }
-        else
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color2));
-        }
+//
+//        holder.video_relative.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -98,25 +92,27 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
         } else {
             return 0;
         }
+
     }
 
 
 
     public class CustomHolder extends RecyclerView.ViewHolder{
         ImageView ivVideo, overlay;
-        TextView tvVideoName;
-        TextView tvPeople,tvRating;
+        carbon.widget.TextView chapter_num, video_name, video_mins;
         RelativeLayout video_relative;
+        ProgressBar pb;
 
         public CustomHolder(@NonNull View itemView) {
             super(itemView);
 
-            ivVideo = itemView.findViewById(R.id.ivVideo);
-            overlay = itemView.findViewById(R.id.overlay);
-            tvVideoName = itemView.findViewById(R.id.tvVideoName);
-            tvPeople = itemView.findViewById(R.id.tvPeople);
-            tvRating = itemView.findViewById(R.id.tvRating);
-            video_relative = itemView.findViewById(R.id.video_relative);
+//            ivVideo = itemView.findViewById(R.id.ivVideo);
+//            overlay = itemView.findViewById(R.id.overlay);
+            chapter_num = itemView.findViewById(R.id.chapter_num);
+            video_name = itemView.findViewById(R.id.video_name);
+            video_mins = itemView.findViewById(R.id.video_mins);
+            pb = itemView.findViewById(R.id.pb);
+//            video_relative = itemView.findViewById(R.id.video_relative);
 
         }
     }
