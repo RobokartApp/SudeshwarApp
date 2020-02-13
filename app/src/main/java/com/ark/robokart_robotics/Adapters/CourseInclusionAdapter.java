@@ -59,16 +59,16 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
         CourseInclusionModel answers = mcourseList.get(position);
         holder.chapter_num.setText(String.valueOf(answers.getCi_cname()));
         holder.video_name.setText(answers.getCi_vname());
-        holder.video_mins.setText(answers.getCi_vmins());
+        holder.video_mins.setText("Video - " + answers.getCi_vmins()+" mins");
 //
         holder.pb.setProgress(50,true);
 
         String quiz = holder.video_name.getText().toString();
 
-        if(quiz.equals("Package")){
+        if(quiz.startsWith("Quiz")){
             holder.pb.setVisibility(View.GONE);
         }
-//
+
 //        holder.video_relative.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

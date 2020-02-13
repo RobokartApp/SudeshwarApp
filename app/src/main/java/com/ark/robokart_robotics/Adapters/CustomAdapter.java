@@ -27,7 +27,7 @@ import java.util.List;
 
 public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.CustomHolder>  {
 
-    private OnItemClickListener listener;
+
     private List<CourseListModel> mcourseList;
     private Context mContext;
 
@@ -56,6 +56,27 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
                 .inflate(R.layout.row_video_item,parent,false);
         return new CustomHolder(itemView);
     }
+
+
+    public class CustomHolder extends RecyclerView.ViewHolder{
+        ImageView ivVideo, overlay;
+        TextView tvVideoName;
+        TextView tvPeople,tvRating;
+        RelativeLayout video_relative;
+
+        public CustomHolder(@NonNull View itemView) {
+            super(itemView);
+
+            ivVideo = itemView.findViewById(R.id.ivVideo);
+            overlay = itemView.findViewById(R.id.overlay);
+            tvVideoName = itemView.findViewById(R.id.tvVideoName);
+            tvPeople = itemView.findViewById(R.id.tvPeople);
+            tvRating = itemView.findViewById(R.id.tvRating);
+            video_relative = itemView.findViewById(R.id.video_relative);
+
+        }
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
@@ -102,30 +123,6 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
 
 
 
-    public class CustomHolder extends RecyclerView.ViewHolder{
-        ImageView ivVideo, overlay;
-        TextView tvVideoName;
-        TextView tvPeople,tvRating;
-        RelativeLayout video_relative;
 
-        public CustomHolder(@NonNull View itemView) {
-            super(itemView);
 
-            ivVideo = itemView.findViewById(R.id.ivVideo);
-            overlay = itemView.findViewById(R.id.overlay);
-            tvVideoName = itemView.findViewById(R.id.tvVideoName);
-            tvPeople = itemView.findViewById(R.id.tvPeople);
-            tvRating = itemView.findViewById(R.id.tvRating);
-            video_relative = itemView.findViewById(R.id.video_relative);
-
-        }
-    }
-
-    public interface OnItemClickListener{
-        void onItemClick(String answer);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
-    }
 }

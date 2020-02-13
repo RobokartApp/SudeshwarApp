@@ -1,64 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.CourseDetails.CourseDetailsActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/video_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/black">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        <com.example.vimeoplayer2.UniversalVideoView
+            android:id="@+id/videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            app:uvv_autoRotation="true"
+            app:uvv_fitXY="false" />
 
-        android:orientation="vertical">
+        <com.example.vimeoplayer2.UniversalMediaController
+            android:id="@+id/media_controller"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:uvv_scalable="true" />
 
-        <FrameLayout
-            android:id="@+id/video_frame"
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
-
-            <com.example.vimeoplayer2.UniversalVideoView
-                android:id="@+id/universalVideoview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center" />
-
-            <com.example.vimeoplayer2.UniversalMediaController
-                android:id="@+id/universalVideoController"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/play_btn" />
-
-            <ImageView
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back_btn_purple"
-                android:layout_margin="20dp"/>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="510dp"
-        android:layout_alignParentTop="true"
-
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="250dp"
+        android:id="@+id/bottom_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -75,7 +49,6 @@
                     android:id="@+id/like_comment_share_section"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_alignBottom="@id/linearLayout"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="1dp"
                     android:orientation="horizontal">
@@ -185,7 +158,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/like_comment_share_section"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
 
 
                     <carbon.widget.TextView
@@ -233,6 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/title_section"
                     android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
                     android:text="Holisticly underwhelm standards compliant ideas
 after plug-and-play web-readiness. Completely
@@ -244,6 +220,7 @@ initiate world-class methods of empowerment vis-a-"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
                     android:textAlignment="gravity"
                     android:visibility="gone"
@@ -253,12 +230,10 @@ initiate world-class methods of empowerment vis-a-"
                     style="@style/carbon_Button.Flat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/short_desc"
                     android:text="Read More"
                     android:textAllCaps="false"
                     android:textColor="@color/purple"
                     app:layout_constraintTop_toBottomOf="@id/short_desc" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -287,7 +262,72 @@ initiate world-class methods of empowerment vis-a-"
                         android:layout_height="wrap_content"
                         tools:listitem="@layout/row_courseinclusion_item"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:layout_margin="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"/>
+
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/play_quiz_challenge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/play_quiz_btn"
+                    android:scaleType="centerInside"
+                    android:layout_marginBottom="20dp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <carbon.widget.TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginStart="20dp"
+                            android:text="Students also Viewed"
+                            android:textSize="17sp" />
+
+                        <carbon.widget.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="View All"
+                            android:gravity="end"
+                            android:textColor="@color/purple"
+                            android:textSize="17sp"
+                            android:layout_marginEnd="20dp"/>
+
+
+                    </LinearLayout>
+
+
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/alsoviewedRecyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/row_video_item"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"/>
+
 
                 </LinearLayout>
 
@@ -296,7 +336,8 @@ initiate world-class methods of empowerment vis-a-"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentBottom="true">
+                    android:layout_alignParentBottom="true"
+                    >
 
 
                     <carbon.widget.Button
@@ -322,10 +363,8 @@ initiate world-class methods of empowerment vis-a-"
 
         </ScrollView>
 
+
     </LinearLayout>
 
 
-
-
-
-</RelativeLayout>
+</LinearLayout>

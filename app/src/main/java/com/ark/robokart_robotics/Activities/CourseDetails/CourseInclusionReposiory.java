@@ -27,6 +27,7 @@ public class CourseInclusionReposiory {
         courseInclusionMArrayList.add(new CourseInclusionModel("3","3","ROS Installation","02:51"));
         courseInclusionMArrayList.add(new CourseInclusionModel("4","4","Exercise: Install ROS on your Machine","02:51"));
         courseInclusionMArrayList.add(new CourseInclusionModel("5","5","Package","02:51"));
+        courseInclusionMArrayList.add(new CourseInclusionModel("6","6","Quiz test","40"));
         courseInclusionList.setValue(courseInclusionMArrayList);
         return courseInclusionList;
     }
