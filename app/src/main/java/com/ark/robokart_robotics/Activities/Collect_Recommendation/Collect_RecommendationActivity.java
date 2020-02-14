@@ -78,6 +78,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        layoutManager.canScrollVertically();
         recyclerView.setLayoutManager(layoutManager);
 
 

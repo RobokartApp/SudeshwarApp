@@ -66,7 +66,7 @@ public class ViewAllSearchActivity extends AppCompatActivity {
 
 
     private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
-        courseListAdapter = new CourseListAdapter(courseListModelList);
+        courseListAdapter = new CourseListAdapter(getApplicationContext(),courseListModelList);
 
         coursesRecyclerview.setItemAnimator(new DefaultItemAnimator());
         coursesRecyclerview.setAdapter(courseListAdapter);

@@ -1,6 +1,8 @@
 package com.ark.robokart_robotics.Activities.CourseDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,6 +23,7 @@ import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
+import com.ark.robokart_robotics.Fragments.Payment.BuyNowFragment;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
@@ -34,6 +37,8 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
 import java.util.List;
+
+import carbon.widget.Button;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -67,6 +72,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     public DashboardViewModel dashboardViewModel;
 
     public CustomAdapter customAdapter;
+
+    public LinearLayout course_details_section;
+
+    public Button enroll_now;
+
+    public FrameLayout paymentFragment;
 
 
     @Override
@@ -125,14 +136,20 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     //Initialise UI
     public void init(){
-
+        play_btn = findViewById(R.id.center_play_btn);
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
         mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
+        enroll_now = findViewById(R.id.enroll_now);
+        course_details_section = findViewById(R.id.course_details_section);
+        paymentFragment = findViewById(R.id.paymentFragment);
+
         mVideoView.setMediaController(mMediaController);
         setVideoAreaSize();
         mVideoView.setVideoViewCallback(this);
+        mVideoView.seekTo(mSeekPosition);
+        mMediaController.setTitle("ROS basics: Program Robots");
 
         back_btn = findViewById(R.id.back_btn);
 
@@ -164,12 +181,25 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             }
         });
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
+
+        enroll_now.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClick(View view) {
+
+                paymentFragment.setVisibility(View.VISIBLE);
+                course_details_section.setVisibility(View.GONE);
+
+                BuyNowFragment buyNowFragment = new BuyNowFragment();
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_up_anim, R.anim.slide_down_anim);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.paymentFragment, buyNowFragment);
+                fragmentTransaction.commit();
             }
         });
+
 
     }
 
@@ -202,6 +232,18 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             mVideoView.pause();
         }
     }
+
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.d(TAG, "onPause ");
+//        if (mVideoView != null && mVideoView.isPlaying()) {
+//            mSeekPosition = mVideoView.getCurrentPosition();
+//            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
+//            mVideoView.seekTo(mSeekPosition);
+//        }
+//    }
 
     /**
      * 置视频区域大小
@@ -286,6 +328,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         if (this.isFullscreen) {
             mVideoView.setFullscreen(false);
         } else {
+            super.onBackPressed();
+        }
+
+        if(paymentFragment.getVisibility() == View.VISIBLE){
+            paymentFragment.setVisibility(View.GONE);
+            course_details_section.setVisibility(View.VISIBLE);
+        }
+        else{
             super.onBackPressed();
         }
     }

@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="480dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/corner_round">
@@ -42,11 +42,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             tools:listitem="@layout/row_recommendation"
-
             />
 
 
+
+
     </LinearLayout>
+
 
 
     <carbon.widget.Button
@@ -65,7 +67,6 @@
         app:carbon_elevation="10dp"
         app:carbon_elevationAmbientShadowColor="@color/purple"
         app:carbon_elevationShadowColor="@color/purple"/>
-
 
 
 

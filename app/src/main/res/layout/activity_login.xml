@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="225dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -169,54 +169,52 @@
         app:carbon_elevationShadowColor="@color/purple"/>
 
 
-
-
-
-
     <carbon.widget.TextView
         android:id="@+id/social_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/or_login_with_social_account"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"/>
-
+        android:text="@string/or_login_with_social_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
 
     <LinearLayout
         android:id="@+id/social_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/social_text"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:gravity="center_vertical">
+        android:layout_marginEnd="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/social_text">
 
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             android:layout_weight="1"
             android:elevation="4dp"
-            />
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp" />
 
         <LinearLayout
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
 
     </LinearLayout>
 
@@ -225,10 +223,11 @@
         android:id="@+id/sign_up_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/social_linear">
 
 
@@ -236,18 +235,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/don_t_have_account"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
 
         <TextView
             android:id="@+id/sign_up_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginStart="10dp"
-            android:textColor="@color/purple"/>
+            android:text="@string/sign_up"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

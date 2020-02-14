@@ -53,7 +53,7 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
     @Override
     public CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_video_item,parent,false);
+                .inflate(R.layout.dashboard_row_video_item,parent,false);
         return new CustomHolder(itemView);
     }
 

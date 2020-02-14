@@ -8,11 +8,11 @@
 
     <RelativeLayout
         android:id="@+id/rlJustStarting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintDimensionRatio="w,16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -56,18 +56,21 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal"
+            android:layout_marginStart="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/row_video_item" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlKnowBit"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rlJustStartingVideos"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintDimensionRatio="w,16:9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlJustStartingVideos">
 
@@ -108,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal"
+            android:layout_marginStart="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/row_video_item" />
     </RelativeLayout>

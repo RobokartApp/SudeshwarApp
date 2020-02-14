@@ -13,9 +13,9 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/rlBottomLayout"

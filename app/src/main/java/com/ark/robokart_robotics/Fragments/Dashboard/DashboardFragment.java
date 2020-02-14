@@ -99,25 +99,14 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        try{
-            courseListAdapter.setOnItemClickListener(new CourseListAdapter.onClick() {
-                @Override
-                public void setOnClickListener(boolean isClicked) {
-                    if(isClicked == true){
-                        startActivity(new Intent(getApplicationContext(),CourseDetailsActivity.class));
-                    }
-                }
-            });
-        }catch(Exception e){
 
-        }
 
 
 
     }
 
     private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
-        courseListAdapter = new CourseListAdapter(courseListModelList);
+        courseListAdapter = new CourseListAdapter(getApplicationContext(),courseListModelList);
 
         customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
 

@@ -8,7 +8,7 @@
     <FrameLayout
         android:id="@+id/video_layout"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:background="@android:color/black">
 
         <com.example.vimeoplayer2.UniversalVideoView
@@ -25,6 +25,22 @@
             android:layout_height="fill_parent"
             app:uvv_scalable="true" />
 
+        <ImageView
+            android:id="@+id/center_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/play_btn"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/back_btn_purple"
+            android:layout_margin="15dp"/>
+
     </FrameLayout>
 
     <LinearLayout
@@ -34,13 +50,14 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:orientation="vertical">
 
@@ -48,27 +65,35 @@
                 <LinearLayout
                     android:id="@+id/like_comment_share_section"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        app:layout_constraintLeft_toLeftOf="parent">
+                        android:layout_height="wrap_content">
+
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/like" />
+                            android:id="@+id/like_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/like"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/like_text"/>
 
                         <LinearLayout
+                            android:id="@+id/like_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/like_btn"
+                            app:layout_constraintRight_toLeftOf="@+id/comment_btn"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <carbon.widget.TextView
                                 android:layout_width="wrap_content"
@@ -84,73 +109,77 @@
                         </LinearLayout>
 
 
+                        <ImageView
+                            android:id="@+id/comment_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/comment"
+                            app:layout_constraintLeft_toRightOf="@+id/like_text"
+                            app:layout_constraintRight_toLeftOf="@+id/comment_text"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <LinearLayout
+                            android:id="@+id/comment_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/comment_btn"
+                            app:layout_constraintRight_toLeftOf="@+id/share_btn"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <ImageView
+                            <carbon.widget.TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/comment" />
+                                android:text="Comment" />
 
-                            <LinearLayout
+                            <carbon.widget.TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <carbon.widget.TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Comment" />
-
-                                <carbon.widget.TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="15 Comments"
-                                    android:textColor="@color/grey" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/share" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <carbon.widget.TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Share" />
-
-                                    <carbon.widget.TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="3 Shares"
-                                        android:textColor="@color/grey" />
-
-                                </LinearLayout>
-
-
-                            </LinearLayout>
-
+                                android:text="15 Comments"
+                                android:textColor="@color/grey" />
 
                         </LinearLayout>
 
-                    </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/share_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/share"
+                            app:layout_constraintLeft_toRightOf="@+id/comment_text"
+                            app:layout_constraintRight_toLeftOf="@+id/share_text"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/share_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/share_btn"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <carbon.widget.TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Share" />
+
+                            <carbon.widget.TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3 Shares"
+                                android:textColor="@color/grey" />
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:id="@+id/title_section"
@@ -167,26 +196,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_weight="2"
                         android:text="ROS basics: Program Robots"
                         android:textSize="18sp" />
 
-                    <Space
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content" />
+
 
 
                     <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
                         android:background="@drawable/rating_background"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginEnd="20dp">
 
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
                             android:src="@drawable/ic_star" />
 
 
@@ -194,7 +224,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.95"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:layout_weight="1"/>
 
 
                     </LinearLayout>
@@ -213,6 +244,7 @@
                     android:text="Holisticly underwhelm standards compliant ideas
 after plug-and-play web-readiness. Completely
 initiate world-class methods of empowerment vis-a-"
+                    android:visibility="visible"
                     android:textAlignment="gravity" />
 
                 <carbon.widget.TextView
@@ -222,11 +254,15 @@ initiate world-class methods of empowerment vis-a-"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
+                    android:text="Holisticly underwhelm standards compliant ideas
+after plug-and-play web-readiness. Completely
+initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasdasdgdgdgrrdgdgdg"
                     android:textAlignment="gravity"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/title_section" />
 
                 <carbon.widget.Button
+                    android:id="@+id/read_more_btn"
                     style="@style/carbon_Button.Flat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -242,126 +278,147 @@ initiate world-class methods of empowerment vis-a-"
                     android:background="@color/lightgrey" />
 
                 <LinearLayout
+                    android:id="@+id/course_details_section"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center_horizontal"
-                        android:text="This Course Includes"
-                        android:textSize="17sp" />
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/courseInclusionRecyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/row_courseinclusion_item"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="20dp"/>
-
-
-                </LinearLayout>
-
-
-                <ImageView
-                    android:id="@+id/play_quiz_challenge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/play_quiz_btn"
-                    android:scaleType="centerInside"
-                    android:layout_marginBottom="20dp"
-                    />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <carbon.widget.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_marginStart="20dp"
-                            android:text="Students also Viewed"
-                            android:textSize="17sp" />
 
                         <carbon.widget.TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="View All"
-                            android:gravity="end"
-                            android:textColor="@color/purple"
-                            android:textSize="17sp"
-                            android:layout_marginEnd="20dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center_horizontal"
+                            android:text="This Course Includes"
+                            android:textSize="17sp" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/courseInclusionRecyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            tools:listitem="@layout/row_courseinclusion_item"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"/>
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/play_quiz_challenge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/play_quiz_btn"
+                        android:scaleType="centerInside"
+                        android:layout_marginBottom="20dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <carbon.widget.TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="20dp"
+                                android:text="Students also Viewed"
+                                android:textSize="17sp" />
+
+                            <carbon.widget.TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="View All"
+                                android:gravity="end"
+                                android:textColor="@color/purple"
+                                android:textSize="17sp"
+                                android:layout_marginEnd="20dp"/>
+
+
+                        </LinearLayout>
+
+
+
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/alsoviewedRecyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/row_video_item"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"/>
 
 
                     </LinearLayout>
 
 
-
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/alsoviewedRecyclerview"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/row_video_item"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:orientation="vertical"
+                        android:layout_alignParentBottom="true"
+                        >
+
+
+                        <carbon.widget.Button
+                            android:id="@+id/enroll_now"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@drawable/btn_login"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="₹ 11200 Enroll now"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            android:shadowDy="3.0"
+                            app:carbon_elevation="12dp"
+                            app:carbon_elevationShadowColor="@color/purple"/>
+
+                    </LinearLayout>
+
 
 
                 </LinearLayout>
 
 
-                <LinearLayout
+
+                <FrameLayout
+                    android:id="@+id/paymentFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentBottom="true"
-                    >
-
-
-                    <carbon.widget.Button
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:background="@drawable/btn_login"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="₹ 11200 Enroll now"
-                        android:textAllCaps="false"
-                        android:textSize="16sp"
-                        android:shadowDy="3.0"
-                        app:carbon_elevation="12dp"
-                        app:carbon_elevationShadowColor="@color/purple"/>
-
-                </LinearLayout>
-
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
 
 
 
-        </ScrollView>
+
+
+        </androidx.core.widget.NestedScrollView>
 
 
     </LinearLayout>

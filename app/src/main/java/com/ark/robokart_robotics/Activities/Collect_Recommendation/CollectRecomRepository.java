@@ -28,6 +28,10 @@ public class CollectRecomRepository {
         recommendationsArrayList.add(new Recommendations("3","Robotics"));
         recommendationsArrayList.add(new Recommendations("4","3D Printing"));
         recommendationsArrayList.add(new Recommendations("5","Circuit Design"));
+        recommendationsArrayList.add(new Recommendations("6","Circuit Design"));
+        recommendationsArrayList.add(new Recommendations("7","Circuit Design"));
+        recommendationsArrayList.add(new Recommendations("8","Circuit Design"));
+        recommendationsArrayList.add(new Recommendations("9","Circuit Design"));
         recommendationList.setValue(recommendationsArrayList);
         return recommendationList;
     }

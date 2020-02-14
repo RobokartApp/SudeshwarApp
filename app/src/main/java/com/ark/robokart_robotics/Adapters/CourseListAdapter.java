@@ -1,5 +1,7 @@
 package com.ark.robokart_robotics.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,40 +14,101 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAdapter.CustomHolder> {
 
-    private static final String TAG = "BlogAdapter";
+
     private List<CourseListModel> mcourseList;
-    private ArrayList<String> selectedItemList;
-    private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
+    private Context mContext;
 
-    public onClick listener;
+    public CourseListAdapter(Context context, List<CourseListModel> courseListModelList) {
+        super(DIFF_CALLBACK);
+        this.mContext = context;
+        this.mcourseList = courseListModelList;
+    }
 
-    public CourseListAdapter(List<CourseListModel> courseListModelList) {
-        mcourseList = courseListModelList;
+    private static final DiffUtil.ItemCallback<CourseListModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<CourseListModel>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull CourseListModel oldItem, @NonNull CourseListModel newItem) {
+            return oldItem.getCourse_id() == newItem.getCourse_id();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull CourseListModel oldItem, @NonNull CourseListModel newItem) {
+            return oldItem.getCourse_name().equals(newItem.getCourse_name());
+        }
+    };
+
+    @NonNull
+    @Override
+    public CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.row_video_item,parent,false);
+        return new CustomHolder(itemView);
     }
 
 
+    public class CustomHolder extends RecyclerView.ViewHolder{
+        ImageView ivVideo, overlay;
+        TextView tvVideoName;
+        TextView tvPeople,tvRating;
+        RelativeLayout video_relative;
+
+        public CustomHolder(@NonNull View itemView) {
+            super(itemView);
+
+            ivVideo = itemView.findViewById(R.id.ivVideo);
+            overlay = itemView.findViewById(R.id.overlay);
+            tvVideoName = itemView.findViewById(R.id.tvVideoName);
+            tvPeople = itemView.findViewById(R.id.tvPeople);
+            tvRating = itemView.findViewById(R.id.tvRating);
+            video_relative = itemView.findViewById(R.id.video_relative);
+
+        }
+    }
 
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
-        holder.onBind(position);
+    public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
+        CourseListModel answers = mcourseList.get(position);
+        holder.tvVideoName.setText(String.valueOf(answers.getCourse_name()));
+        holder.tvPeople.setText(answers.getCourse_enrolled());
+        holder.tvRating.setText(answers.getCustomer_rating());
+
+
+        holder.video_relative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        });
+
+
+        if(position %3 == 1)
+        {
+            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color1));
+        }
+        else
+        {
+            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color2));
+        }
+
     }
-    @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        selectedItemList = new ArrayList<>();
-        return new ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.row_video_item, parent, false));
-    }
+
+
     @Override
     public int getItemViewType(int position) {
         return 0;
@@ -58,89 +121,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return 0;
         }
     }
-    public class ViewHolder extends BaseViewHolder {
-
-        ImageView ivVideo, overlay;
-        TextView tvVideoName;
-        TextView tvPeople,tvRating;
-        RelativeLayout video_relative;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            ivVideo = itemView.findViewById(R.id.ivVideo);
-            overlay = itemView.findViewById(R.id.overlay);
-            tvVideoName = itemView.findViewById(R.id.tvVideoName);
-            tvPeople = itemView.findViewById(R.id.tvPeople);
-            tvRating = itemView.findViewById(R.id.tvRating);
-            video_relative = itemView.findViewById(R.id.video_relative);
-
-
-            setScaleAnimation(ivVideo);
 
 
 
 
 
-        }
-        protected void clear() {
-            tvVideoName.setText("");
-            tvPeople.setText("");
-            tvRating.setText("");
-        }
-        public void onBind(int position) {
-            super.onBind(position);
-            final CourseListModel courseListModel = mcourseList.get(position);
-
-            if (courseListModel.getCourse_id() != null) {
-                tvPeople.setText(courseListModel.getCourse_enrolled() + " " + "People");
-            }
-            if (courseListModel.getCourse_name() != null) {
-                tvRating.setText(courseListModel.getCustomer_rating());
-            }
-            if (courseListModel.getCourse_enrolled() != null) {
-                tvVideoName.setText(courseListModel.getCourse_name());
-            }
-
-
-            if(position %3 == 1)
-            {
-                overlay.setBackground(itemView.getResources().getDrawable(R.drawable.color1));
-            }
-            else
-            {
-                overlay.setBackground(itemView.getResources().getDrawable(R.drawable.color2));
-            }
-
-//
-            video_relative.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.setOnClickListener(true);
-                    }
-                }
-            });
-
-
-        }
-
-        private void setScaleAnimation(View view) {
-            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
-            anim.setDuration(FADE_DURATION);
-            view.startAnimation(anim);
-        }
-
-
-
-    }
-
-    public interface onClick{
-         void setOnClickListener(boolean isClicked);
-    }
-
-    public void setOnItemClickListener(onClick listener){
-        this.listener = listener;
-    }
 }
+

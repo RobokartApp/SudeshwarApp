@@ -39,7 +39,7 @@ public class IntermediateCourseListAdapter extends RecyclerView.Adapter<BaseView
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         selectedItemList = new ArrayList<>();
         return new ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.row_video_item, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.dashboard_row_video_item, parent, false));
     }
     @Override
     public int getItemViewType(int position) {

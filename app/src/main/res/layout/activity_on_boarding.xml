@@ -10,7 +10,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/viewPagerCountDots"/>
 
 
 
@@ -37,7 +38,7 @@
         android:shadowRadius="10.0"
         android:shadowDy="10.0"
         app:carbon_elevation="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:carbon_elevationAmbientShadowColor="@color/purple"
         app:carbon_elevationShadowColor="@color/purple"/>
 
