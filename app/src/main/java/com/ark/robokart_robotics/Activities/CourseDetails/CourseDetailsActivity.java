@@ -8,9 +8,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +21,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
+import com.ark.robokart_robotics.Fragments.Payment.BillingDetailsFragment;
 import com.ark.robokart_robotics.Fragments.Payment.BuyNowFragment;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
@@ -35,6 +40,10 @@ import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -42,7 +51,7 @@ import carbon.widget.Button;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback {
+public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback, PaymentResultListener, BillingDetailsFragment.onClickListener {
 
     private static final String TAG = "MainActivity";
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
@@ -59,6 +68,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     private int mSeekPosition;
     private int cachedHeight;
     private boolean isFullscreen;
+
+    Checkout checkout;
 
 
     ImageView back_btn, play_btn;
@@ -84,6 +95,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
+
+        Checkout.preload(getApplicationContext());
+        checkout = new Checkout();
 
         init();
 
@@ -337,6 +351,76 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         }
         else{
             super.onBackPressed();
+        }
+    }
+
+
+    public void startPayment() {
+        checkout.setKeyID("rzp_test_EvXZMjKBLEZ4D2");
+
+        /**
+         * Set your logo here
+         */
+        checkout.setImage(R.drawable.logo_wall);
+
+
+        /**
+         * Reference to current activity
+         */
+        final Activity activity = this;
+
+        /**
+         * Pass your payment options to the Razorpay Checkout as a JSONObject
+         */
+        try {
+            JSONObject options = new JSONObject();
+
+            /**
+             * Merchant Name
+             * eg: ACME Corp || HasGeek etc.
+             */
+            options.put("name", "Robokart");
+
+            /**
+             * Description can be anything
+             * eg: Reference No. #123123 - This order number is passed by you for your internal reference. This is not the `razorpay_order_id`.
+             *     Invoice Payment
+             *     etc.
+             */
+            options.put("description", "Reference No. #123456");
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+//            options.put("order_id", "order_9A33XWu170gUtm");
+            options.put("currency", "INR");
+
+
+            /**
+             * Amount is always passed in currency subunits
+             * Eg: "500" = INR 5.00
+             */
+            options.put("amount", "5000");
+
+
+
+            checkout.open(activity, options);
+        } catch(Exception e) {
+            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClick(boolean isClicked) {
+        if(isClicked){
+            startPayment();
         }
     }
 }

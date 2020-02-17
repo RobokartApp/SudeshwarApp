@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/title_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp">
+
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Billing Details"
+            android:textSize="18sp"
+            android:layout_weight="1"/>
+
+
+        <carbon.widget.Button
+            android:id="@+id/skip_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/apply_btn"
+            android:text="Skip"
+            android:textAllCaps="false"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/customer_details_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/title_linear"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="35dp">
+
+
+        <EditText
+            android:id="@+id/fullname_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/mobile_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile No."
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/email_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Id"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/pincode_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pin Code"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/address_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:lines="2"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/street_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Street/Landmark"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/city_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+        <EditText
+            android:id="@+id/state_edt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="State"
+            android:backgroundTint="@color/lightgrey"
+            android:padding="20dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/customer_details_linear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="20dp">
+
+
+        <carbon.widget.Button
+            android:id="@+id/payment_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/btn_login"
+            android:shadowDy="6.0"
+            app:carbon_elevationShadowColor="@color/purple"
+            app:carbon_elevation="6dp"
+            android:text="Continue to Payment"
+            android:textAllCaps="false"
+            android:textSize="15sp"/>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

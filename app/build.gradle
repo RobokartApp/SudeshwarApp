@@ -23,6 +23,12 @@ android {
     }
 }
 
+
+repositories {
+    mavenCentral()
+}
+
+
 dependencies {
 
     def lifecycle_version = "2.2.0"
@@ -82,6 +88,9 @@ dependencies {
 
     //Vimeo Video Player
     implementation 'com.github.Prashant-Chandel:Videoplayer-with-Vimeo-support:138257e15c'
+
+    //RazorPay
+    implementation 'com.razorpay:checkout:1.5.13'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ark.robokart_robotics.Activities.Profile.ProfileActivity;
 import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
 import com.ark.robokart_robotics.R;
@@ -43,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
     public static Context mContext;
 
     public Fragment fragment;
+
+    public LinearLayout profile_linear;
 
 
     @Override
@@ -88,6 +92,8 @@ public class HomeActivity extends AppCompatActivity {
 
         back_arrow = findViewById(R.id.back_arrow);
 
+        profile_linear = findViewById(R.id.profile_linear);
+
         setFragment("dashboard");
     }
 
@@ -127,6 +133,23 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                setFragment("dashboard");
+            }
+        });
+
+        profile_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+
+                Handler mHandler = new Handler();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    }
+                },100);
+
+
             }
         });
     }

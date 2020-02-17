@@ -110,13 +110,12 @@
     <LinearLayout
         android:id="@+id/order_summary_linear"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="212dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="20dp"
         app:layout_constraintTop_toBottomOf="@+id/divider_1">
 
         <carbon.widget.TextView
@@ -303,6 +302,7 @@
 
 
         <carbon.widget.Button
+            android:id="@+id/billing_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginHorizontal="30dp"
@@ -315,7 +315,8 @@
             android:shadowDy="10.0"
             app:carbon_elevation="10dp"
             app:carbon_elevationAmbientShadowColor="@color/purple"
-            app:carbon_elevationShadowColor="@color/purple"/>
+            app:carbon_elevationShadowColor="@color/purple"
+            android:layout_marginBottom="20dp"/>
 
 
     </LinearLayout>
