@@ -39,7 +39,7 @@ public class BuyNowFragment extends Fragment {
             public void onClick(View view) {
                 OrderSummaryFragment orderSummaryFragment = new OrderSummaryFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_right_to_left,R.anim.slide_right_to_left,R.anim.slide_right_to_left,R.anim.slide_right_to_left)
+                        .setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
                         .replace(R.id.paymentFragment, orderSummaryFragment, "order")
                         .addToBackStack(null)
                         .commit();

@@ -8,14 +8,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -89,6 +92,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     public Button enroll_now;
 
     public FrameLayout paymentFragment;
+
+    private boolean isOpen = false;
+
 
 
     @Override
@@ -200,6 +206,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             @Override
             public void onClick(View view) {
 
+
                 paymentFragment.setVisibility(View.VISIBLE);
                 course_details_section.setVisibility(View.GONE);
 
@@ -216,6 +223,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
 
     }
+
+
 
 
 

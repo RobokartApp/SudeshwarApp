@@ -2,12 +2,14 @@ package com.ark.robokart_robotics.Activities.Splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Login.LoginActivity;
 import com.ark.robokart_robotics.Activities.OnBoarding.OnBoardingActivity;
 import com.ark.robokart_robotics.Common.SharedPref;
@@ -17,6 +19,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    LottieAnimationView logo;
 
     Handler mHandler;
 
@@ -25,11 +28,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        logo = findViewById(R.id.logo);
 
+
+
+        logo.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+                onLoadingDataEnded();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
 
         mHandler = new Handler();
 
-        startLoadingData();
+//        startLoadingData();
 
     }
 
@@ -42,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 onLoadingDataEnded();
             }
-        }, 1000 + random.nextInt(2000));
+        }, 1000 + random.nextInt(10000));
     }
 
 

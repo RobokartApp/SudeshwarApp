@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.LottieDrawable;
 import com.ark.robokart_robotics.Activities.RegistrationActivity.RegistrationActivity;
 import com.ark.robokart_robotics.Common.Validation;
 import com.ark.robokart_robotics.R;
@@ -42,6 +46,8 @@ import java.util.Arrays;
 
 import carbon.widget.Button;
 
+import static java.security.AccessController.getContext;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -63,6 +69,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPhoneNum;
 
     Validation validation;
+
+    LottieAnimationView animationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +101,10 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_fb = findViewById(R.id.login_button);
 
+        animationView = findViewById(R.id.drawable_anim);
+
+
+
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
@@ -106,6 +120,10 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         validation = new Validation();
+
+
+
+
 
     }
 
@@ -134,7 +152,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validation.validatePhone(etPhoneNum,textview_number_error);
 
                 if(textview_number_error.getVisibility() == View.GONE){
                     startActivity(new Intent(getApplicationContext(),OTPVerficationActivity.class));
@@ -142,6 +159,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
 
         etPhoneNum.addTextChangedListener(new TextWatcher() {
@@ -152,12 +171,42 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validation.validatePhone(etPhoneNum,textview_number_error);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                String number = etPhoneNum.getText().toString();
 
+                if(number.equals("")){
+                    //layout.setError("Please Enter Email ID");
+                    textview_number_error.setVisibility(View.VISIBLE);
+
+
+                    animationView.setAnimation("error.json");
+                    animationView.playAnimation();
+
+
+
+
+                }
+                else{
+
+                    if(number.length() == 10){
+                        //layout.setError(null);
+                        textview_number_error.setVisibility(View.GONE);
+
+                        animationView.setAnimation("check.json");
+                        animationView.playAnimation();
+                    }
+                    else{
+                        animationView.setAnimation("error.json");
+                        animationView.playAnimation();
+                        //layout.setError("Please Enter Valid Email ID");
+                        textview_number_error.setVisibility(View.VISIBLE);
+                    }
+
+                }
             }
         });
 
