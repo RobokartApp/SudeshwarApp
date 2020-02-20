@@ -23,7 +23,7 @@ public class OrderSummaryFragment extends Fragment {
 
     ImageButton minus_btn, plus_btn;
 
-    TextView quantity_txt, price_edt;
+    TextView quantity_txt, price_edt, total_amount_txt, total_cost_txt;
 
     public  int quantity_count = 1;
 
@@ -47,13 +47,13 @@ public class OrderSummaryFragment extends Fragment {
 
     //Initialise UI
     public void init(View v){
-
         billing_btn = v.findViewById(R.id.billing_btn);
-
         minus_btn = v.findViewById(R.id.minus_btn);
         plus_btn = v.findViewById(R.id.plus_btn);
         quantity_txt = v.findViewById(R.id.quantity_txt);
         price_edt = v.findViewById(R.id.price);
+        total_amount_txt = v.findViewById(R.id.total_amount_txt);
+        total_cost_txt = v.findViewById(R.id.total_cost_txt);
     }
 
 
@@ -72,15 +72,21 @@ public class OrderSummaryFragment extends Fragment {
             }
         });
 
-
+        String price = price_edt.getText().toString();
         plus_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 incrementQuantity();
                 quantity_txt.setText(String.valueOf(quantity_count));
-//                int price = Integer.parseInt(price_edt.getText().toString());
-//                int val = price * quantity_count;
-//                price_edt.setText(String.valueOf(val));
+
+                String number  = price.replaceAll("[^0-9]", "");
+
+                int val_price = Integer.parseInt(number);
+
+                int val = val_price * quantity_count;
+                price_edt.setText("₹ "+val);
+                total_cost_txt.setText("₹ "+val);
+                total_amount_txt.setText("₹ "+val);
 
             }
         });
@@ -90,9 +96,15 @@ public class OrderSummaryFragment extends Fragment {
             public void onClick(View view) {
                 decerementQuantity();
                 quantity_txt.setText(String.valueOf(quantity_count));
-//                int price = Integer.parseInt(price_edt.getText().toString());
-//                int val = price * quantity_count;
-//                price_edt.setText(String.valueOf(val));
+
+                String number  = price.replaceAll("[^0-9]", "");
+
+                int val_price = Integer.parseInt(number);
+
+                int val = val_price * quantity_count;
+                price_edt.setText("₹ "+val);
+                total_cost_txt.setText("₹ "+val);
+                total_amount_txt.setText("₹ "+val);
             }
         });
 
@@ -104,7 +116,7 @@ public class OrderSummaryFragment extends Fragment {
     }
 
     public void decerementQuantity(){
-        if(quantity_count != 0)
+        if(quantity_count != 1)
         quantity_count--;
     }
 }
