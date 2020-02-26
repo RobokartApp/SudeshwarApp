@@ -110,7 +110,7 @@ public class DashboardFragment extends Fragment {
 
         customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
 
-        intermediateCourseListAdapter = new IntermediateCourseListAdapter(courseListModelList);
+        intermediateCourseListAdapter = new IntermediateCourseListAdapter(getApplicationContext(),courseListModelList);
 
         rvJustStartingVideos.setItemAnimator(new DefaultItemAnimator());
         rvJustStartingVideos.setAdapter(customAdapter);

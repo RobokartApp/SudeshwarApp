@@ -19,13 +19,13 @@ import carbon.widget.TextView;
 public class OrderSummaryFragment extends Fragment {
 
 
-    public Button billing_btn;
+    private Button billing_btn;
 
-    ImageButton minus_btn, plus_btn;
+    private ImageButton minus_btn, plus_btn;
 
-    TextView quantity_txt, price_edt, total_amount_txt, total_cost_txt;
+    private TextView quantity_txt, price_edt, total_amount_txt, total_cost_txt;
 
-    public  int quantity_count = 1;
+    private   int quantity_count = 1;
 
 
     public OrderSummaryFragment(){}

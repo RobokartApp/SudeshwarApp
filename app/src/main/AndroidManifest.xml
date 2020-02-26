@@ -15,14 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Profile.ProfileActivity"></activity>
+        <activity android:name=".Activities.VideoPlaying.VideoPlayingActivity"></activity>
+        <activity android:name=".Activities.Profile.ProfileActivity" />
         <activity
             android:name=".Activities.CourseDetails.CourseDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".Activities.View_all_search.ViewAllSearchActivity" />
         <activity
             android:name=".Activities.Home.HomeActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
         <activity android:name=".Activities.Login.OTPVerficationActivity" />
         <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />
@@ -57,10 +58,9 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_EvXZMjKBLEZ4D2"/>
+            android:value="rzp_test_EvXZMjKBLEZ4D2" />
     </application>
 
 </manifest>
