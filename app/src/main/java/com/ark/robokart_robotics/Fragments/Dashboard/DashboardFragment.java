@@ -76,13 +76,7 @@ public class DashboardFragment extends Fragment {
         rvJustStartingVideos = view.findViewById(R.id.rvJustStartingVideos);
         rvKnowBitVideos = view.findViewById(R.id.rvKnowBitVideos);
 
-
-
-
-
-
         dashboardViewModel =  new ViewModelProvider(this).get(DashboardViewModel.class);
-
 
         dashboardViewModel.getCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
             @Override

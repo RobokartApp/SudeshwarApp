@@ -74,7 +74,6 @@ public class IntermediateCourseListAdapter extends ListAdapter<CourseListModel,I
             tvPeople = itemView.findViewById(R.id.tvPeople);
             tvRating = itemView.findViewById(R.id.tvRating);
             video_relative = itemView.findViewById(R.id.video_relative);
-
         }
     }
 

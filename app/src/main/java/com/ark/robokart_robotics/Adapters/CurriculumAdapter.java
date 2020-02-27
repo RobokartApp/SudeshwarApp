@@ -17,16 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
+import com.ark.robokart_robotics.Model.CurriculumModel;
 import com.ark.robokart_robotics.R;
 
 import java.util.List;
 
 public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAdapter.CurriculumHolder> {
 
-    private List<CourseListModel> mcourseList;
+    private List<CurriculumModel> mcourseList;
     private Context mContext;
 
-    public CurriculumAdapter(Context context, List<CourseListModel> courseListModelList) {
+    public CurriculumAdapter(Context context, List<CurriculumModel> courseListModelList) {
         super(DIFF_CALLBACK);
         this.mContext = context;
         this.mcourseList = courseListModelList;
@@ -55,7 +56,7 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
 
     public class CurriculumHolder extends RecyclerView.ViewHolder{
         ImageView ivVideo, overlay;
-        TextView tvVideoName;
+        TextView curriculum_file_name;
         TextView tvPeople,tvRating;
         RelativeLayout video_relative;
 
@@ -64,7 +65,7 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
 
 //            ivVideo = itemView.findViewById(R.id.ivVideo);
 //            overlay = itemView.findViewById(R.id.overlay);
-//            tvVideoName = itemView.findViewById(R.id.tvVideoName);
+              curriculum_file_name = itemView.findViewById(R.id.curriculum_file_name);
 //            tvPeople = itemView.findViewById(R.id.tvPeople);
 //            tvRating = itemView.findViewById(R.id.tvRating);
 //            video_relative = itemView.findViewById(R.id.video_relative);
@@ -75,9 +76,9 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
 
     @Override
     public void onBindViewHolder(@NonNull CurriculumHolder holder, int position) {
-        CourseListModel answers = mcourseList.get(position);
+        CurriculumModel curriculumModel = mcourseList.get(position);
 
-
+        holder.curriculum_file_name.setText(curriculumModel.getCurr_name());
     }
 
 
@@ -90,7 +91,7 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
         if (mcourseList != null && mcourseList.size() > 0) {
             return mcourseList.size();
         } else {
-            return 10;
+            return 0;
         }
     }
 

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ark.robokart_robotics.Activities.ChooseStandard.StandardActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
 import com.ark.robokart_robotics.Model.Recommendations;
@@ -64,7 +65,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
         btncollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), StandardActivity.class));
                 finish();
             }
         });

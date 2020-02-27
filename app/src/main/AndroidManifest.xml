@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.VideoPlaying.VideoPlayingActivity"></activity>
+        <activity android:name=".Activities.ChooseStandard.StandardActivity"></activity>
+        <activity android:name=".Activities.VideoPlaying.VideoPlayingActivity" />
         <activity android:name=".Activities.Profile.ProfileActivity" />
         <activity
             android:name=".Activities.CourseDetails.CourseDetailsActivity"
