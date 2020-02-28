@@ -19,4 +19,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/orange</item>
+    </style>
+
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">30dp</item>
+    </style>
+
 </resources>

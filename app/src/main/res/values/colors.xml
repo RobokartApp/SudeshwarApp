@@ -18,4 +18,6 @@
     <color name="idle_dot">#779C27B0</color>
     <color name="ob_header">#4A4A4A</color>
     <color name="ob_desc">#4A4A4A</color>
+    <color name="orange">#FF5722</color>
+    <color name="lightPurple">#F3F5F9</color>
 </resources>

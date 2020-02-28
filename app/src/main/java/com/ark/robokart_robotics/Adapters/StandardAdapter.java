@@ -36,7 +36,7 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         selectedItemList = new ArrayList<>();
         return new ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recommendation, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.row_standard, parent, false));
     }
     @Override
     public int getItemViewType(int position) {

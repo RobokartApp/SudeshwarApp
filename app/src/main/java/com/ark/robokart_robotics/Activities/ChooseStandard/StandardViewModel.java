@@ -20,7 +20,9 @@ public class StandardViewModel extends AndroidViewModel {
         standardRepository = new StandardRepository(application);
     }
 
-    public MutableLiveData<List<StandardModel>> getCollectRecommendations() {
+    public MutableLiveData<List<StandardModel>> getStandards() {
         return standardRepository.getStandardList();
     }
+
+
 }

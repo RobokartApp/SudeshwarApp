@@ -15,13 +15,12 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/plain_white"
         app:layout_constraintBottom_toTopOf="@id/rlBottomLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/plain_white"
-        android:layout_marginTop="100dp"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +31,8 @@
             <carbon.widget.TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
                 android:text="Select your Standard"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -41,44 +40,42 @@
             <carbon.widget.TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="11dp"
                 android:text="Intermediate"
                 android:textSize="16sp" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/intermediate_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                tools:listitem="@layout/row_recommendation"
-                />
+                android:layout_marginEnd="20dp"
+                tools:listitem="@layout/row_recommendation" />
 
 
             <carbon.widget.TextView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="11dp"
                 android:text="Advanced"
                 android:textSize="16sp" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/advanced_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                tools:listitem="@layout/row_recommendation"
-                />
+                android:layout_marginEnd="20dp"
+                tools:listitem="@layout/row_recommendation" />
+
+
+
 
 
         </LinearLayout>
@@ -89,11 +86,11 @@
         android:id="@+id/rlBottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <carbon.widget.Button
+            android:id="@+id/get_started_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="20dp"
@@ -105,13 +102,10 @@
             android:textAllCaps="false"
             android:textStyle="bold"
             app:carbon_elevation="6dp"
+            android:layout_marginBottom="15dp"
             app:carbon_elevationShadowColor="@color/purple" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="19dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

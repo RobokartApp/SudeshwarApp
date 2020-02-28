@@ -117,7 +117,7 @@
     </RelativeLayout>
 
     <include
-        layout="@layout/standard_fragment"
+        layout="@layoutQ/standard_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/topLayout"
