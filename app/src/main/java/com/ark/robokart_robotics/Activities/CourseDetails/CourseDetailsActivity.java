@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
@@ -75,7 +77,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     Checkout checkout;
 
 
-    ImageView back_btn, play_btn;
+    ImageView back_btn, play_btn, play_quiz_challenge;
 
     RecyclerView courseInclusionRecyclerview, alsoviewedRecyclerview;
 
@@ -164,6 +166,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         enroll_now = findViewById(R.id.enroll_now);
         course_details_section = findViewById(R.id.course_details_section);
         paymentFragment = findViewById(R.id.paymentFragment);
+        play_quiz_challenge = findViewById(R.id.play_quiz_challenge);
 
         mVideoView.setMediaController(mMediaController);
         setVideoAreaSize();
@@ -221,6 +224,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             }
         });
 
+        play_quiz_challenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), QuizActivity.class));
+            }
+        });
 
     }
 

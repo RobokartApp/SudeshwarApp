@@ -87,7 +87,6 @@ public class OrderSummaryFragment extends Fragment {
                 price_edt.setText("₹ "+val);
                 total_cost_txt.setText("₹ "+val);
                 total_amount_txt.setText("₹ "+val);
-
             }
         });
 

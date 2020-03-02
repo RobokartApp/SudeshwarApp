@@ -42,10 +42,11 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:theme="@style/progressBarBlue"
-                android:progress="50"
+                android:progress="100"
                 android:progressDrawable="@drawable/rounded_corners_progress_bar"
                 android:layout_weight="1" />
-            <TextView
+            <carbon.widget.TextView
+                android:id="@+id/timer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -72,226 +73,130 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            app:cardBackgroundColor="@color/light"
             app:cardCornerRadius="25dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp">
-                <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp">
+
+                <carbon.widget.TextView
                     android:id="@+id/tvQuestionCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
                     android:text="Question 6 /"
-                    android:textStyle="bold"/>
-                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <carbon.widget.TextView
                     android:id="@+id/tvTotalQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_toRightOf="@id/tvQuestionCount"
+
                     android:layout_marginLeft="3dp"
-                    android:textColor="@color/black"
-                    android:text="20"/>
+                    android:layout_toRightOf="@id/tvQuestionCount"
+                    android:text="20"
+                    android:textColor="@color/black" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_below="@+id/tvTotalQuestion"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_below="@+id/tvTotalQuestion">
+                    android:layout_marginRight="2dp">
 
-                    <android.support.v7.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cvQuestion"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_280sdp"
-                        android:layout_marginRight="@dimen/_2sdp"
-                        app:cardCornerRadius="@dimen/_12sdp">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/_2sdp"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            android:layout_marginTop="@dimen/_8sdp">
-                            <TextView
-                                android:id="@+id/tvQuestion"
-                                android:layout_width="@dimen/_190sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:text="@string/qustn1"
-                                android:textAlignment="center"
-                                android:textStyle="bold"
-                                android:paddingTop="@dimen/_1sdp"
-                                android:textSize="@dimen/_14sdp"
-                                android:textColor="@color/colorBlack"/>
+                        android:layout_height="400dp"
+                        android:layout_marginTop="10dp"
+                       android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
 
-                            <LinearLayout
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <carbon.widget.TextView
+                                android:id="@+id/question_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/tvQuestion"
-                                android:layout_marginTop="@dimen/_8sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginLeft="@dimen/_8sdp"
-                                android:orientation="vertical">
-                                <RelativeLayout
-                                    android:id="@+id/rlA"
+                                android:text="How many basic steps are there in The Scientific Method?"
+                                android:textSize="18sp"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:padding="10dp"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <RadioGroup
+                                android:id="@+id/rbgroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:layout_marginTop="20dp"
+                                app:layout_constraintTop_toBottomOf="@id/question_txt"
+                                >
+
+                                <RadioButton
+                                    android:id="@+id/rb_1"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:background="@drawable/background_border">
-                                    <TextView
-                                        android:id="@+id/tvA"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/a"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_14sdp"/>
+                                    android:layout_height="wrap_content"
+                                    android:text="Answer 1"
+                                    android:textSize="14sp"
+                                    android:background="@drawable/tag_transparent_background"
+                                    android:textAlignment="center"/>
 
-                                    <TextView
-                                        android:id="@+id/tvAnswer1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_toRightOf="@id/tvA"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/a1"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_12sdp"/>
-
-                                    <ImageView
-                                        android:id="@+id/ivAnswer1"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:layout_alignParentRight="true"
-                                        android:background="@drawable/circle"
-                                        android:layout_marginRight="@dimen/_8sdp"
-                                        android:layout_centerVertical="true"/>
-
-                                </RelativeLayout>
-                                <RelativeLayout
-                                    android:id="@+id/rlB"
+                                <RadioButton
+                                    android:id="@+id/rb_2"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_marginTop="@dimen/_12sdp"
-                                    android:background="@drawable/background_border">
-                                    <TextView
-                                        android:id="@+id/tvB"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/b"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_14sdp"/>
+                                    android:layout_height="wrap_content"
+                                    android:text="Answer 2"
+                                    android:textSize="14sp"
+                                    android:background="@drawable/tag_transparent_background"
+                                    android:layout_marginTop="14dp"
+                                    android:textAlignment="center"/>
 
-                                    <TextView
-                                        android:id="@+id/tvAnswer2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_toRightOf="@id/tvB"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/b1"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_12sdp"/>
-
-                                    <ImageView
-                                        android:id="@+id/ivAnswer2"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:layout_alignParentRight="true"
-                                        android:background="@drawable/circle"
-                                        android:layout_marginRight="@dimen/_8sdp"
-                                        android:layout_centerVertical="true"/>
-
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:id="@+id/rlC"
+                                <RadioButton
+                                    android:id="@+id/rb_3"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_marginTop="@dimen/_12sdp"
-                                    android:background="@drawable/background_border">
-                                    <TextView
-                                        android:id="@+id/tvC"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/c"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_14sdp"/>
+                                    android:layout_height="wrap_content"
+                                    android:text="Answer 3"
+                                    android:textSize="14sp"
+                                    android:background="@drawable/tag_transparent_background"
+                                    android:layout_marginTop="14dp"
+                                    android:textAlignment="center"/>
 
-                                    <TextView
-                                        android:id="@+id/tvAnswer3"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_toRightOf="@id/tvC"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/c1"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_12sdp"/>
-
-                                    <ImageView
-                                        android:id="@+id/ivAnswer3"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:layout_alignParentRight="true"
-                                        android:background="@drawable/circle"
-                                        android:layout_marginRight="@dimen/_8sdp"
-                                        android:layout_centerVertical="true"/>
-
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:id="@+id/rlD"
+                                <RadioButton
+                                    android:id="@+id/rb_4"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_marginTop="@dimen/_12sdp"
-                                    android:background="@drawable/background_border">
-                                    <TextView
-                                        android:id="@+id/tvD"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/d"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_14sdp"/>
-
-                                    <TextView
-                                        android:id="@+id/tvAnswer4"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:layout_toRightOf="@id/tvD"
-                                        android:layout_centerVertical="true"
-                                        android:text="@string/d1"
-                                        android:layout_marginLeft="@dimen/_12sdp"
-                                        android:textSize="@dimen/_12sdp"/>
-
-                                    <ImageView
-                                        android:id="@+id/ivAnswer4"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:layout_alignParentRight="true"
-                                        android:background="@drawable/circle"
-                                        android:layout_marginRight="@dimen/_8sdp"
-                                        android:layout_centerVertical="true"/>
-
-                                </RelativeLayout>
+                                    android:layout_height="wrap_content"
+                                    android:text="Answer 4"
+                                    android:textSize="14sp"
+                                    android:background="@drawable/tag_transparent_background"
+                                    android:layout_marginTop="14dp"
+                                    android:textAlignment="center"/>
 
 
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </android.support.v7.widget.CardView>
+                            </RadioGroup>
 
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
 
 
                 </RelativeLayout>
@@ -305,19 +210,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="@color/lightPurple"
-        android:layout_height="wrap_content">
-        <Button
+        android:layout_height="wrap_content"
+        android:background="@color/light">
+        <carbon.widget.Button
             android:id="@+id/btnNextQustn"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/btn_login"
-            android:text="@string/btn_next_question"
-            android:textColor="@color/colorWhite"
+            android:text="Next Question"
+            android:textColor="@color/white"
+            app:carbon_elevationShadowColor="@color/purple"
+            app:carbon_elevation="12dp"
             android:textStyle="bold"/>
     </RelativeLayout>
 
