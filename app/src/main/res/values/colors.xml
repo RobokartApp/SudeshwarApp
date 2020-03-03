@@ -10,7 +10,7 @@
     <color name="light">#FAFAFA</color>
     <color name="darkgrey">#535353</color>
     <color name="white">#ffffff</color>
-    <color name="purple">#8A32D7</color>
+
 
 
     <!--OnBoard-->
@@ -21,4 +21,5 @@
     <color name="ob_desc">#4A4A4A</color>
     <color name="orange">#FF5722</color>
     <color name="lightPurple">#F3F5F9</color>
+    <color name="purple">#8A32D7</color>
 </resources>

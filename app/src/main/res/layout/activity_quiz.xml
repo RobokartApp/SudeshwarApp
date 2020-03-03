@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purple_bg"
     tools:context=".Activities.Quiz.QuizActivity">
+
+
 
     <LinearLayout
         android:id="@+id/llProgress"
@@ -68,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/llProgress"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="80dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -96,7 +98,6 @@
                     android:id="@+id/tvTotalQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="3dp"
                     android:layout_toRightOf="@id/tvQuestionCount"
                     android:text="20"
@@ -207,9 +208,10 @@
 
     </RelativeLayout>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:layout_height="wrap_content"
         android:background="@color/light">
         <carbon.widget.Button
@@ -226,6 +228,12 @@
             app:carbon_elevationShadowColor="@color/purple"
             app:carbon_elevation="12dp"
             android:textStyle="bold"/>
+
+
     </RelativeLayout>
 
-</RelativeLayout>
+    <include layout="@layout/layout_bottom_sheet"
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

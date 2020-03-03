@@ -40,4 +40,8 @@
     <string name="free_courses">Free Courses</string>
     <string name="school_curiculum">School Curiculum</string>
     <string name="dashboard">Dashboard</string>
+    <string name="total_questions">Total Questions</string>
+    <string name="questions_answered">Questions answered</string>
+    <string name="correct_answers">Correct answers</string>
+    <string name="passing_score">Passing Score</string>
 </resources>

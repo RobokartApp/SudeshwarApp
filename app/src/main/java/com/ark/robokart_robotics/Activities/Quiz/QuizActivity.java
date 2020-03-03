@@ -1,5 +1,6 @@
 package com.ark.robokart_robotics.Activities.Quiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -9,14 +10,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +34,7 @@ import carbon.widget.Button;
 public class QuizActivity extends AppCompatActivity {
 
     private static final int START_TIME_IN_MILLIS = 600000;
+
 
     private TextView mTextViewCountDown;
 
@@ -60,6 +66,13 @@ public class QuizActivity extends AppCompatActivity {
     private int score;
     private boolean answered;
 
+    private LinearLayout bottom_sheet;
+    private BottomSheetBehavior sheetBehavior;
+
+    private ImageView close_btn;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +82,7 @@ public class QuizActivity extends AppCompatActivity {
 
         init();
 
+
         getQuestionList();
     }
 
@@ -76,6 +90,8 @@ public class QuizActivity extends AppCompatActivity {
         mTextViewCountDown = findViewById(R.id.timer_text);
 
         countdownProgress = findViewById(R.id.countdownProgress);
+
+
 
         rbGroup = findViewById(R.id.rbgroup);
         rb_1 = findViewById(R.id.rb_1);
@@ -87,17 +103,20 @@ public class QuizActivity extends AppCompatActivity {
 
         btnNextQustn = findViewById(R.id.btnNextQustn);
 
+        bottom_sheet = findViewById(R.id.bottom_sheet);
+
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+
+        close_btn = findViewById(R.id.close_btn);
+
         quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
 
         startTimer();
+        setProgressBarValues();
 
         quizViewModel.getQuizList().observe(this, new Observer<List<Question>>() {
             @Override
             public void onChanged(List<Question> questions) {
-                showNextQuestion(questions);
-                questionCountTotal = questions.size();
-
-
                 showNextQuestion(questions);
             }
         });
@@ -110,7 +129,36 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
 
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int newState) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(questionCounter == questionCountTotal){
+            super.onBackPressed();
+        }
+// super.onBackPressed();
+// Not calling **super**, disables back button in current screen.
     }
 
     public MutableLiveData<List<Question>> getQuestionList() {
@@ -131,6 +179,9 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
+
+                countdownProgress.setProgress((int) (millisUntilFinished / 1000));
+
                 updateCountDownText();
 
             }
@@ -142,6 +193,12 @@ public class QuizActivity extends AppCompatActivity {
         }.start();
 
         mTimerRunning = true;
+    }
+
+    private void setProgressBarValues() {
+
+        countdownProgress.setMax((int) mTimeLeftInMillis / 1000);
+        countdownProgress.setProgress((int) mTimeLeftInMillis / 1000);
     }
 
     private void updateCountDownText() {
@@ -157,6 +214,8 @@ public class QuizActivity extends AppCompatActivity {
     private void showNextQuestion(List<Question> questionList) {
         rbGroup.clearCheck();
 
+        questionCountTotal = questionList.size();
+
         if (questionCounter < questionCountTotal) {
             currentQuestion = questionList.get(questionCounter);
 
@@ -167,9 +226,16 @@ public class QuizActivity extends AppCompatActivity {
             rb_4.setText(currentQuestion.getOption4());
             questionCounter++;
 
-
         } else {
-            Toast.makeText(getApplicationContext(), "Finished", Toast.LENGTH_SHORT).show();
+
+                mCountDownTimer.cancel();
+                countdownProgress.setProgress(0);
+
+                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+
+
         }
     }
 
@@ -183,7 +249,5 @@ public class QuizActivity extends AppCompatActivity {
             score++;
            Toast.makeText(getApplicationContext(),String.valueOf(score),Toast.LENGTH_SHORT).show();
         }
-
-
     }
 }
