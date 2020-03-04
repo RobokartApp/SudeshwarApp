@@ -14,7 +14,7 @@
         <scale android:scaleWidth="100%">
             <shape>
                 <corners android:radius="14sp"/>
-                <solid android:color="@color/orange"/>
+                <gradient android:startColor="#F39949" android:endColor="@color/orange" android:angle="45"/>
             </shape>
 
         </scale>

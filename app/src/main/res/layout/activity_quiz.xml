@@ -89,7 +89,7 @@
                     android:id="@+id/tvQuestionCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Question 6 /"
+                    android:text="Question 1 /"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -209,28 +209,52 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="wrap_content"
-        android:background="@color/light">
-        <carbon.widget.Button
-            android:id="@+id/btnNextQustn"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_login"
-            android:text="Next Question"
-            android:textColor="@color/white"
-            app:carbon_elevationShadowColor="@color/purple"
-            app:carbon_elevation="12dp"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/light"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical">
+
+            <carbon.widget.Button
+                android:id="@+id/btnPreviousQustn"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_login"
+                android:text="Previous Question"
+                android:textColor="@color/white"
+                app:carbon_elevationShadowColor="@color/purple"
+                app:carbon_elevation="12dp"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+
+            <carbon.widget.Button
+                android:id="@+id/btnNextQustn"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_login"
+                android:text="Next"
+                android:textColor="@color/white"
+                app:carbon_elevationShadowColor="@color/purple"
+                app:carbon_elevation="12dp"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
 
-    </RelativeLayout>
+
+
 
     <include layout="@layout/layout_bottom_sheet"
         />

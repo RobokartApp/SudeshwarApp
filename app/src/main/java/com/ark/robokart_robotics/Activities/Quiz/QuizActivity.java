@@ -61,7 +61,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<Question> questionArrayList = new ArrayList<>();
 
-    private Button btnNextQustn;
+    private Button btnNextQustn, btnPreviousQustn;
 
     private int score;
     private boolean answered;
@@ -69,8 +69,11 @@ public class QuizActivity extends AppCompatActivity {
     private LinearLayout bottom_sheet;
     private BottomSheetBehavior sheetBehavior;
 
-    private ImageView close_btn;
+    private ImageView close_btn, ivClose;
 
+    private carbon.widget.TextView tvTotal,tvQuestionAnswered, tvCorrectAnswers, tvPassingScore, tvTimeTaken;
+
+    private carbon.widget.TextView tvTotalQuestion, tvQuestionCount;
 
 
     @Override
@@ -92,20 +95,37 @@ public class QuizActivity extends AppCompatActivity {
         countdownProgress = findViewById(R.id.countdownProgress);
 
 
-
         rbGroup = findViewById(R.id.rbgroup);
         rb_1 = findViewById(R.id.rb_1);
         rb_2 = findViewById(R.id.rb_2);
         rb_3 = findViewById(R.id.rb_3);
         rb_4 = findViewById(R.id.rb_4);
 
+        ivClose = findViewById(R.id.ivClose);
+
+        tvQuestionCount = findViewById(R.id.tvQuestionCount);
+
+        tvTotalQuestion = findViewById(R.id.tvTotalQuestion);
+
         question_txt = findViewById(R.id.question_txt);
 
         btnNextQustn = findViewById(R.id.btnNextQustn);
 
+        btnPreviousQustn = findViewById(R.id.btnPreviousQustn);
+
         bottom_sheet = findViewById(R.id.bottom_sheet);
 
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+
+        tvTotal = findViewById(R.id.tvTotal);
+
+        tvQuestionAnswered = findViewById(R.id.tvQuestionAnswered);
+
+        tvCorrectAnswers = findViewById(R.id.tvCorrectAnswers);
+
+        tvPassingScore = findViewById(R.id.tvPassingScore);
+
+        tvTimeTaken = findViewById(R.id.tvTimeTaken);
 
         close_btn = findViewById(R.id.close_btn);
 
@@ -129,10 +149,30 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        btnPreviousQustn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    checkAnswer();
+                    showPreviousQuestion(questionArrayList);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -143,6 +183,7 @@ public class QuizActivity extends AppCompatActivity {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
+
             @Override
             public void onSlide(@NonNull View view, float v) {
 
@@ -154,7 +195,7 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(questionCounter == questionCountTotal){
+        if (questionCounter == questionCountTotal) {
             super.onBackPressed();
         }
 // super.onBackPressed();
@@ -184,6 +225,14 @@ public class QuizActivity extends AppCompatActivity {
 
                 updateCountDownText();
 
+                long elapsed_time;
+
+                elapsed_time = 10800000-millisUntilFinished;
+
+                int seconds = (int) (elapsed_time / 1000) % 60;
+
+                        tvTimeTaken.setText(String.valueOf(seconds)+"s");
+
             }
 
             @Override
@@ -208,6 +257,8 @@ public class QuizActivity extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
 
 
+
+
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
@@ -216,8 +267,22 @@ public class QuizActivity extends AppCompatActivity {
 
         questionCountTotal = questionList.size();
 
+
+
+
+
         if (questionCounter < questionCountTotal) {
+
+            int new_counter = questionCounter;
+            new_counter++;
+            tvQuestionCount.setText("Question "+ new_counter + " /");
+
             currentQuestion = questionList.get(questionCounter);
+
+            tvTotalQuestion.setText(String.valueOf(questionCountTotal));
+
+
+
 
             question_txt.setText(currentQuestion.getQuestion());
             rb_1.setText(currentQuestion.getOption1());
@@ -226,17 +291,54 @@ public class QuizActivity extends AppCompatActivity {
             rb_4.setText(currentQuestion.getOption4());
             questionCounter++;
 
-        } else {
-
-                mCountDownTimer.cancel();
-                countdownProgress.setProgress(0);
-
-                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-
+            if(questionCounter == 6){
+                btnNextQustn.setText("FINISH");
+            }
 
         }
+
+        else {
+            mCountDownTimer.cancel();
+            countdownProgress.setProgress(0);
+
+            tvTotal.setText(String.valueOf(questionCountTotal));
+
+            tvCorrectAnswers.setText(String.valueOf(score));
+
+            double passing = (score / Double.parseDouble(String.valueOf(questionCountTotal))) * 100;
+
+            tvPassingScore.setText(String.format("%.2f", passing)+"%");
+
+
+
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        }
+
+
+    }
+
+
+    private void showPreviousQuestion(List<Question> questionList) {
+            rbGroup.clearFocus();
+
+            int new_counter = questionCounter;
+            if(new_counter != 1){
+                new_counter--;
+                questionCounter--;
+            }
+
+            tvQuestionCount.setText(String.format(Locale.ENGLISH,"Question %d /", new_counter));
+
+            currentQuestion = questionList.get(questionCounter - 1);
+
+            question_txt.setText(currentQuestion.getQuestion());
+            rb_1.setText(currentQuestion.getOption1());
+            rb_2.setText(currentQuestion.getOption2());
+            rb_3.setText(currentQuestion.getOption3());
+            rb_4.setText(currentQuestion.getOption4());
+
     }
 
     private void checkAnswer() {
@@ -247,7 +349,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (answerNr == currentQuestion.getAnswerNr()) {
             score++;
-           Toast.makeText(getApplicationContext(),String.valueOf(score),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -147,7 +147,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void run() {
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                     }
-                },100);
+                },300);
 
 
             }
@@ -157,14 +157,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void setFragment(String screen){
         if(screen.equals("courses")){
-            imgCourses.setBackground(getResources().getDrawable(R.drawable.course_selected));
+            imgCourses.setBackground(getResources().getDrawable(R.drawable.ic_course_btn_selected));
             imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_deselected));
 
             fragment = new CoursesFragment();
             setFragment(fragment);
         }
         else if(screen.equals("dashboard")){
-            imgCourses.setBackground(getResources().getDrawable(R.drawable.courses_deselected));
+            imgCourses.setBackground(getResources().getDrawable(R.drawable.ic_course_btn_deselected));
             imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_btn_active));
 
             fragment = new DashboardFragment();

@@ -95,7 +95,7 @@
                         android:id="@+id/imgcourses"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/course_btn"/>
+                        android:src="@drawable/course_deselected"/>
 
                     <TextView
                         android:layout_width="wrap_content"
