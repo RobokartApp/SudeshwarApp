@@ -2,6 +2,7 @@ package com.ark.robokart_robotics.Model;
 
 public class Question {
 
+    public int q_id;
     public String question;
     public String option1;
     public String option2;
@@ -9,7 +10,8 @@ public class Question {
     public String option4;
     public int answerNr;
 
-    public Question(String question, String option1, String option2, String option3, String option4, int answerNr) {
+    public Question(int q_id, String question, String option1, String option2, String option3, String option4, int answerNr) {
+        this.q_id = q_id;
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
@@ -18,6 +20,13 @@ public class Question {
         this.answerNr = answerNr;
     }
 
+    public int getQ_id() {
+        return q_id;
+    }
+
+    public void setQ_id(int q_id) {
+        this.q_id = q_id;
+    }
 
     public String getQuestion() {
         return question;
