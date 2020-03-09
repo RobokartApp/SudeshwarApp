@@ -73,7 +73,6 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
             tvPeople = itemView.findViewById(R.id.tvPeople);
             tvRating = itemView.findViewById(R.id.tvRating);
             video_relative = itemView.findViewById(R.id.video_relative);
-
         }
     }
 
@@ -120,9 +119,5 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
             return 0;
         }
     }
-
-
-
-
 
 }

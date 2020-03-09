@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/ranking_background"
     app:behavior_hideable="true"
@@ -179,6 +180,27 @@
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal">
 
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Answers given by you"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/answersRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            tools:listitem="@layout/show_correct_answers_item"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
         <ImageView
             style="@style/carbon_ImageView.Avatar"
             android:layout_width="wrap_content"
@@ -191,7 +213,7 @@
         <carbon.widget.TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="YOU Got A new Rank"
+            android:text="You Got A new Rank"
             android:layout_marginTop="10dp"/>
 
         <carbon.widget.TextView

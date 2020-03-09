@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ark.robokart_robotics.Adapters.CheckAnswerAdapter;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.R;
@@ -64,6 +66,8 @@ public class QuizActivity extends AppCompatActivity {
 
     public static ArrayList<CorrectAnswersModel> correctAnswersList = new ArrayList<>();
 
+    public static ArrayList<String> answersGivenList = new ArrayList<>();
+
     private Button btnNextQustn, btnPreviousQustn;
 
     private int score;
@@ -78,6 +82,13 @@ public class QuizActivity extends AppCompatActivity {
 
     private carbon.widget.TextView tvTotalQuestion, tvQuestionCount;
 
+    private RecyclerView answerRecyclerview;
+
+    private CheckAnswerAdapter checkAnswerAdapter;
+
+    int old_seconds = 0;
+
+    int seconds = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +142,14 @@ public class QuizActivity extends AppCompatActivity {
         tvTimeTaken = findViewById(R.id.tvTimeTaken);
 
         close_btn = findViewById(R.id.close_btn);
+
+        answerRecyclerview = findViewById(R.id.answersRecyclerview);
+
+        checkAnswerAdapter = new CheckAnswerAdapter(getApplicationContext(),questionArrayList);
+
+
+
+
 
         quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
 
@@ -232,9 +251,11 @@ public class QuizActivity extends AppCompatActivity {
 
                 elapsed_time = 10800000-millisUntilFinished;
 
-                int seconds = (int) (elapsed_time / 1000) % 60;
+                seconds = (int) (elapsed_time / 1000) % 60;
 
-                        tvTimeTaken.setText(String.valueOf(seconds)+"s");
+                old_seconds = old_seconds + seconds;
+
+                tvTimeTaken.setText(old_seconds + "s");
 
             }
 
@@ -260,8 +281,6 @@ public class QuizActivity extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
 
 
-
-
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
@@ -283,7 +302,6 @@ public class QuizActivity extends AppCompatActivity {
             currentQuestion = questionList.get(questionCounter);
 
             tvTotalQuestion.setText(String.valueOf(questionCountTotal));
-
 
 
 
@@ -312,7 +330,10 @@ public class QuizActivity extends AppCompatActivity {
 
             tvPassingScore.setText(String.format("%.2f", passing)+"%");
 
+            tvQuestionAnswered.setText(String.valueOf(answersGivenList.size()));
 
+            answerRecyclerview.setAdapter(checkAnswerAdapter);
+            checkAnswerAdapter.notifyDataSetChanged();
 
             if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -350,9 +371,15 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
-        correctAnswersList.add(new CorrectAnswersModel(answerNr));
+
+        try {
+            answersGivenList.add(String.valueOf(rbSelected.getId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (answerNr == currentQuestion.getAnswerNr()) {
+            correctAnswersList.add(new CorrectAnswersModel(answerNr));
             score++;
             Toast.makeText(getApplicationContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
         }

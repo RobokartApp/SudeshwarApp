@@ -153,9 +153,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(textview_number_error.getVisibility() == View.GONE){
+                if(etPhoneNum.getText().length() > 9 && textview_number_error.getVisibility() == View.GONE){
                     startActivity(new Intent(getApplicationContext(),OTPVerficationActivity.class));
                     finish();
+                }
+                else{
+                    textview_number_error.setVisibility(View.VISIBLE);
+                    animationView.setAnimation("error.json");
+                    animationView.playAnimation();
                 }
             }
         });
@@ -185,8 +190,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     animationView.setAnimation("error.json");
                     animationView.playAnimation();
-
-
 
 
                 }
