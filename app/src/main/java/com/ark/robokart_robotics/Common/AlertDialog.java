@@ -56,4 +56,21 @@ public class AlertDialog {
         dialog.show();
     }
 
+
+    public void showQuestionDialog(Context context, String title, String message){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+
+
+        String positiveText = "OK";
+
+        builder.setPositiveButton(positiveText, (dialog, which) -> dialog.dismiss());
+
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
+
 }

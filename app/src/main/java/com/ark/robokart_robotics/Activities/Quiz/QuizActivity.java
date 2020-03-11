@@ -24,6 +24,9 @@ import com.ark.robokart_robotics.Adapters.CheckAnswerAdapter;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.R;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -145,6 +148,12 @@ public class QuizActivity extends AppCompatActivity {
 
         answerRecyclerview = findViewById(R.id.answersRecyclerview);
 
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        layoutManager.canScrollVertically();
+        answerRecyclerview.setLayoutManager(layoutManager);
+
         checkAnswerAdapter = new CheckAnswerAdapter(getApplicationContext(),questionArrayList);
 
 
@@ -232,6 +241,10 @@ public class QuizActivity extends AppCompatActivity {
         questionArrayList.add(new Question(5,"Q5", "a", "b", "c", "d", 2));
         questionArrayList.add(new Question(6,"Q6", "a", "b", "c", "d", 4));
         questionArrayList.add(new Question(7,"Q7", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(8,"Q8", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(9,"Q9", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(10,"Q10", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(11,"Q11", "a", "b", "c", "d", 3));
         questionList.setValue(questionArrayList);
         return questionList;
     }
@@ -312,7 +325,7 @@ public class QuizActivity extends AppCompatActivity {
             rb_4.setText(currentQuestion.getOption4());
             questionCounter++;
 
-            if(questionCounter == 6){
+            if(questionCounter == 10){
                 btnNextQustn.setText("FINISH");
             }
 
@@ -370,18 +383,28 @@ public class QuizActivity extends AppCompatActivity {
 
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
-
-
         try {
-            answersGivenList.add(String.valueOf(rbSelected.getId()));
+            int id = rbSelected.getId();
+            if(id == 0){
+                id = 0;
+                answersGivenList.add(String.valueOf(id));
+            }
+            else{
+                answersGivenList.add(String.valueOf(id));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (answerNr == currentQuestion.getAnswerNr()) {
-            correctAnswersList.add(new CorrectAnswersModel(answerNr));
+                correctAnswersList.add(new CorrectAnswersModel(answerNr));
             score++;
+            }
+            else{
+                answerNr = 0;
+                correctAnswersList.add(new CorrectAnswersModel(answerNr));
+            }
             Toast.makeText(getApplicationContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
-        }
+
     }
 }

@@ -1,10 +1,15 @@
 package com.ark.robokart_robotics.Adapters;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.BaseViewHolder;
+import com.ark.robokart_robotics.Common.AlertDialog;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.Model.StandardModel;
@@ -21,6 +27,10 @@ import com.ark.robokart_robotics.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import carbon.widget.Button;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
@@ -95,6 +105,46 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             } catch (Resources.NotFoundException e) {
                 e.printStackTrace();
             }
+
+            answer_bg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewDialog viewDialog = new ViewDialog();
+                    viewDialog.showDialog((Activity) v.getContext());
+                }
+            });
         }
+    }
+}
+
+
+class ViewDialog {
+
+    public void showDialog(Activity activity) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        Button mDialogNo = dialog.findViewById(R.id.cancel_button);
+        mDialogNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Cancel" ,Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        Button mDialogOk = dialog.findViewById(R.id.submit_button);
+        mDialogOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Okay" ,Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 }

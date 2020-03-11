@@ -29,6 +29,9 @@ public class QuizRepository {
         questionArrayList.add(new Question(5,"Q5", "a", "b", "c", "d", 2));
         questionArrayList.add(new Question(6,"Q6", "a", "b", "c", "d", 4));
         questionArrayList.add(new Question(7,"Q7", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(8,"Q8", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(9,"Q9", "a", "b", "c", "d", 3));
+        questionArrayList.add(new Question(10,"Q10", "a", "b", "c", "d", 3));
         questionList.setValue(questionArrayList);
         return questionList;
     }

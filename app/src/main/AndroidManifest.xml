@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.Quiz.QuizActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.ChooseStandard.StandardActivity" />
         <activity android:name=".Activities.VideoPlaying.VideoPlayingActivity" />
@@ -36,11 +40,7 @@
         <activity android:name=".Activities.RegistrationActivity.RegistrationActivity" />
         <activity android:name=".Activities.Login.LoginActivity" />
         <activity android:name=".Activities.Splash.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
