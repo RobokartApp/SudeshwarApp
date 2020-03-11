@@ -36,9 +36,6 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mStandardList = recommendationsList;
     }
 
-
-
-
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.onBind(position);
@@ -98,8 +95,6 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             } catch (Resources.NotFoundException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 }
