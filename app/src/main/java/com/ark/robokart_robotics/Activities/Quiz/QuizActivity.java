@@ -266,9 +266,10 @@ public class QuizActivity extends AppCompatActivity {
 
                 seconds = (int) (elapsed_time / 1000) % 60;
 
+
                 old_seconds = old_seconds + seconds;
 
-                tvTimeTaken.setText(old_seconds + "s");
+                tvTimeTaken.setText(seconds + "s");
 
             }
 
@@ -404,7 +405,7 @@ public class QuizActivity extends AppCompatActivity {
                 answerNr = 0;
                 correctAnswersList.add(new CorrectAnswersModel(answerNr));
             }
-            Toast.makeText(getApplicationContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
+
 
     }
 }

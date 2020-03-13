@@ -15,11 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.BaseViewHolder;
 import com.ark.robokart_robotics.Common.AlertDialog;
+import com.ark.robokart_robotics.Fragments.AnswerExplanation.AnswerExplanation;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.Model.StandardModel;
@@ -109,42 +115,14 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             answer_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ViewDialog viewDialog = new ViewDialog();
-                    viewDialog.showDialog((Activity) v.getContext());
-                }
+//                    AnswerExplanation answerExplanation = new AnswerExplanation();
+//                    answerExplanation.show(quizActivity.getSupportFragmentManager(), "dialog");
+                    AlertDialog alertDialog = new AlertDialog();
+                    alertDialog.showQuestionDialog(getApplicationContext(),"Question","Answer");
+                    }
             });
         }
     }
 }
 
 
-class ViewDialog {
-
-    public void showDialog(Activity activity) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.custom_dialog);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-        Button mDialogNo = dialog.findViewById(R.id.cancel_button);
-        mDialogNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Cancel" ,Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
-        Button mDialogOk = dialog.findViewById(R.id.submit_button);
-        mDialogOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Okay" ,Toast.LENGTH_SHORT).show();
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
-    }
-}
