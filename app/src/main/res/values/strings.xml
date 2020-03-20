@@ -44,4 +44,5 @@
     <string name="questions_answered">Questions answered</string>
     <string name="correct_answers">Correct answers</string>
     <string name="passing_score">Passing Score</string>
+    <string name="dummy_answer">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in lobortis leo, ac luctus velit. Suspendisse porta eu mauris nec pulvinar. Donec at viverra elit, et vehicula risus. Nunc non ultrices urna. Ut porta turpis metus, eget sollicitudin dolor sagittis non. Curabitur et elit semper orci efficitur aliquam vel ac metus. Proin id suscipit leo. Maecenas congue nisl ipsum, porttitor accumsan risus lobortis in.</string>
 </resources>

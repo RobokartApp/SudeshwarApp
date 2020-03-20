@@ -79,6 +79,8 @@ public class QuizActivity extends AppCompatActivity {
     private LinearLayout bottom_sheet;
     private BottomSheetBehavior sheetBehavior;
 
+
+
     private ImageView close_btn, ivClose;
 
     private carbon.widget.TextView tvTotal,tvQuestionAnswered, tvCorrectAnswers, tvPassingScore, tvTimeTaken;
@@ -304,9 +306,6 @@ public class QuizActivity extends AppCompatActivity {
         questionCountTotal = questionList.size();
 
 
-
-
-
         if (questionCounter < questionCountTotal) {
 
             int new_counter = questionCounter;
@@ -316,8 +315,6 @@ public class QuizActivity extends AppCompatActivity {
             currentQuestion = questionList.get(questionCounter);
 
             tvTotalQuestion.setText(String.valueOf(questionCountTotal));
-
-
 
             question_txt.setText(currentQuestion.getQuestion());
             rb_1.setText(currentQuestion.getOption1());
@@ -329,7 +326,6 @@ public class QuizActivity extends AppCompatActivity {
             if(questionCounter == 10){
                 btnNextQustn.setText("FINISH");
             }
-
         }
 
         else {
@@ -353,8 +349,6 @@ public class QuizActivity extends AppCompatActivity {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         }
-
-
     }
 
 

@@ -26,6 +26,7 @@ import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.BaseViewHolder;
 import com.ark.robokart_robotics.Common.AlertDialog;
 import com.ark.robokart_robotics.Fragments.AnswerExplanation.AnswerExplanation;
+import com.ark.robokart_robotics.Fragments.AnswerExplanation.BottomSheetExplanation;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.Model.StandardModel;
@@ -43,13 +44,15 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG = "BlogAdapter";
     private List<Question> mStandardList;
     private List<CorrectAnswersModel> correctAnswersModelList;
-    private QuizActivity quizActivity = new QuizActivity();
     private Context mcontext;
+
+
 
 
     public CheckAnswerAdapter(Context context, List<Question> recommendationsList) {
         this.mcontext = context;
         mStandardList = recommendationsList;
+
     }
 
     @Override
@@ -96,10 +99,10 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             question_count.setText(String.valueOf(question.getQ_id()));
 
-            correctAnswersModelList = quizActivity.correctAnswersList;
+            correctAnswersModelList = QuizActivity.correctAnswersList;
 
             try {
-                final CorrectAnswersModel correctAnswersModel = quizActivity.correctAnswersList.get(position);
+                final CorrectAnswersModel correctAnswersModel = QuizActivity.correctAnswersList.get(position);
 
                 int co_id = correctAnswersModel.getAnswer();
 
@@ -115,14 +118,15 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             answer_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    AnswerExplanation answerExplanation = new AnswerExplanation();
-//                    answerExplanation.show(quizActivity.getSupportFragmentManager(), "dialog");
-                    AlertDialog alertDialog = new AlertDialog();
-                    alertDialog.showQuestionDialog(getApplicationContext(),"Question","Answer");
+                    BottomSheetExplanation bottomSheetExplanation = new BottomSheetExplanation();
+                    bottomSheetExplanation.show(((FragmentActivity)mcontext).getSupportFragmentManager(), bottomSheetExplanation.getTag());
+
                     }
             });
         }
     }
+
+
 }
 
 
