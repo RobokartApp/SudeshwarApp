@@ -108,6 +108,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textview_fullname_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name cannot be blank"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/fullname_linear"
+            />
+
 
         <LinearLayout
             android:id="@+id/student_number_linear"
@@ -146,6 +159,19 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textview_student_number_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_10_digit_number"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/student_number_linear"
+            />
 
 
         <LinearLayout
@@ -187,6 +213,20 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/textview_parent_number_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_10_digit_number"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/parent_number_linear"
+            />
+
+
         <LinearLayout
             android:id="@+id/email_linear"
             android:layout_width="match_parent"
@@ -224,6 +264,20 @@
 
 
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textview_email_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email ID is invalid"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/email_linear"
+            />
 
 
         <LinearLayout
@@ -264,6 +318,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textview_username_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username cannot be blank"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/username_linear"
+            />
+
 
         <LinearLayout
             android:id="@+id/password_linear"
@@ -302,6 +369,19 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textview_password_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password cannot be blank"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/password_linear"
+            />
 
 
         <LinearLayout

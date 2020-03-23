@@ -45,6 +45,7 @@
     </ScrollView>
 
     <carbon.widget.Button
+        android:id="@+id/dismiss"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         style="@style/carbon_Button.Colored"

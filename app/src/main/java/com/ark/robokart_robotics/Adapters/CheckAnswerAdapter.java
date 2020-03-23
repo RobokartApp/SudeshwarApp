@@ -3,6 +3,7 @@ package com.ark.robokart_robotics.Adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -118,9 +119,14 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             answer_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BottomSheetExplanation bottomSheetExplanation = new BottomSheetExplanation();
-                    bottomSheetExplanation.show(((FragmentActivity)mcontext).getSupportFragmentManager(), bottomSheetExplanation.getTag());
 
+                    SharedPreferences sharedPreferences = mcontext.getSharedPreferences("explanation",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("explanation",question.getQuestion());
+                    editor.apply();
+
+                    BottomSheetExplanation bottomSheetExplanation = new BottomSheetExplanation();
+                    bottomSheetExplanation.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), bottomSheetExplanation.getTag());
                     }
             });
         }

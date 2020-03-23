@@ -103,8 +103,6 @@ public class LoginActivity extends AppCompatActivity {
 
         animationView = findViewById(R.id.drawable_anim);
 
-
-
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
@@ -120,10 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         validation = new Validation();
-
-
-
-
 
     }
 
@@ -141,8 +135,6 @@ public class LoginActivity extends AppCompatActivity {
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
                 startActivity(intent);
