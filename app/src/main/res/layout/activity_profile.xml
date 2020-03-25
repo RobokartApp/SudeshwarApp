@@ -34,6 +34,7 @@
             android:layout_marginRight="30dp"
             android:gravity="right"
             android:text="Good Morning,"
+            android:textSize="16sp"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -112,100 +113,220 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textColor="@color/grey" />
+                        android:orientation="vertical">
+
+                        <carbon.widget.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="First Name"
+                            android:textColor="@color/grey" />
 
 
-                    <EditText
-                        android:id="@+id/first_name_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:hint="First Name"
-                        android:text="Charul" />
+                        <EditText
+                            android:id="@+id/first_name_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="First Name"
+                            android:text="Charul" />
+                    </LinearLayout>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/drawable_anim_fname"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textview_fname_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="First Name cannot be blank"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/fullname_linear"
+                    />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
-                        android:text="Last Name"
-                        android:textColor="@color/grey" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
 
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:backgroundTint="@color/white"
-                        android:hint="Last Name"
-                        android:text="Dalvi" />
+                        <carbon.widget.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Last Name"
+                            android:textColor="@color/grey" />
+
+
+                        <EditText
+                            android:id="@+id/last_name_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:backgroundTint="@color/white"
+                            android:hint="Last Name"
+                            android:text="Dalvi" />
+
+                    </LinearLayout>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/drawable_anim_lname"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false"
+                        android:layout_gravity="bottom"
+                        />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textview_lname_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Last Name cannot be blank"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/fullname_linear"
+                    />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textColor="@color/grey" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
 
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:backgroundTint="@color/white"
-                        android:text="charul@gmail.com" />
+                        <carbon.widget.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textColor="@color/grey" />
 
+
+                        <EditText
+                            android:id="@+id/email_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:backgroundTint="@color/white"
+                            android:text="charul@gmail.com" />
+
+                    </LinearLayout>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/drawable_anim_email"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false"
+                        android:layout_gravity="bottom"
+                        />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textview_email_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email cannot be blank"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/fullname_linear"
+                    />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
-                        android:text="Phone Number"
-                        android:textColor="@color/grey" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
 
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:backgroundTint="@color/white"
-                        android:text="+919987573342" />
+                        <carbon.widget.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number"
+                            android:textColor="@color/grey" />
+
+
+                        <EditText
+                            android:id="@+id/phone_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:backgroundTint="@color/white"
+                            android:text="+919987573342" />
+
+                    </LinearLayout>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/drawable_anim_number"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false"
+                        android:layout_gravity="bottom"
+                        />
 
                 </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/textview_phone_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Numnber cannot be blank"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/fullname_linear"
+                    />
+
 
 
             </LinearLayout>
 
             <carbon.widget.Button
+                android:id="@+id/save_btn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"

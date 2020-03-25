@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.ChooseStandard.StandardActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
@@ -36,6 +39,12 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
     private Button btncollect;
 
+    private LottieAnimationView animationView;
+
+    private TextView textview_error;
+
+    private LinearLayout error_layout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,12 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
         btncollect = findViewById(R.id.btncollect);
 
+        animationView = findViewById(R.id.drawable_anim);
+
+        textview_error = findViewById(R.id.textview_error);
+
+
+        error_layout = findViewById(R.id.error_layout);
 
 
         recyclerView = findViewById(R.id.recommendation_recyclerview);
@@ -65,13 +80,26 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
         btncollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), StandardActivity.class));
-                finish();
+                if(recommendationAdapter.selectedItemList.size() == 0){
+                    error_layout.setVisibility(View.VISIBLE);
+                    animationView.setAnimation("error.json");
+                    animationView.playAnimation();
+                    textview_error.setVisibility(View.VISIBLE);
+                }
+                else {
+                    error_layout.setVisibility(View.GONE);
+                    animationView.setVisibility(View.GONE);
+                    textview_error.setVisibility(View.GONE);
+                    startActivity(new Intent(getApplicationContext(), StandardActivity.class));
+                    finish();
+                }
+
             }
         });
     }
 
     private void prepareRecyclerView(List<Recommendations> recommendationsList) {
+
         recommendationAdapter = new RecommendationAdapter(recommendationsList);
 
 

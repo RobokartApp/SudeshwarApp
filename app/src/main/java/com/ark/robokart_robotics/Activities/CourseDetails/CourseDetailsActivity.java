@@ -343,6 +343,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     @Override
     public void onStart(MediaPlayer mediaPlayer) {
         Log.d(TAG, "onStart UniversalVideoView callback");
+
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     private static final String TAG = "BlogAdapter";
     private List<Recommendations> mrecommendationsList;
-    private ArrayList<String> selectedItemList;
+    public static ArrayList<String> selectedItemList;
 
 
     public RecommendationAdapter(List<Recommendations> recommendationsList) {

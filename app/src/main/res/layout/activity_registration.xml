@@ -78,20 +78,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/login_linear">
-
-
-            <!--            <ImageView-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:src="@drawable/ic_person_purple"-->
-            <!--                android:layout_gravity="center_vertical"/>-->
 
             <EditText
                 android:id="@+id/fullname_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
@@ -105,6 +99,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_fullname"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
         </LinearLayout>
 
@@ -128,8 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/fullname_linear">
 
 
@@ -141,7 +143,7 @@
 
             <EditText
                 android:id="@+id/student_number_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -157,6 +159,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_st_number"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
         </LinearLayout>
 
@@ -180,20 +189,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/student_number_linear">
 
 
-            <!--            <ImageView-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:src="@drawable/ic_person_purple"-->
-            <!--                android:layout_gravity="center_vertical"/>-->
-
             <EditText
                 android:id="@+id/parent_number_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -208,6 +212,15 @@
                 android:textColorHint="#C5C4C4"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_parent_number"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
 
         </LinearLayout>
@@ -233,20 +246,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/margin_right"
+            android:layout_marginEnd="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/parent_number_linear">
 
 
-            <!--        <ImageView-->
-            <!--            android:layout_width="30dp"-->
-            <!--            android:layout_height="30dp"-->
-            <!--            android:layout_gravity="center_vertical"-->
-            <!--            android:src="@drawable/ic_email_purple"/>-->
 
             <EditText
                 android:id="@+id/email_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -262,6 +271,14 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_email"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
         </LinearLayout>
 
@@ -286,20 +303,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/email_linear">
 
 
-            <!--        <ImageView-->
-            <!--            android:layout_width="30dp"-->
-            <!--            android:layout_height="30dp"-->
-            <!--            android:src="@drawable/ic_person_purple"-->
-            <!--            android:layout_gravity="center_vertical"/>-->
-
             <EditText
                 android:id="@+id/username_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -315,6 +327,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_username"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
         </LinearLayout>
 
@@ -338,20 +357,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/username_linear">
 
 
-            <!--        <ImageView-->
-            <!--            android:layout_width="30dp"-->
-            <!--            android:layout_height="30dp"-->
-            <!--            android:src="@drawable/ic_person_purple"-->
-            <!--            android:layout_gravity="center_vertical"/>-->
-
             <EditText
                 android:id="@+id/password_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -367,6 +381,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_pass"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
 
         </LinearLayout>
 

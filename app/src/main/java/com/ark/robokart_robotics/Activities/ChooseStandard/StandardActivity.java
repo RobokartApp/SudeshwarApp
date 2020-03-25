@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.CollectRecomViewModel;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
@@ -37,6 +40,12 @@ public class StandardActivity extends AppCompatActivity {
 
     private Button get_started_btn;
 
+    private LottieAnimationView animationView;
+
+    private TextView textview_error;
+
+    private LinearLayout error_layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +53,16 @@ public class StandardActivity extends AppCompatActivity {
 
         get_started_btn = findViewById(R.id.get_started_btn);
 
+
         intermediate_recyclerview = findViewById(R.id.intermediate_recyclerview);
         advanced_recyclerview = findViewById(R.id.advanced_recyclerview);
+
+        animationView = findViewById(R.id.drawable_anim);
+
+        textview_error = findViewById(R.id.textview_error);
+
+
+        error_layout = findViewById(R.id.error_layout);
 
         standardViewModel = new ViewModelProvider(this).get(StandardViewModel.class);
 
@@ -68,9 +85,22 @@ public class StandardActivity extends AppCompatActivity {
         get_started_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-                finish();
+                if(standardAdapter.selectedItemList.size() == 0){
+                    error_layout.setVisibility(View.VISIBLE);
+                    animationView.setAnimation("error.json");
+                    animationView.playAnimation();
+                    textview_error.setVisibility(View.VISIBLE);
+                }
+                else {
+                    error_layout.setVisibility(View.GONE);
+                    animationView.setVisibility(View.GONE);
+                    textview_error.setVisibility(View.GONE);
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+
             }
         });
 

@@ -52,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     EditText fullname_edt_text, student_number_edt_text, parent_number_edt_text, email_edt_text, username_edt_text, password_edt_text, referal_edt_text;
 
-    LottieAnimationView animationView;
+    LottieAnimationView drawable_anim_fullname, drawable_anim_st_number, drawable_anim_parent_number, drawable_anim_email, drawable_anim_username, drawable_anim_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,12 @@ public class RegistrationActivity extends AppCompatActivity {
         textview_student_number_error = findViewById(R.id.textview_student_number_error);
         textview_username_error = findViewById(R.id.textview_username_error);
         textview_password_error = findViewById(R.id.textview_password_error);
+        drawable_anim_fullname = findViewById(R.id.drawable_anim_fullname);
+        drawable_anim_st_number = findViewById(R.id.drawable_anim_st_number);
+        drawable_anim_parent_number = findViewById(R.id.drawable_anim_parent_number);
+        drawable_anim_email = findViewById(R.id.drawable_anim_email);
+        drawable_anim_username = findViewById(R.id.drawable_anim_username);
+        drawable_anim_pass = findViewById(R.id.drawable_anim_pass);
     }
 
 
@@ -105,20 +111,20 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(email_edt_text.getText().toString().trim().equals("")){
                     //layout.setError("Please Enter Email ID");
                     textview_email_error.setVisibility(View.VISIBLE);
-                    animationView.setAnimation("error.json");
-                    animationView.playAnimation();
+                    drawable_anim_email.setAnimation("error.json");
+                    drawable_anim_email.playAnimation();
                 }
                 else{
                     if(email_edt_text.getText().toString().trim().matches(emailPattern) ){
                         //layout.setError(null);
                         textview_email_error.setVisibility(View.GONE);
 
-                        animationView.setAnimation("check.json");
-                        animationView.playAnimation();
+                        drawable_anim_email.setAnimation("check.json");
+                        drawable_anim_email.playAnimation();
                     }
                     else{
-                        animationView.setAnimation("error.json");
-                        animationView.playAnimation();//layout.setError("Please Enter Valid Email ID");
+                        drawable_anim_email.setAnimation("error.json");
+                        drawable_anim_email.playAnimation();//layout.setError("Please Enter Valid Email ID");
                         textview_email_error.setVisibility(View.VISIBLE);
                     }
                 }
@@ -146,8 +152,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     textview_student_number_error.setVisibility(View.VISIBLE);
 
 
-                    animationView.setAnimation("error.json");
-                    animationView.playAnimation();
+                    drawable_anim_st_number.setAnimation("error.json");
+                    drawable_anim_st_number.playAnimation();
 
 
                 }
@@ -157,12 +163,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         //layout.setError(null);
                         textview_student_number_error.setVisibility(View.GONE);
 
-                        animationView.setAnimation("check.json");
-                        animationView.playAnimation();
+                        drawable_anim_st_number.setAnimation("check.json");
+                        drawable_anim_st_number.playAnimation();
                     }
                     else{
-                        animationView.setAnimation("error.json");
-                        animationView.playAnimation();
+                        drawable_anim_st_number.setAnimation("error.json");
+                        drawable_anim_st_number.playAnimation();
                         //layout.setError("Please Enter Valid Email ID");
                         textview_student_number_error.setVisibility(View.VISIBLE);
                     }
@@ -190,27 +196,37 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(number.equals("")){
                     //layout.setError("Please Enter Email ID");
                     textview_parent_number_error.setVisibility(View.VISIBLE);
-
-
-                    animationView.setAnimation("error.json");
-                    animationView.playAnimation();
+                    drawable_anim_parent_number.setAnimation("error.json");
+                    drawable_anim_parent_number.playAnimation();
 
 
                 }
                 else{
-
                     if(number.length() == 10){
                         //layout.setError(null);
-                        textview_parent_number_error.setVisibility(View.GONE);
+                        if(student_number_edt_text.getText().toString().trim().equals(number)){
+                            drawable_anim_parent_number.setAnimation("error.json");
+                            drawable_anim_parent_number.playAnimation();
+                            textview_parent_number_error.setText("Numbers cannot be same");
+                            textview_parent_number_error.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            textview_parent_number_error.setVisibility(View.GONE);
+                            drawable_anim_parent_number.setAnimation("check.json");
+                            drawable_anim_parent_number.playAnimation();
+                        }
 
-                        animationView.setAnimation("check.json");
-                        animationView.playAnimation();
+
                     }
+
                     else{
-                        animationView.setAnimation("error.json");
-                        animationView.playAnimation();
-                        //layout.setError("Please Enter Valid Email ID");
-                        textview_parent_number_error.setVisibility(View.VISIBLE);
+
+                            drawable_anim_parent_number.setAnimation("error.json");
+                            drawable_anim_parent_number.playAnimation();
+                            //layout.setError("Please Enter Valid Email ID");
+                            textview_parent_number_error.setVisibility(View.VISIBLE);
+
+
                     }
 
                 }
@@ -233,13 +249,13 @@ public class RegistrationActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(username_edt_text.getText().toString().trim().equals("")){
                     textview_username_error.setVisibility(View.VISIBLE);
-                    animationView.setAnimation("error.json");
-                    animationView.playAnimation();
+                    drawable_anim_username.setAnimation("error.json");
+                    drawable_anim_username.playAnimation();
                 }
                 else{
                     textview_username_error.setVisibility(View.GONE);
-                    animationView.setAnimation("check.json");
-                    animationView.playAnimation();
+                    drawable_anim_username.setAnimation("check.json");
+                    drawable_anim_username.playAnimation();
                 }
             }
         });
@@ -260,13 +276,40 @@ public class RegistrationActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(password_edt_text.getText().toString().trim().equals("")){
                     textview_password_error.setVisibility(View.VISIBLE);
-                    animationView.setAnimation("error.json");
-                    animationView.playAnimation();
+                    drawable_anim_pass.setAnimation("error.json");
+                    drawable_anim_pass.playAnimation();
                 }
                 else{
                     textview_password_error.setVisibility(View.GONE);
-                    animationView.setAnimation("check.json");
-                    animationView.playAnimation();
+                    drawable_anim_pass.setAnimation("check.json");
+                    drawable_anim_pass.playAnimation();
+                }
+            }
+        });
+
+
+        fullname_edt_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(fullname_edt_text.getText().toString().trim().equals("")){
+                    textview_password_error.setVisibility(View.VISIBLE);
+                    drawable_anim_fullname.setAnimation("error.json");
+                    drawable_anim_fullname.playAnimation();
+                }
+                else{
+                    textview_password_error.setVisibility(View.GONE);
+                    drawable_anim_fullname.setAnimation("check.json");
+                    drawable_anim_fullname.playAnimation();
                 }
             }
         });

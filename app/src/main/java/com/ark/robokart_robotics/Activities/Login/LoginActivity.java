@@ -2,10 +2,13 @@ package com.ark.robokart_robotics.Activities.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ButtonBarLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -72,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
     LottieAnimationView animationView;
 
+    public LoginViewModel loginViewModel;
+
 
 
     @Override
@@ -84,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         init();
 
         listeners();
+
 
 
     }
@@ -119,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
 
         validation = new Validation();
 
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
     }
 
 
@@ -146,8 +154,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(etPhoneNum.getText().length() > 9 && textview_number_error.getVisibility() == View.GONE){
-                    startActivity(new Intent(getApplicationContext(),OTPVerficationActivity.class));
-                    finish();
+
+                    String number = etPhoneNum.getText().toString().trim();
+
+                    loginViewModel.requestotp(number).observe(LoginActivity.this, s -> {
+                        if(s.equals("OTP has been sent to your mobile number"))
+                        {
+                            Intent intent = new Intent(getApplicationContext(),OTPVerficationActivity.class);
+                            intent.putExtra("phone_number",number);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
                 }
                 else{
                     textview_number_error.setVisibility(View.VISIBLE);

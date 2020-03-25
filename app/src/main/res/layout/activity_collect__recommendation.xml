@@ -8,46 +8,87 @@
     tools:context=".Activities.Collect_Recommendation.Collect_RecommendationActivity">
 
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="480dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/corner_round">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hey Alex, We need to know you \nbetter to give you the best \nrecommendations."
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Collect the interest :"
-            android:layout_marginStart="40dp"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recommendation_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="335dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="40dp"
-            tools:listitem="@layout/row_recommendation"
-            />
+            android:layout_height="480dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/corner_round">
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hey Alex, We need to know you \nbetter to give you the best \nrecommendations."
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Collect the interest :"
+                android:layout_marginStart="40dp"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:id="@+id/error_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:visibility="gone">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/drawable_anim"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"
+                    />
+
+                <TextView
+                    android:id="@+id/textview_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please select at least one interest"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommendation_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                tools:listitem="@layout/row_recommendation"
+                />
 
 
-    </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 
 

@@ -18,7 +18,7 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG = "BlogAdapter";
     private List<StandardModel> mStandardList;
-    private ArrayList<String> selectedItemList;
+    public static ArrayList<String> selectedItemList;
 
 
     public StandardAdapter(List<StandardModel> recommendationsList) {

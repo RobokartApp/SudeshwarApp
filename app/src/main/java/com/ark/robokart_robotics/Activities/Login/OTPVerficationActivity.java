@@ -3,6 +3,8 @@ package com.ark.robokart_robotics.Activities.Login;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,7 +33,7 @@ import carbon.widget.Button;
 import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
 
-public class OTPVerficationActivity extends AppCompatActivity implements View.OnClickListener {
+public class OTPVerficationActivity extends AppCompatActivity  {
 
     private static final int REQ_USER_CONSENT = 200;
 
@@ -41,12 +43,18 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
 
     SmsBroadcastReceiver smsBroadcastReceiver;
 
+    public OTPViewModel otpViewModel;
+
+    String phone_number = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverfication);
 
 
+        Bundle bundle = getIntent().getExtras();
+        phone_number = bundle.getString("phone_number");
 
         init();
 
@@ -60,7 +68,8 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
 
         btnVerify=findViewById(R.id.btnVerify);
 
-        setUpButtons();
+        otpViewModel = new ViewModelProvider(this).get(OTPViewModel.class);
+
 
         startSmsUserConsent();
     }
@@ -76,6 +85,23 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
             public void onOTPComplete(String otp) {
                 // fired when user has entered the OTP fully.
                 Toast.makeText(OTPVerficationActivity.this, "The OTP is " + otp,  Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String otp = otpTextView.getOTP().toString();
+                otpViewModel.check(phone_number,otp).observe(OTPVerficationActivity.this, s -> {
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                    if(s.equals("Login Successfull")){
+                        startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -127,21 +153,10 @@ public class OTPVerficationActivity extends AppCompatActivity implements View.On
 
 
 
-    private void setUpButtons() {
-        btnVerify.setOnClickListener(this);
 
-    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnVerify:{
-                    startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
-                    finish();
-                break;
-            }
-        }
-    }
+
+
 
     private void registerBroadcastReceiver() {
         smsBroadcastReceiver = new SmsBroadcastReceiver();
