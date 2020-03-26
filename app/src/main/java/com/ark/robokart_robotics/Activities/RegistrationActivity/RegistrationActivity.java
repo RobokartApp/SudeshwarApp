@@ -1,6 +1,8 @@
 package com.ark.robokart_robotics.Activities.RegistrationActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,11 +11,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -48,11 +52,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
     TextView login_btn;
 
+    Button btn_register;
+
     TextView textview_fullname_error, textview_student_number_error, textview_parent_number_error, textview_email_error, textview_username_error, textview_password_error;
 
     EditText fullname_edt_text, student_number_edt_text, parent_number_edt_text, email_edt_text, username_edt_text, password_edt_text, referal_edt_text;
 
     LottieAnimationView drawable_anim_fullname, drawable_anim_st_number, drawable_anim_parent_number, drawable_anim_email, drawable_anim_username, drawable_anim_pass;
+
+    private RegistrationViewModel registrationViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
     //Initialise
     public void init(){
         login_btn = findViewById(R.id.login_btn);
+        btn_register = findViewById(R.id.btn_register);
         fullname_edt_text = findViewById(R.id.fullname_edt_text);
         student_number_edt_text = findViewById(R.id.student_number_edt_text);
         parent_number_edt_text = findViewById(R.id.parent_number_edt_text);
@@ -89,11 +98,95 @@ public class RegistrationActivity extends AppCompatActivity {
         drawable_anim_email = findViewById(R.id.drawable_anim_email);
         drawable_anim_username = findViewById(R.id.drawable_anim_username);
         drawable_anim_pass = findViewById(R.id.drawable_anim_pass);
+
+        registrationViewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
+
+
+        try {
+            Bundle bundle = getIntent().getExtras();
+            fullname_edt_text.setText(bundle.getString("fullname"));
+            email_edt_text.setText(bundle.getString("email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     //Event Listeners
     public void listeners(){
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fullname = fullname_edt_text.getText().toString().trim();
+                String email = email_edt_text.getText().toString().trim();
+                String st_number = student_number_edt_text.getText().toString().trim();
+                String pt_number = parent_number_edt_text.getText().toString().trim();
+                String pass = password_edt_text.getText().toString().trim();
+                String ref_code = referal_edt_text.getText().toString().trim();
+                String username = username_edt_text.getText().toString().trim();
+
+                if(fullname.equals("")){
+                    textview_fullname_error.setVisibility(View.VISIBLE);
+                    drawable_anim_fullname.setAnimation("error.json");
+                    drawable_anim_fullname.playAnimation();
+                }
+                else if(email.equals("")){
+                    textview_email_error.setVisibility(View.VISIBLE);
+                    drawable_anim_email.setAnimation("error.json");
+                    drawable_anim_email.playAnimation();
+                }
+                else if(st_number.equals("")){
+                    textview_student_number_error.setVisibility(View.VISIBLE);
+                    drawable_anim_st_number.setAnimation("error.json");
+                    drawable_anim_st_number.playAnimation();
+                }
+                else if(pt_number.equals("")){
+                    textview_parent_number_error.setVisibility(View.VISIBLE);
+                    drawable_anim_parent_number.setAnimation("error.json");
+                    drawable_anim_parent_number.playAnimation();
+                }
+                else if(pass.equals("")){
+                    textview_password_error.setVisibility(View.VISIBLE);
+                    drawable_anim_pass.setAnimation("error.json");
+                    drawable_anim_pass.playAnimation();
+                }
+
+                else if(username.equals("")){
+                    textview_username_error.setVisibility(View.VISIBLE);
+                    drawable_anim_username.setAnimation("error.json");
+                    drawable_anim_username.playAnimation();
+                }
+                else{
+                    textview_fullname_error.setVisibility(View.GONE);
+                    textview_username_error.setVisibility(View.GONE);
+                    textview_password_error.setVisibility(View.GONE);
+                    textview_parent_number_error.setVisibility(View.GONE);
+                    textview_student_number_error.setVisibility(View.GONE);
+                    textview_email_error.setVisibility(View.GONE);
+                    drawable_anim_username.pauseAnimation();
+                    drawable_anim_pass.pauseAnimation();
+                    drawable_anim_parent_number.pauseAnimation();
+                    drawable_anim_email.pauseAnimation();
+                    drawable_anim_st_number.pauseAnimation();
+                    drawable_anim_fullname.pauseAnimation();
+
+                    registrationViewModel.registeruser(fullname,email,pass,ref_code,st_number,pt_number,username).observe(RegistrationActivity.this, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s.startsWith("Registered")){
+                                Intent intent = new Intent(getApplicationContext(), Collect_RecommendationActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
 
         email_edt_text.addTextChangedListener(new TextWatcher() {
             @Override

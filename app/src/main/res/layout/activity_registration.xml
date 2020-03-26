@@ -445,7 +445,7 @@
 
 
         <carbon.widget.Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_register"
             style="@style/carbon_Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -473,7 +473,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"
+            app:layout_constraintTop_toBottomOf="@id/btn_register"
             app:layout_constraintBottom_toBottomOf="parent">
 
 

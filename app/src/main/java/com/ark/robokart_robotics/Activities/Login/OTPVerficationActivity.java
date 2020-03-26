@@ -91,7 +91,7 @@ public class OTPVerficationActivity extends AppCompatActivity  {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String otp = otpTextView.getOTP().toString();
+                String otp = otpTextView.getOTP();
                 otpViewModel.check(phone_number,otp).observe(OTPVerficationActivity.this, s -> {
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
                     if(s.equals("Login Successfull")){

@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int RC_SIGN_IN = 100;
 
-    Button btn_login;
+    Button btn_login, btn_email_login;
 
     LoginButton btn_fb;
 
@@ -104,6 +104,8 @@ public class LoginActivity extends AppCompatActivity {
         etPhoneNum = findViewById(R.id.etPhoneNum);
 
         btn_login = findViewById(R.id.btn_login);
+
+        btn_email_login = findViewById(R.id.btn_email_login);
 
         btn_fb = findViewById(R.id.login_button);
 
@@ -177,6 +179,15 @@ public class LoginActivity extends AppCompatActivity {
                     animationView.setAnimation("error.json");
                     animationView.playAnimation();
                 }
+            }
+        });
+
+
+        btn_email_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LoginEmailActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -337,6 +348,12 @@ public class LoginActivity extends AppCompatActivity {
                 String personEmail = account.getEmail();
                 String personId = account.getId();
                 Uri personPhoto = account.getPhotoUrl();
+
+                Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
+                intent.putExtra("fullname",personName);
+                intent.putExtra("email",personEmail);
+                intent.putExtra("profilepic",personPhoto);
+                startActivity(intent);
 
                 Toast.makeText(getApplicationContext(),"Welcome "+personName,Toast.LENGTH_SHORT).show();
             }

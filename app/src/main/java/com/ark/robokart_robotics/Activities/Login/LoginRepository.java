@@ -35,7 +35,7 @@ public class LoginRepository {
 
     private MutableLiveData<String> message = new MutableLiveData<>();
 
-    private MutableLiveData<String> otp_message = new MutableLiveData<>();
+
 
     public LoginRepository(Application application){
         this.application = application;
