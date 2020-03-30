@@ -35,6 +35,8 @@ public class LoginRepository {
 
     private MutableLiveData<String> message = new MutableLiveData<>();
 
+    private MutableLiveData<String> email_message = new MutableLiveData<>();
+
 
 
     public LoginRepository(Application application){
@@ -89,5 +91,51 @@ public class LoginRepository {
     }
 
 
+    public MutableLiveData<String> loginwithEmail(String email, String password){
+
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.login_api, response -> {
+            try {
+
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject result = jsonObject.getJSONObject("result");
+
+                int status = jsonObject.getInt("statusId");
+
+                String msg = result.getString("message");
+
+                if (status == 1) {
+                    //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, "login: "+result.getString("message"));
+
+                    message.setValue(msg);
+
+                }else if (status == 0) {
+                    Log.d(TAG, "login: "+result.getString("message"));
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email", email);
+                parameters.put("password",password);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+        return message;
+    }
 
 }

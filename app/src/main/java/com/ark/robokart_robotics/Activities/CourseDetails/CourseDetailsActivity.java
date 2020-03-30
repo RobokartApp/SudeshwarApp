@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
+import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchViewModel;
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
@@ -85,7 +86,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     public CourseInclusionViewModel courseInclusionViewModel;
 
-    public DashboardViewModel dashboardViewModel;
+    public ViewAllSearchViewModel viewAllSearchViewModel;
 
     public CustomAdapter customAdapter;
 
@@ -183,7 +184,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
         courseInclusionViewModel = new ViewModelProvider(this).get(CourseInclusionViewModel.class);
 
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        viewAllSearchViewModel = new ViewModelProvider(this).get(ViewAllSearchViewModel.class);
     }
 
 
@@ -197,12 +198,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         });
 
 
-        dashboardViewModel.getCourseList().observe(this, new Observer<List<CourseListModel>>() {
-            @Override
-            public void onChanged(List<CourseListModel> courseListModels) {
-                prepareViewedRecyclerView(courseListModels);
-            }
-        });
+//        viewAllSearchViewModel.getCourseList().observe(this, new Observer<List<CourseListModel>>() {
+//            @Override
+//            public void onChanged(List<CourseListModel> courseListModels) {
+//                prepareViewedRecyclerView(courseListModels);
+//            }
+//        });
 
 
         enroll_now.setOnClickListener(new View.OnClickListener() {

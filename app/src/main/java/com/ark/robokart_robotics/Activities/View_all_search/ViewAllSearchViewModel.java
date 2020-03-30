@@ -20,7 +20,6 @@ public class ViewAllSearchViewModel extends AndroidViewModel {
         viewAllSearchRepository = new ViewAllSearchRepository(application);
     }
 
-
     public LiveData<List<CourseListModel>> getCourseList() {
         return viewAllSearchRepository.getCourseList();
     }

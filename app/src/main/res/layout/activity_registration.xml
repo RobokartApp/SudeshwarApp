@@ -76,16 +76,21 @@
             android:id="@+id/fullname_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/login_linear">
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_name"/>
+
             <EditText
                 android:id="@+id/fullname_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
@@ -127,7 +132,7 @@
             android:id="@+id/student_number_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
@@ -135,15 +140,14 @@
             app:layout_constraintTop_toBottomOf="@id/fullname_linear">
 
 
-            <!--            <ImageView-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:src="@drawable/ic_person_purple"-->
-            <!--                android:layout_gravity="center_vertical"/>-->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_telephone"/>
 
             <EditText
                 android:id="@+id/student_number_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -187,7 +191,7 @@
             android:id="@+id/parent_number_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
@@ -195,9 +199,15 @@
             app:layout_constraintTop_toBottomOf="@id/student_number_linear">
 
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_telephone"/>
+
+
             <EditText
                 android:id="@+id/parent_number_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -244,18 +254,22 @@
             android:id="@+id/email_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/parent_number_linear">
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_email"/>
 
 
             <EditText
                 android:id="@+id/email_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -301,7 +315,7 @@
             android:id="@+id/username_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
@@ -309,9 +323,15 @@
             app:layout_constraintTop_toBottomOf="@id/email_linear">
 
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_user"/>
+
+
             <EditText
                 android:id="@+id/username_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -355,17 +375,21 @@
             android:id="@+id/password_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/username_linear">
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_password"/>
 
             <EditText
                 android:id="@+id/password_edt_text"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -374,7 +398,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="@string/password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="14dp"
                 android:textColor="@color/black"
                 android:textColorHint="#C5C4C4"
@@ -409,22 +433,22 @@
             android:id="@+id/referal_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/margin_right"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/password_linear">
 
 
-            <!--        <ImageView-->
-            <!--            android:layout_width="30dp"-->
-            <!--            android:layout_height="30dp"-->
-            <!--            android:src="@drawable/ic_person_purple"-->
-            <!--            android:layout_gravity="center_vertical"/>-->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_refer"/>
 
             <EditText
                 android:id="@+id/referal_edt_text"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="2dp"
@@ -442,6 +466,20 @@
 
 
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textview_refercode_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Invalid Code"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/password_linear"
+            />
 
 
         <carbon.widget.Button

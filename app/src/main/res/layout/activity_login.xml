@@ -335,24 +335,6 @@
             app:carbon_elevationShadowColor="@color/purple"/>
 
 
-        <carbon.widget.Button
-            android:id="@+id/btn_reveal_email_login"
-            style="@style/carbon_Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginRight="@dimen/margin_right"
-            android:text="@string/login"
-            app:layout_constraintTop_toBottomOf="@id/send_otp_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/btn_login"
-            android:shadowRadius="10.0"
-            android:shadowDy="10.0"
-            app:carbon_elevation="10dp"
-            app:carbon_elevationAmbientShadowColor="@color/purple"
-            app:carbon_elevationShadowColor="@color/purple"/>
 
 
         <carbon.widget.TextView

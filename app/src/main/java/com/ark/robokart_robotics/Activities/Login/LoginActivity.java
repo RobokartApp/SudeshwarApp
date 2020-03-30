@@ -355,7 +355,6 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra("profilepic",personPhoto);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(),"Welcome "+personName,Toast.LENGTH_SHORT).show();
             }
             // Signed in successfully, show authenticated UI.
 //            updateUI(account);
@@ -379,7 +378,7 @@ public class LoginActivity extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            Toast.makeText(getApplicationContext(),personName,Toast.LENGTH_SHORT).show();
+
         }
         super.onStart();
     }

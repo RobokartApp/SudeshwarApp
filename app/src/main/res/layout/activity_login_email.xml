@@ -69,18 +69,22 @@
                     android:id="@+id/email_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_left"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     app:layout_constraintTop_toBottomOf="@id/parent_number_linear">
 
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_email"/>
 
 
                     <EditText
                         android:id="@+id/email_edt_text"
-                        android:layout_width="320dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginLeft="2dp"
@@ -125,17 +129,21 @@
                     android:id="@+id/password_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     app:layout_constraintTop_toBottomOf="@id/username_linear">
 
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_password"/>
 
                     <EditText
                         android:id="@+id/password_edt_text"
-                        android:layout_width="320dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginLeft="2dp"
@@ -144,7 +152,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
                         android:hint="@string/password"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         android:padding="14dp"
                         android:textColor="@color/black"
                         android:textColorHint="#C5C4C4"

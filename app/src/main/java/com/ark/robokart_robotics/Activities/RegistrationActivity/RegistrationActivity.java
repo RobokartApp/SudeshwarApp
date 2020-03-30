@@ -174,12 +174,14 @@ public class RegistrationActivity extends AppCompatActivity {
                     registrationViewModel.registeruser(fullname,email,pass,ref_code,st_number,pt_number,username).observe(RegistrationActivity.this, new Observer<String>() {
                         @Override
                         public void onChanged(String s) {
-                            if(s.startsWith("Registered")){
-                                Intent intent = new Intent(getApplicationContext(), Collect_RecommendationActivity.class);
-                                startActivity(intent);
+                            if(s.equals("Email or Mobile Number is already registered")){
+                                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), Collect_RecommendationActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
                         }
                     });

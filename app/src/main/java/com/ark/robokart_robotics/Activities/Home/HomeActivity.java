@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ark.robokart_robotics.Activities.Login.LoginActivity;
 import com.ark.robokart_robotics.Activities.Profile.ProfileActivity;
+import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
 import com.ark.robokart_robotics.R;
@@ -22,6 +24,7 @@ import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
+import carbon.widget.Button;
 import carbon.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -47,6 +50,10 @@ public class HomeActivity extends AppCompatActivity {
     public Fragment fragment;
 
     public LinearLayout profile_linear;
+
+    private Button logout_btn;
+
+    SharedPref sharedPref;
 
 
     @Override
@@ -92,6 +99,8 @@ public class HomeActivity extends AppCompatActivity {
 
         back_arrow = findViewById(R.id.back_arrow);
 
+        logout_btn = findViewById(R.id.logout_btn);
+
         profile_linear = findViewById(R.id.profile_linear);
 
         setFragment("dashboard");
@@ -117,6 +126,26 @@ public class HomeActivity extends AppCompatActivity {
                     drawerOpened = 0;
                     slidingRootNav.closeMenu();
                 }
+
+
+            }
+        });
+
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingRootNav.closeMenu();
+
+                Handler mHandler = new Handler();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sharedPref = new SharedPref();
+                        sharedPref.setLoginStatus(HomeActivity.this,0);
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    }
+                },300);
 
 
             }

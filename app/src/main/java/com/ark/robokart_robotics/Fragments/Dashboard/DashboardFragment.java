@@ -1,5 +1,6 @@
 package com.ark.robokart_robotics.Fragments.Dashboard;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -23,7 +24,9 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
+import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchActivity;
+import com.ark.robokart_robotics.Adapters.AdvanceCourseListAdpater;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
@@ -45,10 +48,15 @@ public class DashboardFragment extends Fragment {
 
     private RecyclerView rvJustStartingVideos;
     private RecyclerView rvKnowBitVideos;
+    private RecyclerView rvKnowEverythingVideos;
 
     private DashboardViewModel dashboardViewModel;
 
-    private CourseListAdapter courseListAdapter;
+    private BeginnerViewModel beginnerViewModel;
+
+    private IntermediateViewModel intermediateViewModel;
+
+    private AdvanceCourseListAdpater advanceCourseListAdpater;
 
     private CustomAdapter customAdapter;
 
@@ -75,13 +83,39 @@ public class DashboardFragment extends Fragment {
         view_all_iknow_just_bits = view.findViewById(R.id.view_all_iknow_just_bits);
         rvJustStartingVideos = view.findViewById(R.id.rvJustStartingVideos);
         rvKnowBitVideos = view.findViewById(R.id.rvKnowBitVideos);
+        rvKnowEverythingVideos = view.findViewById(R.id.rvKnowEverythingVideos);
 
         dashboardViewModel =  new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        dashboardViewModel.getCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
+        beginnerViewModel = new ViewModelProvider(this).get(BeginnerViewModel.class);
+
+        intermediateViewModel = new ViewModelProvider(this).get(IntermediateViewModel.class);
+
+
+        beginnerViewModel.getBeginnerourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
             @Override
-            public void onChanged(List<CourseListModel> courseListModelList) {
-                prepareRecyclerView(courseListModelList);
+            public void onChanged(List<CourseListModel> courseListModels) {
+                customAdapter = new CustomAdapter(getApplicationContext(),courseListModels);
+                rvJustStartingVideos.setAdapter(customAdapter);
+                customAdapter.notifyDataSetChanged();
+            }
+        });
+
+        intermediateViewModel.getIntermediateCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
+            @Override
+            public void onChanged(List<CourseListModel> courseListModels) {
+                intermediateCourseListAdapter = new IntermediateCourseListAdapter(getApplicationContext(),courseListModels);
+                rvKnowBitVideos.setAdapter(intermediateCourseListAdapter);
+                intermediateCourseListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        dashboardViewModel.getAdvanceCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
+            @Override
+            public void onChanged(List<CourseListModel> courseListModels) {
+                advanceCourseListAdpater = new AdvanceCourseListAdpater(getApplicationContext(),courseListModels);
+                rvKnowEverythingVideos.setAdapter(advanceCourseListAdpater);
+                advanceCourseListAdpater.notifyDataSetChanged();
             }
         });
 
@@ -94,23 +128,7 @@ public class DashboardFragment extends Fragment {
         });
 
 
-
-
-
     }
 
-    private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
-        courseListAdapter = new CourseListAdapter(getApplicationContext(),courseListModelList);
 
-        customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
-
-        intermediateCourseListAdapter = new IntermediateCourseListAdapter(getApplicationContext(),courseListModelList);
-
-        rvJustStartingVideos.setItemAnimator(new DefaultItemAnimator());
-        rvJustStartingVideos.setAdapter(customAdapter);
-        rvKnowBitVideos.setAdapter(intermediateCourseListAdapter);
-        courseListAdapter.notifyDataSetChanged();
-
-
-    }
 }

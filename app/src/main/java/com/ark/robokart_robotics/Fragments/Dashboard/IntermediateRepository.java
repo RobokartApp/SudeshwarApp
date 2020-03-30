@@ -2,7 +2,6 @@ package com.ark.robokart_robotics.Fragments.Dashboard;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -25,9 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DashboardRepository {
+public class IntermediateRepository {
 
-    private static final String TAG = "DashboardRepository";
+    private static final String TAG = "IntermediateRepository";
 
     private Application application;
 
@@ -37,16 +36,14 @@ public class DashboardRepository {
 
     private ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
 
-    public DashboardRepository(Application application){
+    public IntermediateRepository(Application application){
         this.application = application;
         requestQueue = Volley.newRequestQueue(application);
     }
 
+    public MutableLiveData<List<CourseListModel>> getIntermediateCourseList(){
 
-
-    public MutableLiveData<List<CourseListModel>> getAdvanceCourseList(){
-
-        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.local_HOST + ApiConstants.advancecourses_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.local_HOST + ApiConstants.intermediatecourses_api, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray courses = jsonObject.getJSONArray("courses");
@@ -102,6 +99,4 @@ public class DashboardRepository {
 
         return courseListModelMutableLiveData;
     }
-
-
 }

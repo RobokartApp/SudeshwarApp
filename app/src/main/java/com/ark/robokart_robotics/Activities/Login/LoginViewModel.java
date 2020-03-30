@@ -20,4 +20,8 @@ public class LoginViewModel extends AndroidViewModel {
         return loginRepository.requestOTP(phone_number);
     }
 
+
+    public MutableLiveData<String> loginwithEmail(String email, String password) {
+        return loginRepository.loginwithEmail(email,password);
+    }
 }

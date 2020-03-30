@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.Login.LoginActivity;
 import com.ark.robokart_robotics.Activities.OnBoarding.OnBoardingActivity;
 import com.ark.robokart_robotics.Common.SharedPref;
@@ -92,15 +93,31 @@ public class MainActivity extends AppCompatActivity {
 
         int val = sharedPref.getOnboardingStatus(getApplicationContext());
 
-        if(val == 0){
-            Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);
-            startActivity(intent);
-            finish();
+        int status_val = sharedPref.checkLoginStatus(getApplicationContext());
+        if(status_val == 1){
+            if(val == 0){
+                Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
         else{
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
+            if(val == 0){
+                Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         }
 
     }

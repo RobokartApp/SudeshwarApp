@@ -1,16 +1,34 @@
 package com.ark.robokart_robotics.Activities.View_all_search;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.CourseListModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ViewAllSearchRepository {
 
+    private static final String TAG = "ViewAllSearchRepository";
+
+    private RequestQueue requestQueue;
 
     private Application application;
 
@@ -20,20 +38,64 @@ public class ViewAllSearchRepository {
 
     public ViewAllSearchRepository(Application application){
         this.application = application;
+        requestQueue = Volley.newRequestQueue(application);
     }
 
     public MutableLiveData<List<CourseListModel>> getCourseList(){
-        courseListModelArrayList.add(new CourseListModel("1","Robotrix Robotics","4.5","25"));
-        courseListModelArrayList.add(new CourseListModel("2","Kindertronics - Electronics","4.95","80"));
-        courseListModelArrayList.add(new CourseListModel("3","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("4","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("5","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("6","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("7","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("8","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("9","Brain X - Arduino Based","5","40"));
-        courseListModelArrayList.add(new CourseListModel("10","Brain X - Arduino Based","5","40"));
-        courseListModelMutableLiveData.setValue(courseListModelArrayList);
+        StringRequest request = new StringRequest(Request.Method.GET,"http://192.168.0.104/robokart/allcourses_api.php", response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray courses = jsonObject.getJSONArray("courses");
+                int status = jsonObject.getInt("success_code");
+                String error_msg = jsonObject.getString("error_msg");
+
+                if (status == 1) {
+                    try{
+                        for(int i = 0; i< courses.length();i++){
+                            JSONObject json = courses.getJSONObject(i);
+                            CourseListModel course = new CourseListModel(
+                                    json.getString("course_id"),
+                                    json.getString("course_level"),
+                                    json.getString("course_name"),
+                                    json.getString("customer_rating"),
+                                    json.getString("course_header_imge"),
+                                    json.getString("course_enrolled")
+                            );
+                            courseListModelArrayList.add(course);
+
+                        }
+                        courseListModelMutableLiveData.setValue(courseListModelArrayList);
+
+                    }
+                    catch (Exception e){
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "fetchLocationListing: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
         return courseListModelMutableLiveData;
     }
 

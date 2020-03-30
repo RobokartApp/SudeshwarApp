@@ -20,13 +20,13 @@ import java.util.List;
 
 public class ViewAllSearchActivity extends AppCompatActivity {
 
-    private RecyclerView coursesRecyclerview;
+    public  RecyclerView coursesRecyclerview;
 
     private ImageView back_btn;
 
     private ViewAllSearchViewModel viewAllSearchViewModel;
 
-    private CourseListAdapter courseListAdapter;
+    public  CourseListAdapter courseListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class ViewAllSearchActivity extends AppCompatActivity {
         init();
 
         listeners();
+
     }
 
 
@@ -43,6 +44,7 @@ public class ViewAllSearchActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
 
         coursesRecyclerview = findViewById(R.id.coursesRecyclerview);
+
 
         viewAllSearchViewModel = new ViewModelProvider(this).get(ViewAllSearchViewModel.class);
 
@@ -67,12 +69,9 @@ public class ViewAllSearchActivity extends AppCompatActivity {
 
     private void prepareRecyclerView(List<CourseListModel> courseListModelList) {
         courseListAdapter = new CourseListAdapter(getApplicationContext(),courseListModelList);
-
         coursesRecyclerview.setItemAnimator(new DefaultItemAnimator());
         coursesRecyclerview.setAdapter(courseListAdapter);
-        coursesRecyclerview.setAdapter(courseListAdapter);
         courseListAdapter.notifyDataSetChanged();
-
 
     }
 }

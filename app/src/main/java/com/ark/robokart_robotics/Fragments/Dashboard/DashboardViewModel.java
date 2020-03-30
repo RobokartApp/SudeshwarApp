@@ -21,7 +21,8 @@ public class DashboardViewModel extends AndroidViewModel {
         dashboardRepository = new DashboardRepository(application);
     }
 
-    public LiveData<List<CourseListModel>> getCourseList() {
-        return dashboardRepository.getCourseList();
+
+    public LiveData<List<CourseListModel>> getAdvanceCourseList() {
+        return dashboardRepository.getAdvanceCourseList();
     }
 }
