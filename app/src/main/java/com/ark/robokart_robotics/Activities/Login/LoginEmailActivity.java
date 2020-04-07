@@ -39,7 +39,7 @@ public class LoginEmailActivity extends AppCompatActivity {
 
     private EditText email_edt_text, password_edt_text;
 
-    private Button btn_login;
+    private Button btn_login, btn_phone_login;
 
     private CallbackManager callbackManager;
 
@@ -69,6 +69,8 @@ public class LoginEmailActivity extends AppCompatActivity {
         drawable_anim_pass = findViewById(R.id.drawable_anim_pass);
 
         btn_login = findViewById(R.id.btn_login);
+
+        btn_phone_login = findViewById(R.id.btn_phone_login);
 
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -113,6 +115,14 @@ public class LoginEmailActivity extends AppCompatActivity {
                         textview_email_error.setVisibility(View.VISIBLE);
                     }
                 }
+            }
+        });
+
+        btn_phone_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
 

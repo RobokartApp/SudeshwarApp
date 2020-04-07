@@ -59,6 +59,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/upload_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
@@ -74,7 +75,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/plain_white"
-        android:layout_marginTop="60dp"
        >
 
         <LinearLayout
@@ -83,24 +83,36 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <carbon.widget.TextView
-                android:id="@+id/name_txt"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:gravity="center_horizontal"
-                android:text="Charul"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="30dp">
 
-            <carbon.widget.TextView
-                android:id="@+id/address_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:gravity="center_horizontal"
-                android:text="Gorai, Borivali"
-                android:textSize="16sp" />
+                <carbon.widget.TextView
+                    android:id="@+id/name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Charul"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"/>
+
+
+                <ImageButton
+                    android:id="@+id/edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:layout_marginEnd="20dp"/>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,7 +127,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-
                     <LinearLayout
                         android:layout_width="320dp"
                         android:layout_height="wrap_content"
@@ -124,17 +135,17 @@
                         <carbon.widget.TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="First Name"
+                            android:text="Full Name"
                             android:textColor="@color/grey" />
-
 
                         <EditText
                             android:id="@+id/first_name_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint="First Name"
-                            android:text="Charul" />
+                            android:hint="Full Name"
+                            android:text="Charul Dalvi" />
+
                     </LinearLayout>
 
                     <com.airbnb.lottie.LottieAnimationView
@@ -175,7 +186,7 @@
                         <carbon.widget.TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Last Name"
+                            android:text="Student Number"
                             android:textColor="@color/grey" />
 
 
@@ -186,7 +197,7 @@
                             android:background="@color/white"
                             android:backgroundTint="@color/white"
                             android:hint="Last Name"
-                            android:text="Dalvi" />
+                            android:text="9876543219" />
 
                     </LinearLayout>
 
@@ -283,7 +294,7 @@
                         <carbon.widget.TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Phone Number"
+                            android:text="Parent Number"
                             android:textColor="@color/grey" />
 
 
@@ -293,7 +304,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:backgroundTint="@color/white"
-                            android:text="+919987573342" />
+                            android:text="9987573342" />
 
                     </LinearLayout>
 
@@ -323,7 +334,6 @@
                     />
 
 
-
             </LinearLayout>
 
             <carbon.widget.Button
@@ -331,15 +341,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/btn_login"
                 android:shadowDy="6.0"
                 android:text="Save"
+                android:visibility="gone"
                 android:textStyle="bold"
                 app:carbon_elevation="6dp"
                 app:carbon_elevationShadowColor="@color/purple" />
-
 
         </LinearLayout>
 

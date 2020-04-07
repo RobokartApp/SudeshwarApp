@@ -42,7 +42,7 @@ public class ViewAllSearchRepository {
     }
 
     public MutableLiveData<List<CourseListModel>> getCourseList(){
-        StringRequest request = new StringRequest(Request.Method.GET,"http://192.168.0.104/robokart/allcourses_api.php", response -> {
+        StringRequest request = new StringRequest(Request.Method.GET,ApiConstants.HOST + ApiConstants.allcourses_api, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray courses = jsonObject.getJSONArray("courses");
@@ -58,7 +58,7 @@ public class ViewAllSearchRepository {
                                     json.getString("course_level"),
                                     json.getString("course_name"),
                                     json.getString("customer_rating"),
-                                    json.getString("course_header_imge"),
+                                    json.getString("course_video_thumb"),
                                     json.getString("course_enrolled")
                             );
                             courseListModelArrayList.add(course);

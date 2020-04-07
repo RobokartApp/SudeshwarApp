@@ -2,6 +2,7 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -78,25 +80,22 @@ public class AdvanceCourseListAdpater extends ListAdapter<CourseListModel, Advan
         holder.tvPeople.setText(answers.getCourse_enrolled());
         holder.tvRating.setText(answers.getCustomer_rating());
 
+        String courseid = answers.getCourse_id();
+
+        Glide.with(mContext).load(answers.getCourse_video_thumb()).disallowHardwareConfig().into(holder.ivVideo);
 
         holder.video_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, VideoPlayingActivity.class);
+                intent.putExtra("courseid",courseid);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
         });
 
 
-        if(position %3 == 1)
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color1));
-        }
-        else
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color2));
-        }
+
 
     }
 

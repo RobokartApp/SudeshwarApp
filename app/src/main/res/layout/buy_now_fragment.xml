@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -20,17 +21,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
+
         <carbon.widget.TextView
             android:id="@+id/home_cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
             android:text="₹ 11200"
+            android:textColor="@color/purple"
             android:textSize="24sp"
             app:layout_constraintTop_toBottomOf="@id/home_txt"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/purple"/>
-
+            tools:layout_editor_absoluteX="0dp" />
 
         <carbon.widget.TextView
             android:id="@+id/home_learn_desc"

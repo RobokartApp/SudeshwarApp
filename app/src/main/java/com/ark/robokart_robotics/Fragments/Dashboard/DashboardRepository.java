@@ -62,7 +62,7 @@ public class DashboardRepository {
                                     json.getString("course_level"),
                                     json.getString("course_name"),
                                     json.getString("customer_rating"),
-                                    json.getString("course_header_imge"),
+                                    json.getString("course_video_thumb"),
                                     json.getString("course_enrolled")
                             );
                             courseListModelArrayList.add(course);

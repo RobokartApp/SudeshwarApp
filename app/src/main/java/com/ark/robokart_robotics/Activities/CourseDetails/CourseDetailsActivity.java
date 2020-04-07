@@ -3,6 +3,7 @@ package com.ark.robokart_robotics.Activities.CourseDetails;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -27,17 +28,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchViewModel;
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
 import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
+import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
 import com.ark.robokart_robotics.Fragments.Payment.BillingDetailsFragment;
 import com.ark.robokart_robotics.Fragments.Payment.BuyNowFragment;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
+import com.bumptech.glide.Glide;
 import com.example.vimeoplayer2.UniversalMediaController;
 import com.example.vimeoplayer2.UniversalVideoView;
 import com.example.vimeoplayer2.vimeoextractor.OnVimeoExtractionListener;
@@ -49,9 +59,12 @@ import com.google.android.flexbox.JustifyContent;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import carbon.widget.Button;
 
@@ -78,7 +91,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     Checkout checkout;
 
 
-    ImageView back_btn, play_btn, play_quiz_challenge;
+    TextView course_name, customer_rating;
+
+    ImageView back_btn, play_btn, play_quiz_challenge, video_thumb;
 
     RecyclerView courseInclusionRecyclerview, alsoviewedRecyclerview;
 
@@ -98,7 +113,11 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     private boolean isOpen = false;
 
+    private RequestQueue requestQueue;
 
+    String courseid = "";
+
+    String online_price_title, course_online_price, offline_price_title, course_offline_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,11 +182,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
         mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
+        video_thumb = findViewById(R.id.video_thumb);
         mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
         enroll_now = findViewById(R.id.enroll_now);
         course_details_section = findViewById(R.id.course_details_section);
         paymentFragment = findViewById(R.id.paymentFragment);
         play_quiz_challenge = findViewById(R.id.play_quiz_challenge);
+        course_name = findViewById(R.id.course_name);
+        customer_rating = findViewById(R.id.customer_rating);
 
         mVideoView.setMediaController(mMediaController);
         setVideoAreaSize();
@@ -177,6 +199,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
         back_btn = findViewById(R.id.back_btn);
 
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
         courseInclusionRecyclerview = findViewById(R.id.courseInclusionRecyclerview);
 
         alsoviewedRecyclerview = findViewById(R.id.alsoviewedRecyclerview);
@@ -185,6 +209,15 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         courseInclusionViewModel = new ViewModelProvider(this).get(CourseInclusionViewModel.class);
 
         viewAllSearchViewModel = new ViewModelProvider(this).get(ViewAllSearchViewModel.class);
+
+        try {
+            Bundle bundle = getIntent().getExtras();
+            courseid = bundle.getString("courseid");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        getCourseDetails(courseid);
     }
 
 
@@ -196,6 +229,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                 prepareRecyclerView(recommendationsList);
             }
         });
+
+
 
 
 //        viewAllSearchViewModel.getCourseList().observe(this, new Observer<List<CourseListModel>>() {
@@ -215,6 +250,13 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                 course_details_section.setVisibility(View.GONE);
 
                 BuyNowFragment buyNowFragment = new BuyNowFragment();
+
+                Bundle data = new Bundle();//Use bundle to pass data
+                data.putString("home_cost", course_online_price);//put string, int, etc in bundle with a key value
+                data.putString("home_desc", online_price_title);
+                data.putString("makerspace_cost",course_offline_price);
+                data.putString("makerspace_learn_desc",offline_price_title);
+                buyNowFragment.setArguments(data);
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -442,5 +484,70 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         if(isClicked){
             startPayment();
         }
+    }
+
+
+    public void getCourseDetails(String courseid){
+
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.course_details_api, response -> {
+            try {
+
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject result = jsonObject.getJSONObject("result");
+
+                JSONObject course_details = result.getJSONObject("course_details");
+
+                int status = jsonObject.getInt("statusId");
+
+                String msg = result.getString("message");
+
+                if (status == 1) {
+                    //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, "course: "+result.getString("message"));
+
+                    String c_name = course_details.getString("course_name");
+                    String cu_rating = course_details.getString("customer_rating");
+                    String course_enrolled = course_details.getString("course_enrolled");
+                    String course_video_thumb = course_details.getString("course_video_thumb");
+                    online_price_title = course_details.getString("online_price_title");
+                    course_online_price = course_details.getString("course_online_price");
+                    offline_price_title = course_details.getString("offline_price_title");
+                    course_offline_price = course_details.getString("course_offline_price");
+
+                    course_name.setText(c_name);
+
+                    customer_rating.setText(cu_rating);
+
+                    enroll_now.setText("₹ "+course_online_price + " Enroll now");
+
+                    Glide.with(getApplicationContext()).load(course_video_thumb).into(video_thumb);
+
+
+                }else if (status == 0) {
+                    Log.d(TAG, "login: "+result.getString("message"));
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("courseid", courseid);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+
     }
 }

@@ -20,6 +20,9 @@ import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
 import com.ark.robokart_robotics.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -55,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
 
     SharedPref sharedPref;
 
+    GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,13 @@ public class HomeActivity extends AppCompatActivity {
         mHandler = new Handler();
 
         fragmentManager = getSupportFragmentManager();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 
 
         slidingRootNav = new SlidingRootNavBuilder(this)
@@ -142,6 +154,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void run() {
                         sharedPref = new SharedPref();
                         sharedPref.setLoginStatus(HomeActivity.this,0);
+                        mGoogleSignInClient.signOut();
                         finish();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     }

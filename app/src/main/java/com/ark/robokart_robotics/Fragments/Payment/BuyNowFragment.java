@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 import com.ark.robokart_robotics.R;
 
 import carbon.widget.Button;
+import carbon.widget.TextView;
 
 public class BuyNowFragment extends Fragment {
 
 
     Button btn_buy_home;
+
+    TextView home_cost, home_learn_desc, makerspace_cost, makerspace_learn_desc;
 
 
     public BuyNowFragment(){}
@@ -25,6 +28,8 @@ public class BuyNowFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.buy_now_fragment,container,false);
+
+
     }
 
     @Override
@@ -32,6 +37,20 @@ public class BuyNowFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btn_buy_home = view.findViewById(R.id.btn_buy_home);
+
+        home_cost = view.findViewById(R.id.home_cost);
+        home_learn_desc = view.findViewById(R.id.home_learn_desc);
+        makerspace_cost = view.findViewById(R.id.makerspace_cost);
+        makerspace_learn_desc = view.findViewById(R.id.makerspace_learn_desc);
+
+        String h_cost = getArguments().getString("home_cost");
+        home_cost.setText("₹ "+h_cost);//set string over textview
+        String h_desc = getArguments().getString("home_desc");
+        home_learn_desc.setText(h_desc);
+        String m_cost = getArguments().getString("makerspace_cost");
+        makerspace_cost.setText("₹ "+m_cost);
+        String m_desc = getArguments().getString("makerspace_learn_desc");
+        makerspace_learn_desc.setText(m_desc);
 
 
         btn_buy_home.setOnClickListener(new View.OnClickListener() {

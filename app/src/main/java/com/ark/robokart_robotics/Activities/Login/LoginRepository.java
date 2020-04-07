@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
+import com.ark.robokart_robotics.Common.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +54,8 @@ public class LoginRepository {
 
                 JSONObject result = jsonObject.getJSONObject("result");
 
+                JSONObject userdetails = result.getJSONObject("userdetails");
+
                 int status = jsonObject.getInt("statusId");
 
                 String msg = result.getString("message");
@@ -61,6 +64,16 @@ public class LoginRepository {
                     //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "login: "+result.getString("message"));
+
+                    String cust_id = userdetails.getString("customer_id");
+                    String fullname = userdetails.getString("customer_name");
+                    String email = userdetails.getString("customer_email");
+                    String cust_mobile = userdetails.getString("customer_mobile");
+                    String cust_parents_number = userdetails.getString("customer_parents_number");
+
+                    SharedPref sharedPref = new SharedPref();
+
+                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,email,cust_parents_number);
 
                     message.setValue(msg);
 
@@ -100,6 +113,8 @@ public class LoginRepository {
 
                 JSONObject result = jsonObject.getJSONObject("result");
 
+                JSONObject userdetails = result.getJSONObject("userdetails");
+
                 int status = jsonObject.getInt("statusId");
 
                 String msg = result.getString("message");
@@ -108,6 +123,15 @@ public class LoginRepository {
                     //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "login: "+result.getString("message"));
+
+                    String cust_id = userdetails.getString("customer_id");
+                    String fullname = userdetails.getString("customer_name");
+                    String customer_email = userdetails.getString("customer_email");
+                    String cust_mobile = userdetails.getString("customer_moblie");
+                    String cust_parents_number = userdetails.getString("customer_parents_number");
+                    SharedPref sharedPref = new SharedPref();
+
+                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,cust_parents_number);
 
                     message.setValue(msg);
 

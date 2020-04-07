@@ -21,6 +21,7 @@ import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,7 @@ public class IntermediateCourseListAdapter extends ListAdapter<CourseListModel,I
         holder.tvPeople.setText(answers.getCourse_enrolled());
         holder.tvRating.setText(answers.getCustomer_rating());
 
+        Glide.with(mContext).load(answers.getCourse_video_thumb()).disallowHardwareConfig().into(holder.ivVideo);
 
         holder.video_relative.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +98,7 @@ public class IntermediateCourseListAdapter extends ListAdapter<CourseListModel,I
         });
 
 
-        if(position %3 == 1)
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color1));
-        }
-        else
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color2));
-        }
+
 
     }
 

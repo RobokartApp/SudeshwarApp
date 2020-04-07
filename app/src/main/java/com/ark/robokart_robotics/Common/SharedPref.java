@@ -31,4 +31,22 @@ public class SharedPref {
         editor.putInt("status",status);
         editor.apply();
     }
+
+    public void setUserDetails(Context context, String customer_id, String fullname, String stud_number, String email, String parent_number){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("customer_id",customer_id);
+        editor.putString("fullname",fullname);
+        editor.putString("stud_number",stud_number);
+        editor.putString("email",email);
+        editor.putString("parent_number",parent_number);
+        editor.apply();
+    }
+
+    public void setProfileImage(Context context, String image_url) {
+        SharedPreferences sharedPreferences =context.getSharedPreferences("URL",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putString("image_url",image_url);
+        editor.apply();
+    }
 }

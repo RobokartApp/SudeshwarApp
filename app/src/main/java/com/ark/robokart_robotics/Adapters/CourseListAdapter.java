@@ -87,26 +87,20 @@ public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAda
         holder.tvPeople.setText(answers.getCourse_enrolled());
         holder.tvRating.setText(answers.getCustomer_rating());
 
-
+        Glide.with(mContext).load(answers.getCourse_video_thumb()).disallowHardwareConfig().into(holder.ivVideo);
 
         holder.video_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CourseDetailsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("courseid",answers.getCourse_id());
                 mContext.startActivity(intent);
             }
         });
 
 
-        if(position %3 == 1)
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color1));
-        }
-        else
-        {
-            holder.overlay.setBackground(mContext.getResources().getDrawable(R.drawable.color2));
-        }
+
 
     }
 
