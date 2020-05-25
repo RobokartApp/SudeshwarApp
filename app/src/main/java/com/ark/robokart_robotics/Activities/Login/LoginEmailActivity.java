@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
+import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.RegistrationActivity.RegistrationActivity;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
@@ -183,10 +184,17 @@ public class LoginEmailActivity extends AppCompatActivity {
                         if(s.equals("Login Successfull")){
                             SharedPref sharedPref = new SharedPref();
                             sharedPref.setLoginStatus(LoginEmailActivity.this,1);
-                            Intent intent = new Intent(getApplicationContext(), Collect_RecommendationActivity.class);
-                            startActivity(intent);
-                            finish();
 
+                            int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
+
+                            if(status_recom == 1){
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finish();
+                            }
+                            else {
+                                startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
+                                finish();
+                            }
                         }
                     }
                 });

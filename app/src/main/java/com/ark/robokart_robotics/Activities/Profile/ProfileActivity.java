@@ -45,6 +45,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 
 import carbon.widget.Button;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -79,6 +81,8 @@ public class ProfileActivity extends AppCompatActivity {
     public ProfileViewModel profileViewModel;
 
     private ImagePicker imagePicker;
+
+    private carbon.widget.TextView tvGood;
 
     File file;
 
@@ -123,6 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
         upload_btn = findViewById(R.id.upload_btn);
         profile_image = findViewById(R.id.profile_image);
         edit_btn = findViewById(R.id.edit_btn);
+        tvGood = findViewById(R.id.tvGood);
         apiRequest = RetrofitRequest.getRetrofitInstance().create(UploadAPI.class);
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -139,6 +144,27 @@ public class ProfileActivity extends AppCompatActivity {
             String url = sharedPreferences1.getString("image_url","https://img.icons8.com/officel/2x/user.png");
             Glide.with(getApplicationContext()).load(Uri.parse(url).toString().trim()).disallowHardwareConfig().into(profile_image);
 //            Picasso.get().load(img_base_url+url.trim()).into(profile_image);
+
+            //Get the time of day
+            Date date = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+
+            //Set greeting
+            String greeting = null;
+            if(hour>=6 && hour<12){
+                greeting = "Good Morning,";
+            } else if(hour>= 12 && hour < 17){
+                greeting = "Good Afternoon,";
+            } else if(hour >= 17 && hour < 24){
+                greeting = "Good Evening,";
+            }
+//        else if(hour >= 21 && hour < 24){
+//            greeting = "Good Night";
+//        }
+
+            tvGood.setText(greeting);
         } catch (Exception e) {
             e.printStackTrace();
         }

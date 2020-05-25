@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/purple_bg"
+    tools:context=".Activities.Certificate.CheckCertificateActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_btn_purple"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/plain_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to_verify_the_authenticity_of_a_certificate_issued_by_robokart_please_enter_the_certification_id"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"/>
+
+
+        <EditText
+            android:id="@+id/edt_cert_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/white"
+            android:hint="@string/enter_certification_id"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:background="@color/lightgrey"
+            android:layout_marginEnd="30dp"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Invalid Certificate"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"/>
+
+
+
+        <carbon.widget.Button
+            android:id="@+id/download_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/carbon_Button.Flat"
+            android:text="Download Certficate"
+            android:textAllCaps="false"
+            android:textColor="@color/purple"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_marginBottom="30dp">
+
+            <carbon.widget.Button
+                android:id="@+id/check_btn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/btn_login"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:text="Check"
+                android:shadowRadius="10.0"
+                android:shadowDy="10.0"
+                app:carbon_elevation="10dp"
+                app:carbon_elevationAmbientShadowColor="@color/purple"
+                app:carbon_elevationShadowColor="@color/purple"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

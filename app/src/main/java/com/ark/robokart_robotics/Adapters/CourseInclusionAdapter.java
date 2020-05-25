@@ -27,6 +27,7 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
     private OnItemClickListener listener;
     private List<CourseInclusionModel> mcourseList;
     private Context mContext;
+    int num = 0;
 
     public CourseInclusionAdapter(Context context, List<CourseInclusionModel> courseListModelList) {
         super(DIFF_CALLBACK);
@@ -57,15 +58,26 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
         CourseInclusionModel answers = mcourseList.get(position);
-        holder.chapter_num.setText(String.valueOf(answers.getCi_cname()));
-        holder.video_name.setText(answers.getCi_vname());
-        holder.video_mins.setText("Video - " + answers.getCi_vmins()+" mins");
-//
-        holder.pb.setProgress(50,true);
+        holder.video_name.setText(String.valueOf(answers.getChapter_name()));
+
+//        for(int i =0; i < mcourseList.size()-1; i++){
+//            num++;
+//            holder.chapter_num.setText(String.valueOf(num));
+//        }
+
+        if(position == 0){
+            holder.pb.setProgress(0,true);
+            holder.playbtn.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.pb.setProgress(0,true);
+            holder.playbtn.setVisibility(View.GONE);
+        }
+
 
         String quiz = holder.video_name.getText().toString();
 
-        if(quiz.startsWith("Quiz")){
+        if(quiz.equals("Final Quiz") || quiz.equals("Final Test") || quiz.equals("Final test") || quiz.equals("Final quiz")){
             holder.pb.setVisibility(View.GONE);
         }
 
@@ -98,7 +110,7 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
 
 
     public class CustomHolder extends RecyclerView.ViewHolder{
-        ImageView ivVideo, overlay;
+        ImageView ivVideo, overlay, playbtn;
         carbon.widget.TextView chapter_num, video_name, video_mins;
         RelativeLayout video_relative;
         ProgressBar pb;
@@ -112,6 +124,7 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
             video_name = itemView.findViewById(R.id.video_name);
             video_mins = itemView.findViewById(R.id.video_mins);
             pb = itemView.findViewById(R.id.pb);
+            playbtn = itemView.findViewById(R.id.playbtn);
 //            video_relative = itemView.findViewById(R.id.video_relative);
 
         }

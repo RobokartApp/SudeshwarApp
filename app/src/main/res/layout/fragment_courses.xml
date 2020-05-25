@@ -3,95 +3,122 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
-    android:layout_gravity="center_vertical"
-    android:background="@color/transparent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent">
 
     <RelativeLayout
-        android:id="@+id/rlMaker"
+        android:id="@+id/rlJustStarting"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Courses"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/view_all_js"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:text="View All"
+            android:textColor="@color/purple"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlJustStartingVideos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/rlJustStarting"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/maker_space_bg">
-        <ImageView
-            android:id="@+id/ivMakerSpace"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/maker_space_ic"/>
-        <carbon.widget.TextView
-            android:id="@+id/tvMakerSpace"
-            android:layout_toRightOf="@id/ivMakerSpace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_centerVertical="true"
-            android:text="@string/maker_space_courses"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlJustStarting">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myCoursesRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_my_courses_item" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlFreeCourse"
-        android:layout_below="@+id/rlMaker"
+        android:id="@+id/rlKnowBit"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintTop_toBottomOf="@id/rlMaker"
-        android:background="@drawable/free_course_bg">
-        <ImageView
-            android:id="@+id/ivFreeCourse"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/free_course_ic"/>
-        <carbon.widget.TextView
-            android:id="@+id/tvFreeCourse"
-            android:layout_toRightOf="@id/ivFreeCourse"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/rlJustStartingVideos">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:text="My Courses"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/view_all_iknow_just_bits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="@string/free_courses"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+            android:layout_marginEnd="10dp"
+            android:text="View All"
+            android:textColor="@color/purple"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlSchoolCuriculum"
-        android:layout_below="@id/rlFreeCourse"
+        android:id="@+id/rlKnowBitVideos"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintTop_toBottomOf="@id/rlFreeCourse"
-        android:background="@drawable/school_curi_bg">
-        <ImageView
-            android:id="@+id/ivSchoolCuriculum"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/school_curi_ic"/>
-        <carbon.widget.TextView
-            android:id="@+id/tvMarkerSpace"
-            android:layout_toRightOf="@id/ivSchoolCuriculum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_centerVertical="true"
-            android:text="@string/school_curiculum"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+        android:layout_height="0dp"
+        android:layout_below="@id/rlKnowBit"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/rlKnowBit">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvKnowBitVideos"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_video_item" />
     </RelativeLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

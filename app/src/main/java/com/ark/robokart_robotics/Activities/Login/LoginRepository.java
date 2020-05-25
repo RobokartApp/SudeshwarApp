@@ -54,7 +54,6 @@ public class LoginRepository {
 
                 JSONObject result = jsonObject.getJSONObject("result");
 
-                JSONObject userdetails = result.getJSONObject("userdetails");
 
                 int status = jsonObject.getInt("statusId");
 
@@ -65,15 +64,6 @@ public class LoginRepository {
 
                     Log.d(TAG, "login: "+result.getString("message"));
 
-                    String cust_id = userdetails.getString("customer_id");
-                    String fullname = userdetails.getString("customer_name");
-                    String email = userdetails.getString("customer_email");
-                    String cust_mobile = userdetails.getString("customer_mobile");
-                    String cust_parents_number = userdetails.getString("customer_parents_number");
-
-                    SharedPref sharedPref = new SharedPref();
-
-                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,email,cust_parents_number);
 
                     message.setValue(msg);
 
@@ -95,6 +85,7 @@ public class LoginRepository {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("mobile", phone_number);
+                parameters.put("otp","");
                 return parameters;
             }
         };

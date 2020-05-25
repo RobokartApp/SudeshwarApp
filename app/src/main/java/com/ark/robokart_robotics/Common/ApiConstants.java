@@ -16,4 +16,11 @@ public class ApiConstants {
     public static final String editprofile_api = "editprofile_api.php";
     public static final String profile_img_api = "profile-img-api.php";
     public static final String course_details_api = "course_details_api.php";
+    public static final String collect_recommendation_api = "collect_recommendation_api.php";
+    public static final String standard_selection_api = "standard_selection_api.php";
+    public static final String license_key_offlineApi = "license_key_offlineApi.php";
+    public static final String curriculaim_api = "curriculaim_api.php";
+    public static final String mycourses_api = "mycourses_api.php";
+    public static final String mycourse_curriclumApi = "mycourse_curriclumApi.php";
+    public static final String fetchquiz_api = "fetchquiz_api.php";
 }

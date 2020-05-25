@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,7 +29,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAdapter.CustomHolder> {
+public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAdapter.CustomHolder> implements Filterable {
 
 
     private List<CourseListModel> mcourseList;
@@ -57,6 +59,11 @@ public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAda
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_video_item,parent,false);
         return new CustomHolder(itemView);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 
 
@@ -115,7 +122,10 @@ public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAda
     }
 
 
-
+    public void filterList(ArrayList<CourseListModel> filteredList) {
+        mcourseList = filteredList;
+        notifyDataSetChanged();
+    }
 
 
 }

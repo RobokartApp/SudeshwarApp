@@ -20,7 +20,7 @@
     </style>
 
     <style name="progressBarBlue" parent="@style/Theme.AppCompat">
-        <item name="colorAccent">@color/orange</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">

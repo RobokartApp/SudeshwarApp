@@ -35,17 +35,19 @@
 
         <ImageView
             android:id="@+id/center_play_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="Play"
+            android:visibility="gone"
             android:src="@drawable/play_btn"
-            android:visibility="visible"
             android:layout_gravity="center"/>
 
         <ImageView
             android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:layout_width="40dp"
+            android:contentDescription="Back"
+            android:layout_height="40dp"
+            android:visibility="gone"
             android:src="@drawable/back_btn_purple"
             android:layout_margin="15dp"/>
 
@@ -56,6 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <androidx.core.widget.NestedScrollView
@@ -383,30 +386,7 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentBottom="true"
-                        >
 
-
-                        <carbon.widget.Button
-                            android:id="@+id/enroll_now"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:background="@drawable/btn_login"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginEnd="30dp"
-                            android:layout_marginBottom="20dp"
-                            android:text="₹ 11200 Enroll now"
-                            android:textAllCaps="false"
-                            android:textSize="16sp"
-                            android:shadowDy="3.0"
-                            app:carbon_elevation="12dp"
-                            app:carbon_elevationShadowColor="@color/purple"/>
-
-                    </LinearLayout>
 
 
 
@@ -431,7 +411,27 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
         </androidx.core.widget.NestedScrollView>
 
 
+
+
     </LinearLayout>
+
+
+
+
+        <carbon.widget.Button
+            android:id="@+id/enroll_now"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/btn_login"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="₹ 11200 Enroll now"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:shadowDy="3.0"
+            app:carbon_elevation="12dp"
+            app:carbon_elevationShadowColor="@color/purple"/>
 
 
 </LinearLayout>

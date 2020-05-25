@@ -3,24 +3,19 @@ package com.ark.robokart_robotics.Activities.CourseDetails;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -38,12 +33,10 @@ import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchViewModel;
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
-import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
-import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
 import com.ark.robokart_robotics.Fragments.Payment.BillingDetailsFragment;
-import com.ark.robokart_robotics.Fragments.Payment.BuyNowFragment;
+import com.ark.robokart_robotics.Fragments.Payment.BuyNow.BuyNowFragment;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
@@ -53,9 +46,6 @@ import com.example.vimeoplayer2.UniversalVideoView;
 import com.example.vimeoplayer2.vimeoextractor.OnVimeoExtractionListener;
 import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
 import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -68,14 +58,12 @@ import java.util.Map;
 
 import carbon.widget.Button;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback, PaymentResultListener, BillingDetailsFragment.onClickListener {
 
     private static final String TAG = "MainActivity";
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     private static final String VIDEO_URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    private static final String VIMEO_VIDEO_URL = "https://player.vimeo.com/video/354370082";
+    private String VIMEO_VIDEO_URL = "";
 
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
@@ -93,7 +81,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     TextView course_name, customer_rating;
 
-    ImageView back_btn, play_btn, play_quiz_challenge, video_thumb;
+    ImageView  play_quiz_challenge, video_thumb;
+
+    ImageView back_btn, play_btn;
 
     RecyclerView courseInclusionRecyclerview, alsoviewedRecyclerview;
 
@@ -117,6 +107,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     String courseid = "";
 
+    String customer_id = "";
+
     String online_price_title, course_online_price, offline_price_title, course_offline_price;
 
     @Override
@@ -132,53 +124,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         listeners();
 
 
-        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                Log.d(TAG, "onCompletion ");
-            }
-        });
 
-        VimeoExtractor.getInstance().fetchVideoWithURL(VIMEO_VIDEO_URL, null, new OnVimeoExtractionListener() {
-            @Override
-            public void onSuccess(final VimeoVideo video) {
-                String hdStream = null;
-                for (String key : video.getStreams().keySet()) {
-                    hdStream = key;
-                }
-                final String hdStreamuRL = video.getStreams().get(hdStream);
-                if (hdStream != null) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Start the MediaController
-                            mVideoView.setMediaController(mMediaController);
-                            // Get the URL from String VideoURL
-                            Uri video = Uri.parse(hdStreamuRL);
-
-                            mVideoView.setVideoURI(video);
-
-                        }
-                    });
-                }
-            }
-
-//                setLink(hdStream);
-            //...
-//            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                //Error handling here
-            }
-        });
 
     }
 
 
     //Initialise UI
     public void init(){
-        play_btn = findViewById(R.id.center_play_btn);
+        play_btn = (ImageView) findViewById(R.id.center_play_btn);
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
         mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
@@ -195,9 +148,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         setVideoAreaSize();
         mVideoView.setVideoViewCallback(this);
         mVideoView.seekTo(mSeekPosition);
-        mMediaController.setTitle("ROS basics: Program Robots");
 
-        back_btn = findViewById(R.id.back_btn);
+
+        back_btn = (ImageView) findViewById(R.id.back_btn);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -213,6 +166,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         try {
             Bundle bundle = getIntent().getExtras();
             courseid = bundle.getString("courseid");
+            SharedPreferences sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
+            customer_id = sharedPreferences.getString("customer_id","0");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -223,14 +179,25 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     //Event Listeners
     public void listeners(){
-        courseInclusionViewModel.getCourseInclusionList().observe(this, new Observer<List<CourseInclusionModel>>() {
+        courseInclusionViewModel.getCourseInclusionList(courseid).observe(this, new Observer<List<CourseInclusionModel>>() {
             @Override
             public void onChanged(List<CourseInclusionModel> recommendationsList) {
                 prepareRecyclerView(recommendationsList);
             }
         });
 
-
+        video_thumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: touched");
+                video_thumb.setVisibility(View.GONE);
+                mVideoView.setVisibility(View.VISIBLE);
+                mMediaController.setVisibility(View.VISIBLE);
+                mVideoView.start();
+                back_btn.setVisibility(View.INVISIBLE);
+                play_btn.setVisibility(View.INVISIBLE);
+            }
+        });
 
 
 //        viewAllSearchViewModel.getCourseList().observe(this, new Observer<List<CourseListModel>>() {
@@ -240,6 +207,15 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 //            }
 //        });
 
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Log.d(TAG, "onCompletion ");
+            }
+        });
+
+
+
 
         enroll_now.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +224,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
                 paymentFragment.setVisibility(View.VISIBLE);
                 course_details_section.setVisibility(View.GONE);
+                enroll_now.setVisibility(View.GONE);
 
                 BuyNowFragment buyNowFragment = new BuyNowFragment();
 
@@ -256,6 +233,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                 data.putString("home_desc", online_price_title);
                 data.putString("makerspace_cost",course_offline_price);
                 data.putString("makerspace_learn_desc",offline_price_title);
+                data.putString("customer_id",customer_id);
+                data.putString("course_id",courseid);
                 buyNowFragment.setArguments(data);
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -264,6 +243,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.paymentFragment, buyNowFragment);
                 fragmentTransaction.commit();
+
             }
         });
 
@@ -508,9 +488,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                     Log.d(TAG, "course: "+result.getString("message"));
 
                     String c_name = course_details.getString("course_name");
+                    mMediaController.setTitle(c_name);
                     String cu_rating = course_details.getString("customer_rating");
                     String course_enrolled = course_details.getString("course_enrolled");
                     String course_video_thumb = course_details.getString("course_video_thumb");
+                    String input = course_details.getString("course_video_url");
+                    VIMEO_VIDEO_URL = input.substring(0, input.indexOf("?"));
                     online_price_title = course_details.getString("online_price_title");
                     course_online_price = course_details.getString("course_online_price");
                     offline_price_title = course_details.getString("offline_price_title");
@@ -523,6 +506,41 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                     enroll_now.setText("₹ "+course_online_price + " Enroll now");
 
                     Glide.with(getApplicationContext()).load(course_video_thumb).into(video_thumb);
+
+
+                    VimeoExtractor.getInstance().fetchVideoWithURL(VIMEO_VIDEO_URL, null, new OnVimeoExtractionListener() {
+                        @Override
+                        public void onSuccess(final VimeoVideo video) {
+                            String hdStream = null;
+                            for (String key : video.getStreams().keySet()) {
+                                hdStream = key;
+                            }
+                            final String hdStreamuRL = video.getStreams().get(hdStream);
+                            if (hdStream != null) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Start the MediaController
+                                        mVideoView.setMediaController(mMediaController);
+                                        // Get the URL from String VideoURL
+                                        Uri video = Uri.parse(hdStreamuRL);
+
+                                        mVideoView.setVideoURI(video);
+
+                                    }
+                                });
+                            }
+                        }
+
+//                setLink(hdStream);
+                        //...
+//            }
+
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            //Error handling here
+                        }
+                    });
 
 
                 }else if (status == 0) {

@@ -19,8 +19,8 @@ public class CourseInclusionViewModel extends AndroidViewModel {
         courseInclusionReposiory = new CourseInclusionReposiory(application);
     }
 
-    public MutableLiveData<List<CourseInclusionModel>> getCourseInclusionList() {
-        return courseInclusionReposiory.getCourseInclusionList();
+    public MutableLiveData<List<CourseInclusionModel>> getCourseInclusionList(String courseid) {
+        return courseInclusionReposiory.getCourseInclusionList(courseid);
     }
 
     public MutableLiveData<List<String>> getCourseDetails(String courseid){

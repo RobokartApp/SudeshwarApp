@@ -45,4 +45,7 @@
     <string name="correct_answers">Correct answers</string>
     <string name="passing_score">Passing Score</string>
     <string name="dummy_answer">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in lobortis leo, ac luctus velit. Suspendisse porta eu mauris nec pulvinar. Donec at viverra elit, et vehicula risus. Nunc non ultrices urna. Ut porta turpis metus, eget sollicitudin dolor sagittis non. Curabitur et elit semper orci efficitur aliquam vel ac metus. Proin id suscipit leo. Maecenas congue nisl ipsum, porttitor accumsan risus lobortis in.</string>
+    <string name="search">Search...</string>
+    <string name="to_verify_the_authenticity_of_a_certificate_issued_by_robokart_please_enter_the_certification_id">To verify the authenticity of a certificate issued by Robokart, please enter the Certification ID</string>
+    <string name="enter_certification_id">Enter Certification ID</string>
 </resources>

@@ -90,8 +90,9 @@ public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.Cus
         holder.video_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,CourseDetailsActivity.class);
+                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("courseid",answers.getCourse_id());
                 mContext.startActivity(intent);
             }
         });

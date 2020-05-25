@@ -43,7 +43,7 @@ public class IntermediateRepository {
 
     public MutableLiveData<List<CourseListModel>> getIntermediateCourseList(){
 
-        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.local_HOST + ApiConstants.intermediatecourses_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.HOST + ApiConstants.intermediatecourses_api, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray courses = jsonObject.getJSONArray("courses");

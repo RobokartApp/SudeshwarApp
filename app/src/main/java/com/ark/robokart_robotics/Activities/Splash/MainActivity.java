@@ -94,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         int val = sharedPref.getOnboardingStatus(getApplicationContext());
 
         int status_val = sharedPref.checkLoginStatus(getApplicationContext());
+
+
+        int status_standard = sharedPref.checkStandardStatus(getApplicationContext());
+
         if(status_val == 1){
             if(val == 0){
                 Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);

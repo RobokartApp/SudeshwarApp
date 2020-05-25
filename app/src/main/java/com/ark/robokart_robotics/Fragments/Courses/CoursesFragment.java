@@ -10,13 +10,30 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
+import com.ark.robokart_robotics.Adapters.AdvanceCourseListAdpater;
+import com.ark.robokart_robotics.Adapters.MyCoursesAdapter;
+import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
+import com.ark.robokart_robotics.Model.CourseListModel;
+import com.ark.robokart_robotics.Model.MyCoursesModel;
 import com.ark.robokart_robotics.R;
+
+import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CoursesFragment extends Fragment {
 
-    RelativeLayout rlSchoolCuriculum;
+    private RecyclerView myCoursesRecyclerview;
+
+    private CoursesViewModel coursesViewModel;
+
+    private MyCoursesAdapter myCoursesAdapter;
+
 
     public CoursesFragment(){}
 
@@ -30,22 +47,28 @@ public class CoursesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        coursesViewModel =  new ViewModelProvider(this).get(CoursesViewModel.class);
+
         init(view);
 
         listeners();
     }
 
     public void init(View v){
-        rlSchoolCuriculum = v.findViewById(R.id.rlSchoolCuriculum);
+
+        myCoursesRecyclerview = v.findViewById(R.id.myCoursesRecyclerview);
+
+        coursesViewModel.getMyCoursesList("19").observe(getActivity(), new Observer<List<MyCoursesModel>>() {
+            @Override
+            public void onChanged(List<MyCoursesModel> courseListModels) {
+                myCoursesAdapter = new MyCoursesAdapter(getApplicationContext(),courseListModels);
+                myCoursesRecyclerview.setAdapter(myCoursesAdapter);
+                myCoursesAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     public void listeners(){
-        rlSchoolCuriculum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getChildFragmentManager().popBackStack();
-                startActivity(new Intent(getActivity(), QuizActivity.class));
-            }
-        });
+
     }
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,8 +21,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Adapters.CheckAnswerAdapter;
+import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
+import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.R;
 import com.google.android.flexbox.FlexDirection;
@@ -29,10 +39,16 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import carbon.widget.Button;
@@ -41,6 +57,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final int START_TIME_IN_MILLIS = 600000;
 
+    private static final String TAG = "QuizActivity";
+
+    private RequestQueue requestQueue;
 
     private TextView mTextViewCountDown;
 
@@ -113,6 +132,7 @@ public class QuizActivity extends AppCompatActivity {
 
         countdownProgress = findViewById(R.id.countdownProgress);
 
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         rbGroup = findViewById(R.id.rbgroup);
         rb_1 = findViewById(R.id.rb_1);
@@ -236,17 +256,59 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public MutableLiveData<List<Question>> getQuestionList() {
-        questionArrayList.add(new Question(1,"Q1", "a", "b", "c", "d", 1));
-        questionArrayList.add(new Question(2,"Q2", "a", "b", "c", "d", 3));
-        questionArrayList.add(new Question(3,"Q3", "a", "b", "c", "d", 2));
-        questionArrayList.add(new Question(4,"Q4", "a", "b", "c", "d", 1));
-        questionArrayList.add(new Question(5,"Q5", "a", "b", "c", "d", 2));
-        questionArrayList.add(new Question(6,"Q6", "a", "b", "c", "d", 4));
-        questionArrayList.add(new Question(7,"Q7", "a", "b", "c", "d", 3));
-        questionArrayList.add(new Question(8,"Q8", "a", "b", "c", "d", 3));
-        questionArrayList.add(new Question(9,"Q9", "a", "b", "c", "d", 3));
-        questionArrayList.add(new Question(10,"Q10", "a", "b", "c", "d", 3));
-        questionArrayList.add(new Question(11,"Q11", "a", "b", "c", "d", 3));
+        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.HOST + ApiConstants.fetchquiz_api, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray quiz = jsonObject.getJSONArray("quiz");
+                int status = jsonObject.getInt("success_code");
+                String error_msg = jsonObject.getString("error_msg");
+
+                if (status == 1) {
+                    try{
+                        for(int i = 0; i< quiz.length();i++){
+                            JSONObject json = quiz.getJSONObject(i);
+                            Question question = new Question(
+                                    json.getInt("q_no"),
+                                    json.getString("question_name"),
+                                    json.getString("answer1"),
+                                    json.getString("answer2"),
+                                    json.getString("answer3"),
+                                    json.getString("answer4"),
+                                    json.getInt("answer"),
+                                    json.getString("answer_explaination")
+                            );
+                            questionArrayList.add(question);
+                        }
+                    }
+                    catch (Exception e){
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "fetchLocationListing: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
         questionList.setValue(questionArrayList);
         return questionList;
     }
@@ -316,11 +378,11 @@ public class QuizActivity extends AppCompatActivity {
 
             tvTotalQuestion.setText(String.valueOf(questionCountTotal));
 
-            question_txt.setText(currentQuestion.getQuestion());
-            rb_1.setText(currentQuestion.getOption1());
-            rb_2.setText(currentQuestion.getOption2());
-            rb_3.setText(currentQuestion.getOption3());
-            rb_4.setText(currentQuestion.getOption4());
+            question_txt.setText(currentQuestion.getQuestion_name());
+            rb_1.setText(currentQuestion.getAnswer1());
+            rb_2.setText(currentQuestion.getAnswer2());
+            rb_3.setText(currentQuestion.getAnswer3());
+            rb_4.setText(currentQuestion.getAnswer4());
             questionCounter++;
 
             if(questionCounter == 10){
@@ -365,11 +427,11 @@ public class QuizActivity extends AppCompatActivity {
 
             currentQuestion = questionList.get(questionCounter - 1);
 
-            question_txt.setText(currentQuestion.getQuestion());
-            rb_1.setText(currentQuestion.getOption1());
-            rb_2.setText(currentQuestion.getOption2());
-            rb_3.setText(currentQuestion.getOption3());
-            rb_4.setText(currentQuestion.getOption4());
+            question_txt.setText(currentQuestion.getQuestion_name());
+            rb_1.setText(currentQuestion.getAnswer1());
+            rb_2.setText(currentQuestion.getAnswer2());
+            rb_3.setText(currentQuestion.getAnswer3());
+            rb_4.setText(currentQuestion.getAnswer4());
 
     }
 
@@ -391,7 +453,7 @@ public class QuizActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (answerNr == currentQuestion.getAnswerNr()) {
+        if (answerNr == currentQuestion.getAnswer()) {
                 correctAnswersList.add(new CorrectAnswersModel(answerNr));
             score++;
             }

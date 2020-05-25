@@ -32,6 +32,32 @@ public class SharedPref {
         editor.apply();
     }
 
+    public void setRecommendation(Context context, int status){
+        SharedPreferences sharedPreferences =context.getSharedPreferences("recommendation",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putInt("status",status);
+        editor.apply();
+    }
+
+    public int checkRecommendationStatus(Context context){
+        SharedPreferences sharedPreferences1 = context.getSharedPreferences("recommendation", Context.MODE_PRIVATE);
+        int login_status = sharedPreferences1.getInt("status", 0);
+        return login_status;
+    }
+
+    public void setStandardSelection(Context context, int status){
+        SharedPreferences sharedPreferences =context.getSharedPreferences("standard",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putInt("status",status);
+        editor.apply();
+    }
+
+    public int checkStandardStatus(Context context){
+        SharedPreferences sharedPreferences1 = context.getSharedPreferences("standard", Context.MODE_PRIVATE);
+        int login_status = sharedPreferences1.getInt("status", 0);
+        return login_status;
+    }
+
     public void setUserDetails(Context context, String customer_id, String fullname, String stud_number, String email, String parent_number){
         SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

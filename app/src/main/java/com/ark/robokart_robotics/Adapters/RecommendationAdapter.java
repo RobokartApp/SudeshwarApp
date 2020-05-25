@@ -2,6 +2,8 @@ package com.ark.robokart_robotics.Adapters;
 
 
 import android.graphics.Color;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +25,8 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     private static final String TAG = "BlogAdapter";
     private List<Recommendations> mrecommendationsList;
     public static ArrayList<String> selectedItemList;
+
+
 
 
     public RecommendationAdapter(List<Recommendations> recommendationsList) {
@@ -97,11 +101,13 @@ public class RecommendationAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                         r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_transparent_background));
                         r_name.setTextColor(v.getResources().getColor(R.color.black));
                         isSelected = false;
+
                     }else{
                         selectedItemList.add(re_id);
                         r_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
                         r_name.setTextColor(v.getResources().getColor(R.color.white));
                         isSelected = true;
+
                     }
 
 

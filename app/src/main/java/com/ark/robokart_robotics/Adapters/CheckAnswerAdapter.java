@@ -98,7 +98,7 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super.onBind(position);
             final Question question = mStandardList.get(position);
 
-            question_count.setText(String.valueOf(question.getQ_id()));
+            question_count.setText(String.valueOf(question.getQ_no()));
 
             correctAnswersModelList = QuizActivity.correctAnswersList;
 
@@ -107,7 +107,7 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
                 int co_id = correctAnswersModel.getAnswer();
 
-                int q_answer = question.getAnswerNr();
+                int q_answer = question.getAnswer();
 
                 if(co_id == q_answer){
                     answer_bg.setImageDrawable(mcontext.getResources().getDrawable(R.drawable.right_answer_item_bg));
@@ -122,7 +122,8 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
                     SharedPreferences sharedPreferences = mcontext.getSharedPreferences("explanation",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("explanation",question.getQuestion());
+                    editor.putString("question",question.getQuestion_name());
+                    editor.putString("explaination",question.getAnswer_explaination());
                     editor.apply();
 
                     BottomSheetExplanation bottomSheetExplanation = new BottomSheetExplanation();

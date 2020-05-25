@@ -18,7 +18,7 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG = "BlogAdapter";
     private List<StandardModel> mStandardList;
-    public static ArrayList<String> selectedItemList;
+    public static ArrayList<String> stdselectedList;
 
 
     public StandardAdapter(List<StandardModel> recommendationsList) {
@@ -34,7 +34,7 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        selectedItemList = new ArrayList<>();
+        stdselectedList = new ArrayList<>();
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.row_standard, parent, false));
     }
@@ -88,13 +88,13 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
                     String re_id =s_id.getText().toString();
 
-                    if(selectedItemList.contains(re_id)){
-                        selectedItemList.remove(re_id);
+                    if(stdselectedList.contains(re_id)){
+                        stdselectedList.remove(re_id);
                         s_name.setBackground(v.getResources().getDrawable(R.drawable.tag_transparent_background));
                         s_name.setTextColor(v.getResources().getColor(R.color.black));
                         isSelected = false;
                     }else{
-                        selectedItemList.add(re_id);
+                        stdselectedList.add(re_id);
                         s_name.setBackground(v.getResources().getDrawable(R.drawable.tag_background));
                         s_name.setTextColor(v.getResources().getColor(R.color.white));
                         isSelected = true;

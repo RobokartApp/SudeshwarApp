@@ -24,4 +24,8 @@ public class CollectRecomViewModel extends AndroidViewModel {
     public MutableLiveData<List<Recommendations>> getCollectRecommendations() {
         return collectRecomRepository.getRecommendationList();
     }
+
+    public MutableLiveData<Integer> collect(String r_id, String customer_id){
+        return collectRecomRepository.collect(r_id,customer_id);
+    }
 }

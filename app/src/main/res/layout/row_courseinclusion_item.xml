@@ -11,14 +11,15 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:progressDrawable="@drawable/progressbar_states"
         android:progress="15"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="28dp"
         android:layout_marginLeft="-12dp"
         />
 
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:orientation="horizontal">
+       android:orientation="horizontal"
+       android:gravity="center_vertical">
 
        <LinearLayout
            android:layout_width="25dp"
@@ -54,6 +55,7 @@
                android:layout_height="wrap_content"
                android:text="Video - 2:51 mins"
                android:textColor="@color/grey"
+               android:visibility="gone"
                android:layout_marginStart="20dp"/>
 
        </LinearLayout>
@@ -64,6 +66,7 @@
            >
 
            <ImageView
+               android:id="@+id/playbtn"
                android:layout_width="30dp"
                android:layout_height="30dp"
                android:layout_gravity="center_vertical"

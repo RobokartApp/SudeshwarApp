@@ -43,7 +43,7 @@ public class BeginnerRepository {
 
     public MutableLiveData<List<CourseListModel>> getBeginnerCourseList(){
 
-        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.local_HOST + ApiConstants.beginnercourses_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.HOST + ApiConstants.beginnercourses_api, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray courses = jsonObject.getJSONArray("courses");

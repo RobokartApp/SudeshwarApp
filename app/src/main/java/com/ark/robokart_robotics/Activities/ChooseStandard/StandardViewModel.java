@@ -24,5 +24,7 @@ public class StandardViewModel extends AndroidViewModel {
         return standardRepository.getStandardList();
     }
 
-
+    public MutableLiveData<Integer> selectStandard(String customer_id, String customer_std, String customer_school_code){
+        return standardRepository.selectStandard(customer_id,customer_std,customer_school_code);
+    }
 }

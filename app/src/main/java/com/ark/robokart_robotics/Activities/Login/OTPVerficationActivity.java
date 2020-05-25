@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
+import com.ark.robokart_robotics.Activities.Home.HomeActivity;
+import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
 import com.ark.robokart_robotics.Reciever.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.Auth;
@@ -95,8 +97,21 @@ public class OTPVerficationActivity extends AppCompatActivity  {
                 otpViewModel.check(phone_number,otp).observe(OTPVerficationActivity.this, s -> {
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
                     if(s.equals("Login Successfull")){
-                        startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
-                        finish();
+
+                        SharedPref sharedPref = new SharedPref();
+                        sharedPref.setLoginStatus(OTPVerficationActivity.this,1);
+
+                        int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
+
+                        if(status_recom == 1){
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            finish();
+                        }
+                        else {
+                            startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
+                            finish();
+                        }
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();

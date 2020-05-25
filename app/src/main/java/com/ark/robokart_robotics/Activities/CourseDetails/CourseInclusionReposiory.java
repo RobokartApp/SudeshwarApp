@@ -16,6 +16,7 @@ import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,13 +46,56 @@ public class CourseInclusionReposiory {
         requestQueue = Volley.newRequestQueue(application);
     }
 
-    public MutableLiveData<List<CourseInclusionModel>> getCourseInclusionList(){
-        courseInclusionMArrayList.add(new CourseInclusionModel("1","1","Introduction","2:51"));
-        courseInclusionMArrayList.add(new CourseInclusionModel("2","2","Virtual Box Installation","45:51"));
-        courseInclusionMArrayList.add(new CourseInclusionModel("3","3","ROS Installation","02:51"));
-        courseInclusionMArrayList.add(new CourseInclusionModel("4","4","Exercise: Install ROS on your Machine","02:51"));
-        courseInclusionMArrayList.add(new CourseInclusionModel("5","5","Package","02:51"));
-        courseInclusionMArrayList.add(new CourseInclusionModel("6","6","Quiz test","40"));
+    public MutableLiveData<List<CourseInclusionModel>> getCourseInclusionList(String courseid){
+       StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.curriculaim_api, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray courses = result.getJSONArray("courses");
+                int status = jsonObject.getInt("statusId");
+
+                if (status == 1) {
+                    try{
+                        for(int i = 0; i< courses.length();i++){
+                            JSONObject json = courses.getJSONObject(i);
+                            CourseInclusionModel course = new CourseInclusionModel(
+                                    json.getString("chapter_name"));
+                            courseInclusionMArrayList.add(course);
+                        }
+                        courseInclusionList.setValue(courseInclusionMArrayList);
+
+                    }
+                    catch (Exception e){
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "getCourseInclusionList: "+e.getMessage());
+                    }
+
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "getCourseInclusion: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("courseid",courseid);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
         courseInclusionList.setValue(courseInclusionMArrayList);
         return courseInclusionList;
     }

@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
 import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
 import com.ark.robokart_robotics.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,8 +30,12 @@ import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import carbon.widget.Button;
 import carbon.widget.TextView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -37,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView drawer_btn, back_arrow;
 
     private TextView name;
+
+    private android.widget.TextView tvGood, tvName;
 
     FragmentManager fragmentManager;
 
@@ -56,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button logout_btn;
 
+    private CircleImageView profile_image;
+
     SharedPref sharedPref;
 
     GoogleSignInClient mGoogleSignInClient;
@@ -69,6 +80,8 @@ public class HomeActivity extends AppCompatActivity {
         init(savedInstanceState);
 
         listeners();
+
+
 
     }
 
@@ -86,6 +99,10 @@ public class HomeActivity extends AppCompatActivity {
         imgdashboard = findViewById(R.id.imgdashboard);
 
         imgCourses = findViewById(R.id.imgcourses);
+
+        tvName = findViewById(R.id.tvName);
+
+        tvGood = findViewById(R.id.tvGood);
 
         mHandler = new Handler();
 
@@ -111,11 +128,61 @@ public class HomeActivity extends AppCompatActivity {
 
         back_arrow = findViewById(R.id.back_arrow);
 
+        profile_image = findViewById(R.id.profile_image);
+
         logout_btn = findViewById(R.id.logout_btn);
 
         profile_linear = findViewById(R.id.profile_linear);
 
         setFragment("dashboard");
+
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
+            SharedPreferences sharedPreferences1 = getSharedPreferences("URL",MODE_PRIVATE);
+            String url = sharedPreferences1.getString("image_url","https://img.icons8.com/officel/2x/user.png");
+            Glide.with(getApplicationContext()).load(Uri.parse(url).toString().trim()).disallowHardwareConfig().into(profile_image);
+            name.setText(sharedPreferences.getString("fullname","-"));
+
+            String fullname = sharedPreferences.getString("fullname","-");
+
+            String lastName = "";
+            String firstName= "";
+            if(fullname.split("\\w+").length>1){
+
+                lastName = fullname.substring(fullname.lastIndexOf(" ")+1);
+                firstName = fullname.substring(0, fullname.lastIndexOf(' '));
+            }
+            else{
+                firstName = fullname;
+            }
+
+            tvName.setText(firstName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Get the time of day
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+
+        //Set greeting
+        String greeting = null;
+        if(hour>=6 && hour<12){
+            greeting = "Good Morning,";
+        } else if(hour>= 12 && hour < 17){
+            greeting = "Good Afternoon,";
+        } else if(hour >= 17 && hour < 24){
+            greeting = "Good Evening,";
+        }
+
+//        else if(hour >= 21 && hour < 24){
+//            greeting = "Good Night";
+//        }
+
+        tvGood.setText(greeting);
+
     }
 
     public void listeners(){

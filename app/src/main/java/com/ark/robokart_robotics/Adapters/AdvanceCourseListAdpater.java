@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
@@ -87,9 +88,9 @@ public class AdvanceCourseListAdpater extends ListAdapter<CourseListModel, Advan
         holder.video_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, VideoPlayingActivity.class);
-                intent.putExtra("courseid",courseid);
+                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("courseid",answers.getCourse_id());
                 mContext.startActivity(intent);
             }
         });
