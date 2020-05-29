@@ -11,6 +11,8 @@ public class ChapterContent implements Parcelable {
     public final String assignment_url;
     public final String quiz_id;
 
+
+
     public ChapterContent(String chapter_content, String video_time, String video_url, String assignment_url, String quiz_id) {
         this.chapter_content = chapter_content;
         this.video_time = video_time;
@@ -18,6 +20,7 @@ public class ChapterContent implements Parcelable {
         this.assignment_url = assignment_url;
         this.quiz_id = quiz_id;
     }
+
 
 
     protected ChapterContent(Parcel in) {

@@ -24,7 +24,7 @@ public class CourseEnrolledDetailsViewModel extends AndroidViewModel {
         return courseEnrolledDetailsRepository.getChapterName(courseid);
     }
 
-    public MutableLiveData<List<ChapterContent>> getChapterContent(String courseid){
-        return courseEnrolledDetailsRepository.getChapterContent(courseid);
-    }
+//    public MutableLiveData<List<ChapterContent>> getChapterContent(String courseid){
+//        return courseEnrolledDetailsRepository.getChapterContent(courseid);
+//    }
 }
