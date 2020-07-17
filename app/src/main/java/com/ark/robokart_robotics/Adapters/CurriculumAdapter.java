@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -16,16 +17,21 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
+import com.ark.robokart_robotics.Model.ChapterContent;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.Model.CurriculumModel;
 import com.ark.robokart_robotics.R;
+import com.artjimlop.altex.AltexImageDownloader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAdapter.CurriculumHolder> {
 
     private List<CurriculumModel> mcourseList;
     private Context mContext;
+
+    private OnItemClickListener listener;
 
     public CurriculumAdapter(Context context, List<CurriculumModel> courseListModelList) {
         super(DIFF_CALLBACK);
@@ -55,20 +61,15 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
 
 
     public class CurriculumHolder extends RecyclerView.ViewHolder{
-        ImageView ivVideo, overlay;
+
         TextView curriculum_file_name;
-        TextView tvPeople,tvRating;
-        RelativeLayout video_relative;
+        ImageView file_download;
 
         public CurriculumHolder(@NonNull View itemView) {
             super(itemView);
 
-//            ivVideo = itemView.findViewById(R.id.ivVideo);
-//            overlay = itemView.findViewById(R.id.overlay);
-              curriculum_file_name = itemView.findViewById(R.id.curriculum_file_name);
-//            tvPeople = itemView.findViewById(R.id.tvPeople);
-//            tvRating = itemView.findViewById(R.id.tvRating);
-//            video_relative = itemView.findViewById(R.id.video_relative);
+            curriculum_file_name = itemView.findViewById(R.id.curriculum_file_name);
+            file_download = itemView.findViewById(R.id.file_download);
 
         }
     }
@@ -78,7 +79,19 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
     public void onBindViewHolder(@NonNull CurriculumHolder holder, int position) {
         CurriculumModel curriculumModel = mcourseList.get(position);
 
-        holder.curriculum_file_name.setText(curriculumModel.getCurr_name());
+        holder.curriculum_file_name.setText("Curriculum");
+
+        String url = curriculumModel.getCurriculum_file();
+
+        Toast.makeText(mContext, url,Toast.LENGTH_SHORT).show();
+
+        holder.file_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AltexImageDownloader
+                        .writeToDisk(mContext, url, mContext.getExternalFilesDir("Robokart/") + "Curriculum/");
+            }
+        });
     }
 
 
@@ -96,7 +109,13 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
     }
 
 
+    public interface OnItemClickListener{
+        void onItemClick(String url);
+    }
 
+    public void setOnItemClickListener(CurriculumAdapter.OnItemClickListener listener){
+        this.listener = listener;
+    }
 
 
 }

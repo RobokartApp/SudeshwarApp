@@ -74,6 +74,7 @@
 
 
                     <carbon.widget.TextView
+                        android:id="@+id/chapter_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -84,11 +85,11 @@
 
                     <ImageView
                         android:id="@+id/download_btn"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_component"
+                        android:visibility="gone"
+                        android:src="@drawable/download_btn"
                         android:scaleType="centerCrop"/>
 
 
@@ -108,6 +109,7 @@
                         android:src="@drawable/ic_play_arrow"/>
 
                     <carbon.widget.TextView
+                        android:id="@+id/chapter_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lessons : 02 / 25"
@@ -134,6 +136,7 @@
 
 
                     <carbon.widget.TextView
+                        android:id="@+id/video_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Time - 1:03:85"
@@ -179,13 +182,6 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/title_section" />
 
-               <carbon.widget.TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="Nov 30, 2020"
-                   android:layout_marginTop="20dp"
-                   android:layout_marginLeft="20dp"/>
-
 
 
                 <LinearLayout
@@ -223,7 +219,7 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/comments_Recyclerview"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
@@ -244,7 +240,6 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_alignParentBottom="true"
-
                         >
 
 
@@ -262,6 +257,7 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                                 android:layout_marginEnd="20dp"
                                 android:backgroundTint="@color/lightgrey"
                                 android:hint="Comment here"
+                                android:layout_weight="1"
                                 android:padding="10dp"
                                />
 
@@ -270,14 +266,34 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/comment_btn"
-                                android:layout_marginEnd="30dp"
                                 android:orientation="vertical"
+                                android:layout_weight=".5"
+                                android:layout_marginEnd="30dp"
                                 android:gravity="center">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_send"/>
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ImageView
+                                        android:id="@+id/send_img"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:src="@drawable/ic_send"
+                                        android:layout_centerInParent="true"/>
+
+                                    <ProgressBar
+                                        android:id="@+id/progress_circular"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:visibility="gone"
+                                        android:indeterminateTint="@color/white"
+                                        android:layout_centerInParent="true"/>
+
+
+                                </RelativeLayout>
+
+
 
                             </LinearLayout>
 

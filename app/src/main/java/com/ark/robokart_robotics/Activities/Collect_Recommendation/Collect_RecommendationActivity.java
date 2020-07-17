@@ -100,7 +100,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
 
 
-        welcome_text.setText("Hey"+ customer_name +", We need to know you \nnbetter to give you the best \nnrecommendations.");
+        welcome_text.setText("Hey"+ customer_name +", We need to know you \n better to give you the best \n recommendations.");
         listeners();
     }
 
@@ -155,10 +155,10 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
 
 
         Log.d(TAG, "String selected: "+ new_recom_string);
-        collectRecomViewModel.collect(new_recom_string,customer_id).observe(Collect_RecommendationActivity.this, new Observer<Integer>() {
+        collectRecomViewModel.collect(new_recom_string,customer_id).observe(Collect_RecommendationActivity.this, new Observer<String>() {
             @Override
-            public void onChanged(Integer integer) {
-                if(integer != 0){
+            public void onChanged(String s) {
+              if(s.equals("Preference Stored")){
                     Toast.makeText(getApplicationContext(),"Thank you for selecting your preferences",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), StandardActivity.class));
                     finish();

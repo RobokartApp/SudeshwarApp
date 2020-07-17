@@ -1,5 +1,6 @@
 package com.ark.robokart_robotics.Adapters;
 
+import android.content.Context;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -16,15 +17,23 @@ public class ChapterNameViewHolder extends GroupViewHolder {
 
     private TextView chapter_name;
     private ImageView arrow;
+    private Context mContext;
 
-    public ChapterNameViewHolder(View itemView) {
+    public ChapterNameViewHolder(Context context,View itemView) {
         super(itemView);
         chapter_name = itemView.findViewById(R.id.chapter_name);
         arrow = itemView.findViewById(R.id.arrow);
+        this.mContext = context;
     }
 
     public void bind(ChapterName chptrName){
         chapter_name.setText(chptrName.getTitle());
+
+        String chp_name = chapter_name.getText().toString();
+
+        if(chp_name.contains("Quiz") || chp_name.contains("Test")) {
+            arrow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.purple_arrow));
+        }
     }
 
     @Override
@@ -41,7 +50,7 @@ public class ChapterNameViewHolder extends GroupViewHolder {
         RotateAnimation rotate =
                 new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(300);
-        rotate.setFillAfter(true);
+        rotate.setFillAfter(false);
         arrow.setAnimation(rotate);
     }
 

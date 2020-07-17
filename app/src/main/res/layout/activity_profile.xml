@@ -48,7 +48,9 @@
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar">
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView">
+
 
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,6 +60,22 @@
             android:src="@drawable/profile_pic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/transparent"
+            android:layout_width="106dp"
+            android:layout_height="106dp"
+            android:visibility="gone"
+            android:src="@drawable/transparent_circle"
+             />
+
+        <ProgressBar
+            android:id="@+id/uplaod_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            android:layout_marginStart="30dp"/>
 
         <ImageView
             android:id="@+id/upload_btn"
@@ -70,12 +88,14 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/plain_white"
+        android:scrollbars="none"
        >
 
         <LinearLayout
@@ -342,15 +362,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:alpha="0.0"
                 android:background="@drawable/btn_login"
                 android:shadowDy="6.0"
                 android:text="Save"
-                android:visibility="gone"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:carbon_elevation="6dp"
-                app:carbon_elevationShadowColor="@color/purple" />
+                app:carbon_elevationShadowColor="@color/purple"
+                tools:visibility="gone" />
 
         </LinearLayout>
 

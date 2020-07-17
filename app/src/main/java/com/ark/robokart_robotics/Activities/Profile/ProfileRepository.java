@@ -36,7 +36,7 @@ public class ProfileRepository {
         requestQueue = Volley.newRequestQueue(application);
     }
 
-    public MutableLiveData<String> updateProfile(String User_id, String customer_name, String email, String mobile, String parentmoblie){
+    public MutableLiveData<String> updateProfile(String User_id, String customer_name, String email, String mobile, String parentmoblie, String customer_image, String username){
 
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.editprofile_api, response -> {
             try {
@@ -55,7 +55,7 @@ public class ProfileRepository {
                     Log.d(TAG, "update: "+result.getString("message"));
 
                     SharedPref sharedPref = new SharedPref();
-                    sharedPref.setUserDetails(application,User_id,customer_name,mobile,email,parentmoblie);
+                    sharedPref.setUserDetails(application,User_id,customer_name,mobile,email,parentmoblie,customer_image, username);
 
                     message.setValue(msg);
 

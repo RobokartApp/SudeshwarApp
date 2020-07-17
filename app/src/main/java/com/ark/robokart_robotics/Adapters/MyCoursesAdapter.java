@@ -96,6 +96,7 @@ public class MyCoursesAdapter extends ListAdapter<MyCoursesModel,MyCoursesAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CourseEnrolledDetailsActivity.class);
+                intent.putExtra("courseid",answers.getCourse_id());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class LoginEmailActivity extends AppCompatActivity {
 
     private Button btn_login, btn_phone_login;
 
+    private ProgressBar login_progress;
+
     private CallbackManager callbackManager;
 
     GoogleSignInClient mGoogleSignInClient;
@@ -51,7 +54,7 @@ public class LoginEmailActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
-    TextView textview_email_error, textview_password_error;
+    TextView textview_email_error, textview_password_error, sign_up_btn;
 
     LottieAnimationView drawable_anim_email, drawable_anim_pass;
 
@@ -69,7 +72,11 @@ public class LoginEmailActivity extends AppCompatActivity {
         textview_password_error = findViewById(R.id.textview_password_error);
         drawable_anim_pass = findViewById(R.id.drawable_anim_pass);
 
+        login_progress = findViewById(R.id.login_progress);
+
         btn_login = findViewById(R.id.btn_login);
+
+        sign_up_btn = findViewById(R.id.sign_up_btn);
 
         btn_phone_login = findViewById(R.id.btn_phone_login);
 
@@ -128,6 +135,15 @@ public class LoginEmailActivity extends AppCompatActivity {
         });
 
 
+        sign_up_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+
         password_edt_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -161,7 +177,14 @@ public class LoginEmailActivity extends AppCompatActivity {
                 String email = email_edt_text.getText().toString().trim();
                 String pass = password_edt_text.getText().toString().trim();
 
+                v.animate().alpha(0.0f);
+                login_progress.setVisibility(View.VISIBLE);
+
                 if(email.equals("") && pass.equals("")){
+
+                    v.animate().alpha(1.0f);
+                    login_progress.setVisibility(View.GONE);
+
                     textview_password_error.setVisibility(View.VISIBLE);
                     drawable_anim_pass.setAnimation("error.json");
                     drawable_anim_pass.playAnimation();
@@ -181,7 +204,11 @@ public class LoginEmailActivity extends AppCompatActivity {
                     @Override
                     public void onChanged(String s) {
                         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                        v.animate().alpha(0.0f);
+                        login_progress.setVisibility(View.GONE);
                         if(s.equals("Login Successfull")){
+
+
                             SharedPref sharedPref = new SharedPref();
                             sharedPref.setLoginStatus(LoginEmailActivity.this,1);
 

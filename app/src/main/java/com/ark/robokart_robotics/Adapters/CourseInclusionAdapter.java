@@ -2,6 +2,7 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,26 +61,15 @@ public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseIn
         CourseInclusionModel answers = mcourseList.get(position);
         holder.video_name.setText(String.valueOf(answers.getChapter_name()));
 
-//        for(int i =0; i < mcourseList.size()-1; i++){
-//            num++;
-//            holder.chapter_num.setText(String.valueOf(num));
-//        }
-
-        if(position == 0){
-            holder.pb.setProgress(0,true);
-            holder.playbtn.setVisibility(View.VISIBLE);
-        }
-        else {
-            holder.pb.setProgress(0,true);
-            holder.playbtn.setVisibility(View.GONE);
-        }
-
+        holder.chapter_num.setText(String.valueOf(position+1));
 
         String quiz = holder.video_name.getText().toString();
 
         if(quiz.equals("Final Quiz") || quiz.equals("Final Test") || quiz.equals("Final test") || quiz.equals("Final quiz")){
             holder.pb.setVisibility(View.GONE);
         }
+
+
 
 //        holder.video_relative.setOnClickListener(new View.OnClickListener() {
 //            @Override

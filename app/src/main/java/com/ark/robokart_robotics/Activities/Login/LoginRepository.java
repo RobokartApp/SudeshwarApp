@@ -120,9 +120,11 @@ public class LoginRepository {
                     String customer_email = userdetails.getString("customer_email");
                     String cust_mobile = userdetails.getString("customer_moblie");
                     String cust_parents_number = userdetails.getString("customer_parents_number");
-                    SharedPref sharedPref = new SharedPref();
+                    String cust_image = userdetails.getString("customer_image");
+                    String user_name = userdetails.getString("username");
 
-                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,cust_parents_number);
+                    SharedPref sharedPref = new SharedPref();
+                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,cust_parents_number,cust_image,user_name);
 
                     message.setValue(msg);
 

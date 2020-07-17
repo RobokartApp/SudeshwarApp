@@ -58,12 +58,14 @@ public class StandardRepository {
 
     public MutableLiveData<Integer> selectStandard(String customer_id, String customer_std, String customer_school_code){
 
-        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.local_HOST + ApiConstants.standard_selection_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.standard_selection_api, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
 
-                int status = jsonObject.getInt("success_code");
+                JSONObject result = jsonObject.getJSONObject("result");
+
+                int status = jsonObject.getInt("statusId");
 
 
                 if (status == 1) {

@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
+import com.ark.robokart_robotics.Activities.Login.OTPVerficationActivity;
+import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -53,6 +56,8 @@ public class RegistrationActivity extends AppCompatActivity {
     TextView login_btn;
 
     Button btn_register;
+
+    ProgressBar login_progress;
 
     TextView textview_fullname_error, textview_student_number_error, textview_parent_number_error, textview_email_error, textview_username_error, textview_password_error;
 
@@ -98,6 +103,7 @@ public class RegistrationActivity extends AppCompatActivity {
         drawable_anim_email = findViewById(R.id.drawable_anim_email);
         drawable_anim_username = findViewById(R.id.drawable_anim_username);
         drawable_anim_pass = findViewById(R.id.drawable_anim_pass);
+        login_progress = findViewById(R.id.login_progress);
 
         registrationViewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
@@ -125,6 +131,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 String pass = password_edt_text.getText().toString().trim();
                 String ref_code = referal_edt_text.getText().toString().trim();
                 String username = username_edt_text.getText().toString().trim();
+
+                v.animate().alpha(0.0f);
+                login_progress.setVisibility(View.VISIBLE);
 
                 if(fullname.equals("")){
                     textview_fullname_error.setVisibility(View.VISIBLE);
@@ -176,8 +185,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onChanged(String s) {
                             if(s.equals("Email or Mobile Number is already registered")){
                                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                                v.animate().alpha(1.0f);
+                                login_progress.setVisibility(View.GONE);
                             }
                             else{
+                                v.animate().alpha(1.0f);
+                                login_progress.setVisibility(View.GONE);
+                                SharedPref sharedPref = new SharedPref();
+                                sharedPref.setUserDetails(getApplicationContext(),"",fullname,st_number,email,pt_number,"https://img.icons8.com/officel/2x/user.png",username);
+
+                                sharedPref.setLoginStatus(getApplicationContext(),1);
+
                                 Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Collect_RecommendationActivity.class);
                                 startActivity(intent);

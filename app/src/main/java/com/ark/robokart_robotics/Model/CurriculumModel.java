@@ -2,27 +2,17 @@ package com.ark.robokart_robotics.Model;
 
 public class CurriculumModel {
 
-    private String curr_name;
-    private String curr_download_link;
+    private String curriculum_file;
 
-    public CurriculumModel(String curr_name, String curr_download_link) {
-        this.curr_name = curr_name;
-        this.curr_download_link = curr_download_link;
+    public CurriculumModel(String curriculum_file) {
+        this.curriculum_file = curriculum_file;
     }
 
-    public String getCurr_name() {
-        return curr_name;
+    public String getCurriculum_file() {
+        return curriculum_file;
     }
 
-    public void setCurr_name(String curr_name) {
-        this.curr_name = curr_name;
-    }
-
-    public String getCurr_download_link() {
-        return curr_download_link;
-    }
-
-    public void setCurr_download_link(String curr_download_link) {
-        this.curr_download_link = curr_download_link;
+    public void setCurriculum_file(String curriculum_file) {
+        this.curriculum_file = curriculum_file;
     }
 }

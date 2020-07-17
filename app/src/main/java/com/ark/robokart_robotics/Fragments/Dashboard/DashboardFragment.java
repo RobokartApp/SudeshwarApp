@@ -64,7 +64,7 @@ public class DashboardFragment extends Fragment {
 
     private ConstraintLayout parent;
 
-    private TextView view_all_js, view_all_iknow_just_bits;
+    private TextView view_all_js, view_all_iknow_just_bits, view_all_taking_a_level_up;
 
     public DashboardFragment(){}
 
@@ -81,6 +81,7 @@ public class DashboardFragment extends Fragment {
         parent = view.findViewById(R.id.parent);
         view_all_js = view.findViewById(R.id.view_all_js);
         view_all_iknow_just_bits = view.findViewById(R.id.view_all_iknow_just_bits);
+        view_all_taking_a_level_up = view.findViewById(R.id.view_all_iknow_everything);
         rvJustStartingVideos = view.findViewById(R.id.rvJustStartingVideos);
         rvKnowBitVideos = view.findViewById(R.id.rvKnowBitVideos);
         rvKnowEverythingVideos = view.findViewById(R.id.rvKnowEverythingVideos);
@@ -121,6 +122,20 @@ public class DashboardFragment extends Fragment {
 
 
         view_all_js.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
+            }
+        });
+
+        view_all_iknow_just_bits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
+            }
+        });
+
+        view_all_taking_a_level_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));

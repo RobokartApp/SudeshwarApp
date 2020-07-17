@@ -107,9 +107,9 @@ public class StandardActivity extends AppCompatActivity {
         } else if(hour >= 17 && hour < 24){
             greeting = "Good Evening,";
         }
-//        else if(hour >= 21 && hour < 24){
-//            greeting = "Good Night";
-//        }
+        else if(hour >= 0 && hour < 4){
+            greeting = "Good Night,";
+        }
 
         tvGood.setText(greeting);
 
@@ -160,7 +160,12 @@ public class StandardActivity extends AppCompatActivity {
 
         selectedItems = StandardAdapter.stdselectedList;
 
-        std = TextUtils.join(",",selectedItems);
+        if(selectedItems.size() > 0){
+            std = TextUtils.join(",",selectedItems);
+
+        }
+
+
 
 //        if(selectedItems.size() > 0) {
 //

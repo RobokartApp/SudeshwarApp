@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         logo.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {

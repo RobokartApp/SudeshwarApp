@@ -2,6 +2,7 @@ package com.ark.robokart_robotics.Activities.Quiz;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ark.robokart_robotics.Adapters.CourseAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.Question;
 
@@ -34,6 +36,8 @@ public class QuizRepository {
 
     private MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
+    private MutableLiveData<String> message = new MutableLiveData<>();
+
     private ArrayList<Question> questionArrayList = new ArrayList<>();
 
     public QuizRepository(Application application){
@@ -41,8 +45,8 @@ public class QuizRepository {
         requestQueue = Volley.newRequestQueue(application);
     }
 
-    public MutableLiveData<List<Question>> getQuestionList() {
-        StringRequest request = new StringRequest(Request.Method.GET, ApiConstants.HOST + ApiConstants.fetchquiz_api, response -> {
+    public MutableLiveData<List<Question>> getQuestionList(String quiz_id) {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.fetchquiz_api, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray quiz = jsonObject.getJSONArray("quiz");
@@ -93,11 +97,73 @@ public class QuizRepository {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("quiz_id",quiz_id);
                 return parameters;
             }
         };
         requestQueue.add(request);
 
         return questionList;
+    }
+
+    public MutableLiveData<String> addQuizResult(String course_id, String quiz_id, String customer_id,
+                                            String login_username, String login_parents_number, String login_mobile,
+                                            String total_number_of_chapter, String quiz_counter, String total_right,
+                                            String total_wrong, String total, String percent){
+        //Toast.makeText(application, "quizNo: "+quiz_counter, Toast.LENGTH_LONG).show();
+
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.quizResultApi, response -> {
+            try {
+
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject result = jsonObject.getJSONObject("result");
+
+                int status = jsonObject.getInt("statusId");
+
+                String msg = result.getString("message");
+
+                if (status == 1) {
+                    //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, "quiz_insert: "+result.getString("message"));
+
+                    message.setValue(msg);
+
+                }else if (status == 0) {
+                    Log.d(TAG, "quiz: "+result.getString("message"));
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("course_id", course_id);
+                parameters.put("quiz_id", quiz_id);
+                parameters.put("customer_id", customer_id);
+                parameters.put("login_username", login_username);
+                parameters.put("login_parents_number", login_parents_number);
+                parameters.put("login_mobile", login_mobile);
+                parameters.put("total_number_of_chapter", total_number_of_chapter);
+                parameters.put("quiz_counter",""+CourseAdapter.quiz_counter);
+                parameters.put("total_right", total_right);
+                parameters.put("total_wrong", total_wrong);
+                parameters.put("total", total);
+                parameters.put("percent", percent);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+        return message;
     }
 }

@@ -1,6 +1,7 @@
 package com.ark.robokart_robotics.Fragments.Courses;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.AdvanceCourseListAdpater;
 import com.ark.robokart_robotics.Adapters.MyCoursesAdapter;
@@ -24,6 +26,7 @@ import com.ark.robokart_robotics.R;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CoursesFragment extends Fragment {
@@ -33,6 +36,10 @@ public class CoursesFragment extends Fragment {
     private CoursesViewModel coursesViewModel;
 
     private MyCoursesAdapter myCoursesAdapter;
+
+    private LottieAnimationView animationView;
+
+    String customer_id="";
 
 
     public CoursesFragment(){}
@@ -56,9 +63,14 @@ public class CoursesFragment extends Fragment {
 
     public void init(View v){
 
+        animationView = v.findViewById(R.id.animationView);
+
         myCoursesRecyclerview = v.findViewById(R.id.myCoursesRecyclerview);
 
-        coursesViewModel.getMyCoursesList("19").observe(getActivity(), new Observer<List<MyCoursesModel>>() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userdetails",MODE_PRIVATE);
+        customer_id = sharedPreferences.getString("customer_id","0");
+
+        coursesViewModel.getMyCoursesList(customer_id).observe(getActivity(), new Observer<List<MyCoursesModel>>() {
             @Override
             public void onChanged(List<MyCoursesModel> courseListModels) {
                 myCoursesAdapter = new MyCoursesAdapter(getApplicationContext(),courseListModels);

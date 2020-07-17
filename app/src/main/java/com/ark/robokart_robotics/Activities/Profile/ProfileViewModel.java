@@ -15,7 +15,7 @@ public class ProfileViewModel extends AndroidViewModel {
         profileRepository = new ProfileRepository(application);
     }
 
-    public MutableLiveData<String> update(String User_id, String customer_name, String email, String mobile, String parentmoblie){
-        return profileRepository.updateProfile(User_id,customer_name,email,mobile,parentmoblie);
+    public MutableLiveData<String> update(String User_id, String customer_name, String email, String mobile, String parentmoblie, String customer_image, String username){
+        return profileRepository.updateProfile(User_id,customer_name,email,mobile,parentmoblie, customer_image, username);
     }
 }

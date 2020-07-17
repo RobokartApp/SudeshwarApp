@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Common.SharedPref;
+import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 
 import org.json.JSONArray;
@@ -33,6 +34,8 @@ public class CourseInclusionReposiory {
 
     private RequestQueue requestQueue;
 
+    private MutableLiveData<String> message = new MutableLiveData<>();
+
     private MutableLiveData<List<String>> courseDetails = new MutableLiveData<>();
 
     private ArrayList<String> courseDetailsList = new ArrayList<>();
@@ -40,6 +43,11 @@ public class CourseInclusionReposiory {
     private MutableLiveData<List<CourseInclusionModel>> courseInclusionList = new MutableLiveData<>();
 
     private ArrayList<CourseInclusionModel> courseInclusionMArrayList = new ArrayList<>();
+
+    private MutableLiveData<List<Class_chapters>> chapterNameMutableLiveData = new MutableLiveData<>();
+
+
+    private ArrayList<Class_chapters> chaptersArrayList = new ArrayList<>();
 
     public CourseInclusionReposiory(Application application){
         this.application = application;
@@ -59,6 +67,7 @@ public class CourseInclusionReposiory {
                         for(int i = 0; i< courses.length();i++){
                             JSONObject json = courses.getJSONObject(i);
                             CourseInclusionModel course = new CourseInclusionModel(
+                                    i,
                                     json.getString("chapter_name"));
                             courseInclusionMArrayList.add(course);
                         }
@@ -100,48 +109,109 @@ public class CourseInclusionReposiory {
         return courseInclusionList;
     }
 
-    public MutableLiveData<List<String>> getCourseDetails(String courseid){
 
-        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.login_otp, response -> {
+
+    public MutableLiveData<List<Class_chapters>> getChapterName(String courseid){
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.courseContent_Api, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray chaptername = result.getJSONArray("chaptername");
+                int status = jsonObject.getInt("statusId");
+
+                if (status == 1) {
+                    try{
+                        for(int i = 0; i< chaptername.length();i++){
+                            JSONObject json = chaptername.getJSONObject(i);
+
+                            JSONArray courses1 = json.getJSONArray("courses");
+
+                            ArrayList<Class_chapters.Course_List> courseListArrayList = new ArrayList<>();
+                            for(int j = 0; j < courses1.length(); j++){
+                                JSONObject jsonObject1 = courses1.getJSONObject(j);
+                                Class_chapters.Course_List course = new Class_chapters.Course_List(
+                                        i,
+                                        jsonObject1.getString("chapter_content"),
+                                        jsonObject1.getString("video_time"),
+                                        jsonObject1.getString("video_url"),
+                                        jsonObject1.getString("assignment_url"),
+                                        jsonObject1.getString("quiz_id")
+                                );
+
+                                courseListArrayList.add(course);
+                                Log.d(TAG, "course: "+jsonObject1.getString("chapter_content"));
+                            }
+
+                            Class_chapters chapter = new Class_chapters(
+                                    i,
+                                    json.getString("chapter_name"),
+                                    courseListArrayList);
+                            chaptersArrayList.add(chapter);
+
+
+                            Log.d(TAG, "----------------------------------------");
+
+                        }
+
+                        chapterNameMutableLiveData.setValue(chaptersArrayList);
+                    }
+                    catch (Exception e){
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "getCourseInclusionList: "+e.getMessage());
+                    }
+
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "getCourseInclusion: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("courseid",courseid);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+        return chapterNameMutableLiveData;
+    }
+
+    public MutableLiveData<String> getCourseAccess(String course_id, String customer_id){
+
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.courseAccessApi, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
 
                 JSONObject result = jsonObject.getJSONObject("result");
 
-                JSONObject course_details = result.getJSONObject("course_details");
-
                 int status = jsonObject.getInt("statusId");
 
-                String msg = result.getString("message");
+                String msg = result.getString("chapter_completed");
 
                 if (status == 1) {
                     //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
-                    Log.d(TAG, "course: "+result.getString("message"));
+                    Log.d(TAG, "course access: "+result.getString("chapter_completed"));
 
-                    String course_name = course_details.getString("course_name");
-                    String customer_rating = course_details.getString("customer_rating");
-                    String course_enrolled = course_details.getString("course_enrolled");
-                    String course_video_thumb = course_details.getString("course_video_thumb");
-                    String online_price_title = course_details.getString("online_price_title");
-                    String course_online_price = course_details.getString("course_online_price");
-                    String offline_price_title = course_details.getString("offline_price_title");
-                    String course_offline_price = course_details.getString("course_offline_price");
-
-                    courseDetailsList.add(course_name);
-                    courseDetailsList.add(customer_rating);
-                    courseDetailsList.add(course_enrolled);
-                    courseDetailsList.add(course_video_thumb);
-                    courseDetailsList.add(online_price_title);
-                    courseDetailsList.add(course_online_price);
-                    courseDetailsList.add(offline_price_title);
-                    courseDetailsList.add(course_offline_price);
-
-                   courseDetails.postValue(courseDetailsList);
+                    message.setValue(msg);
 
                 }else if (status == 0) {
-                    Log.d(TAG, "login: "+result.getString("message"));
+                    Log.d(TAG, "course access: "+result.getString("chapter_completed"));
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }
@@ -157,13 +227,14 @@ public class CourseInclusionReposiory {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("courseid", courseid);
+                parameters.put("course_id", course_id);
+                parameters.put("customer_id", customer_id);
                 return parameters;
             }
         };
         requestQueue.add(request);
 
-        return courseDetails;
+        return message;
     }
 
 }

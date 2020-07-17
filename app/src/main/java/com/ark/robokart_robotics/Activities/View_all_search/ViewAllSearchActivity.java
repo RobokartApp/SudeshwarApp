@@ -55,7 +55,6 @@ public class ViewAllSearchActivity extends AppCompatActivity {
 
         coursesRecyclerview = findViewById(R.id.coursesRecyclerview);
 
-
         viewAllSearchViewModel = new ViewModelProvider(this).get(ViewAllSearchViewModel.class);
 
         viewAllSearchViewModel.getCourseList().observe(this, new Observer<List<CourseListModel>>() {

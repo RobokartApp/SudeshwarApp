@@ -22,5 +22,14 @@ public class ApiConstants {
     public static final String curriculaim_api = "curriculaim_api.php";
     public static final String mycourses_api = "mycourses_api.php";
     public static final String mycourse_curriclumApi = "mycourse_curriclumApi.php";
+    public static final String courseContent_Api = "courseContent_Api.php";
     public static final String fetchquiz_api = "fetchquiz_api.php";
+    public static final String add_comment_api = "add_comment_api.php";
+    public static final String getComments_api = "getComments_api.php";
+    public static final String getCurriculum_api = "getCurriculum_api.php";
+    public static final String quizResultApi = "quizResultApi.php";
+    public static final String courseAccessApi = "courseAccessApi.php";
+    public static final String payment_api = "payment_api.php";
+    public static final String coupons_api = "coupon_api.php";
+    public static final String atl_api = "atl_api.php";
 }

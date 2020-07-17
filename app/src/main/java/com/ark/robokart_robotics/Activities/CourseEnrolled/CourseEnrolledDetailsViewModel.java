@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ark.robokart_robotics.Model.ChapterContent;
 import com.ark.robokart_robotics.Model.ChapterName;
+import com.ark.robokart_robotics.Model.Class_chapters;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class CourseEnrolledDetailsViewModel extends AndroidViewModel {
         courseEnrolledDetailsRepository = new CourseEnrolledDetailsRepository(application);
     }
 
-    public MutableLiveData<List<ChapterName>> getChapterName(String courseid) {
+    public MutableLiveData<List<Class_chapters>> getChapterName(String courseid) {
         return courseEnrolledDetailsRepository.getChapterName(courseid);
     }
 
-//    public MutableLiveData<List<ChapterContent>> getChapterContent(String courseid){
-//        return courseEnrolledDetailsRepository.getChapterContent(courseid);
-//    }
+    public MutableLiveData<String> getCourseAccess(String courseid, String customer_id){
+        return courseEnrolledDetailsRepository.getCourseAccess(courseid, customer_id);
+    }
 }

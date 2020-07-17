@@ -257,7 +257,7 @@
                     android:text="Holisticly underwhelm standards compliant ideas
 after plug-and-play web-readiness. Completely
 initiate world-class methods of empowerment vis-a-"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:textAlignment="gravity" />
 
                 <carbon.widget.TextView
@@ -281,6 +281,7 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                     android:layout_height="wrap_content"
                     android:text="Read More"
                     android:textAllCaps="false"
+                    android:visibility="gone"
                     android:textColor="@color/purple"
                     app:layout_constraintTop_toBottomOf="@id/short_desc" />
 
@@ -315,7 +316,7 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/courseInclusionRecyclerview"
                             android:layout_width="match_parent"
-                            android:layout_height="400dp"
+                            android:layout_height="wrap_content"
                             tools:listitem="@layout/row_courseinclusion_item"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             android:layout_marginTop="10dp"
@@ -332,13 +333,15 @@ initiate world-class methods of empowerment vis-a-sadasdas sd saddasdadasdasdasd
                         android:layout_height="wrap_content"
                         android:src="@drawable/play_quiz_btn"
                         android:scaleType="centerInside"
+                        android:visibility="gone"
                         android:layout_marginBottom="20dp"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"

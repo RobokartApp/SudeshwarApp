@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Model.CommentModel;
 import com.ark.robokart_robotics.R;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class CommentsAdapter extends ListAdapter<CommentModel,CommentsAdapter.Co
 
 
     public class CommentsHolder extends RecyclerView.ViewHolder{
-        ImageView ivVideo, overlay;
+        ImageView user_profile_image, overlay;
         TextView user_name;
         TextView comment;
         RelativeLayout video_relative;
@@ -60,14 +61,9 @@ public class CommentsAdapter extends ListAdapter<CommentModel,CommentsAdapter.Co
         public CommentsHolder(@NonNull View itemView) {
             super(itemView);
 
-//            ivVideo = itemView.findViewById(R.id.ivVideo);
-//            overlay = itemView.findViewById(R.id.overlay);
-              user_name = itemView.findViewById(R.id.user_name);
-              comment = itemView.findViewById(R.id.comment);
-//            tvPeople = itemView.findViewById(R.id.tvPeople);
-//            tvRating = itemView.findViewById(R.id.tvRating);
-//            video_relative = itemView.findViewById(R.id.video_relative);
-
+            user_profile_image = itemView.findViewById(R.id.user_profile_image);
+            user_name = itemView.findViewById(R.id.user_name);
+            comment = itemView.findViewById(R.id.comment);
         }
     }
 
@@ -76,8 +72,10 @@ public class CommentsAdapter extends ListAdapter<CommentModel,CommentsAdapter.Co
     public void onBindViewHolder(@NonNull CommentsHolder holder, int position) {
         CommentModel commentModel = mcourseList.get(position);
 
-        holder.user_name.setText(commentModel.getUsername());
+        holder.user_name.setText(commentModel.getCustomer_name());
         holder.comment.setText(commentModel.getComment());
+
+        Glide.with(mContext).load(commentModel.getCustomer_image()).into(holder.user_profile_image);
     }
 
 

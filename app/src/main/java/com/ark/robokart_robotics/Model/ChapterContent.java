@@ -3,6 +3,8 @@ package com.ark.robokart_robotics.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 public class ChapterContent implements Parcelable {
 
     public final String chapter_content;
@@ -51,5 +53,10 @@ public class ChapterContent implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(chapter_content);
+        dest.writeString(video_time);
+        dest.writeString(video_url);
+        dest.writeString(assignment_url);
+        dest.writeString(quiz_id);
     }
+
 }

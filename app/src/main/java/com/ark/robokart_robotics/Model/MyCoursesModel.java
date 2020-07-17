@@ -2,14 +2,24 @@ package com.ark.robokart_robotics.Model;
 
 public class MyCoursesModel {
 
+    private String course_id;
     private String course_name;
     private String course_video_thumb;
     private String learn_percent;
 
-    public MyCoursesModel(String course_name, String course_video_thumb, String learn_percent) {
+    public MyCoursesModel(String course_id, String course_name, String course_video_thumb, String learn_percent) {
+        this.course_id = course_id;
         this.course_name = course_name;
         this.course_video_thumb = course_video_thumb;
         this.learn_percent = learn_percent;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
     public String getCourse_name() {

@@ -13,20 +13,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.CourseEnrolled.CourseEnrolledDetailsActivity">
-
-        </activity>
-        <activity android:name=".Activities.Certificate.CheckCertificateActivity">
-
-        </activity>
+        <activity android:name=".Activities.AtlCourseDetails"></activity>
+        <activity android:name=".Activities.AtlChooseLevel.AtlChooseLevel" />
+        <activity android:name=".Activities.AtlChooseStandard.AtlChooseStandard" />
+        <activity android:name=".Activities.NewQuiz.NewQuizActivity" />
+        <activity android:name=".Activities.ChooseCategory.ChooseCategory" />
+        <activity
+            android:name=".Activities.CourseEnrolled.CourseEnrolledDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".Activities.Certificate.CheckCertificateActivity" />
         <activity android:name=".Activities.Login.LoginEmailActivity" />
         <activity android:name=".Activities.Quiz.QuizActivity" />
         <activity android:name=".Activities.ChooseStandard.StandardActivity" />
-        <activity android:name=".Activities.VideoPlaying.VideoPlayingActivity" />
+        <activity
+            android:name=".Activities.VideoPlaying.VideoPlayingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".Activities.Profile.ProfileActivity" />
         <activity
             android:name=".Activities.CourseDetails.CourseDetailsActivity"

@@ -58,7 +58,7 @@ public class SharedPref {
         return login_status;
     }
 
-    public void setUserDetails(Context context, String customer_id, String fullname, String stud_number, String email, String parent_number){
+    public void setUserDetails(Context context, String customer_id, String fullname, String stud_number, String email, String parent_number, String customer_image, String username){
         SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("customer_id",customer_id);
@@ -66,6 +66,8 @@ public class SharedPref {
         editor.putString("stud_number",stud_number);
         editor.putString("email",email);
         editor.putString("parent_number",parent_number);
+        editor.putString("customer_image",customer_image);
+        editor.putString("username",username);
         editor.apply();
     }
 

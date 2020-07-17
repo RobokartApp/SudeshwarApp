@@ -9,4 +9,5 @@ public class ChapterName extends ExpandableGroup<ChapterContent> {
     public ChapterName(String title, List<ChapterContent> items) {
         super(title, items);
     }
+
 }

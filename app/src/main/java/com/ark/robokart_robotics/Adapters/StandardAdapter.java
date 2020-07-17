@@ -100,7 +100,6 @@ public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                         isSelected = true;
                     }
 
-
                 }
             });
 

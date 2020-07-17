@@ -37,7 +37,7 @@ public class CollectRecomRepository {
 
     private ArrayList<Recommendations> recommendationsArrayList = new ArrayList<>();
 
-    private MutableLiveData<Integer> message = new MutableLiveData<>();
+    private MutableLiveData<String> message = new MutableLiveData<>();
 
     public CollectRecomRepository(Application application){
         this.application = application;
@@ -56,19 +56,20 @@ public class CollectRecomRepository {
         return recommendationList;
     }
 
-    public MutableLiveData<Integer> collect(String r_id, String customer_id){
+    public MutableLiveData<String> collect(String r_id, String customer_id){
 
-        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.local_HOST + ApiConstants.collect_recommendation_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.collect_recommendation_api, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
 
-                int status = jsonObject.getInt("success_code");
+                JSONObject result = jsonObject.getJSONObject("result");
 
-                int msg = jsonObject.getInt("recom_id");
+                int status = jsonObject.getInt("statusId");
+
+                String msg = result.getString("message");
 
                 if (status == 1) {
-                    //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
                     SharedPref sharedPref = new SharedPref();
                     sharedPref.setRecommendation(application,1);

@@ -57,6 +57,7 @@ public class CoursesRepository {
                         for(int i = 0; i< courses.length();i++){
                             JSONObject json = courses.getJSONObject(i);
                             MyCoursesModel course = new MyCoursesModel(
+                                    json.getString("course_id"),
                                     json.getString("course_name"),
                                     json.getString("course_video_thumb"),
                                     json.getString("learn_percent")
@@ -91,7 +92,7 @@ public class CoursesRepository {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("customer_id","836");
+                parameters.put("customer_id",customer_id);
                 return parameters;
             }
         };

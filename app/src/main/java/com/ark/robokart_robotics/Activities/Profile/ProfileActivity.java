@@ -29,6 +29,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +45,14 @@ import com.myhexaville.smartimagepicker.ImagePicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 
 import carbon.widget.Button;
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -66,13 +69,23 @@ public class ProfileActivity extends AppCompatActivity {
 
     private EditText first_name_edt, last_name_edt, email_edt, phone_edt;
 
+    private carbon.widget.TextView name_txt;
+
     private Button save_btn;
 
     private LottieAnimationView drawable_anim_fname, drawable_anim_lname, drawable_anim_email, drawable_anim_number;
 
     private TextView textview_fname_error, textview_lname_error, textview_email_error, textview_phone_error;
 
+    private ProgressBar uplaod_progressbar;
+
+    private CircleImageView transparent;
+
     String user_id;
+
+    String cust_img;
+
+    String user_name;
 
     private ImageView upload_btn;
 
@@ -95,6 +108,8 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean show;
 
     private String img_base_url = "https://robokart.com/";
+
+    File compressedImageFile;
 
 
     @Override
@@ -124,24 +139,30 @@ public class ProfileActivity extends AppCompatActivity {
         textview_lname_error = findViewById(R.id.textview_lname_error);
         textview_email_error = findViewById(R.id.textview_email_error);
         textview_phone_error = findViewById(R.id.textview_phone_error);
+        name_txt = findViewById(R.id.name_txt);
         upload_btn = findViewById(R.id.upload_btn);
         profile_image = findViewById(R.id.profile_image);
         edit_btn = findViewById(R.id.edit_btn);
         tvGood = findViewById(R.id.tvGood);
+        uplaod_progressbar = findViewById(R.id.uplaod_progressbar);
+        transparent = findViewById(R.id.transparent);
         apiRequest = RetrofitRequest.getRetrofitInstance().create(UploadAPI.class);
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         try {
             SharedPreferences sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
+            name_txt.setText(sharedPreferences.getString("fullname",""));
             first_name_edt.setText(sharedPreferences.getString("fullname",""));
             last_name_edt.setText(sharedPreferences.getString("stud_number",""));
             email_edt.setText(sharedPreferences.getString("email",""));
             phone_edt.setText(sharedPreferences.getString("parent_number",""));
             user_id = sharedPreferences.getString("customer_id","");
+            cust_img = sharedPreferences.getString("customer_image","");
+            user_name = sharedPreferences.getString("username","");
 
             SharedPreferences sharedPreferences1 = getSharedPreferences("URL",MODE_PRIVATE);
-            String url = sharedPreferences1.getString("image_url","https://img.icons8.com/officel/2x/user.png");
+            String url = sharedPreferences.getString("customer_image","https://img.icons8.com/officel/2x/user.png");
             Glide.with(getApplicationContext()).load(Uri.parse(url).toString().trim()).disallowHardwareConfig().into(profile_image);
 //            Picasso.get().load(img_base_url+url.trim()).into(profile_image);
 
@@ -159,6 +180,9 @@ public class ProfileActivity extends AppCompatActivity {
                 greeting = "Good Afternoon,";
             } else if(hour >= 17 && hour < 24){
                 greeting = "Good Evening,";
+            }
+            else if(hour >= 0 && hour < 4){
+                greeting = "Good Night,";
             }
 //        else if(hour >= 21 && hour < 24){
 //            greeting = "Good Night";
@@ -194,7 +218,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 show = true;
-                save_btn.setVisibility(View.VISIBLE);
+                save_btn.animate().alpha(1.0f).translationY(-1.0f);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 
@@ -330,12 +354,14 @@ public class ProfileActivity extends AppCompatActivity {
                    String email = email_edt.getText().toString().trim();
                    String parent_number = phone_edt.getText().toString();
 
-                   profileViewModel.update(user_id,fullname,email,stud_number,parent_number).observe(ProfileActivity.this, new Observer<String>() {
+
+
+                   profileViewModel.update(user_id,fullname,email,stud_number,parent_number,cust_img,user_name).observe(ProfileActivity.this, new Observer<String>() {
                        @Override
                        public void onChanged(String s) {
                            if(s.equals("Update successfull")){
                                Toast.makeText(getApplicationContext(),"Update Successful",Toast.LENGTH_SHORT).show();
-                               save_btn.setVisibility(View.GONE);
+                               v.animate().alpha(0.0f).translationY(0.0f);
                                first_name_edt.setFocusable(false);
                            }
                        }
@@ -424,8 +450,8 @@ public class ProfileActivity extends AppCompatActivity {
                 imageUri -> {
                     profile_image.setImageURI(imageUri);
                     try {
-
                         file = new File (FileUtils.getPath(imageUri,getApplicationContext()));
+                        compressedImageFile = new Compressor(this).compressToFile(file);
                         uploadImageToServer();
 
                     } catch (Exception e) {
@@ -436,11 +462,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void uploadImageToServer() {
 
+        transparent.setVisibility(View.VISIBLE);
+        uplaod_progressbar.setVisibility(View.VISIBLE);
+
         RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                RequestBody.create(MediaType.parse("multipart/form-data"), compressedImageFile);
 
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("img1", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("img1", compressedImageFile.getName(), requestFile);
 
         apiRequest.ProfilePicUpload(user_id,body)
                 .enqueue(new Callback<ImageModel>() {
@@ -456,6 +485,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                         if(!img_url.equals("")){
                             Toast.makeText(getApplicationContext(),"Profile photo uploaded",Toast.LENGTH_SHORT).show();
+                            transparent.setVisibility(View.GONE);
+                            uplaod_progressbar.setVisibility(View.GONE);
                         }
 
                         SharedPref sharedPref = new SharedPref();

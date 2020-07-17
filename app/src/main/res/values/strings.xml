@@ -48,4 +48,7 @@
     <string name="search">Search...</string>
     <string name="to_verify_the_authenticity_of_a_certificate_issued_by_robokart_please_enter_the_certification_id">To verify the authenticity of a certificate issued by Robokart, please enter the Certification ID</string>
     <string name="enter_certification_id">Enter Certification ID</string>
+    <string name="atl_courses">ATL Courses</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

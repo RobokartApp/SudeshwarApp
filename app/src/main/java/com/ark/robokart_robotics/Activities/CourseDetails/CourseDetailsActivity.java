@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,7 +50,9 @@ import com.example.vimeoplayer2.vimeoextractor.OnVimeoExtractionListener;
 import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
 import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
 import com.razorpay.Checkout;
+import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultListener;
+import com.razorpay.PaymentResultWithDataListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +60,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import carbon.widget.Button;
+import carbon.widget.ConstraintLayout;
 
-public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback, PaymentResultListener, BillingDetailsFragment.onClickListener {
+public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback, PaymentResultWithDataListener, BillingDetailsFragment.onClickListener {
 
     private static final String TAG = "MainActivity";
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
@@ -75,9 +82,10 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     private int mSeekPosition;
     private int cachedHeight;
     private boolean isFullscreen;
+    public static String coupan="NA";
+    public static String discount="0";
 
     Checkout checkout;
-
 
     TextView course_name, customer_rating;
 
@@ -109,8 +117,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     String customer_id = "";
 
-    String online_price_title, course_online_price, offline_price_title, course_offline_price;
+    public static String online_price_title, course_online_price, offline_price_title, course_offline_price;
 
+    public static String name,mobile,email,pincode,landmark,address,state,city;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,9 +131,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         init();
 
         listeners();
-
-
-
 
     }
 
@@ -254,6 +260,13 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             }
         });
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 
@@ -269,12 +282,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     }
 
 
-    private void prepareViewedRecyclerView(List<CourseListModel> courseListModelList) {
-        customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
-        alsoviewedRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        alsoviewedRecyclerview.setAdapter(customAdapter);
-        customAdapter.notifyDataSetChanged();
-    }
+//    private void prepareViewedRecyclerView(List<CourseListModel> courseListModelList) {
+//        customAdapter = new CustomAdapter(getApplicationContext(),courseListModelList);
+//        alsoviewedRecyclerview.setItemAnimator(new DefaultItemAnimator());
+//        alsoviewedRecyclerview.setAdapter(customAdapter);
+//        customAdapter.notifyDataSetChanged();
+//    }
 
 
     @Override
@@ -289,16 +302,26 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     }
 
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
+    @Override
+    protected void onResume() {
+        super.onResume();
 //        Log.d(TAG, "onPause ");
 //        if (mVideoView != null && mVideoView.isPlaying()) {
 //            mSeekPosition = mVideoView.getCurrentPosition();
 //            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
 //            mVideoView.seekTo(mSeekPosition);
 //        }
-//    }
+
+        courseInclusionViewModel.getCourseAccess(courseid,customer_id).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                SharedPreferences chapt_completed = getSharedPreferences("courseinclusionaccess", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = chapt_completed.edit();
+                editor.putString("chapter_complete",s);
+                editor.apply();
+            }
+        });
+    }
 
     /**
      * 置视频区域大小
@@ -396,7 +419,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         }
     }
 
-
     public void startPayment() {
         checkout.setKeyID("rzp_test_EvXZMjKBLEZ4D2");
 
@@ -429,9 +451,11 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
              *     Invoice Payment
              *     etc.
              */
-            options.put("description", "Reference No. #123456");
+            Random random = new Random();
+            String id="rbk_"+random.nextInt(999999);
+            options.put("description", id);
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-//            options.put("order_id", "order_9A33XWu170gUtm");
+          //  options.put("order_id", id);
             options.put("currency", "INR");
 
 
@@ -439,7 +463,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
              * Amount is always passed in currency subunits
              * Eg: "500" = INR 5.00
              */
-            options.put("amount", "5000");
+            int price=Integer.parseInt(course_online_price)*100;
+            options.put("amount", price);
 
 
 
@@ -450,12 +475,56 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     }
 
     @Override
-    public void onPaymentSuccess(String s) {
-        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    public void onPaymentSuccess(String s,PaymentData data) {
+        String paymentId = data.getPaymentId();
+        String signature = data.getSignature();
+        String orderId = data.getOrderId();
+        //Toast.makeText(getApplicationContext(),"id:"+paymentId+" sign:"+signature+" order:"+orderId,Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, "name:"+name+"mob:"+mobile, Toast.LENGTH_SHORT).show();
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.payment_api,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Log.d(TAG, response);
+                        Toast.makeText(CourseDetailsActivity.this, "Thanks for the Payment!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Log.e(TAG, "Error in payment API", error);
+                        Toast.makeText(CourseDetailsActivity.this, ""+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("id",paymentId);
+                params.put("name",""+name);
+                params.put("mobile",""+mobile);
+                params.put("email",""+email);
+                params.put("address",""+address);
+                params.put("landmark",""+landmark);
+                params.put("pincode",""+pincode);
+                params.put("state",""+state);
+                params.put("city",""+city);
+                params.put("cust_id",customer_id);
+                params.put("coupan",""+coupan);
+                params.put("discount",""+discount);
+                params.put("final",course_online_price);
+                params.put("course_price",course_online_price);
+                params.put("course_id",courseid);
+                params.put("pay_sign",""+signature);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
     @Override
-    public void onPaymentError(int i, String s) {
+    public void onPaymentError(int i, String s,PaymentData paymentData) {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
@@ -494,6 +563,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                     String course_video_thumb = course_details.getString("course_video_thumb");
                     String input = course_details.getString("course_video_url");
                     VIMEO_VIDEO_URL = input.substring(0, input.indexOf("?"));
+                    String curriculum = course_details.getString("curriculum_file");
                     online_price_title = course_details.getString("online_price_title");
                     course_online_price = course_details.getString("course_online_price");
                     offline_price_title = course_details.getString("offline_price_title");

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:background="@drawable/white_bg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        >
+
+
+        <TextView
+            android:id="@+id/choosestd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Standard"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"/>
+
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:flexWrap="wrap"
+            app:alignItems="center"
+            app:alignContent="center"
+            app:justifyContent="space_evenly"
+            app:layout_constraintTop_toBottomOf="@id/choosestd"
+            android:paddingTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fifthstdcard"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sixthstd"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMaker"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10th Standard"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

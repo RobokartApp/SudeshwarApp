@@ -117,7 +117,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/llDownload"
+                    android:id="@+id/llSupport"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="30dp"
@@ -127,15 +127,17 @@
                     android:layout_marginTop="25dp"
                     android:gravity="center_horizontal"
                     android:layout_marginLeft="20dp">
+
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/download_btn"/>
+                        android:id="@+id/imgsupport"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/technical_support"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Downloads"
+                        android:text="Support"
                         android:layout_marginTop="4dp"
                         android:textColor="@color/black"
                         android:textSize="12sp"

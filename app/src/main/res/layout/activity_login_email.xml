@@ -222,8 +222,20 @@
             android:shadowRadius="10.0"
             android:shadowDy="10.0"
             app:carbon_elevation="10dp"
+            android:alpha="1.0"
             app:carbon_elevationAmbientShadowColor="@color/purple"
             app:carbon_elevationShadowColor="@color/purple"/>
+
+        <ProgressBar
+            android:id="@+id/login_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
+            android:indeterminateTint="@color/purple"/>
 
 
 

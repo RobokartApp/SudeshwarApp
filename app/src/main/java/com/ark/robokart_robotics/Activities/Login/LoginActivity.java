@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btn_login, btn_email_login;
 
+    private ProgressBar login_progress;
     LoginButton btn_fb;
 
     private CallbackManager callbackManager;
@@ -109,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_fb = findViewById(R.id.login_button);
 
+        login_progress = findViewById(R.id.login_progress);
+
         animationView = findViewById(R.id.drawable_anim);
 
         signInButton = findViewById(R.id.sign_in_button);
@@ -157,11 +161,17 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(etPhoneNum.getText().length() > 9 && textview_number_error.getVisibility() == View.GONE){
 
+                    v.animate().alpha(0.0f);
+
+                    login_progress.setVisibility(View.VISIBLE);
+
                     String number = etPhoneNum.getText().toString().trim();
 
                     loginViewModel.requestotp(number).observe(LoginActivity.this, s -> {
                         if(s.equals("OTP has been sent to your mobile number"))
                         {
+                            v.animate().alpha(1.0f);
+                            login_progress.setVisibility(View.GONE);
                             Intent intent = new Intent(getApplicationContext(),OTPVerficationActivity.class);
                             intent.putExtra("phone_number",number);
                             startActivity(intent);
