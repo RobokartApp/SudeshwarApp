@@ -9,44 +9,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsActivity;
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsViewModel;
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingViewModel;
-import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.MyViewHolder> {
 
     private static final String TAG = "ChapterAdapter";
 
-    private List<Class_chapters> chapters;
-    private Context mContext;
+    private final List<Class_chapters> chapters;
+    private final Context mContext;
     int flag = 0;
     int open_flag = 0;
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
     public String pos = "";
 
 
@@ -91,7 +74,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.MyViewHo
 
             holder.tv_chapter.setText(image.getChapter_name());
             holder.mycourseListArrayList = image.getCourses();
-            CourseAdapter courseAdapter = new CourseAdapter(getApplicationContext(), holder.mycourseListArrayList);
+            CourseAdapter courseAdapter = new CourseAdapter(mContext, holder.mycourseListArrayList);
             holder.recyclerView.setAdapter(courseAdapter);
 
             int num = image.getNum();
@@ -132,7 +115,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.MyViewHo
             });
 
         }catch (Exception ex){
-            Log.e(TAG,  ex.getMessage().toString());
+            Log.e(TAG, ex.getMessage());
         }
     }
 

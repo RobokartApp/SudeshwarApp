@@ -1,13 +1,12 @@
 package com.ark.robokart_robotics.Fragments.Dashboard;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,32 +15,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Slide;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
-import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchActivity;
 import com.ark.robokart_robotics.Adapters.AdvanceCourseListAdpater;
-import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CustomAdapter;
 import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
-import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
-import com.ark.robokart_robotics.Fragments.Dashboard.DashboardViewModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
-import com.ark.robokart_robotics.Model.Recommendations;
 import com.ark.robokart_robotics.R;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
 
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class DashboardFragment extends Fragment {
 
@@ -78,6 +64,10 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Menu menu= HomeActivity.bottomNavigationView.getMenu();
+        MenuItem menuItem=menu.getItem(0);
+        menuItem.setChecked(true);
+
         parent = view.findViewById(R.id.parent);
         view_all_js = view.findViewById(R.id.view_all_js);
         view_all_iknow_just_bits = view.findViewById(R.id.view_all_iknow_just_bits);
@@ -96,7 +86,7 @@ public class DashboardFragment extends Fragment {
         beginnerViewModel.getBeginnerourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
             @Override
             public void onChanged(List<CourseListModel> courseListModels) {
-                customAdapter = new CustomAdapter(getApplicationContext(),courseListModels);
+                customAdapter = new CustomAdapter(getContext(),courseListModels);
                 rvJustStartingVideos.setAdapter(customAdapter);
                 customAdapter.notifyDataSetChanged();
             }
@@ -105,7 +95,7 @@ public class DashboardFragment extends Fragment {
         intermediateViewModel.getIntermediateCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
             @Override
             public void onChanged(List<CourseListModel> courseListModels) {
-                intermediateCourseListAdapter = new IntermediateCourseListAdapter(getApplicationContext(),courseListModels);
+                intermediateCourseListAdapter = new IntermediateCourseListAdapter(getContext(),courseListModels);
                 rvKnowBitVideos.setAdapter(intermediateCourseListAdapter);
                 intermediateCourseListAdapter.notifyDataSetChanged();
             }
@@ -114,31 +104,30 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel.getAdvanceCourseList().observe(getActivity(), new Observer<List<CourseListModel>>() {
             @Override
             public void onChanged(List<CourseListModel> courseListModels) {
-                advanceCourseListAdpater = new AdvanceCourseListAdpater(getApplicationContext(),courseListModels);
+                advanceCourseListAdpater = new AdvanceCourseListAdpater(getContext(),courseListModels);
                 rvKnowEverythingVideos.setAdapter(advanceCourseListAdpater);
                 advanceCourseListAdpater.notifyDataSetChanged();
             }
         });
 
-
         view_all_js.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
+                startActivity(new Intent(getContext(), ViewAllSearchActivity.class));
             }
         });
 
         view_all_iknow_just_bits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
+                startActivity(new Intent(getContext(), ViewAllSearchActivity.class));
             }
         });
 
         view_all_taking_a_level_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ViewAllSearchActivity.class));
+                startActivity(new Intent(getContext(), ViewAllSearchActivity.class));
             }
         });
 

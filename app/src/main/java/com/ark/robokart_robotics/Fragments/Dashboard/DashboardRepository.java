@@ -2,7 +2,6 @@ package com.ark.robokart_robotics.Fragments.Dashboard;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -29,13 +28,13 @@ public class DashboardRepository {
 
     private static final String TAG = "DashboardRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
 
-    private ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
+    private final ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
 
     public DashboardRepository(Application application){
         this.application = application;

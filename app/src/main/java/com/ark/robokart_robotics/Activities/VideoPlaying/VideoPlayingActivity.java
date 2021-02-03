@@ -1,12 +1,8 @@
 
 package com.ark.robokart_robotics.Activities.VideoPlaying;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -21,26 +17,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
-import com.ark.robokart_robotics.Adapters.ChapterContentAdapter;
 import com.ark.robokart_robotics.Adapters.CommentsAdapter;
-import com.ark.robokart_robotics.Adapters.CourseListAdapter;
 import com.ark.robokart_robotics.Adapters.CurriculumAdapter;
-import com.ark.robokart_robotics.Adapters.CustomAdapter;
-import com.ark.robokart_robotics.Adapters.IntermediateCourseListAdapter;
-import com.ark.robokart_robotics.Model.ChapterContent;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.Model.CommentModel;
-import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.Model.CurriculumModel;
 import com.ark.robokart_robotics.R;
-import com.artjimlop.altex.AltexImageDownloader;
 import com.example.vimeoplayer2.UniversalMediaController;
 import com.example.vimeoplayer2.UniversalVideoView;
 import com.example.vimeoplayer2.vimeoextractor.OnVimeoExtractionListener;
 import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
 import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
+import com.vimeo.networking.VimeoClient;
+import com.vimeo.networking.callbacks.AuthCallback;
+import com.vimeo.networking.model.error.VimeoError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,7 @@ import java.util.List;
 import carbon.widget.Button;
 import carbon.widget.TextView;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class VideoPlayingActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback{
 
@@ -62,7 +59,7 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
 
     private CommentsAdapter commentsAdapter;
 
-    private TextView chapter_name, video_time, chapter_size;
+    private TextView chapter_name, video_time, chapter_size,short_desc;
 
     private EditText comment_edt;
 
@@ -130,15 +127,13 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
 
         listeners();
 
-
-
     }
 
     public void init(){
-        curriculum_recyclerview = findViewById(R.id.curriculum_recyclerview);
+        //curriculum_recyclerview = findViewById(R.id.curriculum_recyclerview);
 
         comments_Recyclerview = findViewById(R.id.comments_Recyclerview);
-
+short_desc=findViewById(R.id.short_desc);
         chapter_name = findViewById(R.id.chapter_name);
         video_time = findViewById(R.id.video_time);
         chapter_size = findViewById(R.id.chapter_size);
@@ -155,8 +150,8 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
 
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
-        mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
-        mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
+        mVideoView = findViewById(R.id.videoView);
+        mMediaController = findViewById(R.id.media_controller);
 
         mVideoView.setMediaController(mMediaController);
         setVideoAreaSize();
@@ -170,6 +165,7 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
             course_id = bundle.getString("course_id");
             chapt_nme = bundle.getString("chapter_name");
             chapter_name.setText(chapt_nme);
+
             chapt_id = String.valueOf(bundle.getInt("chpt_id"));
             chapterContentArrayList = bundle.getParcelableArrayList("courses");
             total_number_chapter = bundle.getString("total_number_chapter");
@@ -191,16 +187,28 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
             chapter_size.setText(size);
 
             assignment = chapterContentArrayList.get(0).getAssignment_url();
-
+/*
+            String[] sArr=assignment.split("/");
+            String fileId=sArr[5];//"1aNjZyQ1Eeb3guDE9x8ca0OiVm_JVzJqC";
+            final String DownloadUrl="https://docs.google.com/a/google.com/uc?id="+fileId;
+*/
             quiz_id = chapterContentArrayList.get(0).getQuiz_id();
 
-
+            short_desc.setText(chapterContentArrayList.get(i).getChapter_content());
             VIMEO_VIDEO_URL = chapterContentArrayList.get(0).getVideo_url().trim();
 
             if(VIMEO_VIDEO_URL.equals("") && assignment.length() > 0){
-                Toast.makeText(getApplicationContext(), "Its time to do some Assignment",Toast.LENGTH_SHORT).show();
-                AltexImageDownloader
-                        .writeToDisk(getApplicationContext(), assignment, getExternalFilesDir("Robokart/") + "Curriculum/");
+                Toast.makeText(getApplicationContext(), "Its time to do some Assignment: ",Toast.LENGTH_SHORT).show();
+               // AltexImageDownloader
+                 //       .writeToDisk(getApplicationContext(), assignment, getExternalFilesDir("Robokart/") + "Curriculum/");
+         /*       DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+
+                Uri uri = Uri.parse(DownloadUrl);
+
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                Long reference = downloadManager.enqueue(request);*/
                 videoPlaying(VIMEO_VIDEO_URL);
             }
             else if (VIMEO_VIDEO_URL.equals("") && quiz_id.length() > 0){
@@ -293,8 +301,8 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
 
     private void prepareCurrRecyclerView(List<CurriculumModel> curriculumModelList) {
 
-        curriculum_recyclerview.setAdapter(curriculumAdapter);
-         curriculumAdapter.notifyDataSetChanged();
+        //curriculum_recyclerview.setAdapter(curriculumAdapter);
+         //curriculumAdapter.notifyDataSetChanged();
     }
 
     private void prepareCommentRecyclerview(List<CommentModel> commentModelList){
@@ -331,28 +339,46 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
 
 
     private void nextLesson() {
+    /*    String uri1 = VimeoClient.getInstance().getCodeGrantAuthorizationURI();
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri1));
+        startActivity(browserIntent);*/
 
         try {
             i++;
             min = "Time - "+chapterContentArrayList.get(i).getVideo_time()+" mins";
             video_time.setText(min);
-
+            //Toast.makeText(this, ""+chapterContentArrayList.get(i).getChapter_content(), Toast.LENGTH_SHORT).show();
             size = "Lesson " + (i+1) + " / " + chapterContentArrayList.size();
 
             chapter_size.setText(size);
 
             VIMEO_VIDEO_URL = chapterContentArrayList.get(i).getVideo_url().trim();
+            short_desc.setText(chapterContentArrayList.get(i).getChapter_content());
 
             assignment = chapterContentArrayList.get(i).getAssignment_url();
-
+             String download_url="";
+            if(!assignment.isEmpty()) {
+                String[] sArr = assignment.split("/");
+                String fileId = sArr[5];//"1aNjZyQ1Eeb3guDE9x8ca0OiVm_JVzJqC";
+                download_url = "https://docs.google.com/a/google.com/uc?id=" + fileId;
+            }
             quiz_id = chapterContentArrayList.get(i).getQuiz_id();
 
 
             if(VIMEO_VIDEO_URL.equals("") && assignment.length() > 0){
-                Toast.makeText(getApplicationContext(), "Its time to do some Assignment",Toast.LENGTH_SHORT).show();
-                AltexImageDownloader
-                        .writeToDisk(getApplicationContext(), assignment, getExternalFilesDir("Robokart/") + "Curriculum/");
+                Toast.makeText(getApplicationContext(), "Its time to do some Assignment: ",Toast.LENGTH_SHORT).show();
+               // AltexImageDownloader
+                 //       .writeToDisk(getApplicationContext(), assignment, getExternalFilesDir("Robokart/") + "Curriculum/");
                 videoPlaying(VIMEO_VIDEO_URL);
+                DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+
+                Uri uri = Uri.parse(download_url);
+
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                downloadManager.enqueue(request);
+
             }
             else if (VIMEO_VIDEO_URL.equals("") && quiz_id.length() > 0){
                 SharedPreferences quiz = getSharedPreferences("quiz_id",MODE_PRIVATE);
@@ -393,8 +419,43 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
         }
 
     }
+    String clientId="0993a005480472a69fab10c2f9b8ad0d6bee7acf",
+            clientSecret="oVsWjoQ2RHeHvZ8xK3yrtdHrG7YiN+rnHh4qqBfmscDbCwplTFzytAoVIVrXMnAQShuBYuA6fZftYL+AIvX5zRP8JXOs06dQcej1yeL/ACJSGuiKoQJbqdC6CELuP+Pl",
+            SCOPE="private public";
 
     private void videoPlaying(String url){
+        //Toast.makeText(this, "url: "+url, Toast.LENGTH_SHORT).show();
+  /*     String[] arr=url.split("/");
+
+        Configuration.Builder configBuilder =
+                new Configuration.Builder(clientId, clientSecret, SCOPE)
+                        .setCacheDirectory(this.getCacheDir());///
+        
+        VimeoClient.initialize(configBuilder.build());*/
+        //Toast.makeText(this, "id: "+arr[4], Toast.LENGTH_SHORT).show();
+        //String uri = "https://api.vimeo.com/videos/"+arr[4];// the video uri; if you have a Video, this is video.uri
+        //authenticateWithClientCredentials();
+/*
+        Log.d("vimeo uri: ",""+url);
+        VimeoClient.getInstance().fetchNetworkContent("videos/338391481", new ModelCallback<Video>(Video.class) {
+            @Override
+            public void success(Video video) {
+                // use the video
+                Log.e("vimeo video","success: "+video);
+                mVideoView.setMediaController(mMediaController);
+Uri viduri=Uri.parse(video.uri);
+                mVideoView.setVideoURI(viduri);
+                mVideoView.start();//
+            }
+
+            @Override
+            public void failure(VimeoError error) {
+                // voice the error
+                Log.e("vimeo video","failed: "+error);
+            }
+        });
+*/
+
         VimeoExtractor.getInstance().fetchVideoWithURL(url, null, new OnVimeoExtractionListener() {
             @Override
             public void onSuccess(final VimeoVideo video) {
@@ -428,10 +489,28 @@ public class VideoPlayingActivity extends AppCompatActivity implements Universal
             public void onFailure(Throwable throwable) {
                 //Error handling here
                 mVideoView.closePlayer();
+                Log.d("video fail","Failed to load video: "+throwable.getMessage());
+            }
+        });
+
+
+    }
+
+    private void authenticateWithClientCredentials() {
+        VimeoClient.getInstance().authorizeWithClientCredentialsGrant(new AuthCallback() {
+            @Override
+            public void success() {
+                String accessToken = VimeoClient.getInstance().getVimeoAccount().getAccessToken();
+                Log.d("Success/ Access Token: " , ""+accessToken);
+            }
+
+            @Override
+            public void failure(VimeoError error) {
+                String errorMessage = error.getDeveloperMessage();
+                Log.d("Authorization Failure: " , ""+errorMessage);
             }
         });
     }
-
 
     @Override
     protected void onResume() {

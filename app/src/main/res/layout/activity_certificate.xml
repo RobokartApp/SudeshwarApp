@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/drawer_background"
+    android:padding="@dimen/_5sdp"
+    tools:context=".Activities.Certificate.CertificateActivity">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="5"
+    android:gravity="center"
+    >
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cert_banner"
+        />
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:layout_margin="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/cert_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="Hey Deva Gaikwad, Your certificate for course name is available here."
+        android:textColor="@color/carbon_white"
+        android:textSize="@dimen/_12sdp"
+        android:padding="@dimen/_10sdp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/cert_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="386dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="212dp"
+        android:maxLines="2"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Kindertronics - Electronics Fundamentals (English) with just few marks"
+        android:textColor="#434343"
+        android:textSize="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/cert_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="478dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="170dp"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:text="20-Dec-2020"
+        android:visibility="gone"
+        android:textColor="#111"
+        android:textSize="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/cert_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="603dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="137dp"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:visibility="invisible"
+        android:text="4   8   4   4   1   6"
+        android:textColor="#111"
+        android:textSize="@dimen/_8sdp" />
+
+</RelativeLayout>
+    <carbon.widget.Button
+        android:layout_weight="1"
+        android:id="@+id/cert_download_cbtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/bg_commman"
+        android:text="Download"
+        android:drawableEnd="@drawable/simple_download"
+        android:textSize="@dimen/_18sdp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        app:carbon_elevation="15dp"
+        app:carbon_elevationShadowColor="@color/purple"
+        />
+
+</LinearLayout>

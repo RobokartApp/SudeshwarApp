@@ -1,11 +1,5 @@
 package com.ark.robokart_robotics.Activities.CourseEnrolled;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -15,7 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,12 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Adapters.ChapterAdapter;
-import com.ark.robokart_robotics.Adapters.ChapterContentAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
-import com.ark.robokart_robotics.Model.ChapterContent;
-import com.ark.robokart_robotics.Model.ChapterName;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
@@ -40,12 +36,9 @@ import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
 import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
 import com.razorpay.Checkout;
 
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +71,9 @@ public class CourseEnrolledDetailsActivity extends AppCompatActivity implements 
     private int cachedHeight;
     private boolean isFullscreen;
 
+    ImageView share_btn;
+    LinearLayout share_txt;
+
     Checkout checkout;
 
     TextView course_name, customer_rating;
@@ -104,14 +100,17 @@ public class CourseEnrolledDetailsActivity extends AppCompatActivity implements 
     }
 
     public void init() {
+        share_btn=findViewById(R.id.share_btn);
+        share_txt=findViewById(R.id.share_text);
+
         chapterContentRecyclerview = findViewById(R.id.chapterContentRecyclerview);
 
-        play_btn = (ImageView) findViewById(R.id.center_play_btn);
+        play_btn = findViewById(R.id.center_play_btn);
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
-        mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
+        mVideoView = findViewById(R.id.videoView);
         video_thumb = findViewById(R.id.video_thumb);
-        mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
+        mMediaController = findViewById(R.id.media_controller);
 
         play_quiz_challenge = findViewById(R.id.play_quiz_challenge);
         course_name = findViewById(R.id.course_name);
@@ -122,7 +121,7 @@ public class CourseEnrolledDetailsActivity extends AppCompatActivity implements 
         mVideoView.setVideoViewCallback(this);
         mVideoView.seekTo(mSeekPosition);
 
-        back_btn = (ImageView) findViewById(R.id.back_btn);
+        back_btn = findViewById(R.id.back_btn);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -165,6 +164,41 @@ public class CourseEnrolledDetailsActivity extends AppCompatActivity implements 
     }
 
     public void listeners() {
+
+        share_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage= "\nRobokart app रोबोटिक्स हो या कोडिंग सब कुछ इतने मजे से सीखते है कि एक बार में सब दिमाग में.. \n" +
+                            "खुद ही देखलो.... मान जाओगे \uD83D\uDE07\n\n";
+                    shareMessage = shareMessage + "https://robokart.com/app/course?id="+courseid;
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Choose one to share the app"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage= "\nRobokart app रोबोटिक्स हो या कोडिंग सब कुछ इतने मजे से सीखते है कि एक बार में सब दिमाग में.. \n" +
+                            "खुद ही देखलो.... मान जाओगे \uD83D\uDE07\n\n";
+                    shareMessage = shareMessage + "https://robokart.com/app/course?id="+courseid;
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Choose one to share the app"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
 
         video_thumb.setOnClickListener(new View.OnClickListener() {
             @Override

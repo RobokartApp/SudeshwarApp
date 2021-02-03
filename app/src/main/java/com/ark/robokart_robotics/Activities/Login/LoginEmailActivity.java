@@ -1,10 +1,6 @@
 package com.ark.robokart_robotics.Activities.Login;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,22 +14,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.RegistrationActivity.RegistrationActivity;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
-import com.facebook.CallbackManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import static com.ark.robokart_robotics.Activities.Login.LoginActivity.RC_SIGN_IN;
+
+//import com.facebook.CallbackManager;
+//import com.google.android.gms.auth.api.signin.GoogleSignIn;
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class LoginEmailActivity extends AppCompatActivity {
 
@@ -44,11 +47,11 @@ public class LoginEmailActivity extends AppCompatActivity {
     private Button btn_login, btn_phone_login;
 
     private ProgressBar login_progress;
-
+/*
     private CallbackManager callbackManager;
 
     GoogleSignInClient mGoogleSignInClient;
-
+*/
     SignInButton signInButton;
 
 
@@ -87,7 +90,7 @@ public class LoginEmailActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+      //  mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
@@ -167,7 +170,7 @@ public class LoginEmailActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+                //signIn();
             }
         });
 
@@ -180,7 +183,7 @@ public class LoginEmailActivity extends AppCompatActivity {
                 v.animate().alpha(0.0f);
                 login_progress.setVisibility(View.VISIBLE);
 
-                if(email.equals("") && pass.equals("")){
+                if (email.equals("") && pass.equals("")) {
 
                     v.animate().alpha(1.0f);
                     login_progress.setVisibility(View.GONE);
@@ -193,42 +196,67 @@ public class LoginEmailActivity extends AppCompatActivity {
                     drawable_anim_email.playAnimation();//layout.setError("Please Enter Valid Email ID");
                     textview_email_error.setVisibility(View.VISIBLE);
                     textview_email_error.setText("Email cannot be blank");
-                }
-                else{
+                } else {
                     textview_password_error.setVisibility(View.GONE);
                     drawable_anim_pass.pauseAnimation();
 
-                }
 
-                loginViewModel.loginwithEmail(email,pass).observe(LoginEmailActivity.this, new Observer<String>() {
+                loginViewModel.loginwithEmail(email, pass).observe(LoginEmailActivity.this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
-                        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-                        v.animate().alpha(0.0f);
+                        //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                        v.animate().alpha(1.0f);
                         login_progress.setVisibility(View.GONE);
-                        if(s.equals("Login Successfull")){
+                        if (s.equals("Login Successfull")) {
 
 
                             SharedPref sharedPref = new SharedPref();
-                            sharedPref.setLoginStatus(LoginEmailActivity.this,1);
+                            sharedPref.setLoginStatus(LoginEmailActivity.this, 1);
 
                             int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
 
-                            if(status_recom == 1){
+                            if (1 == 1) {
                                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                                 finish();
-                            }
-                            else {
+                            } else {
                                 startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
                                 finish();
                             }
+                        }else{
+                            Log.e("Login status",s);
+                            makeDialog();
                         }
+
                     }
                 });
+            }
             }
         });
 
 
+    }
+
+    private void makeDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("Wrong Credentials! OR You are not registered with us! ")
+                .setPositiveButton("Register", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                        startActivity(intent);
+
+                        //close();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //finish();
+                    }
+                })
+                .show();
     }
 
 
@@ -239,17 +267,17 @@ public class LoginEmailActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+           // Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+           // handleSignInResult(task);
         }
     }
-
+/*
     //Google SignIn
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
+*/
 
     //Handle Google Sign In
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -281,7 +309,7 @@ public class LoginEmailActivity extends AppCompatActivity {
         }
     }
 
-
+/*
     @Override
     protected void onStart() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -297,4 +325,5 @@ public class LoginEmailActivity extends AppCompatActivity {
         }
         super.onStart();
     }
+    */
 }

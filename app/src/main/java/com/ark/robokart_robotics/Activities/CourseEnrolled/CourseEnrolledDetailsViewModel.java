@@ -6,15 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ark.robokart_robotics.Model.ChapterContent;
-import com.ark.robokart_robotics.Model.ChapterName;
 import com.ark.robokart_robotics.Model.Class_chapters;
 
 import java.util.List;
 
 public class CourseEnrolledDetailsViewModel extends AndroidViewModel {
 
-    private CourseEnrolledDetailsRepository courseEnrolledDetailsRepository;
+    private final CourseEnrolledDetailsRepository courseEnrolledDetailsRepository;
 
     public CourseEnrolledDetailsViewModel(@NonNull Application application) {
         super(application);

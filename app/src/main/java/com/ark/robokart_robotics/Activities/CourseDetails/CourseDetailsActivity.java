@@ -1,13 +1,5 @@
 package com.ark.robokart_robotics.Activities.CourseDetails;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +8,21 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Activities.View_all_search.ViewAllSearchViewModel;
 import com.ark.robokart_robotics.Adapters.CourseInclusionAdapter;
@@ -41,7 +40,6 @@ import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Fragments.Payment.BillingDetailsFragment;
 import com.ark.robokart_robotics.Fragments.Payment.BuyNow.BuyNowFragment;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
-import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 import com.example.vimeoplayer2.UniversalMediaController;
@@ -51,7 +49,6 @@ import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
 import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
-import com.razorpay.PaymentResultListener;
 import com.razorpay.PaymentResultWithDataListener;
 
 import org.json.JSONException;
@@ -63,7 +60,6 @@ import java.util.Map;
 import java.util.Random;
 
 import carbon.widget.Button;
-import carbon.widget.ConstraintLayout;
 
 public class CourseDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback, PaymentResultWithDataListener, BillingDetailsFragment.onClickListener {
 
@@ -78,6 +74,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     View mBottomLayout;
     View mVideoLayout;
     TextView mStart;
+
+    ImageView share_btn;
+    LinearLayout share_txt;
 
     private int mSeekPosition;
     private int cachedHeight;
@@ -109,7 +108,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     public FrameLayout paymentFragment;
 
-    private boolean isOpen = false;
+    private final boolean isOpen = false;
 
     private RequestQueue requestQueue;
 
@@ -137,12 +136,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     //Initialise UI
     public void init(){
-        play_btn = (ImageView) findViewById(R.id.center_play_btn);
+        share_btn=findViewById(R.id.share_btn);
+        share_txt=findViewById(R.id.share_text);
+        play_btn = findViewById(R.id.center_play_btn);
         mVideoLayout = findViewById(R.id.video_layout);
         mBottomLayout = findViewById(R.id.bottom_layout);
-        mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
+        mVideoView = findViewById(R.id.videoView);
         video_thumb = findViewById(R.id.video_thumb);
-        mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
+        mMediaController = findViewById(R.id.media_controller);
         enroll_now = findViewById(R.id.enroll_now);
         course_details_section = findViewById(R.id.course_details_section);
         paymentFragment = findViewById(R.id.paymentFragment);
@@ -156,7 +157,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         mVideoView.seekTo(mSeekPosition);
 
 
-        back_btn = (ImageView) findViewById(R.id.back_btn);
+        back_btn = findViewById(R.id.back_btn);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -171,7 +172,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
         try {
             Bundle bundle = getIntent().getExtras();
-            courseid = bundle.getString("courseid");
+            Intent mainIntent=getIntent();
+            if(mainIntent.getData()!=null){
+                Uri data = mainIntent.getData();
+                List<String> pathSegments = data.getPathSegments();
+                if(pathSegments.size()>0)
+                    courseid=pathSegments.get(0);
+            }else
+                courseid = bundle.getString("courseid");
             SharedPreferences sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
             customer_id = sharedPreferences.getString("customer_id","0");
 
@@ -185,6 +193,42 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     //Event Listeners
     public void listeners(){
+
+        share_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage= "\nRobokart app रोबोटिक्स हो या कोडिंग सब कुछ इतने मजे से सीखते है कि एक बार में सब दिमाग में.. \n" +
+                            "खुद ही देखलो.... मान जाओगे \uD83D\uDE07\n\n";
+                    shareMessage = shareMessage + "https://robokart.com/app/course?id="+courseid;
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Choose one to share the app"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage= "\nRobokart app रोबोटिक्स हो या कोडिंग सब कुछ इतने मजे से सीखते है कि एक बार में सब दिमाग में.. \n" +
+                            "खुद ही देखलो.... मान जाओगे \uD83D\uDE07\n\n";
+                    shareMessage = shareMessage + "https://robokart.com/app/course?id="+courseid;
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Choose one to share the app"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
+
         courseInclusionViewModel.getCourseInclusionList(courseid).observe(this, new Observer<List<CourseInclusionModel>>() {
             @Override
             public void onChanged(List<CourseInclusionModel> recommendationsList) {
@@ -219,7 +263,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
                 Log.d(TAG, "onCompletion ");
             }
         });
-
 
 
 
@@ -413,6 +456,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         if(paymentFragment.getVisibility() == View.VISIBLE){
             paymentFragment.setVisibility(View.GONE);
             course_details_section.setVisibility(View.VISIBLE);
+            enroll_now.setVisibility(View.VISIBLE);
+
         }
         else{
             super.onBackPressed();
@@ -420,7 +465,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     }
 
     public void startPayment() {
-        checkout.setKeyID("rzp_test_EvXZMjKBLEZ4D2");
+        //checkout.setKeyID("rzp_test_EvXZMjKBLEZ4D2");
+        checkout.setKeyID("rzp_live_aqvt6qxDDA8LEx");
 
         /**
          * Set your logo here
@@ -454,7 +500,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             Random random = new Random();
             String id="rbk_"+random.nextInt(999999);
             options.put("description", id);
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            //options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            options.put("image", "https://robokart.com/app/app_robo.png");
+
           //  options.put("order_id", id);
             options.put("currency", "INR");
 
@@ -521,6 +569,16 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             }
         };
         requestQueue.add(stringRequest);
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                finish();
+                Intent intent=new Intent(CourseDetailsActivity.this,HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("payment","ok");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,18 +20,18 @@ import com.ark.robokart_robotics.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
 
-    private List<Class_chapters.Course_List> course;
-    private Context mContext;
+    private final List<Class_chapters.Course_List> course;
+    private final Context mContext;
     public static int quiz_counter=0;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_course;
-        private TextView tv_mins;
-        private LinearLayout chapter_content_linear;
+        private final TextView tv_mins;
+        private final LinearLayout chapter_content_linear;
 
         public MyViewHolder(View view) {
             super(view);
@@ -110,7 +109,7 @@ quiz_counter=num+1;
                         bundle.putString("chapter_name", chapter_name);
                         bundle.putParcelableArrayList("courses", (ArrayList<Class_chapters.Course_List>) course);
 
-                        Intent intent = new Intent(getApplicationContext(), VideoPlayingActivity.class);
+                        Intent intent = new Intent(mContext, VideoPlayingActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtras(bundle);
                         mContext.startActivity(intent);

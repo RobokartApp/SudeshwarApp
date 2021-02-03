@@ -1,51 +1,34 @@
 package com.ark.robokart_robotics.Adapters;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
-import com.ark.robokart_robotics.Adapters.BaseViewHolder;
-import com.ark.robokart_robotics.Common.AlertDialog;
-import com.ark.robokart_robotics.Fragments.AnswerExplanation.AnswerExplanation;
 import com.ark.robokart_robotics.Fragments.AnswerExplanation.BottomSheetExplanation;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
 import com.ark.robokart_robotics.Model.Question;
-import com.ark.robokart_robotics.Model.StandardModel;
 import com.ark.robokart_robotics.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import carbon.widget.Button;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG = "BlogAdapter";
-    private List<Question> mStandardList;
+    private final List<Question> mStandardList;
     private List<CorrectAnswersModel> correctAnswersModelList;
-    private Context mcontext;
+    private final Context mcontext;
 
 
 
@@ -124,6 +107,11 @@ public class CheckAnswerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("question",question.getQuestion_name());
                     editor.putString("explaination",question.getAnswer_explaination());
+                    editor.putString("answer",""+question.getAnswer());
+                    editor.putString("answer1",""+question.getAnswer1());
+                    editor.putString("answer2",""+question.getAnswer2());
+                    editor.putString("answer3",""+question.getAnswer3());
+                    editor.putString("answer4",""+question.getAnswer4());
                     editor.apply();
 
                     BottomSheetExplanation bottomSheetExplanation = new BottomSheetExplanation();

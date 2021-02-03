@@ -1,35 +1,27 @@
 package com.ark.robokart_robotics.Adapters;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsActivity;
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsRepository;
 import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.ChapterContent;
 import com.ark.robokart_robotics.Model.ChapterName;
 import com.ark.robokart_robotics.R;
-import com.artjimlop.altex.AltexImageDownloader;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
-import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.facebook.login.widget.ProfilePictureView.TAG;
-import static java.security.AccessController.getContext;
+import static com.airbnb.lottie.L.TAG;
+
+//import static com.facebook.login.widget.ProfilePictureView.TAG;
 
 public class ChapterContentAdapter extends ExpandableRecyclerViewAdapter<ChapterNameViewHolder, ChapterContentViewHolder>{
 
@@ -39,8 +31,8 @@ public class ChapterContentAdapter extends ExpandableRecyclerViewAdapter<Chapter
 
     public int total_number_chapter = 0;
 
-    private ArrayList<ChapterContent> chapterContentList = new ArrayList<>();
-    private ArrayList<ChapterName> chapterNameArrayList = new ArrayList<>();
+    private final ArrayList<ChapterContent> chapterContentList = new ArrayList<>();
+    private final ArrayList<ChapterName> chapterNameArrayList = new ArrayList<>();
 
 
     public ChapterContentAdapter(Context context,List<? extends ExpandableGroup> groups) {

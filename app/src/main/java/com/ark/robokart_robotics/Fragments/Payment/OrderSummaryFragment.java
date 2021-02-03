@@ -1,8 +1,6 @@
 package com.ark.robokart_robotics.Fragments.Payment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,14 +22,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Common.ApiConstants;
-import com.ark.robokart_robotics.Model.MyCoursesModel;
 import com.ark.robokart_robotics.R;
-import com.bumptech.glide.Glide;
-import com.example.vimeoplayer2.vimeoextractor.OnVimeoExtractionListener;
-import com.example.vimeoplayer2.vimeoextractor.VimeoExtractor;
-import com.example.vimeoplayer2.vimeoextractor.VimeoVideo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

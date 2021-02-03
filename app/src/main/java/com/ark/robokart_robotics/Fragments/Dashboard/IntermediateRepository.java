@@ -28,13 +28,13 @@ public class IntermediateRepository {
 
     private static final String TAG = "IntermediateRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
 
-    private ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
+    private final ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
 
     public IntermediateRepository(Application application){
         this.application = application;

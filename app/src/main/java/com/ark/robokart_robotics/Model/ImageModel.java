@@ -77,7 +77,7 @@ public class ImageModel {
         this.statusId = statusId;
     }
 
-    public class Result {
+    public static class Result {
 
         @SerializedName("message")
         @Expose

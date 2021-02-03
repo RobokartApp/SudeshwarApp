@@ -15,9 +15,9 @@ import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class ChapterNameViewHolder extends GroupViewHolder {
 
-    private TextView chapter_name;
-    private ImageView arrow;
-    private Context mContext;
+    private final TextView chapter_name;
+    private final ImageView arrow;
+    private final Context mContext;
 
     public ChapterNameViewHolder(Context context,View itemView) {
         super(itemView);

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvanceStandardRepository {
-    private Application application;
+    private final Application application;
 
-    private MutableLiveData<List<StandardModel>> standardList = new MutableLiveData<>();
+    private final MutableLiveData<List<StandardModel>> standardList = new MutableLiveData<>();
 
-    private ArrayList<StandardModel> standardArrayList = new ArrayList<>();
+    private final ArrayList<StandardModel> standardArrayList = new ArrayList<>();
 
     public AdvanceStandardRepository(Application application){
         this.application = application;

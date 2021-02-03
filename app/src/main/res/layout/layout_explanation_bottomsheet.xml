@@ -7,8 +7,7 @@
     android:background="@drawable/explanation_background"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    android:id="@+id/explain_bottom_sheet">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Explanation"
+                android:text="Correct Answer"
                 android:textColor="#000"
                 android:textAllCaps="true"
                 android:textStyle="bold"
@@ -49,6 +48,19 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_margin="10dp"/>
+            <RadioButton
+                android:id="@+id/radio_btn_correct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Robokart"
+                android:checked="true"
+                android:textSize="14sp"
+                android:textColor="@color/carbon_green_900"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:padding="@dimen/_5sdp"
+                android:background="@drawable/tag_transparent_background"
+                android:textAlignment="center"/>
 
 
         </LinearLayout>

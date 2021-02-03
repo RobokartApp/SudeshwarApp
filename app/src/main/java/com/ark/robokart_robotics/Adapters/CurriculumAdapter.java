@@ -1,35 +1,28 @@
 package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
-import com.ark.robokart_robotics.Model.ChapterContent;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.Model.CurriculumModel;
 import com.ark.robokart_robotics.R;
 import com.artjimlop.altex.AltexImageDownloader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAdapter.CurriculumHolder> {
 
-    private List<CurriculumModel> mcourseList;
-    private Context mContext;
+    private final List<CurriculumModel> mcourseList;
+    private final Context mContext;
 
     private OnItemClickListener listener;
 
@@ -83,7 +76,7 @@ public class CurriculumAdapter extends ListAdapter<CourseListModel,CurriculumAda
 
         String url = curriculumModel.getCurriculum_file();
 
-        Toast.makeText(mContext, url,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, url,Toast.LENGTH_SHORT).show();
 
         holder.file_download.setOnClickListener(new View.OnClickListener() {
             @Override

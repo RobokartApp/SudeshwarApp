@@ -25,22 +25,23 @@ public class ProfileRepository {
 
     private static final String TAG = "ProfileRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
     public ProfileRepository(Application application){
         this.application = application;
         requestQueue = Volley.newRequestQueue(application);
     }
 
-    public MutableLiveData<String> updateProfile(String User_id, String customer_name, String email, String mobile, String parentmoblie, String customer_image, String username){
+    public MutableLiveData<String> updateProfile(String User_id, String customer_name, String email, String mobile,
+                                                 String password, String customer_image, String username,String bio){
 
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.editprofile_api, response -> {
             try {
-
+                Log.d("update respo",response+"\npass"+password);
                 JSONObject jsonObject = new JSONObject(response);
 
                 JSONObject result = jsonObject.getJSONObject("result");
@@ -55,7 +56,7 @@ public class ProfileRepository {
                     Log.d(TAG, "update: "+result.getString("message"));
 
                     SharedPref sharedPref = new SharedPref();
-                    sharedPref.setUserDetails(application,User_id,customer_name,mobile,email,parentmoblie,customer_image, username);
+                    sharedPref.setUserDetails(application,User_id,customer_name,mobile,email,password,customer_image, username);
 
                     message.setValue(msg);
 
@@ -79,7 +80,8 @@ public class ProfileRepository {
                 parameters.put("customer_name", customer_name);
                 parameters.put("email", email);
                 parameters.put("mobile", mobile);
-                parameters.put("parentmoblie", parentmoblie);
+                parameters.put("password", password);
+                parameters.put("bio", bio);
                 parameters.put("User_id",User_id);
                 return parameters;
             }

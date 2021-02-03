@@ -1,29 +1,29 @@
 package com.ark.robokart_robotics.Activities.AtlChooseStandard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ark.robokart_robotics.Activities.AtlChooseLevel.AtlChooseLevel;
-import com.ark.robokart_robotics.Activities.AtlCourseDetails;
-import com.ark.robokart_robotics.Fragments.Dashboard.DashboardFragment;
-import com.ark.robokart_robotics.R;
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import com.ark.robokart_robotics.Activities.AtlChooseLevel.AtlChooseLevel;
+import com.ark.robokart_robotics.DBHelper;
+import com.ark.robokart_robotics.R;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AtlChooseStandard extends AppCompatActivity {
 
-    public CardView fifthstdcard,sixstd;
+    public CardView fifthstdcard,sixstd,sevenstd,eightstd,ninestd,tenstd,elevenstd,twelvestd;
     private TextView tvName,tvGood;
     ImageView back_btn;
 
@@ -35,11 +35,19 @@ public class AtlChooseStandard extends AppCompatActivity {
         init();
 
         listeners();
+
     }
 
     public void init(){
         fifthstdcard = findViewById(R.id.fifthstdcard);
         sixstd=findViewById(R.id.sixthstd);
+        sevenstd=findViewById(R.id.sevenstd);
+        eightstd=findViewById(R.id.eightstd);
+        ninestd=findViewById(R.id.ninestd);
+        tenstd=findViewById(R.id.tenstd);
+        elevenstd=findViewById(R.id.elevenstd);
+        twelvestd=findViewById(R.id.twelvestd);
+
         tvName = findViewById(R.id.tvName);
         back_btn = findViewById(R.id.back_btn);
         tvGood = findViewById(R.id.tvGood);
@@ -84,7 +92,7 @@ public class AtlChooseStandard extends AppCompatActivity {
 
         tvGood.setText(greeting);
     }
-
+public static String std="";
     public void listeners(){
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,20 +103,64 @@ public class AtlChooseStandard extends AppCompatActivity {
         fifthstdcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                std="5";
                 Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
-                //startActivity(intent);
-                DashboardFragment uploadDoc= new DashboardFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_up_anim, R.anim.slide_down_anim)
-                        .replace(R.id.mainFrameLayout, uploadDoc, "mycourses")
-                        .addToBackStack(null)
-                        .commit();
+                startActivity(intent);
             }
         });
         sixstd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AtlCourseDetails.class);
+                std="6";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        sevenstd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="7";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        eightstd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="8";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        ninestd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="9";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        tenstd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="10";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        elevenstd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="11";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
+                startActivity(intent);
+            }
+        });
+        twelvestd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                std="12";
+                Intent intent = new Intent(getApplicationContext(), AtlChooseLevel.class);
                 startActivity(intent);
             }
         });

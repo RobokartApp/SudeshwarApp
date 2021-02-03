@@ -1,37 +1,30 @@
 package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsActivity;
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ChapterContentBeforeAdapter extends RecyclerView.Adapter<ChapterContentBeforeAdapter.MyViewHolder> {
 
-    private List<Class_chapters.Course_List> course;
-    private Context mContext;
+    private final List<Class_chapters.Course_List> course;
+    private final Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_course;
-        private TextView tv_mins;
-        private LinearLayout chapter_content_linear;
+        private final TextView tv_mins;
+        private final LinearLayout chapter_content_linear;
 
         public MyViewHolder(View view) {
             super(view);

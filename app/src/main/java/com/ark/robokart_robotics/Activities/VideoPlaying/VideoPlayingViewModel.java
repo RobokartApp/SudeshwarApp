@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ark.robokart_robotics.Model.CommentModel;
-import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CurriculumModel;
 
 import java.util.List;

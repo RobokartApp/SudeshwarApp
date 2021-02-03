@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,20 +15,18 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class IntermediateCourseListAdapter extends ListAdapter<CourseListModel,IntermediateCourseListAdapter.IntermediateCourseHolder> {
 
 
-    private List<CourseListModel> mcourseList;
-    private Context mContext;
+    private final List<CourseListModel> mcourseList;
+    private final Context mContext;
 
     public IntermediateCourseListAdapter(Context context, List<CourseListModel> courseListModelList) {
         super(DIFF_CALLBACK);

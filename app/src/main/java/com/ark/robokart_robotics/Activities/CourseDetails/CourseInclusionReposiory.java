@@ -13,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
-import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 
@@ -30,24 +29,24 @@ public class CourseInclusionReposiory {
 
     private static final String TAG = "CourseInclusionReposior";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
-    private MutableLiveData<List<String>> courseDetails = new MutableLiveData<>();
+    private final MutableLiveData<List<String>> courseDetails = new MutableLiveData<>();
 
-    private ArrayList<String> courseDetailsList = new ArrayList<>();
+    private final ArrayList<String> courseDetailsList = new ArrayList<>();
 
-    private MutableLiveData<List<CourseInclusionModel>> courseInclusionList = new MutableLiveData<>();
+    private final MutableLiveData<List<CourseInclusionModel>> courseInclusionList = new MutableLiveData<>();
 
-    private ArrayList<CourseInclusionModel> courseInclusionMArrayList = new ArrayList<>();
+    private final ArrayList<CourseInclusionModel> courseInclusionMArrayList = new ArrayList<>();
 
-    private MutableLiveData<List<Class_chapters>> chapterNameMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Class_chapters>> chapterNameMutableLiveData = new MutableLiveData<>();
 
 
-    private ArrayList<Class_chapters> chaptersArrayList = new ArrayList<>();
+    private final ArrayList<Class_chapters> chaptersArrayList = new ArrayList<>();
 
     public CourseInclusionReposiory(Application application){
         this.application = application;

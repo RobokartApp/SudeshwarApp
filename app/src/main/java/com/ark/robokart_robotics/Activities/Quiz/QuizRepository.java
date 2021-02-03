@@ -2,7 +2,6 @@ package com.ark.robokart_robotics.Activities.Quiz;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -30,15 +29,15 @@ public class QuizRepository {
 
     private static final String TAG = "QuizRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
+    private final MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
-    private ArrayList<Question> questionArrayList = new ArrayList<>();
+    private final ArrayList<Question> questionArrayList = new ArrayList<>();
 
     public QuizRepository(Application application){
         this.application = application;

@@ -13,7 +13,7 @@ import java.util.List;
 public class ViewAllSearchViewModel extends AndroidViewModel {
 
 
-    private ViewAllSearchRepository viewAllSearchRepository;
+    private final ViewAllSearchRepository viewAllSearchRepository;
 
     public ViewAllSearchViewModel(@NonNull Application application) {
         super(application);

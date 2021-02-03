@@ -1,11 +1,5 @@
 package com.ark.robokart_robotics.Activities.ChooseStandard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,13 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.airbnb.lottie.LottieAnimationView;
-import com.ark.robokart_robotics.Activities.Collect_Recommendation.CollectRecomViewModel;
-import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
-import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
 import com.ark.robokart_robotics.Adapters.StandardAdapter;
-import com.ark.robokart_robotics.Model.Recommendations;
 import com.ark.robokart_robotics.Model.StandardModel;
 import com.ark.robokart_robotics.R;
 import com.google.android.flexbox.FlexDirection;
@@ -134,7 +130,7 @@ public class StandardActivity extends AppCompatActivity {
         get_started_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(standardAdapter.stdselectedList.size() == 0){
+                if(StandardAdapter.stdselectedList.size() == 0){
                     error_layout.setVisibility(View.VISIBLE);
                     animationView.setAnimation("error.json");
                     animationView.playAnimation();

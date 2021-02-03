@@ -1,7 +1,6 @@
 package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,44 +8,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsActivity;
-import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsViewModel;
-import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingViewModel;
-import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.Class_chapters;
 import com.ark.robokart_robotics.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ChapterNameBeforeAdapter extends RecyclerView.Adapter<ChapterNameBeforeAdapter.MyViewHolder> {
 
     private static final String TAG = "ChapterAdapter";
 
-    private List<Class_chapters> chapters;
-    private Context mContext;
+    private final List<Class_chapters> chapters;
+    private final Context mContext;
     int flag = 0;
     int open_flag = 0;
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
     public String pos = "";
 
 
@@ -91,7 +73,7 @@ public class ChapterNameBeforeAdapter extends RecyclerView.Adapter<ChapterNameBe
 
             holder.tv_chapter.setText(image.getChapter_name());
             holder.mycourseListArrayList = image.getCourses();
-            ChapterContentBeforeAdapter chapterContentBeforeAdapter = new ChapterContentBeforeAdapter(getApplicationContext(), holder.mycourseListArrayList);
+            ChapterContentBeforeAdapter chapterContentBeforeAdapter = new ChapterContentBeforeAdapter(mContext, holder.mycourseListArrayList);
             holder.recyclerView.setAdapter(chapterContentBeforeAdapter);
 
 
@@ -113,7 +95,7 @@ public class ChapterNameBeforeAdapter extends RecyclerView.Adapter<ChapterNameBe
             });
 
         }catch (Exception ex){
-            Log.e(TAG,  ex.getMessage().toString());
+            Log.e(TAG, ex.getMessage());
         }
     }
 

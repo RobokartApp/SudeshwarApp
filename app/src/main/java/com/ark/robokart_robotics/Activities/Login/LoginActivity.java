@@ -1,14 +1,9 @@
 package com.ark.robokart_robotics.Activities.Login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ButtonBarLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,14 +13,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieComposition;
-import com.airbnb.lottie.LottieCompositionFactory;
-import com.airbnb.lottie.LottieDrawable;
 import com.ark.robokart_robotics.Activities.RegistrationActivity.RegistrationActivity;
 import com.ark.robokart_robotics.Common.Validation;
 import com.ark.robokart_robotics.R;
-import com.facebook.AccessToken;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
+import carbon.widget.Button;
+
+/*import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -34,23 +37,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.subsub.library.BeautyButton;
-import com.subsub.library.BeautyLayout;
-
-import org.json.JSONObject;
-
-import java.util.Arrays;
-
-import carbon.widget.Button;
-
-import static java.security.AccessController.getContext;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;*/
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -61,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_login, btn_email_login;
 
     private ProgressBar login_progress;
-    LoginButton btn_fb;
+   // LoginButton btn_fb;
 
-    private CallbackManager callbackManager;
+    //private CallbackManager callbackManager;
 
-    GoogleSignInClient mGoogleSignInClient;
+   // GoogleSignInClient mGoogleSignInClient;
 
     SignInButton signInButton;
 
@@ -109,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_email_login = findViewById(R.id.btn_email_login);
 
-        btn_fb = findViewById(R.id.login_button);
+      //  btn_fb = findViewById(R.id.login_button);
 
         login_progress = findViewById(R.id.login_progress);
 
@@ -120,14 +108,14 @@ public class LoginActivity extends AppCompatActivity {
 
         sign_up_btn = findViewById(R.id.sign_up_btn);
 
-        callbackManager = CallbackManager.Factory.create();
-        btn_fb.setPermissions(Arrays.asList("email","public_profile"));
+       // callbackManager = CallbackManager.Factory.create();
+      //  btn_fb.setPermissions(Arrays.asList("email","public_profile"));
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+ /*       GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
 
         validation = new Validation();
 
@@ -142,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+                //signIn();
             }
         });
 
@@ -178,7 +166,10 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                         else {
-                            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                            v.animate().alpha(1.0f);
+                            login_progress.setVisibility(View.INVISIBLE);
+                            //Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                            makeDialog();
                         }
                     });
 
@@ -252,7 +243,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
+/*
         btn_fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,22 +269,45 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        */
+    }
+    private void makeDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("You are not registered with us! ")
+                .setPositiveButton("Register", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                        startActivity(intent);
+
+                        //close();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //finish();
+                    }
+                })
+                .show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        //callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
 
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+           // Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+           // handleSignInResult(task);
         }
     }
-
+/*
     AccessTokenTracker tracker = new AccessTokenTracker() {
         @Override
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -338,14 +352,14 @@ public class LoginActivity extends AppCompatActivity {
         request.setParameters(parameters);
         request.executeAsync();
     }
+*/
 
-
-
+/*
     //Google SignIn
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+    }*/
 
 
     //Handle Google Sign In
@@ -378,7 +392,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    @Override
+  /*  @Override
     protected void onStart() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
@@ -393,4 +407,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onStart();
     }
+    */
 }

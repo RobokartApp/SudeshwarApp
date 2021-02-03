@@ -47,7 +47,6 @@
 
 
     <RelativeLayout
-        android:id="@+id/otp_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -55,7 +54,6 @@
         >
 
         <LinearLayout
-            android:id="@+id/llCodeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

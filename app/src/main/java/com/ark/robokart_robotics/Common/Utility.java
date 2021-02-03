@@ -183,11 +183,7 @@ public class Utility {
         Calendar userAge = new GregorianCalendar(year,month,day);
         Calendar minAdultAge = new GregorianCalendar();
         minAdultAge.add(Calendar.YEAR, -16);
-        if (minAdultAge.before(userAge)) {
-            return  false;
-        }
-
-        return true;
+        return !minAdultAge.before(userAge);
     }
 
 

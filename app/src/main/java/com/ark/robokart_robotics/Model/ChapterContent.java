@@ -3,8 +3,6 @@ package com.ark.robokart_robotics.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 public class ChapterContent implements Parcelable {
 
     public final String chapter_content;

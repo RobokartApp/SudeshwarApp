@@ -1,20 +1,15 @@
 package com.ark.robokart_robotics.Adapters;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,8 +24,8 @@ import java.util.List;
 public class CustomAdapter extends ListAdapter<CourseListModel,CustomAdapter.CustomHolder>  {
 
 
-    private List<CourseListModel> mcourseList;
-    private Context mContext;
+    private final List<CourseListModel> mcourseList;
+    private final Context mContext;
 
     public CustomAdapter(Context context, List<CourseListModel> courseListModelList) {
         super(DIFF_CALLBACK);

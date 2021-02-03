@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ark.robokart_robotics.Model.Recommendations;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class CollectRecomViewModel extends AndroidViewModel {
 
-    private CollectRecomRepository collectRecomRepository;
+    private final CollectRecomRepository collectRecomRepository;
 
 
     public CollectRecomViewModel(@NonNull Application application) {

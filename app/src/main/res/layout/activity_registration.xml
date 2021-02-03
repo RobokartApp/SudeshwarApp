@@ -96,8 +96,8 @@
                 android:layout_marginRight="2dp"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/fullname"
-                android:inputType="text"
+                android:hint="Child Name"
+                android:inputType="textPersonName"
                 android:padding="14dp"
                 android:textColor="@color/black"
                 android:textColorHint="#C5C4C4"
@@ -113,7 +113,6 @@
                 />
 
         </LinearLayout>
-
         <TextView
             android:id="@+id/textview_fullname_error"
             android:layout_width="match_parent"
@@ -126,6 +125,64 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/fullname_linear"
             />
+        <LinearLayout
+
+            android:id="@+id/username_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/fullname_linear">
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_user"/>
+
+
+            <EditText
+                android:id="@+id/username_edt_text"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/rlCCode"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Parent Name"
+                android:inputType="text"
+                android:padding="14dp"
+                android:textColor="@color/black"
+                android:textColorHint="#C5C4C4"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/drawable_anim_username"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textview_username_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parent Name cannot be blank"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            android:gravity="right"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/username_linear"
+            />
 
 
         <LinearLayout
@@ -137,7 +194,7 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/fullname_linear">
+            app:layout_constraintTop_toBottomOf="@id/username_linear">
 
 
             <ImageView
@@ -155,8 +212,9 @@
                 android:layout_toEndOf="@+id/rlCCode"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/your_number"
-                android:inputType="text"
+                android:hint="Mobile Number"
+                android:inputType="phone"
+                android:maxLength="10"
                 android:padding="14dp"
                 android:textColor="@color/black"
                 android:textColorHint="#C5C4C4"
@@ -188,6 +246,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/parent_number_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -202,6 +261,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:visibility="gone"
                 android:src="@drawable/ic_telephone"/>
 
 
@@ -216,7 +276,9 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="@string/parent_number"
-                android:inputType="text"
+                android:inputType="phone"
+                android:visibility="gone"
+                android:maxLength="10"
                 android:padding="14dp"
                 android:textColor="@color/black"
                 android:textColorHint="#C5C4C4"
@@ -225,7 +287,6 @@
 
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/drawable_anim_parent_number"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:lottie_autoPlay="true"
@@ -237,7 +298,6 @@
 
 
         <TextView
-            android:id="@+id/textview_parent_number_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enter_10_digit_number"
@@ -251,6 +311,7 @@
 
 
         <LinearLayout
+
             android:id="@+id/email_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -277,7 +338,7 @@
                 android:layout_toEndOf="@+id/rlCCode"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/email"
+                android:hint="Parent Email"
                 android:inputType="textEmailAddress"
                 android:padding="14dp"
                 android:textColor="@color/black"
@@ -310,45 +371,37 @@
             app:layout_constraintTop_toBottomOf="@id/email_linear"
             />
 
-
         <LinearLayout
-            android:id="@+id/username_linear"
+            android:id="@+id/grade_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/email_linear">
 
-
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_user"/>
+                app:tint="#9C27B0"
+                android:src="@drawable/grade"/>
 
 
-            <EditText
-                android:id="@+id/username_edt_text"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toEndOf="@+id/rlCCode"
-                android:background="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/username"
-                android:inputType="text"
-                android:padding="14dp"
-                android:textColor="@color/black"
-                android:textColorHint="#C5C4C4"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+<Spinner
+    android:id="@+id/grade_spinner"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:entries="@array/grade_arrays"
+    android:prompt="@string/grade_prompt"
+    android:padding="14dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+/>
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/drawable_anim_username"
+                android:id="@+id/drawable_anim_grade"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:lottie_autoPlay="true"
@@ -356,23 +409,21 @@
                 />
 
         </LinearLayout>
-
         <TextView
-            android:id="@+id/textview_username_error"
+            android:id="@+id/textview_grade_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username cannot be blank"
+            android:text="Select Grade"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="14sp"
             android:layout_marginRight="12dp"
             android:gravity="right"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/username_linear"
+            app:layout_constraintTop_toBottomOf="@id/grade_linear"
             />
 
-
         <LinearLayout
-            android:id="@+id/password_linear"
+            android:id="@+id/pc_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -380,15 +431,15 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/username_linear">
+            app:layout_constraintTop_toBottomOf="@id/grade_linear">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_password"/>
+                app:tint="@color/carbon_purple_700"
+                android:src="@drawable/ic_pc"/>
 
-            <EditText
-                android:id="@+id/password_edt_text"
+            <TextView
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -397,16 +448,17 @@
                 android:layout_toEndOf="@+id/rlCCode"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/password"
+                android:hint="Have a PC at Home?"
                 android:inputType="textPassword"
                 android:padding="14dp"
                 android:textColor="@color/black"
-                android:textColorHint="#C5C4C4"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+
+
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/drawable_anim_pass"
+                android:id="@+id/drawable_anim_pc"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:lottie_autoPlay="true"
@@ -414,18 +466,48 @@
                 />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textview_password_error"
+        <RelativeLayout
+            android:id="@+id/have_pc_rel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password cannot be blank"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintTop_toBottomOf="@id/pc_linear"
+            >
+            <RadioGroup
+                android:id="@+id/pc_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="YES"
+                    android:layout_marginLeft="15dp"
+                    />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="NO"
+                    android:layout_marginLeft="15dp"
+                    />
+
+            </RadioGroup>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/have_pc_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select one"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="14sp"
             android:layout_marginRight="12dp"
             android:gravity="right"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/password_linear"
+            app:layout_constraintTop_toBottomOf="@id/have_pc_rel"
             />
 
 
@@ -435,10 +517,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:layout_marginRight="@dimen/margin_right"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/password_linear">
+            app:layout_constraintTop_toBottomOf="@id/have_pc_rel">
 
 
             <ImageView
@@ -447,7 +530,6 @@
                 android:src="@drawable/ic_refer"/>
 
             <EditText
-                android:id="@+id/referal_edt_text"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -468,18 +550,7 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/textview_refercode_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Code"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="14sp"
-            android:layout_marginRight="12dp"
-            android:gravity="right"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/password_linear"
-            />
+
 
 
         <carbon.widget.Button
@@ -516,7 +587,6 @@
 
 
         <LinearLayout
-            android:id="@+id/sign_up_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -535,6 +605,7 @@
 
 
             <LinearLayout
+                android:id="@+id/terms_and_conditions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

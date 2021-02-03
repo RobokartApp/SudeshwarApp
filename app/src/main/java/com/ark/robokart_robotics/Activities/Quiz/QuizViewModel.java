@@ -12,7 +12,7 @@ import java.util.List;
 
 public class QuizViewModel extends AndroidViewModel {
 
-    private QuizRepository quizRepository;
+    private final QuizRepository quizRepository;
 
     public QuizViewModel(@NonNull Application application) {
         super(application);

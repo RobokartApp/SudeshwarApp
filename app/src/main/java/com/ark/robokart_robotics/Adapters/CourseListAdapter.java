@@ -2,17 +2,12 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,7 +28,7 @@ public class CourseListAdapter extends ListAdapter<CourseListModel,CourseListAda
 
 
     private List<CourseListModel> mcourseList;
-    private Context mContext;
+    private final Context mContext;
 
     public CourseListAdapter(Context context, List<CourseListModel> courseListModelList) {
         super(DIFF_CALLBACK);

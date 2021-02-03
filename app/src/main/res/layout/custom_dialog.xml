@@ -88,7 +88,6 @@
             app:layout_constraintTop_toBottomOf="@id/QAlinear">
 
             <carbon.widget.Button
-                android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
@@ -96,7 +95,6 @@
                 style="@style/carbon_Button.Flat"/>
 
             <carbon.widget.Button
-                android:id="@+id/submit_button"
                 android:layout_width="105dp"
                 android:layout_height="35dp"
                 android:text="Submit"

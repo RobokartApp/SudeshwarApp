@@ -12,7 +12,7 @@ import java.util.List;
 
 public class IntermediateViewModel extends AndroidViewModel {
 
-    private IntermediateRepository intermediateRepository;
+    private final IntermediateRepository intermediateRepository;
 
     public IntermediateViewModel(@NonNull Application application) {
         super(application);

@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="10dp"
+        android:elevation="0dp"
         app:cardCornerRadius="10dp"
         app:cardBackgroundColor="@color/white"
         >
@@ -18,10 +18,11 @@
         <ImageView
             android:id="@+id/banner_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/banner660"
-            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
+android:src="@drawable/drawer_background"
+            android:scaleType="fitXY"
             />
 
     </androidx.cardview.widget.CardView>
+
 </FrameLayout>

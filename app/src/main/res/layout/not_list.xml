@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout_not"
+        android:padding="8dp"
+        android:background="@drawable/base_line">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/robokart_logo" />
+        <TextView
+            android:id="@+id/title_not"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@id/logo"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/_14sdp"
+            android:text="Robokart Says!"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/msg_not"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_not"
+            android:layout_toEndOf="@id/logo"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#503F3F"
+            android:textIsSelectable="true"
+            android:linksClickable="true"
+            android:textColorLink="#0073FF"
+            android:textSize="@dimen/_11sdp"
+            android:autoLink="web"
+            android:layout_marginRight="15dp"
+            android:text="https://robokart.com Welcome to Robokart App."
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@id/msg_not"
+        android:textColor="#999"
+        android:text="Now"
+        android:layout_alignParentRight="true"
+        />
+
+    </RelativeLayout>

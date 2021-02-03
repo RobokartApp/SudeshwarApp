@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/white_bg">
@@ -54,7 +53,6 @@
                     android:layout_marginTop="25dp"
                     android:src="@drawable/maker_space_ic"/>
                 <carbon.widget.TextView
-                    android:id="@+id/tvMakerSpace"
                     android:layout_toRightOf="@id/ivMakerSpace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +81,6 @@
                     android:layout_marginTop="25dp"
                     android:src="@drawable/free_course_ic"/>
                 <carbon.widget.TextView
-                    android:id="@+id/tvFreeCourse"
                     android:layout_toRightOf="@id/ivFreeCourse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +109,6 @@
                     android:layout_marginTop="25dp"
                     android:src="@drawable/school_curi_ic"/>
                 <carbon.widget.TextView
-                    android:id="@+id/tvMarkerSpace"
                     android:layout_toRightOf="@id/ivSchoolCuriculum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

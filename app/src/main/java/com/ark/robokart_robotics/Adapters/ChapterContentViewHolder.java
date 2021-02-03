@@ -9,8 +9,8 @@ import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class ChapterContentViewHolder extends ChildViewHolder {
 
-    private TextView chapter_content;
-    private TextView video_mins;
+    private final TextView chapter_content;
+    private final TextView video_mins;
 
 
     public ChapterContentViewHolder(View itemView) {

@@ -6,13 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ark.robokart_robotics.Model.CourseInclusionModel;
-
-import java.util.List;
-
 public class BuyNowViewModel extends AndroidViewModel {
 
-    private BuyNowRepository buyNowRepository;
+    private final BuyNowRepository buyNowRepository;
 
     public BuyNowViewModel(@NonNull Application application) {
         super(application);

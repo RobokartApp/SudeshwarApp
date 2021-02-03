@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Common.SharedPref;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,11 +26,11 @@ public class OTPRepository {
 
     private static final String TAG = "OTPRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
     public OTPRepository(Application application){
         this.application = application;
@@ -41,11 +42,10 @@ public class OTPRepository {
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.login_otp, response -> {
             try {
 
+                Log.d("otp respo",response);
                 JSONObject jsonObject = new JSONObject(response);
 
                 JSONObject result = jsonObject.getJSONObject("result");
-
-                JSONObject userdetails = result.getJSONObject("userdetails");
 
                 int status = jsonObject.getInt("statusId");
 
@@ -54,28 +54,33 @@ public class OTPRepository {
                 if (status == 1) {
                     //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
+                    JSONObject userdetails = result.getJSONObject("userdetails");
                     Log.d(TAG, "login: "+result.getString("message"));
 
                     String cust_id = userdetails.getString("customer_id");
                     String fullname = userdetails.getString("customer_name");
                     String customer_email = userdetails.getString("customer_email");
                     String cust_mobile = userdetails.getString("customer_moblie");
-                    String cust_parents_number = userdetails.getString("customer_parents_number");
+                    String pass = userdetails.getString("password");
                     String cust_image = userdetails.getString("customer_image");
                     String user_name = userdetails.getString("username");
 
                     SharedPref sharedPref = new SharedPref();
-                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,cust_parents_number,cust_image,user_name);
+                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,pass,cust_image,user_name);
+
+                    //FirebaseMessaging.getInstance().subscribeToTopic(customer_email);
 
                     message.setValue(msg);
 
                 }else if (status == 0) {
+                    message.setValue(msg);
                     Log.d(TAG, "login: "+result.getString("message"));
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }
 
             } catch (JSONException e) {
+                Log.e("volley error",e.getMessage());
                 //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {

@@ -1,32 +1,25 @@
 package com.ark.robokart_robotics.Activities.Login;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
 import com.ark.robokart_robotics.Reciever.SmsBroadcastReceiver;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.subsub.library.BeautyButton;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +27,8 @@ import java.util.regex.Pattern;
 import carbon.widget.Button;
 import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
+
+//import com.google.android.gms.auth.api.Auth;
 
 public class OTPVerficationActivity extends AppCompatActivity  {
 
@@ -53,7 +48,6 @@ public class OTPVerficationActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverfication);
-
 
         Bundle bundle = getIntent().getExtras();
         phone_number = bundle.getString("phone_number");
@@ -104,15 +98,15 @@ public class OTPVerficationActivity extends AppCompatActivity  {
 
     public void verifyOTP(String otp) {
         otpViewModel.check(phone_number,otp).observe(OTPVerficationActivity.this, s -> {
-            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-            if(s.equals("Login Successfull")){
 
+            if(s.equals("Login Successfull")){
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
                 SharedPref sharedPref = new SharedPref();
                 sharedPref.setLoginStatus(OTPVerficationActivity.this,1);
 
                 int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
 
-                if(status_recom == 1){
+                if(1 == 1){
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }

@@ -2,15 +2,10 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,20 +15,18 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Activities.CourseEnrolled.CourseEnrolledDetailsActivity;
 import com.ark.robokart_robotics.Model.MyCoursesModel;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyCoursesAdapter extends ListAdapter<MyCoursesModel,MyCoursesAdapter.CustomHolder> {
 
 
-    private List<MyCoursesModel> mcourseList;
-    private Context mContext;
+    private final List<MyCoursesModel> mcourseList;
+    private final Context mContext;
 
     public MyCoursesAdapter(Context context, List<MyCoursesModel> courseListModelList) {
         super(DIFF_CALLBACK);

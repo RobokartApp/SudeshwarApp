@@ -8,17 +8,15 @@
     tools:context=".Activities.Profile.ProfileActivity">
 
 
-
     <LinearLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/back_btn"
@@ -34,54 +32,163 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:gravity="right"
+            android:visibility="gone"
             android:text="Good Morning,"
-            android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/profile_image_linear"
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView">
+        app:layout_constraintRight_toRightOf="parent">
 
-
-
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="106dp"
             android:layout_height="106dp"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/bg_dotted_circle"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/profile_pic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <carbon.widget.TextView
+            android:id="@+id/name_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_image"
+            android:layout_margin="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Robokart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/share_what_u_do"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_txt"
+            android:layout_margin="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Share what you do"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
+
+        <LinearLayout
+            android:id="@+id/post_lin_lay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_below="@id/share_what_u_do"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/d_round_white_background"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_2sdp">
+
+                <TextView
+                    android:id="@+id/no_stories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="00"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/bg_commman"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Stories"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_2sdp">
+
+                <TextView
+                    android:id="@+id/no_doubts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="00"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/bg_commman"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Doubts"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:max="100"
+            android:progress="40"
+            android:indeterminateOnly="true"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_below="@id/post_lin_lay"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/transparent"
             android:layout_width="106dp"
             android:layout_height="106dp"
-            android:visibility="gone"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/transparent_circle"
-             />
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/uplaod_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:visibility="gone"
-            android:layout_marginStart="30dp"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/upload_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="70dp"
             android:src="@drawable/change_profile_pic" />
 
@@ -90,7 +197,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="@dimen/_290sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -112,12 +219,13 @@
                 android:layout_marginTop="30dp">
 
                 <carbon.widget.TextView
-                    android:id="@+id/name_txt"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Charul"
+                    android:text="Robokart"
                     android:textSize="18sp"
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"/>
@@ -125,7 +233,7 @@
 
                 <ImageButton
                     android:id="@+id/edit_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:src="@drawable/ic_edit_black_24dp"
@@ -165,7 +273,9 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:hint="Full Name"
-                            android:text="Charul Dalvi" />
+                            android:inputType="textPersonName"
+                            android:enabled="false"
+                            android:text="Robokart Android" />
 
                     </LinearLayout>
 
@@ -217,8 +327,11 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:backgroundTint="@color/white"
-                            android:hint="Last Name"
-                            android:text="9876543219" />
+                            android:hint="Mobile"
+                            android:maxLength="10"
+                            android:inputType="phone"
+                            android:enabled="false"
+                            android:text="9988776655" />
 
                     </LinearLayout>
 
@@ -271,8 +384,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
+                            android:enabled="false"
+                            android:inputType="textEmailAddress"
                             android:backgroundTint="@color/white"
-                            android:text="charul@gmail.com" />
+                            android:text="robokart@gmail.com" />
 
                     </LinearLayout>
 
@@ -315,22 +430,24 @@
                         <carbon.widget.TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Parent Number"
+                            android:text="Password"
                             android:textColor="@color/grey" />
 
 
                         <EditText
-                            android:id="@+id/phone_edt"
+                            android:id="@+id/pass_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
+                            android:enabled="false"
+                            android:inputType="textPassword"
                             android:backgroundTint="@color/white"
-                            android:text="9987573342" />
+                            android:text="robokart" />
 
                     </LinearLayout>
 
                     <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/drawable_anim_number"
+                        android:id="@+id/drawable_anim_pass"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         app:lottie_autoPlay="true"
@@ -342,10 +459,10 @@
 
 
                 <TextView
-                    android:id="@+id/textview_phone_error"
+                    android:id="@+id/textview_pass_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Numnber cannot be blank"
+                    android:text="Enter Password"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="14sp"
                     android:layout_marginRight="12dp"

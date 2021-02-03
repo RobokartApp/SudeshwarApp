@@ -48,6 +48,7 @@
         android:id="@+id/rlBottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         >
         <com.google.android.material.card.MaterialCardView
@@ -63,6 +64,7 @@
             >
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:gravity="center_horizontal"
                 android:layout_height="match_parent">
                 <LinearLayout
                     android:id="@+id/llDashboard"
@@ -122,6 +124,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="30dp"
                     android:layout_width="62dp"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="25dp"
@@ -154,6 +157,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="18dp"
         tools:layout_editor_absoluteY="19dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,5 @@
 package com.ark.robokart_robotics.Activities.OnBoarding;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +7,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ark.robokart_robotics.Activities.Login.LoginActivity;
 import com.ark.robokart_robotics.Adapters.OnBoard_Adapter;
@@ -61,8 +61,8 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     public void init(){
         btn_get_started =  findViewById(R.id.get_started_btn);
-        onboard_pager = (ViewPager) findViewById(R.id.viewPager);
-        pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
+        onboard_pager = findViewById(R.id.viewPager);
+        pager_indicator = findViewById(R.id.viewPagerCountDots);
 
         loadData();
 

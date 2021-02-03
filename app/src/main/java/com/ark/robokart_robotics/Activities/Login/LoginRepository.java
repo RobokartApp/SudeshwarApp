@@ -1,11 +1,7 @@
 package com.ark.robokart_robotics.Activities.Login;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Common.SharedPref;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,13 +27,13 @@ public class LoginRepository {
 
     private static final String TAG = "LoginRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
-    private MutableLiveData<String> email_message = new MutableLiveData<>();
+    private final MutableLiveData<String> email_message = new MutableLiveData<>();
 
 
 
@@ -101,16 +98,17 @@ public class LoginRepository {
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
-
+Log.d(TAG,"Respo: "+response);
                 JSONObject result = jsonObject.getJSONObject("result");
 
-                JSONObject userdetails = result.getJSONObject("userdetails");
+
 
                 int status = jsonObject.getInt("statusId");
 
                 String msg = result.getString("message");
 
                 if (status == 1) {
+                    JSONObject userdetails = result.getJSONObject("userdetails");
                     //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "login: "+result.getString("message"));
@@ -119,17 +117,19 @@ public class LoginRepository {
                     String fullname = userdetails.getString("customer_name");
                     String customer_email = userdetails.getString("customer_email");
                     String cust_mobile = userdetails.getString("customer_moblie");
-                    String cust_parents_number = userdetails.getString("customer_parents_number");
+                    String pass= userdetails.getString("password");
                     String cust_image = userdetails.getString("customer_image");
                     String user_name = userdetails.getString("username");
 
                     SharedPref sharedPref = new SharedPref();
-                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,cust_parents_number,cust_image,user_name);
+                    sharedPref.setUserDetails(application,cust_id,fullname,cust_mobile,customer_email,pass,cust_image,user_name);
+                    //FirebaseMessaging.getInstance().subscribeToTopic(customer_email);
 
                     message.setValue(msg);
 
                 }else if (status == 0) {
                     Log.d(TAG, "login: "+result.getString("message"));
+                    message.setValue(msg);
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }

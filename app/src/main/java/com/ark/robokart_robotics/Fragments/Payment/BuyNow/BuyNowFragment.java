@@ -14,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
-import com.ark.robokart_robotics.Activities.CourseDetails.CourseInclusionViewModel;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Fragments.Payment.OrderSummaryFragment;
 import com.ark.robokart_robotics.R;
@@ -92,21 +90,25 @@ public class BuyNowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String key = key_edt.getText().toString().trim();
-                buyNowViewModel.checkLicenseKey(customer_id,course_id,key).observe(getActivity(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        if(s.equals("testing Key not found or may not be available")){
-                            Toast.makeText(getContext(),s,Toast.LENGTH_SHORT).show();
+                if(key.equals("")|| key.isEmpty()){
+                    key_edt.setError("Enter your key");
+                    key_edt.requestFocus();
+                }else {
+                    buyNowViewModel.checkLicenseKey(customer_id, course_id, key).observe(getActivity(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if (s.equals("Key not found or may not be available")) {
+                                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                                key_edt.requestFocus();
+                            } else {
+                                Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
 
+                                getChildFragmentManager().popBackStack();
+                                startActivity(new Intent(getContext(), HomeActivity.class));
+                            }
                         }
-                        else {
-                            Toast.makeText(getContext(),"Added",Toast.LENGTH_SHORT).show();
-
-                            getChildFragmentManager().popBackStack();
-                            startActivity(new Intent(getContext(), HomeActivity.class));
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
     }

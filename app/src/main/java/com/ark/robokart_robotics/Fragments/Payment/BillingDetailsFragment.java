@@ -1,14 +1,11 @@
 package com.ark.robokart_robotics.Fragments.Payment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.R;
-
-
-import org.json.JSONObject;
 
 import carbon.widget.Button;
 

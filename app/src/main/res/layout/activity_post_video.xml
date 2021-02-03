@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.59"
+            android:background="@drawable/bg_gradient_orange_red">
+
+
+        </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_12sdp"
+        android:background="@drawable/nav_icon"
+        android:backgroundTint="@color/colorWhite"
+        android:scaleType="center"
+        android:src="@drawable/ic_back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/iv_Back"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".75"
+                >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginStart="@dimen/_50sdp"
+    android:layout_marginEnd="@dimen/_50sdp"
+    >
+    <ImageView
+        android:id="@+id/thumbnail_vid"
+        android:src="@drawable/person_female"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_5sdp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_80sdp"
+        android:src="@drawable/play" />
+
+</RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.75"
+                android:background="@drawable/bg_round_top"
+                android:padding="@dimen/_30sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/btn_Post"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/circular_std_book"
+                        android:gravity="center"
+                        android:text="@string/description"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:backgroundTint="@color/colorWhite"
+                        android:fontFamily="@font/circular_std_book"
+                        android:hint="Title"
+                        android:textColorHint="@color/colorLightGrey"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:alpha="0.5"
+                        android:background="@color/colorLightGrey"
+                        android:scaleY="0.8" />
+
+                    <EditText
+                        android:id="@+id/vid_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:backgroundTint="@color/colorWhite"
+                        android:fontFamily="@font/circular_std_book"
+                        android:hint="Description"
+                        android:maxLines="5"
+                        android:inputType="textMultiLine"
+                        android:maxLength="150"
+                        android:textColorHint="@color/colorLightGrey"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:alpha="0.5"
+                        android:background="@color/colorLightGrey"
+                        android:scaleY="0.8" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/circular_std_book"
+                        android:gravity="end"
+                        android:text="Describe your video here"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_Post"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_round_corner_button"
+                    android:fontFamily="@font/circular_std_book"
+                    android:text="@string/post"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_12sdp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    <ProgressBar
+        android:id="@+id/uplaod_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:padding="@dimen/_135sdp"
+        android:background="#96B7B5B5"
+        />
+
+    </RelativeLayout>

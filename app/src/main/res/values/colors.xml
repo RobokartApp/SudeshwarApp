@@ -3,7 +3,6 @@
     <color name="colorPrimary">#9C27B0</color>
     <color name="colorPrimaryDark">#7A1F8A</color>
     <color name="colorAccent">#FF6533</color>
-    <color name="btn_shadow">#9F673AB7</color>
     <color name="black">#000000</color>
     <color name="grey">#707070</color>
     <color name="lightgrey">#EBEBEB</color>
@@ -16,10 +15,14 @@
     <!--OnBoard-->
 
     <color name="selected_dot">#9C27B0</color>
-    <color name="idle_dot">#779C27B0</color>
-    <color name="ob_header">#4A4A4A</color>
-    <color name="ob_desc">#4A4A4A</color>
     <color name="orange">#FF5722</color>
-    <color name="lightPurple">#F3F5F9</color>
     <color name="purple">#8A32D7</color>
+
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentWhite">#ADFFFFFF</color>
+    <color name="colorBlack">#AD000000</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorLightGrey">#989898</color>
+
 </resources>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/bg_round_top"
+            android:padding="@dimen/_20sdp">
+
+            <RelativeLayout
+                android:id="@+id/rl_Top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_Back"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circular_rectangle_light_grey"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/circular_std_book"
+                    android:text="@string/doubt_details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/btn_Post"
+                android:layout_below="@+id/rl_Top"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/post_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:fontFamily="@font/circular_std_book"
+                    android:hint="Description"
+                    android:textColorHint="@color/colorLightGrey"
+                    android:textSize="@dimen/_15sdp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:alpha="0.5"
+                    android:background="@color/colorLightGrey"
+                    android:scaleY="0.8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/circular_std_book"
+                    android:gravity="end"
+                    android:visibility="gone"
+                    android:text="Max 200 Words"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_40sdp">
+<!--
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_65sdp"
+                        android:layout_height="@dimen/_65sdp"
+                        app:cardCornerRadius="@dimen/_10sdp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/person_female" />
+
+                    </androidx.cardview.widget.CardView>
+
+                   -->
+
+                    <ImageView
+                        android:id="@+id/doubt_img"
+                        android:layout_width="@dimen/_255sdp"
+                        android:layout_height="@dimen/_145sdp"
+                        android:background="@drawable/bg_dotted"
+                        android:scaleType="fitXY"
+                        android:paddingLeft="@dimen/_105sdp"
+                        android:paddingRight="@dimen/_105sdp"
+                        android:paddingTop="@dimen/_55sdp"
+                        android:paddingBottom="@dimen/_55sdp"
+                        android:src="@drawable/camera_plus" />
+                    <ProgressBar
+                        android:id="@+id/uplaod_progressbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_145sdp"
+                        android:padding="@dimen/_40sdp"
+                        android:visibility="gone"
+                        android:foregroundGravity="center"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_Post"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_round_corner_button"
+                android:fontFamily="@font/circular_std_book"
+                android:text="@string/post"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar"
+            android:padding="@dimen/_130sdp"
+            android:background="#697A7979"
+            />
+    </RelativeLayout>
+</FrameLayout>

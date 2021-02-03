@@ -24,11 +24,11 @@ public class BuyNowRepository {
 
     private static final String TAG = "BuyNowRepository";
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private Application application;
+    private final Application application;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
     public BuyNowRepository(Application application){
         this.application = application;
@@ -41,7 +41,7 @@ public class BuyNowRepository {
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
-
+                Log.d(TAG,"Respo: "+response);
                 String success = jsonObject.getString("Success");
 
                 String content = jsonObject.getString("Content");

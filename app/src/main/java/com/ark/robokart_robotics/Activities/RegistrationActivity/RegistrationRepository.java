@@ -24,11 +24,11 @@ public class RegistrationRepository {
 
     private static final String TAG = "RegistrationRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
     public RegistrationRepository(Application application){
         this.application = application;
@@ -36,10 +36,11 @@ public class RegistrationRepository {
     }
 
 
-    public MutableLiveData<String> register(String fullname, String email, String password, String refer_code, String student_number, String parent_number, String username){
+    public MutableLiveData<String> register(String childName, String parentName, String mobile, String parentEmail, String grade, String havePc){
 
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.registration_api, response -> {
             try {
+                Log.d("reg Respo",response);
 
                 JSONObject jsonObject = new JSONObject(response);
 
@@ -58,6 +59,7 @@ public class RegistrationRepository {
 
                 }else if (status == 0) {
                     Log.d(TAG, "registration: "+result.getString("message"));
+                    message.setValue(msg);
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }
@@ -73,13 +75,12 @@ public class RegistrationRepository {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("customer_name", fullname);
-                parameters.put("customer_email", email);
-                parameters.put("customer_password", password);
-                parameters.put("customer_code", refer_code);
-                parameters.put("customer_mobile", student_number);
-                parameters.put("customer_parents_number", parent_number);
-                parameters.put("username", username);
+                parameters.put("customer_name", childName);
+                parameters.put("customer_email", parentEmail);
+                parameters.put("customer_mobile", mobile);
+                parameters.put("parent_name", parentName);
+                parameters.put("grade", grade);
+                parameters.put("have_pc", havePc);
                 return parameters;
             }
         };

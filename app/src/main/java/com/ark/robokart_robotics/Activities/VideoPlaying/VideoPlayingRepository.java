@@ -29,19 +29,19 @@ public class VideoPlayingRepository {
 
     private static final String TAG = "VideoPlayingRepository";
 
-    private Application application;
+    private final Application application;
 
-    private MutableLiveData<List<CurriculumModel>> curriculumList = new MutableLiveData<>();
+    private final MutableLiveData<List<CurriculumModel>> curriculumList = new MutableLiveData<>();
 
-    private ArrayList<CurriculumModel> curriculumModelArrayList = new ArrayList<>();
+    private final ArrayList<CurriculumModel> curriculumModelArrayList = new ArrayList<>();
 
-    private MutableLiveData<List<CommentModel>> commentList = new MutableLiveData<>();
+    private final MutableLiveData<List<CommentModel>> commentList = new MutableLiveData<>();
 
-    private ArrayList<CommentModel> commentModelArrayList = new ArrayList<>();
+    private final ArrayList<CommentModel> commentModelArrayList = new ArrayList<>();
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
 
     public VideoPlayingRepository(Application application){

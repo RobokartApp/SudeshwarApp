@@ -13,8 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Common.ApiConstants;
-import com.ark.robokart_robotics.Model.ChapterContent;
-import com.ark.robokart_robotics.Model.ChapterName;
 import com.ark.robokart_robotics.Model.Class_chapters;
 
 import org.json.JSONArray;
@@ -30,17 +28,15 @@ public class CourseEnrolledDetailsRepository {
 
     private static final String TAG = "CourseEnrolledDetailsRe";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<Class_chapters>> chapterNameMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Class_chapters>> chapterNameMutableLiveData = new MutableLiveData<>();
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
-    private ArrayList<Class_chapters> chaptersArrayList = new ArrayList<>();
-
-
+    private final ArrayList<Class_chapters> chaptersArrayList = new ArrayList<>();
 
 
     public CourseEnrolledDetailsRepository(Application application){

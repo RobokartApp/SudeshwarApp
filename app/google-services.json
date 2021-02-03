@@ -1,42 +1,71 @@
 {
   "project_info": {
-    "project_number": "235339287345",
-    "firebase_url": "https://robokart-6b26d.firebaseio.com",
-    "project_id": "robokart-6b26d",
-    "storage_bucket": "robokart-6b26d.appspot.com"
+    "project_number": "953433427670",
+    "firebase_url": "https://kbbcom-c4f58.firebaseio.com",
+    "project_id": "kbbcom-c4f58",
+    "storage_bucket": "kbbcom-c4f58.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235339287345:android:8d1717a1c6a4f5148afe10",
+        "mobilesdk_app_id": "1:953433427670:android:e214783f0f22213d5d0377",
         "android_client_info": {
           "package_name": "com.ark.robokart_robotics"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235339287345-5lp39ep1pnl1reah26nkl2ko4ke205jp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ark.robokart_robotics",
-            "certificate_hash": "d704949055cebda9a23165508f948f0312e0ebe2"
-          }
-        },
-        {
-          "client_id": "235339287345-3573ief40eoenvcaidkv9v3em826f4b2.apps.googleusercontent.com",
+          "client_id": "953433427670-dlo60p2557l4h6tc3b5rci4u20g8e4k8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAP96bFvIIHGg22-wq1TcqhWSIc3uvw21Y"
+          "current_key": "AIzaSyBLNltv-vSJmi9SHSBEZqLhYUhh3SbXVnI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "235339287345-3573ief40eoenvcaidkv9v3em826f4b2.apps.googleusercontent.com",
+              "client_id": "953433427670-dlo60p2557l4h6tc3b5rci4u20g8e4k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953433427670:android:c2ed84cb536216a85d0377",
+        "android_client_info": {
+          "package_name": "com.itkida.kbb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953433427670-efgtpjbsq1o7kt28q850fuujm5sfk86e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itkida.kbb",
+            "certificate_hash": "2455cf75bbb8fae31cfa41b16240a8d59a56ceec"
+          }
+        },
+        {
+          "client_id": "953433427670-dlo60p2557l4h6tc3b5rci4u20g8e4k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLNltv-vSJmi9SHSBEZqLhYUhh3SbXVnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953433427670-dlo60p2557l4h6tc3b5rci4u20g8e4k8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

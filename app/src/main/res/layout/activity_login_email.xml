@@ -276,6 +276,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:gravity="center"
             android:text="@string/or_login_with_social_account"
             app:layout_constraintEnd_toEndOf="parent"
@@ -288,6 +289,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:visibility="gone"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
             android:gravity="center_vertical"
@@ -297,15 +299,7 @@
             app:layout_constraintTop_toBottomOf="@id/social_text">
 
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:paddingTop="15dp"
-                android:visibility="gone"
-                android:paddingBottom="15dp" />
+
 
             <LinearLayout
                 android:layout_width="20dp"
@@ -323,7 +317,6 @@
 
 
         <LinearLayout
-            android:id="@+id/sign_up_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

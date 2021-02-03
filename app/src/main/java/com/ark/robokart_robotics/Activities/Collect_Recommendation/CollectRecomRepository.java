@@ -3,7 +3,6 @@ package com.ark.robokart_robotics.Activities.Collect_Recommendation;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
@@ -29,15 +28,15 @@ public class CollectRecomRepository {
 
     private static final String TAG = "CollectRecomRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<Recommendations>> recommendationList = new MutableLiveData<>();
+    private final MutableLiveData<List<Recommendations>> recommendationList = new MutableLiveData<>();
 
-    private ArrayList<Recommendations> recommendationsArrayList = new ArrayList<>();
+    private final ArrayList<Recommendations> recommendationsArrayList = new ArrayList<>();
 
-    private MutableLiveData<String> message = new MutableLiveData<>();
+    private final MutableLiveData<String> message = new MutableLiveData<>();
 
     public CollectRecomRepository(Application application){
         this.application = application;

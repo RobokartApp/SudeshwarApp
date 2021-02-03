@@ -1,0 +1,120 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
+
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:layout_width="match_parent"
+      android:id="@+id/swiperefresh"
+      android:layout_height="match_parent"
+      >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/recylerview"
+          android:layout_marginBottom="5dp"
+          android:background="@color/black"/>
+
+      <ProgressBar
+          android:id="@+id/p_bar"
+          style="?android:attr/progressBarStyleHorizontal"
+          android:layout_width="match_parent"
+          android:layout_height="13dp"
+          android:layout_alignParentBottom="true"
+          android:indeterminateOnly="true"
+          android:visibility="visible"
+          android:indeterminateTint="@color/colorPrimary"
+          android:secondaryProgress="@android:integer/config_shortAnimTime"/>
+
+      <ImageView
+          android:id="@+id/play_pause"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:alpha="0.6"
+          android:contentDescription="@string/rbk"
+          android:padding="@dimen/_135sdp"
+          android:src="@drawable/ic_play_arrow"
+          android:visibility="visible" />
+
+    </RelativeLayout>
+
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+  <RelativeLayout
+      android:id="@+id/rl_Top"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/_40sdp"
+      android:layout_margin="@dimen/_12sdp">
+
+    <ImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/nav_icon" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_user_profile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_dotted_circle"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/person_female" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/civ_user_profile"
+        android:layout_toLeftOf="@+id/civ_user_profile"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center">
+
+      <ImageView
+          android:layout_width="@dimen/_90sdp"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="@dimen/_5sdp"
+          android:layout_marginRight="@dimen/_5sdp"
+          android:alpha="0.8"
+          android:scaleType="fitXY"
+          android:src="@drawable/circular_rectangle"
+          app:tint="@color/colorBlack" />
+
+      <LinearLayout
+          android:id="@+id/lnr_Create"
+          android:layout_width="@dimen/_90sdp"
+          android:layout_height="match_parent"
+          android:background="?android:attr/selectableItemBackground"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/record" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/circular_std_book"
+            android:text="@string/create"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12sdp" />
+
+      </LinearLayout>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</FrameLayout>

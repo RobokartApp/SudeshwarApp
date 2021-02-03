@@ -33,6 +33,7 @@
                     android:id="@+id/close_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:src="@drawable/ic_purple_close"/>
 
                 <carbon.widget.TextView
@@ -193,11 +194,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Answers given by you"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     android:layout_marginBottom="10dp"/>
-
+                <carbon.widget.TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click on number to view the answer."
+                    android:textSize="16sp"
+                    android:textColor="@color/grey"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/answersRecyclerview"
@@ -206,6 +214,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/show_correct_answers_item"
                    />
 

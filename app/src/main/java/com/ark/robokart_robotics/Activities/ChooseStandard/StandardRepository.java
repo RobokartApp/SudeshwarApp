@@ -28,15 +28,15 @@ public class StandardRepository {
 
     private static final String TAG = "StandardRepository";
 
-    private Application application;
+    private final Application application;
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private MutableLiveData<List<StandardModel>> standardList = new MutableLiveData<>();
+    private final MutableLiveData<List<StandardModel>> standardList = new MutableLiveData<>();
 
-    private ArrayList<StandardModel> standardArrayList = new ArrayList<>();
+    private final ArrayList<StandardModel> standardArrayList = new ArrayList<>();
 
-    private MutableLiveData<Integer> message = new MutableLiveData<>();
+    private final MutableLiveData<Integer> message = new MutableLiveData<>();
 
     public StandardRepository(Application application){
         this.application = application;

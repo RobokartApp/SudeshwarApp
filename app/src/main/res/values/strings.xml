@@ -4,31 +4,24 @@
     <string name="please_enter_your_mobile_number">Please enter your mobile number</string>
     <string name="enter_your_number">Enter your number</string>
     <string name="we_will_send_a_6_digit_otp_to_verify">We will send a 6 digit OTP to verify</string>
-    <string name="btn_login">Login</string>
     <string name="or_login_with_social_account">or login with social account</string>
 
-
     <string name="facebook_app_id">113020080140872</string>
-    <string name="fb_login_protocol_scheme">fb113020080140872</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="registration">Registration</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="by_signing_up_you_agree_to_robokart_s">By signing up you agree to Robokart\'s</string>
-    <string name="username">Username</string>
     <string name="email">Email</string>
-    <string name="register">Register</string>
 
     <string name="ob_header1">Learn Online</string>
-    <string name="ob_header2">Get Contents</string>
-    <string name="ob_header3">Progress Reports</string>
+    <string name="ob_header2">Truly Personalized</string>
+    <string name="ob_header3">Maker In You</string>
 
-    <string name="ob_desc1">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
-    <string name="ob_desc2">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
-    <string name="ob_desc3">You have successfully verified your mobile number. This number would be used for login and added to your account.</string>
-    <string name="fullname">Fullname</string>
+    <string name="ob_desc1">Learn Robotics, AI, IoT, Drone Tech and much more at ease of your home.</string>
+    <string name="ob_desc2">Get lifetime access to our content with personalized expert to help you.</string>
+    <string name="ob_desc3">Be a creator then the consumer of the technology with Robokart.</string>
     <string name="parent_number">Parent Number</string>
-    <string name="your_number">Your Number</string>
     <string name="password">Password</string>
     <string name="referal_code">Referal Code</string>
     <string name="verification">Verification</string>
@@ -38,7 +31,6 @@
     <string name="get_started">Get Started</string>
     <string name="maker_space_courses">Maker Space Courses</string>
     <string name="free_courses">Free Courses</string>
-    <string name="school_curiculum">School Curiculum</string>
     <string name="dashboard">Dashboard</string>
     <string name="total_questions">Total Questions</string>
     <string name="questions_answered">Questions answered</string>
@@ -50,5 +42,39 @@
     <string name="enter_certification_id">Enter Certification ID</string>
     <string name="atl_courses">ATL Courses</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="access_token" />
+    <string name="courses">Courses</string>
+    <string name="stories">Stories</string>
+    <string name="ask_doubt">Ask Doubt</string>
+
+    <string name="create">Create</string>
+    <string name="chilling_vibe">Chilling Vibe</string>
+    <string name="comment_here">Comment Here</string>
+    <string name="post">Post</string>
+    <string name="description">Description</string>
+    <string name="new_doubt">Ask Doubt</string>
+    <string name="doubt_details">Doubt Details</string>
+    <string name="comments">Comments</string>
+
+    <string name="grade_prompt">Choose a Grade</string>
+    <string name="hey_i_have_made_automatic_and_sanitizer">Hey I have made automatic and sanitizer</string>
+    <string name="rbk">Robokart</string>
+    <string-array name="grade_arrays">
+        <item>Choose Grade</item>
+        <item>1-2</item>
+        <item>3-4</item>
+        <item>5-6</item>
+        <item>7-8</item>
+        <item>9-10</item>
+        <item>11-12</item>
+    </string-array>
+
+    <string name="default_notification_channel_id">100</string>
+    <string name="my_own_title">Rate Us</string>
+    <string name="my_own_message">If you are enjoying the Robokart app,take a moment to rate us. Thanks! Share what you do.</string>
+    <string name="my_own_thanks">Later</string>
+    <string name="my_own_rate">Rate Now</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

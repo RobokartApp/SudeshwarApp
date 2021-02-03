@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AdvanceStandardViewModel extends AndroidViewModel {
 
-    private AdvanceStandardRepository advanceStandardRepository;
+    private final AdvanceStandardRepository advanceStandardRepository;
 
     public AdvanceStandardViewModel(@NonNull Application application) {
         super(application);

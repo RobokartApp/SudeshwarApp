@@ -17,7 +17,7 @@ import java.util.List;
 public class StandardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG = "BlogAdapter";
-    private List<StandardModel> mStandardList;
+    private final List<StandardModel> mStandardList;
     public static ArrayList<String> stdselectedList;
 
 

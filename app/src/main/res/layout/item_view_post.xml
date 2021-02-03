@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/_30sdp"
+        android:paddingRight="@dimen/_30sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_profile_Pic"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/person_male" />
+
+        <TextView
+            android:id="@+id/post_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/circular_std_book"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_toRightOf="@+id/post_profile_Pic"
+            android:text="@string/chilling_vibe"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp" />
+
+        <ImageView
+            android:id="@+id/dot_btn"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/more" />
+
+
+    </RelativeLayout>
+
+    <TextView
+
+        android:id="@+id/post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/circular_std_book"
+        android:paddingLeft="@dimen/_30sdp"
+        android:paddingRight="@dimen/_30sdp"
+        android:text="Hey I have made automatic and sanitizer. \nhttps://robokart.com"
+        android:textColor="@color/colorBlack"
+        android:textIsSelectable="true"
+        android:linksClickable="true"
+        android:autoLink="web"
+        android:textColorLink="#0073FF"
+        android:textSize="@dimen/_12sdp" />
+    <TextView
+        android:id="@+id/post_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:fontFamily="@font/circular_std_book"
+        android:paddingLeft="@dimen/_30sdp"
+        android:paddingRight="@dimen/_30sdp"
+        android:text="31-Dec-2020, 10:15 AM"
+        android:gravity="end"
+        android:textColor="#AD787878"
+        android:textIsSelectable="true"
+        android:linksClickable="true"
+        android:autoLink="web"
+        android:textColorLink="#0375F6"
+        android:textSize="@dimen/_8sdp" />
+
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_259sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:src="@drawable/person_female" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:id="@+id/post_like_btn"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:src="@drawable/like_heart"
+                app:backgroundTint="@color/colorWhite"
+
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                app:useCompatPadding="true"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/circular_std_book"
+                    android:text="Like"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/post_count_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.7"
+                    android:text="234 Likes"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/circular_std_book"
+                    android:textSize="@dimen/_7sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:id="@+id/post_comment_btn"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:backgroundTint="@color/colorWhite"
+                android:scaleType="center"
+                android:src="@drawable/message"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                app:tint="@null"
+                app:useCompatPadding="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comment"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/circular_std_book"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/post_count_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.7"
+                    android:maxLines="1"
+                    android:fontFamily="@font/circular_std_book"
+                    android:text="273 Comment"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_8sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:id="@+id/post_share_btn"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:backgroundTint="@color/colorWhite"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/share"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                app:tint="@null"
+                app:useCompatPadding="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share"
+                    android:fontFamily="@font/circular_std_book"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/post_count_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/circular_std_book"
+                    android:text="234 Share"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-10dp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:src="@drawable/heart"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+                    app:useCompatPadding="true"
+                    />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-10dp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:scaleType="center"
+                    android:src="@drawable/message"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+                    app:useCompatPadding="true" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-10dp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/share"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+                    app:useCompatPadding="true" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:alpha="0.4"
+        android:background="@color/colorLightGrey" />
+
+</LinearLayout>

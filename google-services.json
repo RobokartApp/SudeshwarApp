@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "700011298363",
+    "project_id": "robokart-63dd0",
+    "storage_bucket": "robokart-63dd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700011298363:android:40e291dcfd92c7db67e61e",
+        "android_client_info": {
+          "package_name": "com.ark.robokart_robotics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700011298363-sqrof96f6solf0kumml790ev07oh09da.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ark.robokart_robotics",
+            "certificate_hash": "2455cf75bbb8fae31cfa41b16240a8d59a56ceec"
+          }
+        },
+        {
+          "client_id": "700011298363-6rm3sfe104ohlvd7bvf4bhbr3korn2b1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZhuiJaCtM8sDDYtqKjq-jbxtnGrcJyfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700011298363-6rm3sfe104ohlvd7bvf4bhbr3korn2b1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

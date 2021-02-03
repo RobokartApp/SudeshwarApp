@@ -6,12 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent">
 
+
     <RelativeLayout
         android:id="@+id/rlJustStarting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintDimensionRatio="w,16:9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,9 +23,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recent Courses"
+            android:text="My Courses"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -44,10 +45,10 @@
     <RelativeLayout
         android:id="@+id/rlJustStartingVideos"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/rlJustStarting"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlJustStarting">
@@ -59,11 +60,90 @@
             android:orientation="horizontal"
             android:layout_marginStart="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_my_courses_item" />
+            tools:listitem="@layout/row_my_courses_item"
+            android:background="@drawable/base_line"
+            />
+        <TextView
+            android:id="@+id/completed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed Courses"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_below="@id/myCoursesRecyclerview"
+            android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/CompletedCoursesRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/completed_tv"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_my_courses_item"
+            android:background="@drawable/base_line"
+            />
+        <TextView
+            android:id="@+id/certificate_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Certificates"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_below="@id/CompletedCoursesRecyclerview"
+            android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/CertificateRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/certificate_tv"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_certificate_item"
+            android:background="@drawable/base_line"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_130sdp"
+         />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/no_courses_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No Courses Found...!"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center|center_vertical"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_18sdp"
+            />
+        <carbon.widget.Button
+            android:visibility="gone"
+            android:id="@+id/view_courses_cbtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/btn_login"
+            android:text="View Courses"
+            android:textSize="@dimen/_16sdp"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            app:carbon_elevation="12dp"
+            app:carbon_elevationShadowColor="@color/purple"
+            />
+
     </RelativeLayout>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintTop_toTopOf="parent"

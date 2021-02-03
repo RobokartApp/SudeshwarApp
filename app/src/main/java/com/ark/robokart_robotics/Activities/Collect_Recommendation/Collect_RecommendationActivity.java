@@ -1,13 +1,5 @@
 package com.ark.robokart_robotics.Activities.Collect_Recommendation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,15 +11,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.ark.robokart_robotics.Activities.ChooseStandard.StandardActivity;
-import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Adapters.RecommendationAdapter;
-import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.Model.Recommendations;
 import com.ark.robokart_robotics.R;
 import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
@@ -108,7 +103,7 @@ public class Collect_RecommendationActivity extends AppCompatActivity {
         btncollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(recommendationAdapter.selectedItemList.size() == 0){
+                if(RecommendationAdapter.selectedItemList.size() == 0){
                     error_layout.setVisibility(View.VISIBLE);
                     animationView.setAnimation("error.json");
                     animationView.playAnimation();

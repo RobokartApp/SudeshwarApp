@@ -1,12 +1,5 @@
 package com.ark.robokart_robotics.Activities.Quiz;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,11 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,7 +32,6 @@ import com.ark.robokart_robotics.Activities.VideoPlaying.VideoPlayingActivity;
 import com.ark.robokart_robotics.Adapters.CheckAnswerAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.CorrectAnswersModel;
-import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.Model.Question;
 import com.ark.robokart_robotics.R;
 import com.google.android.flexbox.FlexDirection;
@@ -48,14 +44,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import carbon.widget.Button;
+
+import static android.view.View.GONE;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -86,9 +82,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private carbon.widget.TextView question_txt;
 
-    private MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
+    private final MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
-    private ArrayList<Question> questionArrayList = new ArrayList<>();
+    private final ArrayList<Question> questionArrayList = new ArrayList<>();
 
     public static ArrayList<CorrectAnswersModel> correctAnswersList = new ArrayList<>();
 
@@ -148,6 +144,8 @@ public class QuizActivity extends AppCompatActivity {
     String count = "";
 
     String percent = "";
+    ProgressBar progressBar;
+    ImageView bgImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,11 +175,13 @@ public class QuizActivity extends AppCompatActivity {
 
         init();
 
-
         getQuestionList();
     }
 
     public void init() {
+
+        progressBar=findViewById(R.id.progressBar);
+        bgImg=findViewById(R.id.for_bg_img);
         mTextViewCountDown = findViewById(R.id.timer_text);
 
         countdownProgress = findViewById(R.id.countdownProgress);
@@ -248,7 +248,7 @@ public class QuizActivity extends AppCompatActivity {
 
         quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
 
-        startTimer();
+        //startTimer();
         setProgressBarValues();
 
       quizViewModel.getQuizList(quiz_id).observe(this, new Observer<List<Question>>() {
@@ -406,6 +406,14 @@ public class QuizActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(request);
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                progressBar.setVisibility(GONE);
+                bgImg.setVisibility(GONE);
+                startTimer();
+            }
+        });
         questionList.setValue(questionArrayList);
         return questionList;
     }
@@ -485,9 +493,13 @@ public class QuizActivity extends AppCompatActivity {
             rb_4.setText(currentQuestion.getAnswer4());
             questionCounter++;
 
-            if(questionCounter == 10){
-                btnNextQustn.setText("FINISH");
+            if(questionCounter == questionCountTotal){
+                btnNextQustn.setText("Submit");
             }
+            if (questionCounter==1){
+                btnPreviousQustn.setVisibility(View.INVISIBLE);
+            }else
+                btnPreviousQustn.setVisibility(View.VISIBLE);
         }
 
         else {
@@ -520,15 +532,18 @@ public class QuizActivity extends AppCompatActivity {
             }
             else {
                 tv_pass_fail.setText("Hooray!! New Chapter Unlocked!");
+                submitQuizResult(course_id,quiz_id,customer_id,username,parents_number,student_number,total_number_of_chapter,quiz_counter,right,wrong,count,percent);
             }
 
-            submitQuizResult(course_id,quiz_id,customer_id,username,parents_number,student_number,total_number_of_chapter,quiz_counter,right,wrong,count,percent);
+
 
             if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             }
         }
+        if (questionCounter<=answersGivenList.size())
+            rbGroup.check(Integer.parseInt(answersGivenList.get(questionCounter-1)));
     }
 
 
@@ -541,7 +556,8 @@ public class QuizActivity extends AppCompatActivity {
                 new_counter--;
                 questionCounter--;
             }
-
+        if (questionCounter<=answersGivenList.size())
+            rbGroup.check(Integer.parseInt(answersGivenList.get(questionCounter-1)));
             tvQuestionCount.setText(String.format(Locale.ENGLISH,"Question %d /", new_counter));
 
             currentQuestion = questionList.get(questionCounter - 1);
@@ -551,6 +567,11 @@ public class QuizActivity extends AppCompatActivity {
             rb_2.setText(currentQuestion.getAnswer2());
             rb_3.setText(currentQuestion.getAnswer3());
             rb_4.setText(currentQuestion.getAnswer4());
+
+        if (questionCounter==1){
+            btnPreviousQustn.setVisibility(View.INVISIBLE);
+        }else
+            btnPreviousQustn.setVisibility(View.VISIBLE);
 
     }
 
@@ -565,45 +586,72 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 if(s.equals("learn percent updated in orders table.")) {
-
+Log.i("QuizAct","perscent updated in orders"+s);
                 }
                 else {
-
+                    Log.i("QuizAct",""+s);
                 }
             }
         });
 
     }
 
-//    To Check answer
+    int counter=0;
+    ArrayList<String> ans_ok=new ArrayList<>();
+    //    To Check answer
     private void checkAnswer() {
         answered = true;
+        int sum=0,i=0;
 
+        Log.i("counter val is:",""+counter+"&counter_ques:"+questionCounter+"&anslistsize:"+answersGivenList.size());
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
+        // if (answersGivenList.size()<questionCountTotal) {
+        if (answersGivenList.size()>questionCounter-1)
+            Log.i("ans given before:",""+answersGivenList.get(questionCounter-1));
         try {
             int id = rbSelected.getId();
-            if(id == 0){
+            if (id == 0) {
                 id = 0;
-                answersGivenList.add(String.valueOf(id));
+                //answersGivenList.remove(questionCounter-1);
+                if (answersGivenList.size()<questionCounter)
+                    answersGivenList.add(questionCounter-1, String.valueOf(id));
+            } else {
+                //answersGivenList.remove(questionCounter-1);
+                if (answersGivenList.size()<questionCounter)
+                    answersGivenList.add(questionCounter-1, String.valueOf(id));
             }
-            else{
-                answersGivenList.add(String.valueOf(id));
-            }
+
+            Log.i("ans given:",""+answersGivenList.get(questionCounter-1));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (answerNr == currentQuestion.getAnswer()) {
-                correctAnswersList.add(new CorrectAnswersModel(answerNr));
-            score++;
-            right_answer++;
-            }
-            else{
-                answerNr = 0;
-                wrong_answer++;
-                correctAnswersList.add(new CorrectAnswersModel(answerNr));
-            }
 
+        if (answerNr == currentQuestion.getAnswer()) {
+            correctAnswersList.add(questionCounter-1, new CorrectAnswersModel(answerNr));
+            //score++;
+            //right_answer++;
+            if (ans_ok.size()<questionCounter)
+                ans_ok.add(questionCounter-1,"1");
+            else
+                ans_ok.set(questionCounter-1,"1");
+            Log.i("right ans",""+right_answer);
+        } else {
+            answerNr = 0;
+            //wrong_answer++;
+            ans_ok.add(questionCounter-1,"0");
+            Log.i("wring ans",""+wrong_answer);
+            correctAnswersList.add(questionCounter-1, new CorrectAnswersModel(answerNr));
+        }
+
+
+
+        for (i = 0; i < ans_ok.size(); i++) {
+            sum += Integer.parseInt(ans_ok.get(i));
+            Log.i("ansok arr["+i+"]",""+ans_ok.get(i));
+        }
+        right_answer=score=sum;
+        Log.i("sum is",""+sum+"&rghtans is:"+right_answer);
     }
 }

@@ -13,7 +13,8 @@ public interface UploadAPI {
 
     @Multipart
     @POST(ApiConstants.profile_img_api)
-    Call<ImageModel> ProfilePicUpload(@Part("User_id") String User_id,
+    Call<ImageModel> ProfilePicUpload(@Part("User_id") int User_id,
+
                                                        @Part MultipartBody.Part image);
 
 }

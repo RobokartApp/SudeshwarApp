@@ -16,7 +16,7 @@ public class RegistrationViewModel extends AndroidViewModel {
         registrationRepository = new RegistrationRepository(application);
     }
 
-    public MutableLiveData<String> registeruser(String fullname, String email, String password, String refer_code, String student_number, String parent_number, String username){
-        return registrationRepository.register(fullname,email,password,refer_code,student_number,parent_number, username);
+    public MutableLiveData<String> registeruser(String childName, String parentName, String mobile, String parentEmail, String grade, String havePc){
+        return registrationRepository.register(childName,parentName,mobile,parentEmail,grade,havePc);
     }
 }

@@ -28,13 +28,13 @@ public class ViewAllSearchRepository {
 
     private static final String TAG = "ViewAllSearchRepository";
 
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
-    private Application application;
+    private final Application application;
 
-    private MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<CourseListModel>> courseListModelMutableLiveData = new MutableLiveData<>();
 
-    private ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
+    private final ArrayList<CourseListModel> courseListModelArrayList = new ArrayList<>();
 
     public ViewAllSearchRepository(Application application){
         this.application = application;

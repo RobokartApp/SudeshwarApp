@@ -12,14 +12,18 @@ import java.util.List;
 
 public class CoursesViewModel extends AndroidViewModel {
 
-    private CoursesRepository coursesRepository;
+    private final CoursesRepository coursesRepository;
 
     public CoursesViewModel(@NonNull Application application) {
         super(application);
         coursesRepository = new CoursesRepository(application);
     }
 
+
+
     public MutableLiveData<List<MyCoursesModel>> getMyCoursesList(String customer_id){
         return coursesRepository.getMyCoursesList(customer_id);
     }
+
+
 }

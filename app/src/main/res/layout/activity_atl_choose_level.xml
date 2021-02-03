@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purple_bg">
-
 
     <RelativeLayout
         android:id="@+id/topLayout"
@@ -23,7 +21,7 @@
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/back_btn_purple" />
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/tvGood"
@@ -47,7 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="26dp"
             android:gravity="end"
-            android:text="Charul"
+            android:text="Deva"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -62,7 +60,7 @@
         android:layout_below="@id/topLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topLayout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

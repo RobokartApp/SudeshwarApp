@@ -1,22 +1,18 @@
 package com.ark.robokart_robotics.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ark.robokart_robotics.Activities.CourseDetails.CourseDetailsActivity;
 import com.ark.robokart_robotics.Model.CourseInclusionModel;
 import com.ark.robokart_robotics.Model.CourseListModel;
 import com.ark.robokart_robotics.R;
@@ -26,8 +22,8 @@ import java.util.List;
 public class CourseInclusionAdapter extends ListAdapter<CourseListModel,CourseInclusionAdapter.CustomHolder> {
 
     private OnItemClickListener listener;
-    private List<CourseInclusionModel> mcourseList;
-    private Context mContext;
+    private final List<CourseInclusionModel> mcourseList;
+    private final Context mContext;
     int num = 0;
 
     public CourseInclusionAdapter(Context context, List<CourseInclusionModel> courseListModelList) {

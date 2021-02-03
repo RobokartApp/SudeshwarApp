@@ -1,80 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ark.robokart_robotics">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission
+        android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/robokart_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/robokart_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.AtlCourseDetails"></activity>
-        <activity android:name=".Activities.AtlChooseLevel.AtlChooseLevel" />
-        <activity android:name=".Activities.AtlChooseStandard.AtlChooseStandard" />
-        <activity android:name=".Activities.NewQuiz.NewQuizActivity" />
-        <activity android:name=".Activities.ChooseCategory.ChooseCategory" />
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activities.Profile.NewProfileAct"></activity>
         <activity
-            android:name=".Activities.CourseEnrolled.CourseEnrolledDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".Activities.Certificate.CheckCertificateActivity" />
-        <activity android:name=".Activities.Login.LoginEmailActivity" />
-        <activity android:name=".Activities.Quiz.QuizActivity" />
-        <activity android:name=".Activities.ChooseStandard.StandardActivity" />
+            android:name=".Activities.Refer.ReferActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".Activities.VideoPlaying.VideoPlayingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".Activities.Profile.ProfileActivity" />
+            android:name=".Activities.Story.SingleStoryActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.CourseDetails.CourseDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".Activities.View_all_search.ViewAllSearchActivity" />
+            android:name=".Activities.AskDoubt.SinglePostActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.Home.HomeActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
-        <activity android:name=".Activities.Login.OTPVerficationActivity" />
-        <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />
-        <activity android:name=".Activities.RegistrationActivity.RegistrationActivity" />
-        <activity android:name=".Activities.Login.LoginActivity" />
-        <activity android:name=".Activities.Splash.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
+            android:name=".Activities.Certificate.CertificateActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:name=".Activities.NotifyAct"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:name=".VideoRecord.TrimVidActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoRecord.PostVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoRecord.PreviewVideoAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoRecord.RecordVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AskDoubt.DoubtAllComment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AskDoubt.CreateDoubtAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestDevaAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Quiz.PlayQuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Quiz.DailyQuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.terms.TermsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.FreeCourses.SingleYouTubeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.FreeCourses.YouTube"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data
+                    android:host="video"
+                    android:scheme="robokart" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.AtlCourseDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AtlChooseLevel.AtlChooseLevel"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AtlChooseStandard.AtlChooseStandard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.NewQuiz.NewQuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ChooseCategory.ChooseCategory"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CourseEnrolled.CourseEnrolledDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Certificate.CheckCertificateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Login.LoginEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Quiz.QuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ChooseStandard.StandardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.VideoPlaying.VideoPlayingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".Activities.Profile.ProfileActivity" />
+        <activity
+            android:name=".Activities.CourseDetails.CourseDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="course"
+                    android:scheme="robokart" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.View_all_search.ViewAllSearchActivity" />
+        <activity
+            android:name=".Activities.Home.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
+        <activity android:name=".Activities.Login.OTPVerficationActivity" />
+        <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />
+        <activity
+            android:name=".Activities.RegistrationActivity.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Splash.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="deva"
+                    android:scheme="robokart" />
+                <data
+                    android:host="story"
+                    android:scheme="robokartstory" />
+                <data
+                    android:host="askdoubt"
+                    android:scheme="robokartdoubt" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="robokart.page.link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".VideoRecord.Upload_Service"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="startservice" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_EvXZMjKBLEZ4D2" />
