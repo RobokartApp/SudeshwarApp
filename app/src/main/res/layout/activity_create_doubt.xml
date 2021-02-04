@@ -47,11 +47,16 @@
 
             </RelativeLayout>
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/btn_Post"
                 android:layout_below="@+id/rl_Top"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -130,7 +135,7 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
+            </ScrollView>
             <Button
                 android:id="@+id/btn_Post"
                 android:layout_width="match_parent"

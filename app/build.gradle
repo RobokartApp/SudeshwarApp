@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+
 android {
     signingConfigs {
         sign {
@@ -45,9 +46,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.firebase:firebase-analytics:18.0.1'
+    implementation 'com.google.firebase:firebase-analytics:18.0.2'
 
-    implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.1'
 
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
@@ -185,9 +186,9 @@ dependencies {
 
     implementation 'com.github.MasayukiSuda:GPUVideo-android:v0.1.1'
     //implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.12.0'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.12.0'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.12.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.12.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.12.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.12.1'
     implementation 'com.google.android.exoplayer:extension-mediasession:2.10.8'
 
     implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
@@ -196,7 +197,7 @@ dependencies {
 
     //video trim
     //implementation 'com.github.MasayukiSuda:Mp4Composer-android:v0.4.0'
-    implementation('life.knowledge4:k4l-video-trimmer:1.0')
+    //implementation('life.knowledge4:k4l-video-trimmer:1.0')
 
 
     //pintch to zoom image
@@ -204,6 +205,11 @@ dependencies {
 
     //firebase notification
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
+
+    //trim video
+    implementation project(':videotrim')
+
+    implementation 'com.iceteck.silicompressorr:silicompressor:2.2.4'
 
 
 }

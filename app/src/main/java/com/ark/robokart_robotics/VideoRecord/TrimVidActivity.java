@@ -4,23 +4,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ark.robokart_robotics.R;
+import com.iceteck.silicompressorr.SiliCompressor;
+import com.video_trim.K4LVideoTrimmer;
+import com.video_trim.interfaces.OnK4LVideoListener;
+import com.video_trim.interfaces.OnTrimVideoListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
-import life.knowledge4.videotrimmer.K4LVideoTrimmer;
-import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
-
-public class TrimVidActivity extends AppCompatActivity {
+public class TrimVidActivity extends AppCompatActivity implements OnTrimVideoListener, OnK4LVideoListener {
 
     String path;
 Uri uri;
 Context context;
+    private K4LVideoTrimmer mVideoTrimmer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,7 @@ Context context;
         }
         Log.d("path at trim",path);
 
+        /*
         K4LVideoTrimmer videoTrimmer = findViewById(R.id.timeLine);
         if (videoTrimmer != null) {
             videoTrimmer.setVideoURI(Uri.parse(path));
@@ -42,8 +49,19 @@ Context context;
         assert videoTrimmer != null;
         //videoTrimmer.setDestinationPath(Variables.gallery_trimed_video);
         videoTrimmer.setMaxDuration(60);
+*/
 
+        mVideoTrimmer = findViewById(R.id.timeLine);
+        if (mVideoTrimmer != null) {
+            mVideoTrimmer.setMaxDuration(60);
+            mVideoTrimmer.setOnTrimVideoListener(this);
+            mVideoTrimmer.setOnK4LVideoListener(this);
+            mVideoTrimmer.setDestinationPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString()+"/Robokart/");
+            mVideoTrimmer.setVideoURI(Uri.parse(path));
+            mVideoTrimmer.setVideoInformationVisibility(true);
+        }
 
+        /*
         videoTrimmer.setOnTrimVideoListener(new OnTrimVideoListener() {
             @Override
             public void getResult(Uri uri) {
@@ -57,6 +75,61 @@ Context context;
             public void cancelAction() {
                 finish();
                 Log.i("Cancel Trim","true");
+            }
+        });
+        */
+    }
+
+    @Override
+    public void onTrimStarted() {
+        //mProgressDialog.show();
+    }
+    @Override
+    public void getResult(final Uri uri) {
+        //mProgressDialog.cancel();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(TrimVidActivity.this, "Vid saved in Robokart dir.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setDataAndType(uri, "video/mp4");
+       // startActivity(intent);
+        //finish();
+        Intent intent1=new Intent(TrimVidActivity.this, PostVideoActivity.class);
+        // intent.putExtra("video_path",Variables.gallery_trimed_video);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent1);
+    }
+
+    @Override
+    public void cancelAction() {
+        //mProgressDialog.cancel();
+        mVideoTrimmer.destroy();
+        finish();
+    }
+
+    @Override
+    public void onError(final String message) {
+        //mProgressDialog.cancel();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(TrimVidActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onVideoPrepared() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Toast.makeText(TrimVidActivity.this, "onVideoPrepared", Toast.LENGTH_SHORT).show();
             }
         });
     }

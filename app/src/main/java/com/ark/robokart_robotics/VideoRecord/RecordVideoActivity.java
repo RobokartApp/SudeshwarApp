@@ -657,14 +657,14 @@ Log.i("video path",videopaths.get(i));
             if (requestCode == Variables.Pick_video_from_gallery) {
                 Uri uri = data.getData();
                 Log.d("Gallery uri data", "" + uri+"\n"+getPathFromUri(RecordVideoActivity.this,uri));
-                Chnage_Video_size(getPathFromUri(RecordVideoActivity.this,uri),Variables.outputfile2);
+                //Chnage_Video_size(getPathFromUri(RecordVideoActivity.this,uri),Variables.outputfile2);
 
                 Intent intent=new Intent(RecordVideoActivity.this,TrimVidActivity.class);
                 //intent.putExtra("video_path",Util.getPath(RecordVideoActivity.this,uri));
                 intent.putExtra("video_path",getPathFromUri(RecordVideoActivity.this,uri));
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //startActivity(intent);
+                startActivity(intent);
 
             /*    int file_size = Integer.parseInt(String.valueOf(new File(uri.getPath()).length()/1024));
                 if(file_size>2200) {
