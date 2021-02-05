@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -48,6 +49,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RecordVideoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -646,7 +648,7 @@ Log.i("video path",videopaths.get(i));
                 return null;
 
     }
-
+    private static final long  MEGABYTE = 1024L * 1024L;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -656,15 +658,49 @@ Log.i("video path",videopaths.get(i));
 
             if (requestCode == Variables.Pick_video_from_gallery) {
                 Uri uri = data.getData();
-                Log.d("Gallery uri data", "" + uri+"\n"+getPathFromUri(RecordVideoActivity.this,uri));
-                //Chnage_Video_size(getPathFromUri(RecordVideoActivity.this,uri),Variables.outputfile2);
 
-                Intent intent=new Intent(RecordVideoActivity.this,TrimVidActivity.class);
+                MediaPlayer mp = MediaPlayer.create(this, uri);
+                long duration = mp.getDuration();
+                duration= TimeUnit.MILLISECONDS.toSeconds(duration);
+
+                String fileSize = null;
+                Cursor cursor = getApplicationContext().getContentResolver()
+                        .query(uri, null, null, null, null, null);
+                try {
+                    if (cursor != null && cursor.moveToFirst()) {
+
+                        // get file size
+                        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                        if (!cursor.isNull(sizeIndex)) {
+                            fileSize = cursor.getString(sizeIndex);
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+                double size_kb = Integer.parseInt(fileSize) /1024;
+                double size_mb = size_kb / 1024;
+                Log.e("RecVidAct","dur:"+duration+" & size:"+size_mb);
+                mp.release();
+                Log.d("Gallery uri data", "" + uri+"\n"+getPathFromUri(RecordVideoActivity.this,uri));
+                if (size_mb<101.0) {
+                    if (duration<=300)
+                        Chnage_Video_size(getPathFromUri(RecordVideoActivity.this, uri), Variables.outputfile2);
+                    else
+                        makeDialog("Video duration should be less than 5 Minutes. Kindly trim it and try again.");
+                        //Toast.makeText(this, "Video duration should be less than 5 Minutes.", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    makeDialog("Video size should be less than 101 MB. Please compress it and try again.");
+                    //Toast.makeText(this, "Video size should be less than 101 MB. Plz compress it!", Toast.LENGTH_SHORT).show();
+
+
+                //Intent intent=new Intent(RecordVideoActivity.this,TrimVidActivity.class);
                 //intent.putExtra("video_path",Util.getPath(RecordVideoActivity.this,uri));
-                intent.putExtra("video_path",getPathFromUri(RecordVideoActivity.this,uri));
+                //intent.putExtra("video_path",getPathFromUri(RecordVideoActivity.this,uri));
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                //startActivity(intent);
 
             /*    int file_size = Integer.parseInt(String.valueOf(new File(uri.getPath()).length()/1024));
                 if(file_size>2200) {
@@ -711,8 +747,18 @@ Log.i("video path",videopaths.get(i));
 
     }
 
+    private void makeDialog(String msg) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setMessage(msg)
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
 
-
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //finish();
+                    }
+                })
+                .show();
+    }
 
     public void Chnage_Video_size(String src_path,String destination_path){
 
@@ -723,8 +769,8 @@ Log.i("video path",videopaths.get(i));
             Functions.copyFile(new File(src_path),
                     new File(destination_path));
 
-            Intent intent=new Intent(RecordVideoActivity.this, PreviewVideoAct.class);
-            intent.putExtra("video_path",Variables.outputfile2);
+            //Intent intent=new Intent(RecordVideoActivity.this, PreviewVideoAct.class);
+            //intent.putExtra("video_path",Variables.outputfile2);
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //finish();

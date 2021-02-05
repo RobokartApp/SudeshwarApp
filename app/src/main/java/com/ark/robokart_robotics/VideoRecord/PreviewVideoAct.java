@@ -17,6 +17,7 @@ import com.daasuu.gpuv.player.GPUPlayerView;
 import com.daasuu.gpuv.player.PlayerScaleType;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -26,6 +27,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -34,7 +36,7 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
 //
 
         String video_url;
-        GPUPlayerView gpuPlayerView;
+        StyledPlayerView playerView;
         public static int  select_postion=0;
 
         RecyclerView recylerview;
@@ -45,7 +47,7 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_preview_video);
-
+playerView=findViewById(R.id.layout_movie_wrapper);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
          //Toast.makeText(this, "This is pev act", Toast.LENGTH_SHORT).show();
    /*         Intent intent=getIntent();
@@ -106,7 +108,24 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
         // this function will set the player to the current video
         SimpleExoPlayer player;
     public void Set_Player(String path){
+        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
+        // Bind the player to the view.
+        playerView.setPlayer(player);
 
+        // Build the media item.
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(path));
+// Set the media item to be played.
+        player.setMediaItem(mediaItem);
+// Prepare the player.
+        player.prepare();
+// Start the playback.
+        player.play();
+
+// Prepare the player.
+        player.prepare();
+// Start the playback.
+        player.play();
+/*
         DefaultTrackSelector trackSelector = new DefaultTrackSelector();
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
@@ -133,7 +152,7 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
             gpuPlayerView.setPlayerScaleType(PlayerScaleType.RESIZE_FIT_WIDTH);
         }
         else
-            */
+
             gpuPlayerView.setPlayerScaleType(PlayerScaleType.RESIZE_NONE);
 
 
@@ -141,10 +160,10 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
         gpuPlayerView.setSimpleExoPlayer(player);
         //gpuPlayerView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        ((MovieWrapperView) findViewById(R.id.layout_movie_wrapper)).addView(gpuPlayerView);
+        //(findViewById(R.id.layout_movie_wrapper));
 
         gpuPlayerView.onResume();
-
+*/
     }
 
         // this is lifecyle of the Activity which is importent for play,pause video or relaese the player

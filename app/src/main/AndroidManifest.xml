@@ -43,10 +43,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.Profile.NewProfileAct"></activity>
+
+        <activity android:name=".Activities.Profile.NewProfileAct" />
         <activity
             android:name=".Activities.Refer.ReferActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Story.SingleStoryActivity"
             android:screenOrientation="portrait" />
@@ -76,9 +77,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AskDoubt.CreateDoubtAct"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".TestDevaAct"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Quiz.PlayQuizActivity"

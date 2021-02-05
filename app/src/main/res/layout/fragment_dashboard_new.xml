@@ -187,14 +187,7 @@
         </com.google.android.flexbox.FlexboxLayout>
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:src="@color/line_button"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@+id/flexLayout"
-            />
+
 
         <RelativeLayout
             android:id="@+id/popularVideosRelative"
@@ -264,14 +257,7 @@
                 android:layout_alignParentBottom="true"
                 />
         </RelativeLayout>
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_10sdp"
-    android:visibility="gone"
-    android:src="@color/line_button"
-    app:layout_constraintTop_toBottomOf="@+id/popularVideos"
-    />
+
         <TextView
             android:id="@+id/play_quiz_challenge"
             android:layout_width="match_parent"

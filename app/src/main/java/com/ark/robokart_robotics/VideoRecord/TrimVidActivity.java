@@ -1,31 +1,25 @@
 package com.ark.robokart_robotics.VideoRecord;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ark.robokart_robotics.R;
-import com.iceteck.silicompressorr.SiliCompressor;
-import com.video_trim.K4LVideoTrimmer;
-import com.video_trim.interfaces.OnK4LVideoListener;
-import com.video_trim.interfaces.OnTrimVideoListener;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-
-public class TrimVidActivity extends AppCompatActivity implements OnTrimVideoListener, OnK4LVideoListener {
+public class TrimVidActivity extends AppCompatActivity  {
 
     String path;
 Uri uri;
 Context context;
-    private K4LVideoTrimmer mVideoTrimmer;
+   // private K4LVideoTrimmer mVideoTrimmer;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +44,11 @@ Context context;
         //videoTrimmer.setDestinationPath(Variables.gallery_trimed_video);
         videoTrimmer.setMaxDuration(60);
 */
-
+        //setting progressbar
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Hold on trimming...");
+/*
         mVideoTrimmer = findViewById(R.id.timeLine);
         if (mVideoTrimmer != null) {
             mVideoTrimmer.setMaxDuration(60);
@@ -59,6 +57,7 @@ Context context;
             mVideoTrimmer.setDestinationPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString()+"/Robokart/");
             mVideoTrimmer.setVideoURI(Uri.parse(path));
             mVideoTrimmer.setVideoInformationVisibility(true);
+
         }
 
         /*
@@ -79,42 +78,43 @@ Context context;
         });
         */
     }
-
+/*
     @Override
     public void onTrimStarted() {
-        //mProgressDialog.show();
+        mProgressDialog.show();
     }
     @Override
     public void getResult(final Uri uri) {
-        //mProgressDialog.cancel();
+        mProgressDialog.cancel();
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //Toast.makeText(TrimVidActivity.this, "Vid saved in Robokart dir.", Toast.LENGTH_SHORT).show();
+
             }
         });
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setDataAndType(uri, "video/mp4");
-       // startActivity(intent);
+        startActivity(intent);
         //finish();
         Intent intent1=new Intent(TrimVidActivity.this, PostVideoActivity.class);
         // intent.putExtra("video_path",Variables.gallery_trimed_video);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent1);
+        //startActivity(intent1);
     }
 
     @Override
     public void cancelAction() {
-        //mProgressDialog.cancel();
+        mProgressDialog.cancel();
         mVideoTrimmer.destroy();
         finish();
     }
 
     @Override
     public void onError(final String message) {
-        //mProgressDialog.cancel();
+        mProgressDialog.cancel();
 
         runOnUiThread(new Runnable() {
             @Override
@@ -139,7 +139,7 @@ Context context;
         Log.d("doFileUpload ", inputVideoPath);
 
     }
-
+*/
     /*  public String getPath(Uri uri) {
 
           String[] projection = { MediaStore.Video.Media.DATA };

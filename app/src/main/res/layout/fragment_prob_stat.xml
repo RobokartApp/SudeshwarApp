@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/fragText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="20sp"
+                android:textIsSelectable="true"
+                android:textColor="@color/black"
+                android:justificationMode="inter_word"
+                android:text="Justifying text of TextView helps in a better presentation of data to the user. The text alignment on both left and right side makes paragraphs align with other elements and screen bezels." />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

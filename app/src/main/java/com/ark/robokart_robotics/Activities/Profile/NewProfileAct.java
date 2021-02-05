@@ -497,8 +497,8 @@ public class NewProfileAct extends AppCompatActivity {
 
     public void showAll(View view) {
         refreshImagePicker();
-        //imagePicker.choosePicture(true);
-        imagePicker.getImageFile();
+        imagePicker.choosePicture(true);
+        //imagePicker.getImageFile();
         //r_photo.setVisibility(View.VISIBLE);
     }
 

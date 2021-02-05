@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Result :"
+            android:text="Result "
             android:textSize="@dimen/_16sdp"
 
             android:layout_marginRight="@dimen/_20sdp"
@@ -71,10 +71,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="|"
+            android:text=":"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-
+android:textStyle="bold"
             android:textSize="@dimen/_16sdp"
             android:textColor="@color/black"
             android:gravity="center_horizontal"

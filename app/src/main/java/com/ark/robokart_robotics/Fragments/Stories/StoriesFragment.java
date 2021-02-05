@@ -395,6 +395,7 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
         player.addListener(this);
 
 
+
         View layout=layoutManager.findViewByPosition(currentPage);
         final PlayerView playerView=layout.findViewById(R.id.playerview);
         playerView.setPlayer(player);

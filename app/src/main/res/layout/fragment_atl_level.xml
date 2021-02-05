@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:scrollbars="none"
+
+        android:id="@+id/parent"
+        android:background="@drawable/white_bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp">
+
+            <RelativeLayout
+                android:id="@+id/rlJustStarting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintDimensionRatio="w,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beginner"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:visibility="gone"
+                    android:text="View All"
+                    android:textColor="@color/purple"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/level_beginner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/rlJustStarting"
+                android:layout_marginStart="4dp"
+                android:scrollbars="none"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rlJustStarting">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc1"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:tag="1"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc2"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="2"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"
+                            />
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc3"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="3"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"
+                            />
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc4"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        android:tag="4"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc5"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="5"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:id="@+id/level_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintDimensionRatio="w,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_beginner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intermediate"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"
+                    android:text="View All"
+                    android:textColor="@color/purple"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/level_2_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/rlJustStarting"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_2">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc6"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="6"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc7"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="7"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc8"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="8"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc9"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="9"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc9"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc10"
+                        android:tag="10"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc10"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:id="@+id/level_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintDimensionRatio="w,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_2_scroll">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Advanced"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"
+                    android:text="View All"
+                    android:textColor="@color/purple"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/rlJustStarting"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc11"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:tag="11"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc11"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc12"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:tag="12"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc12"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc13"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="13"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc14"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:tag="14"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc14"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/doc15"
+                        android:layout_width="180dp"
+                        android:layout_height="130dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="8dp"
+                        android:tag="15"
+                        android:padding="5dp"
+                        android:layout_margin="5dp">
+
+
+                        <TextView
+                            android:id="@+id/txt_doc15"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Chapter Title"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16dp"
+                            android:padding="10dp"/>
+
+
+
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progressBar"
+        android:background="#404E4E4E"
+        android:padding="@dimen/_130sdp"
+
+        />
+</FrameLayout>

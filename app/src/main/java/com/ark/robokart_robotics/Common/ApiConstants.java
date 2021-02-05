@@ -40,7 +40,7 @@ public class ApiConstants {
     public static String daily_quiz_api="daily_quiz_api.php";
     public static String ask_doubt_api="ask_doubt_api.php";
     public static final String post_api="post_api.php";
-    public static final String post_api_test="post_api_test.php";
+    //public static final String post_api="post_api_test.php";
     public static final String post_video_api="post_video_api.php";
     public static String post_comment_api="post_comment_api.php";
     public static String send_comment_api="send_comment_api.php";

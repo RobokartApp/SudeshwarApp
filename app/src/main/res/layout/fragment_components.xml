@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    tools:context=".Fragments.Atl.ComponentsFrag">
+
+    <!-- TODO: Update blank fragment layout -->
+    <carbon.widget.ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <TextView
+        android:id="@+id/fragText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textIsSelectable="true"
+        android:textSize="18dp"
+        android:padding="5dp"
+        android:text="Hello Robokart" />
+    </carbon.widget.ScrollView>
+</FrameLayout>

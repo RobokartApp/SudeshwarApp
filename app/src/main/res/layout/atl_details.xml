@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_bg">
+    <TextView
+        android:id="@+id/docTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5.1 LED blinking\n"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/docTitle"
+        app:tabMode="scrollable">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="95dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        >
+        <ImageView
+            android:id="@+id/left_ic"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/less_than"
+            android:visibility="gone"
+            app:tint="@color/colorPrimary"
+            android:padding="2dp"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/right_ic"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            app:tint="@color/colorPrimary"
+            android:src="@mipmap/greater_than"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

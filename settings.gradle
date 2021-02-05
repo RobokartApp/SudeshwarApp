@@ -1,2 +1,2 @@
-include ':app', ':videotrim'
+include ':app'
 rootProject.name='Robokart - Learn Robotics'

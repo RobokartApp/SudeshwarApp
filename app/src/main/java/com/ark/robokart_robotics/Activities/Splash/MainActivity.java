@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         Intent mainIntent=getIntent();
 
         Intent homeIntent=new Intent(getApplicationContext(),HomeActivity.class);
+        //Intent homeIntent=new Intent(getApplicationContext(), TestTryActivity.class);
 
         if(getIntent().hasExtra("story")){
             if(getIntent().getStringExtra("story").equals("go"))

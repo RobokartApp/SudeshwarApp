@@ -7,8 +7,10 @@ public class Variables {
 
     public static final String SelectedAudio_AAC ="SelectedAudio.aac";
 
-    public static final String root= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString();
-    public static final String app_hided_folder =root+"/Robokart/";
+    //public static final String root= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString();
+    //public static final String root= Environment.DIRECTORY_MOVIES+"/Robokart/";
+
+    public static final String app_hided_folder ="/storage/emulated/0/MOVIES/.Robokart/";//root+"/Robokart/";
 
 
 
