@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         sign {
-            storeFile file('D:\\DEVA\\ANDROID\\App Sign Keys\\robokart.jks')
+            storeFile file('D:\\DEVA\\ANDROID\\Robokart\\robokart.jks')
             storePassword 'Itkida1@deva'
             keyAlias 'deva'
             keyPassword 'Itkida1@deva'
