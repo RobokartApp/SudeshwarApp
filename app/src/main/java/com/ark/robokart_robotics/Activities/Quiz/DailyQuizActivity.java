@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,6 +51,7 @@ TextView instrc;
 RecyclerView recyclerView;
 QuizLogAdapter quizLogAdapter;
 ArrayList<QuizLog> quizLogList;
+ProgressBar progressBar;
     private RequestQueue requestQueue;
     String user_id;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -124,10 +127,14 @@ ArrayList<QuizLog> quizLogList;
                 return parameters;
             }
         };
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {
+                progressBar.setVisibility(View.GONE);
                 quizLogAdapter=new QuizLogAdapter(quizLogList);
                 recyclerView.setAdapter(quizLogAdapter);
                 quizLogAdapter.setOnItemClickListener(new QuizLogAdapter.OnItemClickListener() {
@@ -178,6 +185,8 @@ ArrayList<QuizLog> quizLogList;
 
     private void init() {
 
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         requestQueue = Volley.newRequestQueue(this);
         recyclerView=findViewById(R.id.rvQuizLog);
         swipeRefreshLayout=findViewById(R.id.swiperefresh);

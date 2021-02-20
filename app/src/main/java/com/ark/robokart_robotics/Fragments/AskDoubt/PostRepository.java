@@ -74,7 +74,8 @@ Log.d("respo ask",response);
                                     json.getString("post_profile_img"),//6
                                     json.getString("post_profile_name"),//7
                                     json.getString("isLiked"),//8
-                                    json.getString("post_date")//9
+                                    json.getString("post_date"),//9
+                                    json.getString("by_user")//10
                             );
                             myPostListModelArrayList.add(course);
                         }

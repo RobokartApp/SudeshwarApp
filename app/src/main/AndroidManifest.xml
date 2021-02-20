@@ -156,7 +156,18 @@
         <activity android:name=".Activities.View_all_search.ViewAllSearchActivity" />
         <activity
             android:name=".Activities.Home.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="robokart.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
         <activity android:name=".Activities.Login.OTPVerficationActivity" />
         <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />
@@ -190,16 +201,7 @@
                     android:host="askdoubt"
                     android:scheme="robokartdoubt" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="robokart.page.link"
-                    android:scheme="https" />
-            </intent-filter>
         </activity>
 
         <service

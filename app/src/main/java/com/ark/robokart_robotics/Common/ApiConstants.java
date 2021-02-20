@@ -60,4 +60,9 @@ public class ApiConstants {
     public static String submit_daily_quiz="submit_daily_quiz.php";
     public static String quiz_log_api="quiz_log_api.php";
     public static String get_invited_users="get_invited_users.php";
+    public static String fetch_doubt_api="fetch_doubt_api.php";
+    public static String fetch_story_api="fetch_story_api.php";
+    public static String fetch_liked_user="fetch_liked_user";
+    public static String fetch_viewed_user="fetch_viewed_user";
+
 }

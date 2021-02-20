@@ -117,9 +117,8 @@
                 android:text="0"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-
                 android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_15sdp"
                 />
 
             <TextView
@@ -145,7 +144,7 @@
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_15sdp"
                 />
 
             <TextView
@@ -165,14 +164,14 @@
             >
             <TextView
                 android:id="@+id/no_coins"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 50"
+                android:text=" 00"
                 android:drawableLeft="@drawable/rupee"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_15sdp"
                 />
 
             <TextView
@@ -231,7 +230,7 @@
         android:id="@+id/story_doubt_linear"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@drawable/white_bg"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -252,7 +251,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+
             app:layout_constraintTop_toBottomOf="@+id/tabLayout"
             tools:layout_editor_absoluteX="8dp" />
 
@@ -262,6 +261,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="visible"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/plain_white"
         android:scrollbars="none"
@@ -327,7 +327,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:gravity="right"
-                    android:text="First Name cannot be blank"
+                    android:text="Name cannot be blank"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="14sp"
                     android:visibility="gone"
@@ -416,7 +416,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:gravity="right"
-                    android:text="Last Name cannot be blank"
+                    android:text="Student number cannot be blank"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="14sp"
                     android:visibility="gone"

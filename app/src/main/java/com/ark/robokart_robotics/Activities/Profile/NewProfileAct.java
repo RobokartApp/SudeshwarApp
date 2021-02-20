@@ -15,7 +15,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -123,6 +125,8 @@ public class NewProfileAct extends AppCompatActivity {
     TextView no_story,no_doubt,no_coins;
     RequestQueue requestQueue;
     ProgressBar progressBar;
+    ScrollView scrollView;
+    LinearLayout story_doubt_lin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +168,11 @@ public class NewProfileAct extends AppCompatActivity {
 
     }
     public void init(){
+
+        story_doubt_lin=findViewById(R.id.story_doubt_linear);
+        scrollView=findViewById(R.id.scrollView);
+        story_doubt_lin.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.GONE);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
        // progressBar=findViewById(R.id.progressBar);
         no_story=findViewById(R.id.no_stories);
@@ -254,6 +263,9 @@ public class NewProfileAct extends AppCompatActivity {
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                story_doubt_lin.setVisibility(View.GONE);
+                scrollView.setVisibility(View.VISIBLE);
+
                 first_name_edt.setEnabled(true);
                 last_name_edt.setEnabled(true);
                 //email_edt.setEnabled(true);
@@ -318,6 +330,11 @@ public class NewProfileAct extends AppCompatActivity {
                     textview_pass_error.setVisibility(View.GONE);
                     textview_fname_error.setVisibility(View.GONE);
                     textview_email_error.setVisibility(View.GONE);
+                    drawable_anim_lname.setAnimation("error.json");
+                    drawable_anim_lname.playAnimation();
+                }else if(lname.length()<10) {
+                    textview_lname_error.setVisibility(View.VISIBLE);
+                    textview_lname_error.setText("Mobile should be 10 digits");
                     drawable_anim_lname.setAnimation("error.json");
                     drawable_anim_lname.playAnimation();
                 }
@@ -414,10 +431,13 @@ public class NewProfileAct extends AppCompatActivity {
                     profileViewModel.update(user_id,fullname,email,stud_number,password,cust_img,user_name,bios).observe(NewProfileAct.this, new Observer<String>() {
                         @Override
                         public void onChanged(String s) {
+                            story_doubt_lin.setVisibility(View.VISIBLE);
+                            scrollView.setVisibility(View.GONE);
                             if(s.equals("Update successfull")){
                                 Toast.makeText(getApplicationContext(),"Update Successful",Toast.LENGTH_SHORT).show();
                                 v.animate().alpha(0.0f).translationY(0.0f);
                                 first_name_edt.setFocusable(false);
+
                             }else
                                 Toast.makeText(NewProfileAct.this, "Failed to update!", Toast.LENGTH_SHORT).show();
                         }

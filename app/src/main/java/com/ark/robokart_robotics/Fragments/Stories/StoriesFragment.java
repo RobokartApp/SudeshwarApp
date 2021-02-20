@@ -3,6 +3,7 @@ package com.ark.robokart_robotics.Fragments.Stories;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -19,12 +20,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -36,6 +39,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -241,6 +245,9 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
                         intent.putExtra("story","ok");
                         startActivityForResult(intent,121);
                         break;
+                    case R.id.options_btn_iv:
+                        showDeleteDialog(item.postId,postion);
+                        break;
 
 
                 }
@@ -257,6 +264,102 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
 
     }
 
+    private void showDeleteDialog(String postId,int position) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        //ViewGroup viewGroup = mContext.findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null, false);
+
+        Button delete_post=dialogView.findViewById(R.id.button_delete);
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setMessage("Are you sure to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                deletePost(postId,position);
+                                alertDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                //finish();
+                            }
+                        })
+                        .show();
+                //deletePost(postId);
+                //alertDialog.dismiss();
+
+            }
+        });
+
+    }
+
+    private void deletePost(String postId,int position) {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + "delete_story_api.php", response -> {
+            Log.d("delete story respo ",response);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(response);
+                int status = jsonObject.getInt("success_code");
+                if (status == 1) {
+                    //recyclerView.removeViewAt(position);
+                    privious_player.release();
+                    data_list.remove(position);
+                    adapter.notifyDataSetChanged();
+                    Set_Player(position);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("respo ask",response);
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("post_id",postId);
+                return parameters;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                //finish();startActivity(getIntent());
+                Toast.makeText(context, "Your post has been deleted!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -267,7 +370,10 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
                     //Toast.makeText(context, ""+returnValue, Toast.LENGTH_SHORT).show();
 
                     VideoItem item=data_list.get(currentPage);
-                    item.noComment=""+(Integer.parseInt(item.noComment)+1);
+                    if (returnValue.equals("minus"))
+                        item.noComment=""+(Integer.parseInt(item.noComment)-1);
+                    else
+                        item.noComment=""+(Integer.parseInt(item.noComment)+1);
                     data_list.remove(currentPage);
                     data_list.add(currentPage,item);
                     adapter.notifyDataSetChanged();
@@ -300,6 +406,7 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
                             vi.profileImg=json.getString("post_profile_img");
                             vi.profileName=json.getString("post_profile_name");
                             vi.isLike=json.getString("isLiked");
+                            vi.by_user=json.getString("by_user");
 
                             temp_list.add(vi);
 
@@ -632,7 +739,10 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
             }
         };
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {

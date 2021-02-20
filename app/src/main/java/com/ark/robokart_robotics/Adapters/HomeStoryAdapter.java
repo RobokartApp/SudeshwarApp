@@ -50,9 +50,6 @@ public class HomeStoryAdapter extends RecyclerView.Adapter<HomeStoryAdapter.Vide
         this.ctx = context;
         this.storiesList=storiesList;
 
-
-
-
     }
 
     @Override

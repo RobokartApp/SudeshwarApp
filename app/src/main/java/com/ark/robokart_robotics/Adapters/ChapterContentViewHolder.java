@@ -21,7 +21,11 @@ public class ChapterContentViewHolder extends ChildViewHolder {
 
     public void bind(ChapterContent chptrContent){
         chapter_content.setText(chptrContent.chapter_content);
-        String mins = "Video - "+chptrContent.video_time+" mins";
+        String mins;
+        if (!chptrContent.video_time.equals("null"))
+         mins= "Video - "+chptrContent.video_time+" mins";
+        else
+            mins="Video";
         video_mins.setText(mins);
     }
 }

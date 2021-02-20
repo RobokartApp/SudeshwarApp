@@ -294,33 +294,15 @@ public class New_Dashboard extends Fragment {
     }
 
     public void getInstructions(){
-        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.instruction_api, response -> {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.fetch_liked_user, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
-                JSONArray atl = jsonObject.getJSONArray("instruction");
+                JSONArray atl = jsonObject.getJSONArray("liked_user");
                 int status = jsonObject.getInt("success_code");
                 String error_msg = jsonObject.getString("error_msg");
+                Log.i("Liked Users",response);
                 //Toast.makeText(getContext(), ""+response, Toast.LENGTH_LONG).show();
-                instructions.clear();
-                if (status == 1) {
-                    try{
-                        for(int i = 0; i< atl.length();i++){
 
-                            instructions.add(i,""+atl.getString(i));
-
-                            //break;
-                        }
-
-                    }
-                    catch (Exception e){
-//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                }else if (status == 0) {
-                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
-                }else {
-                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
-                }
 
             } catch (JSONException e) {
                 //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -337,6 +319,7 @@ public class New_Dashboard extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("post_id","69");
                 return parameters;
             }
         };

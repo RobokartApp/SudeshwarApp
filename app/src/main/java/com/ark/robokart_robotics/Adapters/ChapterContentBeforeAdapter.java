@@ -59,7 +59,10 @@ public class ChapterContentBeforeAdapter extends RecyclerView.Adapter<ChapterCon
             holder.tv_course.setText(image.getChapter_content());
 
             if(quiz.equals("") || assign.equals("")){
-                holder.tv_mins.setText("Video - " + image.getVideo_time() + " mins");
+                if (!image.getVideo_time().equals("null"))
+                    holder.tv_mins.setText("Video - " + image.getVideo_time() + " mins");
+                else
+                    holder.tv_mins.setText("Video");
             }
             if(assign.length() > 0) {
                 holder.tv_mins.setText("Assignment Test");

@@ -90,6 +90,7 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
     CircleImageView profile_Img;
 
     boolean is_user_stop_video=false;
+    boolean from=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,8 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
             post_id = "1";
             Log.i("SingleStoryAct","no bundle no extras");
         }
+
+        from= getIntent().hasExtra("from");
 
         Call_Api_For_get_SingleVideos();
     }
@@ -319,10 +322,14 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                Intent intent=new Intent(SingleStoryActivity.this, HomeActivity.class);
-                intent.putExtra("post","story");
-                startActivity(intent);
+                if (from)
+                    onBackPressed();
+                else {
+                    finish();
+                    Intent intent = new Intent(SingleStoryActivity.this, HomeActivity.class);
+                    intent.putExtra("post", "story");
+                    startActivity(intent);
+                }
             }
         });
 
@@ -604,10 +611,13 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        finish();
-        Intent intent=new Intent(SingleStoryActivity.this, HomeActivity.class);
-        intent.putExtra("post","story");
-        startActivity(intent);
+        if (from)
+            super.onBackPressed();
+        else {
+            finish();
+            Intent intent = new Intent(SingleStoryActivity.this, HomeActivity.class);
+            intent.putExtra("post", "story");
+            startActivity(intent);
+        }
     }
 }

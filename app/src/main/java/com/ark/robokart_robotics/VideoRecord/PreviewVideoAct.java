@@ -27,6 +27,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -36,7 +37,7 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
 //
 
         String video_url;
-        StyledPlayerView playerView;
+    StyledPlayerView playerView;
         public static int  select_postion=0;
 
         RecyclerView recylerview;
@@ -47,7 +48,7 @@ public class PreviewVideoAct extends AppCompatActivity implements Player.EventLi
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_preview_video);
-playerView=findViewById(R.id.layout_movie_wrapper);
+            playerView=findViewById(R.id.layout_movie_wrapper);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
          //Toast.makeText(this, "This is pev act", Toast.LENGTH_SHORT).show();
    /*         Intent intent=getIntent();
@@ -79,6 +80,7 @@ playerView=findViewById(R.id.layout_movie_wrapper);
                 public void onClick(View v) {
                     if(select_postion==0){
                         GotopostScreen();
+                        //finish();
 /*
                         try {
                            // Functions.copyFile(new File(Variables.outputfile2),
@@ -108,7 +110,7 @@ playerView=findViewById(R.id.layout_movie_wrapper);
         // this function will set the player to the current video
         SimpleExoPlayer player;
     public void Set_Player(String path){
-        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
+         player = new SimpleExoPlayer.Builder(this).build();
         // Bind the player to the view.
         playerView.setPlayer(player);
 

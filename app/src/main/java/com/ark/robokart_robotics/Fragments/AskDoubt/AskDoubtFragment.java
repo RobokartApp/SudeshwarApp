@@ -1,5 +1,6 @@
 package com.ark.robokart_robotics.Fragments.AskDoubt;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ark.robokart_robotics.Activities.AskDoubt.CreateDoubtAct;
+import com.ark.robokart_robotics.Activities.AskDoubt.DoubtAllComment;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Adapters.PostAdapter;
+import com.ark.robokart_robotics.Fragments.Stories.VideoItem;
 import com.ark.robokart_robotics.Model.MyPostModel;
 import com.ark.robokart_robotics.R;
 
@@ -41,6 +45,7 @@ public class AskDoubtFragment extends Fragment{
     TextView new_doubt;
     static ProgressBar progressBar;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    List<MyPostModel> data_list;
 
     static Context context;
 
@@ -81,12 +86,49 @@ public class AskDoubtFragment extends Fragment{
         postViewModel.getMyPostsList().observe(getActivity(), new Observer<List<MyPostModel>>() {
             @Override
             public void onChanged(List<MyPostModel> postListModels) {
-                postAdapter = new PostAdapter(getContext(),postListModels);
+                data_list=postListModels;
+                postAdapter = new PostAdapter(getContext(), postListModels, new PostAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int positon, String postID, String post_doubt, View view) {
+                        //Toast.makeText(getContext(), "ID:"+postID+"&postDoubt:"+post_doubt, Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(getContext(), DoubtAllComment.class);
+                        intent.putExtra("post_id",postID);
+                        intent.putExtra("post_ques",post_doubt);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivityForResult(intent,positon);
+                    }
+                });
                 postRecyclerview.setAdapter(postAdapter);
                 postAdapter.notifyDataSetChanged();
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            // TODO Extract the data returned from the child Activity.
+            String returnValue = data.getStringExtra("comment");
+            //Toast.makeText(context, ""+returnValue, Toast.LENGTH_SHORT).show();
+
+            MyPostModel item=data_list.get(requestCode);
+            String new_comment;
+            if (returnValue.equals("minus"))
+                new_comment=""+(Integer.parseInt(item.getPost_comment())-1);
+            else
+                new_comment=""+(Integer.parseInt(item.getPost_comment())+1);
+            item.setPost_comment(new_comment);
+            data_list.remove(requestCode);
+            data_list.add(requestCode,item);
+            postAdapter.notifyDataSetChanged();
+        }
+
+
+    }
+
     private void listeners() {
         new_doubt.setOnClickListener(new View.OnClickListener() {
             @Override

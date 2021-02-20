@@ -1,29 +1,40 @@
 package com.ark.robokart_robotics.Fragments.Stories;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ark.robokart_robotics.Adapters.PostAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,12 +42,14 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHolder > {
 
     public Context context;
     private final Home_Adapter.OnItemClickListener listener;
     private final ArrayList<VideoItem> dataList;
-
+    String cust_id;
 
 
     // meker the onitemclick listener interface and this interface is impliment in Chatinbox activity
@@ -52,6 +65,8 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
         this.dataList = dataList;
         this.listener = listener;
 
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails",MODE_PRIVATE);
+        cust_id = sharedPreferences.getString("customer_id","848");
     }
 
     @Override
@@ -61,7 +76,6 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
     }
-
 
     @Override
     public int getItemCount() {
@@ -86,7 +100,7 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView view_btn,like_btn,share_btn,comment_btn;
+        ImageView view_btn,like_btn,share_btn,comment_btn,more_options;
 
         LinearLayout user_info,lcs_right;
         TextView vidTitle;
@@ -100,6 +114,8 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
             view_btn.setEnabled(false);
             user_info=view.findViewById(R.id.user_info);
             lcs_right=view.findViewById(R.id.lnr_Right);
+            more_options=view.findViewById(R.id.options_btn_iv);
+            more_options.setVisibility(View.GONE);
 
             like_btn=view.findViewById(R.id.like_btn_iv);
             comment_btn=view.findViewById(R.id.comment_btn_iv);
@@ -128,6 +144,18 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
                 like_btn.setImageTintList(ContextCompat.getColorStateList(context, R.color.orange));
                 like_btn.setEnabled(false);
             }
+
+            if (item.by_user.equals(cust_id)){
+                more_options.setVisibility(View.VISIBLE);
+            }
+
+            more_options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //showDeleteDialog(item.postId,postion);
+                    listener.onItemClick(postion,item,v);
+                }
+            });
 
             String imgUrl="https://robokart.com/admin/assets/uploads/images/customer/"+dataList.get(postion).profileImg;
             Glide.with(context).load(imgUrl).disallowHardwareConfig().diskCacheStrategy(DiskCacheStrategy.DATA).into(profileImg);
@@ -231,7 +259,10 @@ public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHo
             }
         };
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {

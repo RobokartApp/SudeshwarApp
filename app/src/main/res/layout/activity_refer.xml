@@ -31,20 +31,50 @@
         android:id="@+id/createlink"
         android:text="Invite Now " />
 
-    <TextView
-        android:id="@+id/invited_users"
+    <RelativeLayout
+        android:id="@+id/invite_count"
         android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_above="@+id/createlink"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_above="@+id/invite_info"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_130sdp"
-        android:background="@drawable/bg_dotted"
-        android:gravity="center_horizontal"
-        android:text="Invited Users : 2"
-        android:foregroundGravity="center"
-        android:textSize="@dimen/_20sdp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:padding="@dimen/_15sdp" />
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/bg_dotted">
 
+        <TextView
+            android:id="@+id/invited_users"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:background="@drawable/bg_dotted"
+            android:backgroundTint="@color/white"
+            android:backgroundTintMode="screen"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:text="Invited Users : 0"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/invite_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+android:layout_marginStart="@dimen/_20sdp"
+        android:text="- Invite your friend and earn 50 coins
+\n- Your friend will get 20 coins on successful install.
+"
+        android:textColor="@color/black"
+        android:layout_above="@+id/createlink"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_120sdp"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#8BB8B8B8"
+        android:padding="@dimen/_135sdp"
+        />
 </RelativeLayout>

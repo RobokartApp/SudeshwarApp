@@ -2,12 +2,13 @@ package com.ark.robokart_robotics.Model;
 
 public class MyPostModel {
     private String post_id,post_img,post_title,post_like,post_comment,
-            post_share,post_profile_img,post_profile_name,isLiked,post_date;
+            post_share,post_profile_img,post_profile_name,isLiked,post_date,by_user;
 
     public MyPostModel(String post_id,String post_img,String post_title,String post_like,
                        String post_comment,String post_share,String post_profile_img,
-                       String post_profile_name,String isLiked,String post_date) {
+                       String post_profile_name,String isLiked,String post_date,String by_user) {
        this.post_comment=post_comment;
+       this.by_user=by_user;
        this.post_id=post_id;
        this.post_img=post_img;
        this.post_like=post_like;
@@ -17,6 +18,10 @@ public class MyPostModel {
        this.post_profile_name=post_profile_name;
        this.isLiked=isLiked;
        this.post_date=post_date;
+    }
+
+    public String getBy_user() {
+        return by_user;
     }
 
     public String getPost_comment() {
@@ -57,6 +62,10 @@ public class MyPostModel {
 
     public String getPost_date() {
         return post_date;
+    }
+
+    public void setBy_user(String by_user) {
+        this.by_user = by_user;
     }
 
     public void setPost_date(String post_date) {

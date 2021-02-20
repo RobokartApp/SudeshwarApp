@@ -40,13 +40,13 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvGood"
             android:layout_alignParentRight="true"
             android:layout_marginRight="26dp"
             android:gravity="end"
-            android:text="Charul"
+            android:text="Robokart"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="24sp"

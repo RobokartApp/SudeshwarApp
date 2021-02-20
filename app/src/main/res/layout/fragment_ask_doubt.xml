@@ -53,6 +53,7 @@
                     android:focusable="true"
                     android:fontFamily="@font/circular_std_book"
                     android:gravity="center"
+
                     android:paddingLeft="@dimen/_15sdp"
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingRight="@dimen/_15sdp"

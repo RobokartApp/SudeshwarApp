@@ -2,6 +2,7 @@ package com.ark.robokart_robotics.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.AskDoubt.DoubtAllComment;
 import com.ark.robokart_robotics.Common.ApiConstants;
+import com.ark.robokart_robotics.Fragments.Stories.VideoItem;
 import com.ark.robokart_robotics.Model.MyPostModel;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
@@ -39,8 +42,13 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,19 +64,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.CustomHolder> 
     private final List<MyPostModel> mpostList;
     private final Context mContext;
     private final RequestQueue requestQueue;
+    final private OnItemClickListener listener;
     String cust_id;
     Button report_spam,report_nudity;
 
-    public PostAdapter(Context context, List<MyPostModel> postListModelList) {
+    public PostAdapter(Context context, List<MyPostModel> postListModelList,OnItemClickListener listener) {
 
         this.mContext = context;
         this.mpostList = postListModelList;
+        this.listener=listener;
 
         requestQueue = Volley.newRequestQueue(context);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("userdetails",MODE_PRIVATE);
         cust_id = sharedPreferences.getString("customer_id","848");
     }
-
+    public interface OnItemClickListener {
+        void onItemClick(int positon, String postID,String post_doubt, View view);
+    }
 
     @NonNull
     @Override
@@ -103,7 +115,7 @@ postDate=itemView.findViewById(R.id.post_date);
 
         }
     }
-
+    private RequestOptions requestOptions = RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL).centerCrop().error(R.mipmap.robokart_logo);
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.CustomHolder holder, int position) {
         //MyPostModel answers = mcourseList.get(position);
@@ -113,9 +125,9 @@ postDate=itemView.findViewById(R.id.post_date);
             holder.postImg.setVisibility(View.GONE);
         else {
             holder.postImg.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(postImgUrl + mpostList.get(position).getPost_img()).diskCacheStrategy(DiskCacheStrategy.DATA).into(holder.postImg);
+            Glide.with(mContext).load(postImgUrl + mpostList.get(position).getPost_img()).apply(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA).into(holder.postImg);
         }
-        Glide.with(mContext).load(imgUrl+mpostList.get(position).getPost_profile_img()).diskCacheStrategy(DiskCacheStrategy.DATA).into(holder.profileImg);
+        Glide.with(mContext).load(imgUrl+mpostList.get(position).getPost_profile_img()).apply(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA).into(holder.profileImg);
 
         holder.profileName.setText(mpostList.get(position).getPost_profile_name());
         holder.postTitle.setText(mpostList.get(position).getPost_title());
@@ -194,9 +206,11 @@ postDate=itemView.findViewById(R.id.post_date);
                 //holder.comment.setImageTintList(ContextCompat.getColorStateList(mContext, R.color.purple));
                 Intent intent=new Intent(mContext, DoubtAllComment.class);
                 intent.putExtra("post_id",mpostList.get(position).getPost_id());
+                intent.putExtra("post_ques",mpostList.get(position).getPost_title());
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                mContext.startActivity(intent);
+                //mContext.startActivity(intent);
+                listener.onItemClick(position,mpostList.get(position).getPost_id(),mpostList.get(position).getPost_title(),view);
             }
         });
         holder.share.setOnClickListener(new View.OnClickListener() {
@@ -230,7 +244,10 @@ postDate=itemView.findViewById(R.id.post_date);
         holder.dot_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCustomDialog(mpostList.get(position).getPost_id());
+                if(!mpostList.get(position).getBy_user().equals(cust_id))
+                    showCustomDialog(mpostList.get(position).getPost_id());
+                else
+                    showDeleteDialog(mpostList.get(position).getPost_id(),position);
             }
         });
 
@@ -272,6 +289,98 @@ postDate=itemView.findViewById(R.id.post_date);
         });
     }
 
+    private void showDeleteDialog(String postId,int position) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        //ViewGroup viewGroup = mContext.findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.delete_dialog, null, false);
+
+        Button delete_post=dialogView.findViewById(R.id.button_delete);
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mContext)
+                        .setMessage("Are you sure to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                deletePost(postId,position);
+                                alertDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                //finish();
+                            }
+                        })
+                        .show();
+                //deletePost(postId);
+                //alertDialog.dismiss();
+
+            }
+        });
+
+    }
+
+    private void deletePost(String postId,int position) {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + "delete_doubt_api.php", response -> {
+            Log.d("delete post respo ",response);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(response);
+                int status = jsonObject.getInt("success_code");
+                if (status == 1) {
+                    mpostList.remove(position);
+                    PostAdapter.this.notifyDataSetChanged();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("respo ask",response);
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("post_id",postId);
+                return parameters;
+            }
+        };
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                //finish();startActivity(getIntent());
+                Toast.makeText(mContext, "Your post has been deleted!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
     private void sendLike(String like,String postId) {
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.send_comment_api, response -> {
             Log.d("like respo ",response);
@@ -291,7 +400,10 @@ postDate=itemView.findViewById(R.id.post_date);
                 return parameters;
             }
         };
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {
@@ -319,7 +431,10 @@ postDate=itemView.findViewById(R.id.post_date);
                 return parameters;
             }
         };
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {
@@ -356,7 +471,10 @@ postDate=itemView.findViewById(R.id.post_date);
                 return parameters;
             }
         };
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {

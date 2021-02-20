@@ -165,7 +165,7 @@ public static String img_url;
 
         gotDynamicLink();
 
-        getInvitedUsers();
+        //getInvitedUsers();
 
         //RateThisApp.onCreate(this);
         // If the condition is satisfied, "Rate this app" dialog will be shown
@@ -216,9 +216,8 @@ public static String img_url;
         checkUpdate();
 
     }
-
-
     private void gotDynamicLink() {
+        Log.e("getdynamic link","came to link");
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new com.google.android.gms.tasks.OnSuccessListener<PendingDynamicLinkData>() {
@@ -232,17 +231,17 @@ public static String img_url;
                             String refer_id=arr[1];
                             Log.i("Refer Link","referID:"+refer_id);
                             sendReferToServer(refer_id);
-                            //Toast.makeText(HomeActivity.this, "linkis: "+deepLink, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, "linkis: "+deepLink, Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 })
-        .addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("TAG", "getDynamicLink:onFailure", e);
-            }
-        });
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "getDynamicLink:onFailure", e);
+                    }
+                });
     }
 
     private void sendReferToServer(String refer_id) {
@@ -250,7 +249,7 @@ public static String img_url;
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
-                Log.i("SendRefer Respo",response);
+                Log.e("SendRefer Respo",response);
                 JSONObject refer = jsonObject.getJSONObject("refer");
                 int status = refer.getInt("status");
                 String msg = refer.getString("message");
@@ -284,6 +283,7 @@ public static String img_url;
                 return parameters;
             }
         };
+        RequestQueue requestQueue2=Volley.newRequestQueue(getApplicationContext());
         requestQueue2.add(request);
         requestQueue2.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
@@ -292,6 +292,7 @@ public static String img_url;
             }
         });
     }
+
 
     private void showReview() {
         Activity activity=this;
@@ -362,11 +363,19 @@ Log.i("HomeAct app update",""+appUpdateInfoTask);
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 143){
-            if (requestCode != RESULT_OK){
+            if (resultCode != RESULT_OK){
                 Log.i("Update flow failed!" ,""+ resultCode);
                 // If the update is cancelled or fails,
                 // you can request to start the update again.
             }
+        }else if(requestCode==1012){
+            if (resultCode==RESULT_OK) {
+                //Toast.makeText(mContext, "activity result for 1012&" +, Toast.LENGTH_SHORT).show();
+                //data.getIntExtra("id",69);
+                gotoStory(data.getIntExtra("id",69));
+            }
+            else
+                Log.i("Home Act Result","failed from profile act");
         }
     }
 
@@ -543,7 +552,6 @@ getBanner();
             }
         });
 
-
         drawer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -556,7 +564,6 @@ if(slidingRootNav.isMenuClosed()) {
 }
             }
         });
-
 
         trans_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -642,7 +649,7 @@ if(slidingRootNav.isMenuClosed()) {
                     @Override
                     public void run() {
                         //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        startActivity(new Intent(getApplicationContext(), NewProfileAct.class));
+                        startActivityForResult(new Intent(getApplicationContext(), NewProfileAct.class),1012);
                     }
                 },100);
 
@@ -758,6 +765,14 @@ if(slidingRootNav.isMenuClosed()) {
             setFragment(fragment);
         }
 
+    }
+
+    private void gotoStory(int position){
+        Bundle bundle=new Bundle();
+        bundle.putString("id",""+position );
+        StoriesFragment storiesFragment=new StoriesFragment();
+        storiesFragment.setArguments(bundle);
+        loadFragment(storiesFragment);
     }
 
     public static void setFragment( Fragment fragment) {
@@ -927,32 +942,7 @@ if(slidingRootNav.isMenuClosed()) {
         fragment = new AskDoubtFragment();
         loadFragment(fragment);
     }
-    void getInvitedUsers(){
 
-        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.get_invited_users, response -> {
-            try {
-                Log.d("HomeAct INvited",response);
-                JSONObject jsonObject = new JSONObject(response);
-                 invited_users= jsonObject.getString("invited_users");
-
-            } catch (JSONException e) {
-                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("User_id",user_id);
-                return parameters;
-            }
-        };
-        requestQueue3.add(request);
-
-    }
 
     @Override
     protected void onDestroy() {

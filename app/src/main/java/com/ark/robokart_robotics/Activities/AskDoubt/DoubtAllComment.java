@@ -10,13 +10,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -41,6 +44,9 @@ public class DoubtAllComment extends AppCompatActivity {
     EditText comment_editTxt;
     ImageView send_btn;
     String apiUrl,getcmntUrl,destAct;
+    String post_ques="";
+    TextView ques_text;
+    public static String delete_comment_api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +62,18 @@ public class DoubtAllComment extends AppCompatActivity {
         cust_id = sharedPreferences.getString("customer_id","");
         Intent intent = getIntent();
         postId=intent.getExtras().getString("post_id");
+        post_ques=intent.getExtras().getString("post_ques");
+
+        delete_comment_api="delete_doubt_comment.php";
+
         if(intent.getExtras().getString("story")!=null){
             Log.i("story log is","true");
             apiUrl=ApiConstants.send_video_lcs;
             getcmntUrl=ApiConstants.get_comment_story;
             destAct="story";
+            delete_comment_api="delete_story_comment.php";
         }
-
+        ques_text.setText(post_ques);
         getComments(postId,forComment);
 
     }
@@ -74,6 +85,7 @@ public class DoubtAllComment extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar);
         pbar_send=findViewById(R.id.pbar_Send);
         pbar_send.setVisibility(View.GONE);
+        ques_text=findViewById(R.id.ques_text);
 
         comment_editTxt=findViewById(R.id.post_comment_et);
         send_btn=findViewById(R.id.iv_Send);
@@ -122,7 +134,10 @@ Log.d("comment respo ",response);
                 return parameters;
             }
         };
-        requestQueue.add(request);
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
             public void onRequestFinished(Request<String> request) {
@@ -161,7 +176,20 @@ Log.d("comment respo ",response);
                             String image=json.getString("profile_img");
                             String name=json.getString("profile_name");
                             String comment=json.getString("text");
-                            new addComment(DoubtAllComment.this,image,name,comment,forComment);
+                            String time=json.getString("c_time");
+                            String by_user=json.getString("by_user");
+                            String lcs_id=json.getString("lcs_id");
+                            new addComment(DoubtAllComment.this, image, name, comment, time, forComment, by_user, lcs_id, post_id) {
+                                @Override
+                                void onDelete() {
+                                    Intent resultIntent = new Intent();
+// TODO Add extras or a data URI to this intent as appropriate.
+                                    resultIntent.putExtra("comment", "minus");
+
+                                    setResult(Activity.RESULT_OK, resultIntent);
+                                    finish();
+                                }
+                            };
                         }
 
                     }

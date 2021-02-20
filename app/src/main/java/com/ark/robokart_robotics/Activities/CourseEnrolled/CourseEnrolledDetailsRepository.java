@@ -1,6 +1,7 @@
 package com.ark.robokart_robotics.Activities.CourseEnrolled;
 
 import android.app.Application;
+import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -62,6 +63,7 @@ public class CourseEnrolledDetailsRepository {
                             ArrayList<Class_chapters.Course_List> courseListArrayList = new ArrayList<>();
                             for(int j = 0; j < courses1.length(); j++){
                                 JSONObject jsonObject1 = courses1.getJSONObject(j);
+
                                 Class_chapters.Course_List course = new Class_chapters.Course_List(
                                         i,
                                         jsonObject1.getString("chapter_content"),

@@ -121,6 +121,7 @@
                         android:layout_height="20dp"
                         android:background="@drawable/premium_btn"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -128,6 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Premium"
+
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="10sp"/>

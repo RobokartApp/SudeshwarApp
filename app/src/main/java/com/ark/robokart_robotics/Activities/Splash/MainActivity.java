@@ -1,6 +1,8 @@
 package com.ark.robokart_robotics.Activities.Splash;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,7 +12,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -28,6 +32,9 @@ import com.ark.robokart_robotics.Activities.Story.SingleStoryActivity;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     Handler mHandler;
     public static Vector<String> vidId=new Vector<>();
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("userdetails", Context.MODE_PRIVATE);
+        user_id = sharedPreferences.getString("customer_id","848");
+
+        //gotDynamicLink();
 /*
         logo.addAnimatorListener(new Animator.AnimatorListener() {
             @Override

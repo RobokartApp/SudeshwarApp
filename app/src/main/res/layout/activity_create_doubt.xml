@@ -56,8 +56,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <EditText
@@ -155,6 +153,7 @@
             android:layout_height="match_parent"
             android:id="@+id/progressBar"
             android:padding="@dimen/_130sdp"
+            android:visibility="gone"
             android:background="#697A7979"
             />
     </RelativeLayout>

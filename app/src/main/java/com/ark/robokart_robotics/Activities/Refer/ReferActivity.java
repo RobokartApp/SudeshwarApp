@@ -8,12 +8,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
+import com.ark.robokart_robotics.Adapters.SlidingImage_Adapter;
+import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,26 +35,61 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ReferActivity extends AppCompatActivity {
 
-    TextView createlink,invited_users;
-    String cust_id;
+    TextView createlink,invited_users,invite_info;
+    String cust_id,invited_count,invite_notes;
+    String link="";
     ImageView back_ic;
+    SharedPreferences sharedPreferences;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refer);
-        createlink = (TextView) findViewById(R.id.createlink);
+        createlink = findViewById(R.id.createlink);
         invited_users=findViewById(R.id.invited_users);
-        invited_users.setText("Invited Users : "+HomeActivity.invited_users);
+        progressBar=findViewById(R.id.progressBar);
+        invite_info=findViewById(R.id.invite_info);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
+         sharedPreferences= getSharedPreferences("userdetails",Context.MODE_PRIVATE);
         cust_id = sharedPreferences.getString("customer_id","848");
+        link = sharedPreferences.getString("invite_link","NA");
 
+        getInvitedUsers();
+
+        Log.d("Value of link",link);
         createlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createlink();
+                progressBar.setVisibility(View.VISIBLE);
+                //createlink();
+                if(link.equals("NA")||link.equals(""))
+                    createlink();
+                else
+                {
+
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage= "\nROBOKART has an awesome Referral Program! Use my referral link to earn coins:\n";
+                    shareMessage = shareMessage + link;
+                    intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+
+                    intent.setType("text/plain");
+                    startActivity(intent);
+
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -87,13 +134,23 @@ public class ReferActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<ShortDynamicLink> task) {
                         if (task.isSuccessful()) {
                             // Short link created
+                            progressBar.setVisibility(View.GONE);
                             Uri shortLink = task.getResult().getShortLink();
                             Uri flowchartLink = task.getResult().getPreviewLink();
                             Log.e("main ", "short link "+ shortLink.toString());
                             // share app dialog
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("invite_link", shortLink.toString());
+                            editor.apply();
+                            link=shortLink.toString();
+
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_SEND);
-                            intent.putExtra(Intent.EXTRA_TEXT,  shortLink.toString());
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                            String shareMessage= "\nROBOKART has an awesome Referral Program! Use my referral link to earn coins:\n";
+                            shareMessage = shareMessage + link;
+                            intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+
                             intent.setType("text/plain");
                             startActivity(intent);
                         } else {
@@ -104,4 +161,41 @@ public class ReferActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    void getInvitedUsers(){
+
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.get_invited_users, response -> {
+            try {
+                Log.d("HomeAct INvited",response);
+                JSONObject jsonObject = new JSONObject(response);
+                invited_count= jsonObject.getString("invited_users");
+                invite_notes= jsonObject.getString("invite_notes");
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("User_id",cust_id);
+                return parameters;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                invited_users.setText("Invited Users : "+invited_count);
+                invite_info.setText(invite_notes);
+            }
+        });
+
+    }
+
 }

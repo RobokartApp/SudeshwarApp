@@ -50,7 +50,17 @@
                     android:textSize="@dimen/_14sdp" />
 
             </RelativeLayout>
-
+<TextView
+    android:id="@+id/ques_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/rl_Top"
+    android:text="This is qustion?"
+    android:textColor="@color/grey"
+android:padding="@dimen/_5sdp"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -61,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/rl_Bottom"
-                android:layout_below="@+id/rl_Top"
-                android:paddingTop="@dimen/_20sdp">
+                android:layout_below="@+id/ques_text"
+                android:paddingTop="@dimen/_5sdp">
 
                 <LinearLayout
                     android:id="@+id/comment_layout"
@@ -102,7 +112,7 @@
                     android:fontFamily="@font/circular_std_book"
                     android:gravity="center_vertical"
                     android:hint="@string/comment_here"
-                    android:inputType="textShortMessage"
+                    android:inputType="textMultiLine"
                     android:paddingStart="@dimen/_15sdp"
                     android:paddingLeft="@dimen/_15sdp"
                     android:textColor="@color/colorBlack"

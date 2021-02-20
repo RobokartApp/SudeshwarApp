@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,7 +67,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             holder.tv_course.setText(image.getChapter_content());
 
             if(quiz.equals("") || assign.equals("")){
-                holder.tv_mins.setText("Video - " + image.getVideo_time() + " mins");
+                if (!image.getVideo_time().equals("null"))
+                    holder.tv_mins.setText("Video - " + image.getVideo_time() + " mins");
+                else
+                    holder.tv_mins.setText("Video");
             }
             if(assign.length() > 0) {
                 holder.tv_mins.setText("Assignment Test");
@@ -79,7 +83,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             holder.chapter_content_linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(getApplicationContext(), course.size()+"",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "position"+position,Toast.LENGTH_SHORT).show();
 
                     int num = image.getNum();
 
@@ -90,7 +94,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                     if(num <=chapter_completed) {
 
                         //Toast.makeText(mContext, num + "", Toast.LENGTH_SHORT).show();
-quiz_counter=num+1;
+            quiz_counter=num+1;
                         String course_id = CourseEnrolledDetailsActivity.courseid;
 
                         SharedPreferences sharedPreferences = mContext.getSharedPreferences("chapter", Context.MODE_PRIVATE);
@@ -107,6 +111,7 @@ quiz_counter=num+1;
                         bundle.putString("child_chpt_id", String.valueOf(position + 1));
                         bundle.putString("total_number_chapter", total_number_chapter);
                         bundle.putString("chapter_name", chapter_name);
+                        bundle.putInt("lession", position);
                         bundle.putParcelableArrayList("courses", (ArrayList<Class_chapters.Course_List>) course);
 
                         Intent intent = new Intent(mContext, VideoPlayingActivity.class);

@@ -170,6 +170,8 @@ short_desc=findViewById(R.id.short_desc);
             chapterContentArrayList = bundle.getParcelableArrayList("courses");
             total_number_chapter = bundle.getString("total_number_chapter");
             child_chpt_id = bundle.getString("child_chpt_id");
+            i=bundle.getInt("lession");
+            nextLesson(i);
 
             Log.d(TAG, "init: "+chapterContentArrayList);
 
@@ -179,10 +181,12 @@ short_desc=findViewById(R.id.short_desc);
 
 
             //set content
+            if(chapterContentArrayList.get(0).getVideo_time().equals("null")||chapterContentArrayList.get(0).getVideo_time().equals(""))
+                video_time.setVisibility(View.GONE);
             min = "Time - "+chapterContentArrayList.get(0).getVideo_time()+" mins";
             video_time.setText(min);
 
-            size = "Lesson " +" 1 / " + chapterContentArrayList.size();
+            size = "Lesson " +(i+1)+" / " + chapterContentArrayList.size();
 
             chapter_size.setText(size);
 
@@ -248,7 +252,6 @@ short_desc=findViewById(R.id.short_desc);
             e.printStackTrace();
         }
 
-
         videoPlayingViewModel = new ViewModelProvider(this).get(VideoPlayingViewModel.class);
     }
 
@@ -285,7 +288,9 @@ short_desc=findViewById(R.id.short_desc);
         next_lesson_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextLesson();
+
+                i++;
+                nextLesson(i);
             }
         });
 
@@ -338,31 +343,31 @@ short_desc=findViewById(R.id.short_desc);
     }
 
 
-    private void nextLesson() {
+    private void nextLesson(int i2) {
     /*    String uri1 = VimeoClient.getInstance().getCodeGrantAuthorizationURI();
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri1));
         startActivity(browserIntent);*/
 
         try {
-            i++;
-            min = "Time - "+chapterContentArrayList.get(i).getVideo_time()+" mins";
+
+            min = "Time - "+chapterContentArrayList.get(i2).getVideo_time()+" mins";
             video_time.setText(min);
             //Toast.makeText(this, ""+chapterContentArrayList.get(i).getChapter_content(), Toast.LENGTH_SHORT).show();
-            size = "Lesson " + (i+1) + " / " + chapterContentArrayList.size();
+            size = "Lesson " + (i2+1) + " / " + chapterContentArrayList.size();
 
             chapter_size.setText(size);
 
-            VIMEO_VIDEO_URL = chapterContentArrayList.get(i).getVideo_url().trim();
-            short_desc.setText(chapterContentArrayList.get(i).getChapter_content());
+            VIMEO_VIDEO_URL = chapterContentArrayList.get(i2).getVideo_url().trim();
+            short_desc.setText(chapterContentArrayList.get(i2).getChapter_content());
 
-            assignment = chapterContentArrayList.get(i).getAssignment_url();
+            assignment = chapterContentArrayList.get(i2).getAssignment_url();
              String download_url="";
             if(!assignment.isEmpty()) {
                 String[] sArr = assignment.split("/");
                 String fileId = sArr[5];//"1aNjZyQ1Eeb3guDE9x8ca0OiVm_JVzJqC";
                 download_url = "https://docs.google.com/a/google.com/uc?id=" + fileId;
             }
-            quiz_id = chapterContentArrayList.get(i).getQuiz_id();
+            quiz_id = chapterContentArrayList.get(i2).getQuiz_id();
 
 
             if(VIMEO_VIDEO_URL.equals("") && assignment.length() > 0){
@@ -409,7 +414,7 @@ short_desc=findViewById(R.id.short_desc);
                 videoPlaying(VIMEO_VIDEO_URL);
             }
 
-            title = chapterContentArrayList.get(i).getChapter_content();
+            title = chapterContentArrayList.get(i2).getChapter_content();
 
             mMediaController.setTitle(title);
 

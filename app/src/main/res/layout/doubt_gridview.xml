@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_height="@dimen/_200sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:src="@drawable/btn_bg_comman"
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/doubt_img"
+        />
+    <TextView
+        android:id="@+id/doubt_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:maxLines="2"
+        android:textSize="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:layout_gravity="center"
+        android:text="Hello, Team robokart how may i help you with simple textview and this "
+        android:textColor="@color/black"
+        />
+</LinearLayout>

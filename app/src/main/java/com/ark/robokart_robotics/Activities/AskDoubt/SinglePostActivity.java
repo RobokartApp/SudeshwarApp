@@ -65,6 +65,7 @@ public class SinglePostActivity extends AppCompatActivity {
     Button report_spam,report_nudity;
 
     ProgressBar progressBar;
+    boolean from=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class SinglePostActivity extends AppCompatActivity {
             post_id = "1";
             Log.i("SinglePostAct","no bundle no extras");
         }
+
+        from=getIntent().hasExtra("from");
 
         getPost();
 
@@ -246,10 +249,14 @@ public class SinglePostActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                Intent intent=new Intent(SinglePostActivity.this, HomeActivity.class);
-                intent.putExtra("post","ok");
-                startActivity(intent);
+                if (from)
+                    onBackPressed();
+                else {
+                    finish();
+                    Intent intent = new Intent(SinglePostActivity.this, HomeActivity.class);
+                    intent.putExtra("post", "ok");
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -446,10 +453,13 @@ public class SinglePostActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-  finish();
-  Intent intent=new Intent(SinglePostActivity.this, HomeActivity.class);
-        intent.putExtra("post","ok");
-        startActivity(intent);
+        if (from)
+            super.onBackPressed();
+        else {
+            finish();
+            Intent intent = new Intent(SinglePostActivity.this, HomeActivity.class);
+            intent.putExtra("post", "ok");
+            startActivity(intent);
+        }
     }
 }
