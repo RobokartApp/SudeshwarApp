@@ -116,7 +116,7 @@ public class PopularRecycler extends RecyclerView.Adapter<PopularRecycler.VideoI
             intent.putExtra("list",VideoID);
             intent.putExtra("title",title);
             intent.putExtra("position",getLayoutPosition());
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             ctx.startActivity(intent);
             //youTubePlayerView.initialize("AIzaSyCv4417xZcCrOgQZ7B85rsV9DItCMor74k",onInitializedListener);
             //youTubeThumbnailView.setVisibility(View.GONE);

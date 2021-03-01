@@ -7,12 +7,11 @@
     android:gravity="center">
 
     <ImageView
-        android:layout_height="@dimen/_200sdp"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="center"
         android:visibility="visible"
         android:src="@drawable/btn_bg_comman"
-        android:layout_margin="@dimen/_10sdp"
         android:id="@+id/doubt_img"
         />
     <TextView

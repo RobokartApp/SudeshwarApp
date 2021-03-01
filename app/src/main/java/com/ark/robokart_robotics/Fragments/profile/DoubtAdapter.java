@@ -49,9 +49,12 @@ public class DoubtAdapter extends BaseAdapter {
         view = inflter.inflate(R.layout.doubt_gridview, null); // inflate the layout
         ImageView icon = (ImageView) view.findViewById(R.id.doubt_img);
         TextView doubt=view.findViewById(R.id.doubt_text);
-        icon.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
-        icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        icon.setPadding(18, 8, 18, 8);// get the reference of ImageView
+        LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300);
+        layoutParams.setMargins(15, 10, 15, 5);
+        icon.setLayoutParams(layoutParams);
+        //icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        icon.setPadding(5, 5, 5, 5);// get the reference of ImageView
+
         String postImgUrl="https://robokart.com/app/images/posts/"+doubtItems.get(i).getUrl();
 
     if (doubtItems.get(i).getUrl().equals("NA"))

@@ -299,7 +299,14 @@ short_desc=findViewById(R.id.short_desc);
             public void onClick(View v) {
                 send_img.setVisibility(View.GONE);
                 progressBar_circular.setVisibility(View.VISIBLE);
-                postCom();
+                if (comment_edt.getText().toString().equals("") || comment_edt.getText().toString().equals(" ")) {
+                    comment_edt.setError("Comment should not empty!");
+                    comment_edt.requestFocus();
+                    send_img.setVisibility(View.VISIBLE);
+                    progressBar_circular.setVisibility(View.GONE);
+                }
+                else
+                    postCom();
             }
         });
     }
@@ -326,6 +333,7 @@ short_desc=findViewById(R.id.short_desc);
                 send_img.setVisibility(View.VISIBLE);
                 progressBar_circular.setVisibility(View.GONE);
                 comment_edt.setText("");
+                //prepareCommentRecyclerview(new CommentModel("","User name","img",comment));
             }
         });
     }

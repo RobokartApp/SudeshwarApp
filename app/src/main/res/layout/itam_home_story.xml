@@ -8,7 +8,7 @@
             android:id="@+id/relativeLayout_story"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:background="@drawable/circle_story"
+            android:background="@drawable/circle1"
             android:layout_margin="@dimen/_5sdp"
             android:visibility="visible">
 
@@ -16,7 +16,7 @@
                 android:id="@+id/story_thumbnail"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_centerInParent="true"
-                android:padding="10dp"
+                android:padding="4dp"
                 android:layout_height="@dimen/_100sdp"
                 android:src="@mipmap/pc_man"
                 />

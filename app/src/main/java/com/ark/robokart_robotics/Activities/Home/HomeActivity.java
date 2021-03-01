@@ -545,6 +545,14 @@ getBanner();
     }
 
     public void listeners(){
+
+        tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getApplicationContext(), NewProfileAct.class),1012);
+            }
+        });
+
         back_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

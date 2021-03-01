@@ -1,6 +1,7 @@
 package com.ark.robokart_robotics.Activities.Story;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,14 +20,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -75,14 +81,14 @@ import static android.view.View.GONE;
 public class SingleStoryActivity extends AppCompatActivity implements Player.EventListener{
 
     private RequestQueue requestQueue;
-    String user_id,postId,profileImg,videoURL,videoTitle,noLike,noComment,noView,profileName,isLike,post_id;
-    ImageView play_pause,back_btn;
+    String user_id,postId,profileImg,videoURL,videoTitle,noLike,noComment,noView,profileName,isLike,post_id,by_user="";
+    ImageView play_pause,back_btn,error_img;
     CircleImageView civ_profile_img;
     LinearLayout create_btn;
     ProgressBar p_bar;
     Context context;
 
-    ImageView view_btn,like_btn,share_btn,comment_btn;
+    ImageView view_btn,like_btn,share_btn,comment_btn,more_options;
 
     LinearLayout user_info,lcs_right;
     TextView vidTitle;
@@ -134,6 +140,12 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
         user_info=findViewById(R.id.user_info);
         lcs_right=findViewById(R.id.lnr_Right);
 
+        error_img=findViewById(R.id.error_img);
+        error_img.setVisibility(GONE);
+
+        more_options=findViewById(R.id.options_btn_iv);
+        more_options.setVisibility(View.GONE);
+
         like_btn=findViewById(R.id.like_btn_iv);
         comment_btn=findViewById(R.id.comment_btn_iv);
         share_btn=findViewById(R.id.share_btn_iv);
@@ -169,6 +181,7 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
                             profileImg=json.getString("post_profile_img");
                             profileName=json.getString("post_profile_name");
                             isLike=json.getString("isLiked");
+                            by_user=json.getString("by_user");
 
                         }
                     }
@@ -177,7 +190,20 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
                     }
 
                 }else if (status == 0) {
+                    error_img.setVisibility(View.VISIBLE);
+                    p_bar.setVisibility(GONE);
                     Log.i("status 0",error_msg);
+                    postId="NA";
+                    videoURL="NA";
+                    videoTitle="This post has been deleted!";
+                    noLike="NA";
+                    noComment="NA";
+                    noView="NA";
+                    profileImg="NA";
+                    profileName="NA";
+                    isLike="NA";
+                    by_user="NA";
+                    Toast.makeText(getApplicationContext(), "No data found!", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
@@ -220,6 +246,25 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
         like_count.setText(noLike);
         comment_count.setText(noComment);
         view_count.setText(noView);
+
+        if (by_user.equals(user_id)){
+            more_options.setVisibility(View.VISIBLE);
+        }
+
+        error_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        more_options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteDialog(postId);
+                //listener.onItemClick(postion,item,v);
+            }
+        });
 
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,6 +378,97 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
             }
         });
 
+    }
+
+    private void showDeleteDialog(String postId) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        //ViewGroup viewGroup = mContext.findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null, false);
+
+        Button delete_post=dialogView.findViewById(R.id.button_delete);
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setMessage("Are you sure to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                deletePost(postId);
+                                alertDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                //finish();
+                            }
+                        })
+                        .show();
+                //deletePost(postId);
+                //alertDialog.dismiss();
+
+            }
+        });
+
+    }
+
+    private void deletePost(String postId) {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + "delete_story_api.php", response -> {
+            Log.d("delete story respo ",response);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(response);
+                int status = jsonObject.getInt("success_code");
+                if (status == 1) {
+                    onBackPressed();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("respo ask",response);
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("post_id",postId);
+                return parameters;
+            }
+        };
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                //finish();startActivity(getIntent());
+                Toast.makeText(SingleStoryActivity.this, "Your post has been deleted!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     boolean is_visible_to_user;

@@ -32,7 +32,6 @@ android {
         targetCompatibility = 1.8
     }
 
-
 }
 
 

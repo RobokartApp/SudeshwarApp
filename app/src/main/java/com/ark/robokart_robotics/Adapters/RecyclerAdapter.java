@@ -1,5 +1,6 @@
 package com.ark.robokart_robotics.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -29,13 +30,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
     ArrayList<String> VideoID;// = {"ALTLequqJQk", "2MDVqbA-170", "na3_0VmTiAw"};
     ArrayList<String> title;
     Context ctx;
+    String from;
+    String[] sAr;
     private static final String KEY = "AIzaSyCv4417xZcCrOgQZ7B85rsV9DItCMor74k";
 
 
-    public RecyclerAdapter(Context context,ArrayList<String> vidId,ArrayList<String> title) {
+    public RecyclerAdapter(Context context,ArrayList<String> vidId,ArrayList<String> title,String from,String[] sAr) {
         this.ctx = context;
+        this.sAr=sAr;
         this.VideoID=vidId;
         this.title=title;
+        this.from=from;
     }
 
     @Override
@@ -106,7 +111,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
             //ctx.startActivity(intent);
             String id=VideoID.get(getLayoutPosition());
                     Intent intent=new Intent(ctx, SingleYouTubeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    if (from.equals("single")) {
+                       ((Activity)ctx).finish();
+                    }
+
                     intent.putExtra("id",id);
                     intent.putExtra("list",VideoID);
                     intent.putExtra("title",title);

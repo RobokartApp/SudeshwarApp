@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".Activities.FreeCourses.SingleYouTubeActivity">
 <com.google.android.youtube.player.YouTubePlayerView
     android:id="@+id/youTubePlayerView"
@@ -12,40 +13,43 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="03dp"
     />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/base_line"
-        android:layout_margin="5dp"
-        >
-    <TextView
-        android:id="@+id/head_titleYoutube"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Robokart - Learn Robotics "
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="4dp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp"
-        android:layout_toStartOf="@+id/share_vid"
-        android:textColor="@color/black"
-        android:textSize="14sp"/>
-        <ImageView
-            android:id="@+id/share_vid"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:src="@mipmap/share_vid"
-            android:layout_alignParentEnd="true"
-            />
-    </RelativeLayout>
 
-    <carbon.widget.ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/base_line"
+                android:layout_marginTop="5dp"
+
+                >
+                <TextView
+                    android:id="@+id/head_titleYoutube"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Robokart - Learn Robotics "
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="4dp"
+                    android:paddingBottom="8dp"
+                    android:layout_toStartOf="@+id/share_vid"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:id="@+id/share_vid"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@drawable/share"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    />
+            </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/youtube_recycler"
             android:layout_width="match_parent"
@@ -53,5 +57,6 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/single_youtube_list" />
-    </carbon.widget.ScrollView>
+        </LinearLayout>
+
 </LinearLayout>

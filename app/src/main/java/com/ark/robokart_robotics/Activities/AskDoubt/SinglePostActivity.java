@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
+import com.ark.robokart_robotics.Adapters.PostAdapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
 import com.ark.robokart_robotics.Model.MyPostModel;
 import com.ark.robokart_robotics.R;
@@ -51,14 +54,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SinglePostActivity extends AppCompatActivity {
 
 
-    ImageView postImg,dot_btn,back_btn;
+    ImageView postImg,dot_btn,back_btn,error_img;
     TextView postTitle,like_count,comment_count,share_count,profileName,postDate;
     FloatingActionButton like,share,comment;
     CircleImageView profileImg;
     Context mContext;
 
     String getPost_profile_name,getPost_title,getPost_like,getPost_comment,getPost_share,
-            getPost_profile_img,getPost_id,getPost_img,getPost_date,getIsLiked;
+            getPost_profile_img,getPost_id,getPost_img,getPost_date,getIsLiked,getBy_user;
 
     private RequestQueue requestQueue;
     String cust_id,post_id;
@@ -97,6 +100,8 @@ public class SinglePostActivity extends AppCompatActivity {
 
         mContext=this;
 
+        error_img=findViewById(R.id.error_img);
+
         requestQueue = Volley.newRequestQueue(mContext);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("userdetails",MODE_PRIVATE);
         cust_id = sharedPreferences.getString("customer_id","848");
@@ -126,6 +131,8 @@ public class SinglePostActivity extends AppCompatActivity {
             postImg.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(postImgUrl + getPost_img).into(postImg);
         }
+        if (getPost_img.equals("null"))
+            postImg.setImageResource(R.mipmap.robokart_logo);
 
         Glide.with(mContext).load(imgUrl+getPost_profile_img).into(profileImg);
 
@@ -143,6 +150,13 @@ public class SinglePostActivity extends AppCompatActivity {
             like.setImageTintList(ContextCompat.getColorStateList(mContext, R.color.orange));
             like.setEnabled(false);
         }
+
+        error_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         postImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +256,12 @@ public class SinglePostActivity extends AppCompatActivity {
         dot_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCustomDialog(getPost_id);
+                //showCustomDialog(getPost_id);
+                //Toast.makeText(mContext, "byuser:"+getBy_user+"&custID:"+cust_id, Toast.LENGTH_SHORT).show();
+                if(!getBy_user.equals(cust_id))
+                    showCustomDialog(getPost_id);
+                else
+                    showDeleteDialog(getPost_id);
             }
         });
 
@@ -293,6 +312,97 @@ public class SinglePostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sendReport("Prommetes nudity",postId);
                 alertDialog.dismiss();
+            }
+        });
+    }
+
+    private void showDeleteDialog(String postId) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        //ViewGroup viewGroup = mContext.findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.delete_dialog, null, false);
+
+        Button delete_post=dialogView.findViewById(R.id.button_delete);
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mContext)
+                        .setMessage("Are you sure to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                deletePost(postId);
+                                alertDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            // do something when the button is clicked
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                //finish();
+                            }
+                        })
+                        .show();
+                //deletePost(postId);
+                //alertDialog.dismiss();
+
+            }
+        });
+
+    }
+
+    private void deletePost(String postId) {
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + "delete_doubt_api.php", response -> {
+            Log.d("delete post respo ",response);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(response);
+                int status = jsonObject.getInt("success_code");
+                if (status == 1) {
+                    onBackPressed();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("respo ask",response);
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("post_id",postId);
+                return parameters;
+            }
+        };
+        requestQueue.add(request).setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));;
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+            @Override
+            public void onRequestFinished(Request<String> request) {
+                //finish();startActivity(getIntent());
+                Toast.makeText(mContext, "Your post has been deleted!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -407,6 +517,7 @@ public class SinglePostActivity extends AppCompatActivity {
                                     getPost_profile_name=json.getString("post_profile_name");
                                     getIsLiked=json.getString("isLiked");
                                     getPost_date=json.getString("post_date");
+                                    getBy_user=json.getString("by_user");
 
 
                     }
@@ -415,7 +526,19 @@ public class SinglePostActivity extends AppCompatActivity {
                     }
 
                 }else if (status == 0) {
-                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                    error_img.setVisibility(View.VISIBLE);
+                    getPost_id="NA";
+                    getPost_img="NA";
+                    getPost_like="NA";
+                    getPost_comment="NA";
+                    getPost_share="NA";
+                    getPost_profile_img="null";
+                    getPost_profile_name="NA";
+                    getIsLiked="NA";
+                    getPost_date="NA";
+                    getBy_user="NA";
+                    getPost_title="This post has been deleted!";
+                    Toast.makeText(getApplicationContext(), "No data found!", Toast.LENGTH_SHORT).show();
                 }else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }

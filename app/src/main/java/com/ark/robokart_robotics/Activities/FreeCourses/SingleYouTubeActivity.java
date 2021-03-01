@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ public class SingleYouTubeActivity extends YouTubeBaseActivity {
     RecyclerView recyclerView;
 TextView headTitle;
 ImageView share_vid;
+String from;
 int position;
 
     @Override
@@ -36,8 +38,17 @@ int position;
 
         init();
         recyclerView.setHasFixedSize(true);
-        RecyclerAdapter adapter = new RecyclerAdapter(this,list,title);
+        from="single";
+        String[] sAr={list.get(position),title.get(position)};
+        RecyclerAdapter adapter = new RecyclerAdapter(this,list,title,from,sAr);
         recyclerView.setAdapter(adapter);
+
+        list.remove(position);title.remove(position);
+        adapter.notifyDataSetChanged();
+list.add(sAr[0]);
+title.add(sAr[1]);
+
+
     }
 
     private void init() {
@@ -47,6 +58,7 @@ headTitle=findViewById(R.id.head_titleYoutube);
         String id=bundle.getString("id");
         share_vid=findViewById(R.id.share_vid);
         position=bundle.getInt("position");
+        //Toast.makeText(this, "position:"+position, Toast.LENGTH_SHORT).show();
         list=bundle.getStringArrayList("list");
         title=bundle.getStringArrayList("title");
         youTubePlayerView=findViewById(R.id.youTubePlayerView);
