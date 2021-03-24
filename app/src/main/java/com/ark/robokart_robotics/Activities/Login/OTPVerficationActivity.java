@@ -3,6 +3,7 @@ package com.ark.robokart_robotics.Activities.Login;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ark.robokart_robotics.Activities.Collect_Recommendation.Collect_RecommendationActivity;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
+import com.ark.robokart_robotics.Activities.Profile.NewProfileAct;
 import com.ark.robokart_robotics.Common.SharedPref;
 import com.ark.robokart_robotics.R;
 import com.ark.robokart_robotics.Reciever.SmsBroadcastReceiver;
@@ -173,7 +175,10 @@ public class OTPVerficationActivity extends AppCompatActivity  {
                 new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
                     @Override
                     public void onSuccess(Intent intent) {
-                        startActivityForResult(intent, REQ_USER_CONSENT);
+
+                        Log.e("OTP Act",""+intent.resolveActivity(getPackageManager()).getPackageName());
+                        if (intent.resolveActivity(getPackageManager())!=null)
+                            startActivityForResult(intent, REQ_USER_CONSENT);
                     }
                     @Override
                     public void onFailure() {

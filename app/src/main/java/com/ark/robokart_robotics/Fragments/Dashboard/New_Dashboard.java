@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ import com.android.volley.toolbox.Volley;
 import com.ark.robokart_robotics.Activities.AtlChooseStandard.AtlChooseStandard;
 import com.ark.robokart_robotics.Activities.FreeCourses.YouTube;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
+import com.ark.robokart_robotics.Activities.Profile.DetailAdapter;
+import com.ark.robokart_robotics.Activities.Profile.LevelAdapter;
+import com.ark.robokart_robotics.Activities.Profile.NewProfileAct;
 import com.ark.robokart_robotics.Activities.Quiz.DailyQuizActivity;
 import com.ark.robokart_robotics.Activities.Refer.ReferActivity;
 import com.ark.robokart_robotics.Adapters.HomeStoryAdapter;
@@ -48,6 +52,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class New_Dashboard extends Fragment {
 
@@ -63,6 +68,9 @@ public class New_Dashboard extends Fragment {
     public static ArrayList<String> instructions=new ArrayList<>();
     private RequestQueue requestQueue,requestQueueST;
     ProgressBar progressBar;
+    RecyclerView recyclerView_level;
+    RecyclerView level_details_list;
+    int level;
 
     public New_Dashboard(){}
 
@@ -75,13 +83,17 @@ public class New_Dashboard extends Fragment {
         menuItem.setChecked(true);
         return inflater.inflate(R.layout.fragment_dashboard_new,container,false);
     }
+    DetailAdapter detailAdapter;
+    String[] level1,level2,level3,level4,level5,level6,level7,level8,level9,level10;
+    String[][] progress=new String[11][11];
+    TextView level_head;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
 
-        requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         requestQueueST = Volley.newRequestQueue(getContext());
         cardMaker = view.findViewById(R.id.cardMaker);
         cardAtl = view.findViewById(R.id.cardAtl);
@@ -93,6 +105,29 @@ public class New_Dashboard extends Fragment {
         progressBar=view.findViewById(R.id.progressBar);
         story_recyclerv=view.findViewById(R.id.stories_recycler);
 
+        recyclerView_level=view.findViewById(R.id.recycler_level);
+
+        level_head=view.findViewById(R.id.level_head_tv);
+        progress[0]=new String[]{"100% completed"};
+        progress[1]=new String[]{"100% completed","100% completed","0% completed"};
+
+
+
+        level_details_list=view.findViewById(R.id.list_level_detail);
+        level1=new String[]{"Register with Robokart."};
+        level2=new String[]{"Refer first friend.","Refer second friend.","Refer third friend."};
+        level3=new String[]{"Day 1 attendance.","Day 2 attendance.","Day 3 attendance.","Day 4 attendance.","Day 5 attendance."};
+        level4=new String[]{"Watch 10 stories.","Answer 3 doubts."};
+        level5=new String[]{"Buy one course."};
+        level6=new String[]{"Referred friend buy a course"};
+        level7=new String[]{"Post first doubt","Post second doubt","Post third doubt"};
+        level8=new String[]{"Post first story","Post second story","Post third story","Post fourth story","Post fifth story"};
+        level9=new String[]{"Overall 10 hours of play(Free course videos)."};
+        level10=new String[]{"Attempt daily quiz for the complete week."};
+
+        String[] listItem = {"level1","Refer one friend.","Daily visit Robokart app for 5 days.","Watch 10 stories and answer 3 doubts.",
+                "Buy one course.","Referred friends buy one course.",};
+
         //VidId=MainActivity.vidId;//{"2MDVqbA-170","ALTLequqJQk", "na3_0VmTiAw"};
 //int size=MainActivity.vidId.size();
         //      Toast.makeText(getContext(), "size: "+size, Toast.LENGTH_SHORT).show();
@@ -102,6 +137,7 @@ public class New_Dashboard extends Fragment {
         getIds();
 
         getStories();
+        getProgress();
 
         //getInstructions();
         cardFreeCourse.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +204,164 @@ public class New_Dashboard extends Fragment {
 
     }
 
+    private void getLevel() {
 
+        StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST +"fetch_user_level", response -> {
+            try {
+                Log.d("fetch user level",response);
+                JSONObject jsonObject = new JSONObject(response);
+                String level_string = jsonObject.getString("user_level");
+                level=Integer.parseInt(level_string)+1;
+                level_head.setText("Level "+level+" :");
+                int status = jsonObject.getInt("success_code");
+
+                if (status == 1) {
+                    switch (level){
+                        case 1:detailAdapter= new DetailAdapter(getContext(),level1,progress[0]);break;
+                        case 2:detailAdapter= new DetailAdapter(getContext(),level2,progress[1]);break;
+                        case 3:detailAdapter= new DetailAdapter(getContext(),level3,progress[2]);break;
+                        case 4:detailAdapter= new DetailAdapter(getContext(),level4,progress[3]);break;
+                        case 5:detailAdapter= new DetailAdapter(getContext(),level5,progress[4]);break;
+                        case 6:detailAdapter= new DetailAdapter(getContext(),level6,progress[5]);break;
+                        case 7:detailAdapter= new DetailAdapter(getContext(),level7,progress[6]);break;
+                        case 8:detailAdapter= new DetailAdapter(getContext(),level8,progress[7]);break;
+                        case 9:detailAdapter= new DetailAdapter(getContext(),level9,progress[8]);break;
+                        case 10:detailAdapter= new DetailAdapter(getContext(),level10,progress[9]);break;
+                    }
+                    level_details_list.setAdapter(detailAdapter);
+                    LevelAdapter levelAdapter=new LevelAdapter(getContext(), level, new LevelAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int positon, LevelAdapter.VideoInfoHolder holder, View view) {
+                            //Toast.makeText(getContext(), ""+holder.status_text.getText(), Toast.LENGTH_SHORT).show();
+                            //holder.down_arrow.setVisibility(View.VISIBLE);
+                            switch (positon){
+                                case 0:
+                                    progress[0]=new String[]{"100% completed"};
+                                    detailAdapter=new DetailAdapter(getActivity(),level1,progress[positon]);
+                                    level_head.setText("Level 1 :");
+                                    break;
+                                case 1:
+                                    //progress[1]=new String[]{"100% completed","100% completed","0% completed"};
+                                    detailAdapter=new DetailAdapter(getActivity(),level2,progress[positon]);
+                                    level_head.setText("Level 2 :");
+                                    break;
+                                case 2:
+                                    //progress[2]=new String[]{"0% completed","0% completed","0% completed","0% completed","0% completed"};
+                                    detailAdapter=new DetailAdapter(getActivity(),level3,progress[positon]);
+                                    level_head.setText("Level 3 :");
+                                    break;
+                                case 3:
+                                    //progress[3]=new String[]{"0% completed","0% completed","0% completed","0% completed","0% completed"};
+                                    detailAdapter=new DetailAdapter(getActivity(),level4,progress[positon]);
+                                    level_head.setText("Level 4 :");
+                                    break;
+                                case 4:
+                                    detailAdapter=new DetailAdapter(getActivity(),level5,progress[positon]);
+                                    level_head.setText("Level 5 :");
+                                    break;
+                                case 5:
+                                    detailAdapter=new DetailAdapter(getActivity(),level6,progress[positon]);
+                                    level_head.setText("Level 6 :");
+                                    break;
+                                case 6:
+                                    detailAdapter=new DetailAdapter(getActivity(),level7,progress[positon]);
+                                    level_head.setText("Level 7 :");
+                                    break;
+                                case 7:
+                                    detailAdapter=new DetailAdapter(getActivity(),level8,progress[positon]);
+                                    level_head.setText("Level 8 :");
+                                    break;
+                                case 8:
+                                    detailAdapter=new DetailAdapter(getActivity(),level9,progress[positon]);
+                                    level_head.setText("Level 9 :");
+                                    break;
+                                case 9:
+                                    detailAdapter=new DetailAdapter(getActivity(),level10,progress[positon]);
+                                    level_head.setText("Level 10 :");
+                                    break;
+
+
+                            }
+
+                            level_details_list.setAdapter(detailAdapter);
+                            detailAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+                    recyclerView_level.setAdapter(levelAdapter);
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                //Log.d(TAG, "fetchLocationListing: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("cust_id",HomeActivity.user_id);
+                return parameters;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+    private void getProgress(){
+        StringRequest request2 = new StringRequest(Request.Method.POST, ApiConstants.HOST +"get_level_detail", response -> {
+            try {
+                Log.d("get level detail",response);
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray level_detail = jsonObject.getJSONArray("user_level");
+
+                int status = jsonObject.getInt("success_code");
+
+                if (status == 1) {
+                    for (int i=0;i<level_detail.length();i++){
+                        JSONObject object=level_detail.getJSONObject(i);
+                        int l=object.getInt("level");
+                        int c=object.getInt("contest");
+
+                        progress[l][c]=object.getString("progress");
+                    }
+                    getLevel();
+                }else if (status == 0) {
+                    //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
+                }else {
+                    //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                //Log.d(TAG, "fetchLocationListing: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("cust_id",HomeActivity.user_id);
+                return parameters;
+            }
+        };
+        requestQueue.add(request2);
+    }
     private void getStories() {
         ArrayList<String> storyList=new ArrayList<String>();
         StringRequest request = new StringRequest(Request.Method.POST, ApiConstants.HOST + ApiConstants.home_story, response -> {

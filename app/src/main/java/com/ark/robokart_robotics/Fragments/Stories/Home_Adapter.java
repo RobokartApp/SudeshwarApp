@@ -47,7 +47,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Home_Adapter extends RecyclerView.Adapter<Home_Adapter.CustomViewHolder > {
 
     public Context context;
-    private final Home_Adapter.OnItemClickListener listener;
+    private final OnItemClickListener listener;
     private final ArrayList<VideoItem> dataList;
     String cust_id;
 

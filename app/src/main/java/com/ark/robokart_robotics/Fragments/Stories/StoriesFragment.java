@@ -243,7 +243,9 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
                         Intent intent=new Intent(context, DoubtAllComment.class);
                         intent.putExtra("post_id",item.postId);
                         intent.putExtra("story","ok");
-                        startActivityForResult(intent,121);
+                        Log.e("story Frag",""+intent.resolveActivity(context.getPackageManager()).getPackageName() );
+                        if (intent.resolveActivity(context.getPackageManager()).getPackageName().equals("com.ark.robokart_robotics"))
+                            startActivityForResult(intent,121);
                         break;
                     case R.id.options_btn_iv:
                         showDeleteDialog(item.postId,postion);
@@ -368,7 +370,6 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
                     // TODO Extract the data returned from the child Activity.
                     String returnValue = data.getStringExtra("comment");
                     //Toast.makeText(context, ""+returnValue, Toast.LENGTH_SHORT).show();
-
                     VideoItem item=data_list.get(currentPage);
                     if (returnValue.equals("minus"))
                         item.noComment=""+(Integer.parseInt(item.noComment)-1);
@@ -714,7 +715,12 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
             public void onFinish() {
                 // mTextField.setText("done!");
                // Toast.makeText(context, "id:"+data_list.get(currentPage).postId, Toast.LENGTH_SHORT).show();
-                sendViewComplete(data_list.get(currentPage).postId);
+                try {
+                    sendViewComplete(data_list.get(currentPage).postId);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         }.start();
     }

@@ -632,6 +632,7 @@ Log.i("video path",videopaths.get(i));
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Log.e("RecordAct Pick",intent.resolveActivity(getPackageManager()).getPackageName());
         startActivityForResult(intent, Variables.Pick_video_from_gallery);
     }
     public String getPath(Uri uri) {

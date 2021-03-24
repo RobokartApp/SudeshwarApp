@@ -1,9 +1,11 @@
 package com.ark.robokart_robotics.Fragments.AskDoubt;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ import com.ark.robokart_robotics.Model.MyPostModel;
 import com.ark.robokart_robotics.R;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AskDoubtFragment extends Fragment{
 
@@ -91,12 +94,17 @@ public class AskDoubtFragment extends Fragment{
                     @Override
                     public void onItemClick(int positon, String postID, String post_doubt, View view) {
                         //Toast.makeText(getContext(), "ID:"+postID+"&postDoubt:"+post_doubt, Toast.LENGTH_SHORT).show();
+
                         Intent intent=new Intent(getContext(), DoubtAllComment.class);
+                        int flags = intent.getFlags();
                         intent.putExtra("post_id",postID);
                         intent.putExtra("post_ques",post_doubt);
                         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivityForResult(intent,positon);
+                        // startActivityForResult(intent,positon);
+                        if (intent.resolveActivity(context.getPackageManager()).getPackageName().equals("com.ark.robokart_robotics"))
+                            startActivityForResult(intent,positon);
+
                     }
                 });
                 postRecyclerview.setAdapter(postAdapter);

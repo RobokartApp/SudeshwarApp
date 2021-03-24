@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
-                        android:text="234 Likes"
+                        android:text="0 Likes"
                         android:textColor="@color/colorBlack"
                         android:fontFamily="@font/circular_std_book"
                         android:textSize="@dimen/_7sdp" />
@@ -216,7 +216,7 @@
                         android:alpha="0.7"
                         android:maxLines="1"
                         android:fontFamily="@font/circular_std_book"
-                        android:text="273 Comment"
+                        android:text="0 Comment"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_8sdp" />
 
@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
                         android:fontFamily="@font/circular_std_book"
-                        android:text="234 Share"
+                        android:text="0 Share"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_9sdp" />
 

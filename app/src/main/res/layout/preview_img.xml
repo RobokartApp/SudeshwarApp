@@ -2,26 +2,29 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ADAAAAAA">
+    android:background="#9C000000"
+android:padding="@dimen/_10sdp"
+    >
 
-    <ImageView android:layout_width="fill_parent"
-        android:layout_margin="15dp"
-        android:layout_height="fill_parent" android:id="@+id/iv_preview_image" />
+    <com.github.chrisbanes.photoview.PhotoView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/iv_preview_image"
+        />
 
-
-    <Button android:layout_width="35dp"
+    <ImageView android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@drawable/cancel"
+        android:src="@drawable/close_btn"
         android:id="@+id/btnIvClose"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="13dp"
-        android:padding="3dp"/>
+        />
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_120sdp"
+        android:padding="@dimen/_130sdp"
         android:layout_margin="@dimen/_10sdp"
         />
 

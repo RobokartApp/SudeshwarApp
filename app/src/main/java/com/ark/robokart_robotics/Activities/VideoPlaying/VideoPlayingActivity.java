@@ -22,7 +22,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.ark.robokart_robotics.Activities.Quiz.QuizActivity;
 import com.ark.robokart_robotics.Adapters.CommentsAdapter;
 import com.ark.robokart_robotics.Adapters.CurriculumAdapter;
@@ -223,22 +222,13 @@ short_desc=findViewById(R.id.short_desc);
                 Log.d(TAG, "Before quiz_id: "+quiz_id);
                 Toast.makeText(getApplicationContext(), "Its time for some quiz",Toast.LENGTH_SHORT).show();
 
-                new MaterialDialog.Builder(this)
-                        .title("Are you ready to play quiz ?")
-                        .positiveText("Yes")
-                        .negativeText("No")
-                        .onPositive((dialog, which) -> {
                             Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                             intent.putExtra("course_id",course_id);
                             intent.putExtra("chpt_id", chapt_id);
                             intent.putExtra("total_number_chapter",total_number_chapter);
                             intent.putExtra("quiz_id",quiz_id);
                             startActivity(intent);
-                        })
-                        .onNegative((dialog, which) -> {
-                            dialog.dismiss();
-                        })
-                .show();
+
 
             }
             else {
@@ -400,22 +390,13 @@ short_desc=findViewById(R.id.short_desc);
                 editor.apply();
                 Log.d(TAG, "Before quiz_id: "+quiz_id);
                 Toast.makeText(getApplicationContext(), "Its time for some quiz",Toast.LENGTH_SHORT).show();
-                new MaterialDialog.Builder(this)
-                        .title("Are you ready to play quiz ?")
-                        .positiveText("Yes")
-                        .negativeText("No")
-                        .onPositive((dialog, which) -> {
+
                             Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                             intent.putExtra("course_id",course_id);
                             intent.putExtra("chpt_id", chapt_id);
                             intent.putExtra("total_number_chapter",total_number_chapter);
                             intent.putExtra("quiz_id",quiz_id);
                             startActivity(intent);
-                        })
-                        .onNegative((dialog, which) -> {
-                            dialog.dismiss();
-                        })
-                        .show();
 
             }
             else {

@@ -44,6 +44,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -89,7 +90,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.CustomHolder> 
                 .inflate(R.layout.item_view_post,parent,false);
         return new PostAdapter.CustomHolder(itemView);
     }
-
 
     public class CustomHolder extends RecyclerView.ViewHolder{
         ImageView postImg,dot_btn;
@@ -151,9 +151,10 @@ postDate=itemView.findViewById(R.id.post_date);
                 nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 nagDialog.setCancelable(true);
                 nagDialog.setContentView(R.layout.preview_img);
-                Button btnClose = nagDialog.findViewById(R.id.btnIvClose);
+                nagDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                ImageView btnClose = nagDialog.findViewById(R.id.btnIvClose);
                 ProgressBar progressBar=nagDialog.findViewById(R.id.progressBar);
-                ImageView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
+                PhotoView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
                 Glide.with(mContext).load(postImgUrl+mpostList.get(position).getPost_img())
                 .listener(new RequestListener<Drawable>() {
                     @Override

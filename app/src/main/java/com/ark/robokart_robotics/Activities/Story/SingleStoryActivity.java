@@ -323,7 +323,8 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
                 Intent intent=new Intent(context, DoubtAllComment.class);
                 intent.putExtra("post_id",postId);
                 intent.putExtra("story","ok");
-                startActivityForResult(intent,121);
+                if (intent.resolveActivity(getPackageManager()).getPackageName().equals("com.ark.robokart_robotics"))
+                    startActivityForResult(intent,121);
                // listener.onItemClick(postion,item,view);
             }
         });
@@ -706,8 +707,11 @@ public class SingleStoryActivity extends AppCompatActivity implements Player.Eve
             String returnValue = data.getStringExtra("comment");
             //Toast.makeText(context, ""+returnValue, Toast.LENGTH_SHORT).show();
 
+            if (returnValue.equals("minus"))
+                noComment=""+(Integer.parseInt(noComment)-1);
+            else
+                noComment=""+(Integer.parseInt(noComment)+1);
 
-            noComment=""+(Integer.parseInt(noComment)+1);
             comment_count.setText(noComment);
 
         }

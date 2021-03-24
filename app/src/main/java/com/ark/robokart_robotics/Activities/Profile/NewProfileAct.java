@@ -12,10 +12,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -51,10 +54,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import carbon.widget.Button;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -127,6 +132,8 @@ public class NewProfileAct extends AppCompatActivity {
     ProgressBar progressBar;
     ScrollView scrollView;
     LinearLayout story_doubt_lin;
+    RecyclerView recyclerView_level;
+    //ListView level_details_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,12 +176,22 @@ public class NewProfileAct extends AppCompatActivity {
     }
     public void init(){
 
+        //recyclerView_level=findViewById(R.id.recycler_level);
+
+        //LevelAdapter levelAdapter=new LevelAdapter(NewProfileAct.this,2);
+        //recyclerView_level.setAdapter(levelAdapter);
+
+        //level_details_list=findViewById(R.id.list_level_detail);
+        //String[] listItem = {"1","2","3","9","8","7"};
+        //DetailAdapter adapter = new DetailAdapter(this,listItem);
+        //level_details_list.setAdapter(adapter);
+
         story_doubt_lin=findViewById(R.id.story_doubt_linear);
         scrollView=findViewById(R.id.scrollView);
         story_doubt_lin.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.GONE);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-       // progressBar=findViewById(R.id.progressBar);
+        progressBar=findViewById(R.id.progressBar);
         no_story=findViewById(R.id.no_stories);
         no_doubt=findViewById(R.id.no_doubts);
         no_coins=findViewById(R.id.no_coins);
@@ -517,6 +534,8 @@ public class NewProfileAct extends AppCompatActivity {
 
     public void showAll(View view) {
         refreshImagePicker();
+
+
         imagePicker.choosePicture(true);
         //imagePicker.getImageFile();
         //r_photo.setVisibility(View.VISIBLE);
@@ -528,7 +547,7 @@ public class NewProfileAct extends AppCompatActivity {
                 imageUri -> {
                     profile_image.setImageURI(imageUri);
                     try {
-                        file = new File (FileUtils.getPath(imageUri,getApplicationContext()));
+                        file = new File (Objects.requireNonNull(FileUtils.getPath(imageUri, getApplicationContext())));
                         compressedImageFile = new Compressor(this).compressToFile(file);
                         uploadImageToServer();
 

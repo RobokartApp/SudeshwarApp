@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Fragments.Dashboard.New_Dashboard"
 
     android:id="@+id/parent">
@@ -64,7 +66,7 @@
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/story_holder"
             app:flexWrap="wrap"
             app:alignItems="center"
@@ -231,8 +233,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="10dp"
             android:paddingBottom="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/popularVideosRelative">
 
@@ -240,22 +242,22 @@
                 android:id="@+id/rvPopularVideos"
                 android:layout_width="match_parent"
                 android:layout_height="165dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginStart="10dp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_youtube_list" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_height="10dp"
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:max="100"
-                android:progress="40"
-                android:indeterminateOnly="true"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
                 android:layout_alignParentBottom="true"
-                />
+                android:layout_centerHorizontal="true"
+                android:indeterminateOnly="true"
+                android:max="100"
+                android:progress="40" />
         </RelativeLayout>
 
         <TextView
@@ -292,8 +294,48 @@
             android:drawableStart="@drawable/refer_black"
             android:layout_marginTop="10dp"
             android:textSize="20dp"/>
-
+        <TextView
+            android:id="@+id/super_level_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@id/share_app"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textColor="@color/colorBlack"
+            android:text="Super Levels :"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/super_level_tv"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_level_list"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+<TextView
+    android:id="@+id/level_head_tv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:padding="@dimen/_3sdp"
+    android:text="Level 2 : "
+    android:textColor="@color/black"
+    />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_level_detail"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_level"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:dividerHeight="-10dp"
+        tools:listitem="@layout/level_detail"
+        />
+</LinearLayout>

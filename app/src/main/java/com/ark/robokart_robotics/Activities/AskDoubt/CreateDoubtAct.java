@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
@@ -191,21 +192,25 @@ dj=0;
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageToUploadUri);
-                    /*intent.putExtra("crop", "true");
-                    // indicate aspect of desired crop
+                    //intent.putExtra("crop", "true");
+                    /*// indicate aspect of desired crop
                     intent.putExtra("aspectX", 2);
                     intent.putExtra("aspectY", 1);
                     // indicate output X and Y
                     intent.putExtra("outputX", 580);
                     intent.putExtra("outputY", 480);*/
-                    if(checkPermissions())
-                        startActivityForResult(intent, 0);
+                    if(checkPermissions()) {
+
+                        //if (intent.resolveActivity(getPackageManager())!=null)
+                            startActivityForResult(intent, 0);
+                    }
                     else
                         requestPermissions();
 
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    //if (pickPhoto.resolveActivity(getPackageManager())!=null)
+                        startActivityForResult(pickPhoto , 1);
 
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
@@ -220,6 +225,7 @@ dj=0;
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_CANCELED) {
             dj=1;
+            imagePicker.handleActivityResult(resultCode,requestCode,data);
             switch (requestCode) {
                 case 0:
                     //&& data != null
@@ -230,7 +236,7 @@ dj=0;
                         doubt_img.setPadding(10,10,10,10);
                         Log.d("cam",""+imageToUploadUri);
 
-                        file = new File(FileUtils.getPath(imageToUploadUri,getApplicationContext()));
+                        file = new File(Objects.requireNonNull(FileUtils.getPath(imageToUploadUri, getApplicationContext())));
                         try {
                             compressedImageFile = new Compressor(this).compressToFile(file);
                         } catch (IOException e) {
@@ -256,7 +262,7 @@ dj=0;
                                 doubt_img.setPadding(10,10,10,10);
                                 cursor.close();
                             }
-                            file = new File(FileUtils.getPath(selectedImage,getApplicationContext()));
+                            file = new File(Objects.requireNonNull(FileUtils.getPath(selectedImage, getApplicationContext())));
                             try {
                                 compressedImageFile = new Compressor(this).compressToFile(file);
                             } catch (IOException e) {
@@ -276,7 +282,7 @@ dj=0;
                 imageUri -> {
                     doubt_img.setImageURI(imageUri);
                     try {
-                        file = new File(FileUtils.getPath(imageUri,getApplicationContext()));
+                        file = new File(Objects.requireNonNull(FileUtils.getPath(imageUri, getApplicationContext())));
                         compressedImageFile = new Compressor(this).compressToFile(file);
 
                         doubt_img.setPadding(10,10,10,10);

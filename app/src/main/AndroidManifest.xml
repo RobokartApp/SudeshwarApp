@@ -42,52 +42,70 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m">
 
-        <activity android:name=".Activities.Profile.NewProfileAct" />
         <activity
+            android:exported="false"
+            android:name=".Activities.Profile.NewProfileAct"
+            />
+        <activity
+            android:exported="false"
             android:name=".Activities.Refer.ReferActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Story.SingleStoryActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.AskDoubt.SinglePostActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Certificate.CertificateActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.NotifyAct"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".VideoRecord.TrimVidActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".VideoRecord.PostVideoActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".VideoRecord.PreviewVideoAct"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".VideoRecord.RecordVideoActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.AskDoubt.DoubtAllComment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AskDoubt.CreateDoubtAct"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Quiz.PlayQuizActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Quiz.DailyQuizActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.terms.TermsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.FreeCourses.SingleYouTubeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -105,40 +123,52 @@
             </intent-filter>
         </activity>
         <activity
+            android:exported="false"
             android:name=".Activities.AtlCourseDetails"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.AtlChooseLevel.AtlChooseLevel"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.AtlChooseStandard.AtlChooseStandard"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.NewQuiz.NewQuizActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.ChooseCategory.ChooseCategory"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.CourseEnrolled.CourseEnrolledDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Certificate.CheckCertificateActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Login.LoginEmailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Quiz.QuizActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.ChooseStandard.StandardActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.VideoPlaying.VideoPlayingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".Activities.Profile.ProfileActivity" />
+        <activity android:exported="false"
+            android:name=".Activities.Profile.ProfileActivity" />
         <activity
             android:name=".Activities.CourseDetails.CourseDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
@@ -153,8 +183,11 @@
                     android:scheme="robokart" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.View_all_search.ViewAllSearchActivity" />
         <activity
+            android:exported="false"
+            android:name=".Activities.View_all_search.ViewAllSearchActivity" />
+        <activity
+
             android:name=".Activities.Home.HomeActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -168,16 +201,25 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
-        <activity android:name=".Activities.Login.OTPVerficationActivity" />
-        <activity android:name=".Activities.OnBoarding.OnBoardingActivity" />
         <activity
+            android:exported="false"
+            android:name=".Activities.Collect_Recommendation.Collect_RecommendationActivity" />
+        <activity
+            android:exported="false"
+            android:name=".Activities.Login.OTPVerficationActivity" />
+        <activity
+            android:exported="false"
+            android:name=".Activities.OnBoarding.OnBoardingActivity" />
+        <activity
+            android:exported="false"
             android:name=".Activities.RegistrationActivity.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".Activities.Login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
+
             android:name=".Activities.Splash.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -207,7 +249,7 @@
         <service
             android:name=".VideoRecord.Upload_Service"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="startservice" />
             </intent-filter>
@@ -226,6 +268,9 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_EvXZMjKBLEZ4D2" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,6 +41,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -165,9 +167,9 @@ public class SinglePostActivity extends AppCompatActivity {
                 nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 nagDialog.setCancelable(true);
                 nagDialog.setContentView(R.layout.preview_img);
-                Button btnClose = nagDialog.findViewById(R.id.btnIvClose);
+                ImageView btnClose = nagDialog.findViewById(R.id.btnIvClose);
                 ProgressBar progressBar=nagDialog.findViewById(R.id.progressBar);
-                ImageView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
+                PhotoView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
                 Glide.with(mContext).load(postImgUrl+getPost_img)
                         .listener(new RequestListener<Drawable>() {
                             @Override
@@ -222,7 +224,8 @@ public class SinglePostActivity extends AppCompatActivity {
                 intent.putExtra("post_id",getPost_id);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                mContext.startActivity(intent);
+                //mContext.startActivity(intent);
+                startActivityForResult(intent,1012);
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
@@ -278,6 +281,30 @@ public class SinglePostActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            // TODO Extract the data returned from the child Activity.
+            assert data != null;
+            String returnValue = data.getStringExtra("comment");
+            //Toast.makeText(context, ""+returnValue, Toast.LENGTH_SHORT).show();
+
+
+            String new_comment;
+            if (returnValue.equals("minus"))
+                new_comment=""+(Integer.parseInt(getPost_comment)-1);
+            else
+                new_comment=""+(Integer.parseInt(getPost_comment)+1);
+            getPost_comment=new_comment;
+           comment_count.setText(new_comment);
+
+        }
+
+
     }
 
     private void showCustomDialog(String postId) {

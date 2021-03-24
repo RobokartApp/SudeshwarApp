@@ -28,7 +28,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+//import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -124,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
     private CircleImageView profile_image;
 
     SharedPref sharedPref;
-    String user_id,version_server;
+    public static String user_id,version_server;
     String customer_email;
     public static String invited_users;
 
@@ -180,7 +180,6 @@ public static String img_url;
         RateThisApp.init(config);
 
 */
-
         Intent bundle=getIntent();
 
         if(getIntent().hasExtra("payment")){
@@ -596,28 +595,7 @@ if(slidingRootNav.isMenuClosed()) {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
-                        new MaterialDialog.Builder(HomeActivity.this)
-                                .title("Are you sure you want to logout?")
-                                .positiveText("Yes")
-                                .negativeText("No")
-                                .onPositive((dialog, which) -> {
-                                    sharedPref = new SharedPref();
-                                    sharedPref.setLoginStatus(HomeActivity.this,0);
-                                    SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.clear();
-                                    editor.apply();
-                                   // mGoogleSignInClient.signOut();
-                                    finish();
-                                    FirebaseMessaging.getInstance().unsubscribeFromTopic("Robokart");
-                                    FirebaseMessaging.getInstance().unsubscribeFromTopic("RBK"+mail);
-                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                })
-                                .onNegative((dialog, which) -> {
-                                    dialog.dismiss();
-                                })
-                                .show();
+                        logoutDialog();
                     }
                 },300);
 
@@ -656,8 +634,11 @@ if(slidingRootNav.isMenuClosed()) {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Intent intent=new Intent(HomeActivity.this, NewProfileAct.class);
+
                         //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        startActivityForResult(new Intent(getApplicationContext(), NewProfileAct.class),1012);
+                        if (intent.resolveActivity(getPackageManager()).getPackageName().equals("com.ark.robokart_robotics"))
+                            startActivityForResult(intent,1012);
                     }
                 },100);
 
@@ -853,6 +834,36 @@ if(slidingRootNav.isMenuClosed()) {
 
                         finish();
                         //close();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //finish();
+                    }
+                })
+                .show();
+    }
+
+    private void logoutDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        sharedPref = new SharedPref();
+                        sharedPref.setLoginStatus(HomeActivity.this,0);
+                        SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+                        // mGoogleSignInClient.signOut();
+                        finish();
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("Robokart");
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("RBK"+mail);
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

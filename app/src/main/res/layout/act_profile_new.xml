@@ -7,11 +7,51 @@
     android:background="@drawable/purple_bg"
     tools:context=".Activities.Profile.NewProfileAct">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/badge_bg"
+            android:visibility="visible"
+            android:paddingEnd="@dimen/_130sdp"
+            android:paddingStart="@dimen/_130sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Lvl."
+            android:textSize="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_20sdp"
+            />
+        <TextView
+            android:id="@+id/user_level"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="@dimen/_20sdp"
+            />
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -197,13 +237,14 @@
         android:textSize="@dimen/_12sdp"
         android:maxLines="4"
         android:maxLength="150"
-        android:padding="@dimen/_5sdp"
         android:gravity="left"
+        android:layout_marginBottom="@dimen/_10sdp"
         />
     <LinearLayout
         android:id="@+id/linear_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/bio_txt"
         >
         <TextView
@@ -224,6 +265,40 @@
             android:textSize="18dp"
             android:background="@drawable/layout_bg"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:text="Super Levels :"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginStart="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_level_list"
+            />
+
+        <ListView
+            android:id="@+id/list_level_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:dividerHeight="-5dp"
+            android:background="@drawable/white_bg"
+            android:scrollbars="none"
+            tools:listitem="@layout/level_detail"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -231,13 +306,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/white_bg"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_edit_profile">
+        >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -261,7 +336,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/plain_white"
         android:scrollbars="none"
