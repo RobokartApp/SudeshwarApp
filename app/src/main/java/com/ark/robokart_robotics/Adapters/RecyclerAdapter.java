@@ -74,6 +74,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
 
                 youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
                 holder.videosTitleTextView.setText(title.get(position));
+                //youTubeThumbnailLoader.release();
             }
 
             @Override
@@ -82,6 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -109,6 +111,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
 
             //Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) ctx, KEY, VideoID[getLayoutPosition()]);
             //ctx.startActivity(intent);
+
             String id=VideoID.get(getLayoutPosition());
                     Intent intent=new Intent(ctx, SingleYouTubeActivity.class);
                     if (from.equals("single")) {
@@ -124,4 +127,5 @@ ctx.startActivity(intent);
             //youTubeThumbnailView.setVisibility(View.GONE);
         }
     }
+
 }

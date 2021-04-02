@@ -1,7 +1,9 @@
 package com.ark.robokart_robotics.Fragments.Dashboard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +51,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -71,6 +77,7 @@ public class New_Dashboard extends Fragment {
     RecyclerView recyclerView_level;
     RecyclerView level_details_list;
     int level;
+    SharedPreferences sharedpreferences;
 
     public New_Dashboard(){}
 
@@ -87,6 +94,7 @@ public class New_Dashboard extends Fragment {
     String[] level1,level2,level3,level4,level5,level6,level7,level8,level9,level10;
     String[][] progress=new String[11][11];
     TextView level_head;
+    double percent=0;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -109,9 +117,9 @@ public class New_Dashboard extends Fragment {
 
         level_head=view.findViewById(R.id.level_head_tv);
         progress[0]=new String[]{"100% completed"};
-        progress[1]=new String[]{"100% completed","100% completed","0% completed"};
+        //progress[1]=new String[]{"100% completed","100% completed","0% completed"};
 
-
+        sharedpreferences= getActivity().getSharedPreferences("level_details", Context.MODE_PRIVATE);
 
         level_details_list=view.findViewById(R.id.list_level_detail);
         level1=new String[]{"Register with Robokart."};
@@ -133,6 +141,29 @@ public class New_Dashboard extends Fragment {
         //      Toast.makeText(getContext(), "size: "+size, Toast.LENGTH_SHORT).show();
 
         //Activity activity=getActivity();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        try {
+            if (getDateDiff()>1) {
+                editor.putInt("day_attend", 1);
+                Date date = new Date();
+                SimpleDateFormat ft =
+                        new SimpleDateFormat("dd-MM-yyyy");
+                String today=ft.format(date);
+                editor.putString("last_date",today);
+                editor.apply();
+            }else if (getDateDiff()==1){
+                Date date = new Date();
+                SimpleDateFormat ft =
+                        new SimpleDateFormat("dd-MM-yyyy");
+                String today=ft.format(date);
+                editor.putString("last_date",today);
+                editor.putInt("day_attend",(sharedpreferences.getInt("day_attend",1)+1));
+                editor.apply();
+            }
+
+        } catch (ParseException e) {
+            Log.e("New dash date",e.getMessage());
+        }
 
         getIds();
 
@@ -210,23 +241,21 @@ public class New_Dashboard extends Fragment {
             try {
                 Log.d("fetch user level",response);
                 JSONObject jsonObject = new JSONObject(response);
-                String level_string = jsonObject.getString("user_level");
-                level=Integer.parseInt(level_string)+1;
-                level_head.setText("Level "+level+" :");
+
                 int status = jsonObject.getInt("success_code");
 
                 if (status == 1) {
                     switch (level){
-                        case 1:detailAdapter= new DetailAdapter(getContext(),level1,progress[0]);break;
-                        case 2:detailAdapter= new DetailAdapter(getContext(),level2,progress[1]);break;
-                        case 3:detailAdapter= new DetailAdapter(getContext(),level3,progress[2]);break;
-                        case 4:detailAdapter= new DetailAdapter(getContext(),level4,progress[3]);break;
-                        case 5:detailAdapter= new DetailAdapter(getContext(),level5,progress[4]);break;
-                        case 6:detailAdapter= new DetailAdapter(getContext(),level6,progress[5]);break;
-                        case 7:detailAdapter= new DetailAdapter(getContext(),level7,progress[6]);break;
-                        case 8:detailAdapter= new DetailAdapter(getContext(),level8,progress[7]);break;
-                        case 9:detailAdapter= new DetailAdapter(getContext(),level9,progress[8]);break;
-                        case 10:detailAdapter= new DetailAdapter(getContext(),level10,progress[9]);break;
+                        case 1:detailAdapter= new DetailAdapter(getContext(),level1,progress[0],percent);break;
+                        case 2:detailAdapter= new DetailAdapter(getContext(),level2,progress[1],percent);break;
+                        case 3:detailAdapter= new DetailAdapter(getContext(),level3,progress[2],percent);break;
+                        case 4:detailAdapter= new DetailAdapter(getContext(),level4,progress[3],percent);break;
+                        case 5:detailAdapter= new DetailAdapter(getContext(),level5,progress[4],percent);break;
+                        case 6:detailAdapter= new DetailAdapter(getContext(),level6,progress[5],percent);break;
+                        case 7:detailAdapter= new DetailAdapter(getContext(),level7,progress[6],percent);break;
+                        case 8:detailAdapter= new DetailAdapter(getContext(),level8,progress[7],percent);break;
+                        case 9:detailAdapter= new DetailAdapter(getContext(),level9,progress[8],percent);break;
+                        case 10:detailAdapter= new DetailAdapter(getContext(),level10,progress[9],percent);break;
                     }
                     level_details_list.setAdapter(detailAdapter);
                     LevelAdapter levelAdapter=new LevelAdapter(getContext(), level, new LevelAdapter.OnItemClickListener() {
@@ -237,46 +266,56 @@ public class New_Dashboard extends Fragment {
                             switch (positon){
                                 case 0:
                                     progress[0]=new String[]{"100% completed"};
-                                    detailAdapter=new DetailAdapter(getActivity(),level1,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level1,progress[positon],percent);
                                     level_head.setText("Level 1 :");
                                     break;
                                 case 1:
                                     //progress[1]=new String[]{"100% completed","100% completed","0% completed"};
-                                    detailAdapter=new DetailAdapter(getActivity(),level2,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level2,progress[positon],percent);
                                     level_head.setText("Level 2 :");
                                     break;
                                 case 2:
                                     //progress[2]=new String[]{"0% completed","0% completed","0% completed","0% completed","0% completed"};
-                                    detailAdapter=new DetailAdapter(getActivity(),level3,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level3,progress[positon],percent);
                                     level_head.setText("Level 3 :");
                                     break;
                                 case 3:
                                     //progress[3]=new String[]{"0% completed","0% completed","0% completed","0% completed","0% completed"};
-                                    detailAdapter=new DetailAdapter(getActivity(),level4,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level4,progress[positon],percent);
                                     level_head.setText("Level 4 :");
                                     break;
                                 case 4:
-                                    detailAdapter=new DetailAdapter(getActivity(),level5,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level5,progress[positon],percent);
                                     level_head.setText("Level 5 :");
                                     break;
                                 case 5:
-                                    detailAdapter=new DetailAdapter(getActivity(),level6,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level6,progress[positon],percent);
                                     level_head.setText("Level 6 :");
                                     break;
                                 case 6:
-                                    detailAdapter=new DetailAdapter(getActivity(),level7,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level7,progress[positon],percent);
                                     level_head.setText("Level 7 :");
                                     break;
                                 case 7:
-                                    detailAdapter=new DetailAdapter(getActivity(),level8,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level8,progress[positon],percent);
                                     level_head.setText("Level 8 :");
                                     break;
                                 case 8:
-                                    detailAdapter=new DetailAdapter(getActivity(),level9,progress[positon]);
+
+                                    String time="";
+                                    int sec=sharedpreferences.getInt("time",1);
+                                    int second = sec % 60;
+                                    int hour = sec / 60;
+                                    int minute = hour % 60;
+                                    hour =hour / 60;
+                                    double perc=(double)sec*100/36000;
+                                    Log.e("New Dash progress",""+percent);
+                                    progress[8]=new String[]{hour+"Hrs, "+minute+"Mins completed"};
+                                    detailAdapter=new DetailAdapter(getActivity(),level9,progress[positon],perc);
                                     level_head.setText("Level 9 :");
                                     break;
                                 case 9:
-                                    detailAdapter=new DetailAdapter(getActivity(),level10,progress[positon]);
+                                    detailAdapter=new DetailAdapter(getActivity(),level10,progress[positon],percent);
                                     level_head.setText("Level 10 :");
                                     break;
 
@@ -317,13 +356,36 @@ public class New_Dashboard extends Fragment {
 
         requestQueue.add(request);
     }
+    private long getDateDiff() throws ParseException {
+        Date date = new Date();
+        SimpleDateFormat ft =
+                new SimpleDateFormat("dd-MM-yyyy");
+        String today=ft.format(date);
+        String last_date=sharedpreferences.getString("last_date","23-03-2021");
+        Date date1=ft.parse(last_date);
+        date=ft.parse(today);
+        long difference_In_Time=date.getTime()-date1.getTime();
+        long days=(difference_In_Time
+                / (1000 * 60 * 60 * 24))
+                % 365;
+        Log.e("date diff",""+(days));
+        return days;
+    }
     private void getProgress(){
         StringRequest request2 = new StringRequest(Request.Method.POST, ApiConstants.HOST +"get_level_detail", response -> {
             try {
                 Log.d("get level detail",response);
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray level_detail = jsonObject.getJSONArray("user_level");
+                String level_string = jsonObject.getString("current_level");
+                level=Integer.parseInt(level_string)+1;
 
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Log.e("user_level editor",""+level);
+                editor.putString("user_level",""+level);
+                editor.apply();
+
+                level_head.setText("Level "+level+" :");
                 int status = jsonObject.getInt("success_code");
 
                 if (status == 1) {
@@ -334,6 +396,16 @@ public class New_Dashboard extends Fragment {
 
                         progress[l][c]=object.getString("progress");
                     }
+                    int sec=sharedpreferences.getInt("time",1);
+                    if (sec>=36000 && level==9)level=10;
+
+                    int days=sharedpreferences.getInt("day_attend",1);
+                    Log.e("days attend",""+days);
+                    for(int i=0;i<days;i++){
+                        progress[2][i]="100% Completed";
+                    }
+
+
                     getLevel();
                 }else if (status == 0) {
                     //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package com.ark.robokart_robotics.Activities.Profile;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,12 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.VideoInfoH
     String[] progress;
     Context ctx;
     String[] detail;
+    double percent;
 
-    public DetailAdapter(Context context,String[] detail,String[] progress) {
+    public DetailAdapter(Context context,String[] detail,String[] progress,double percent) {
         this.ctx = context;
         this.detail=detail;
+        this.percent=percent;
         this.progress=progress;
         // this.VideoID=VidId;
 
@@ -40,7 +43,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.VideoInfoH
 
     @Override
     public void onBindViewHolder(final @NotNull VideoInfoHolder holder, final int position) {
-
+        //Log.e("Detail position",""+position);
 
         int i=position+1;
         if (i%2==0){
@@ -55,9 +58,32 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.VideoInfoH
         if (progress[position]!=null) {
             if (progress[position].equalsIgnoreCase("0% completed")) {
                 holder.level_progress.setProgress(0);
-            }
+            }else if(!progress[position].equalsIgnoreCase("100% Completed")){
+                holder.level_progress.setProgress((int)percent);
+            }else
+                holder.level_progress.setProgress(100);
         }else
             holder.level_progress.setProgress(0);
+        if (progress[position].contains("/10 Completed")){
+            String txt=progress[position];
+            String[] txtArr=txt.split("/10 Completed");
+            int stry=Integer.parseInt(txtArr[0]);
+            int perc=stry*100/10;
+            holder.level_progress.setProgress(perc);
+        }else if (progress[position].contains("/3 Completed")){
+            String txt=progress[position];
+            String[] txtArr=txt.split("/3 Completed");
+            int doubt=Integer.parseInt(txtArr[0]);
+            int perc=doubt*100/3;
+            holder.level_progress.setProgress(perc);
+        }else
+        if (progress[position].contains("days Attempted")){
+            String txt=progress[position];
+            String[] txtArr=txt.split(" days Attempted");
+            int day=Integer.parseInt(txtArr[0]);
+            int perc=day*100/6;
+            holder.level_progress.setProgress(perc);
+        }
 
     }
 

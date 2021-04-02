@@ -119,7 +119,7 @@ public class NewProfileAct extends AppCompatActivity {
 
     private UploadAPI apiRequest;
 
-    private TextView edit_btn,bio_txt;
+    private TextView edit_btn,bio_txt,user_level;
 
     private boolean show;
 
@@ -133,7 +133,7 @@ public class NewProfileAct extends AppCompatActivity {
     ScrollView scrollView;
     LinearLayout story_doubt_lin;
     RecyclerView recyclerView_level;
-    //ListView level_details_list;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +142,10 @@ public class NewProfileAct extends AppCompatActivity {
 
         tabLayout=findViewById(R.id.tabLayout);
         viewPager=findViewById(R.id.viewPager);
+
+        sharedpreferences= getSharedPreferences("level_details", Context.MODE_PRIVATE);
+        user_level=findViewById(R.id.user_level);
+        user_level.setText(sharedpreferences.getString("user_level","1"));
 
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.stories));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ask_about));

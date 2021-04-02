@@ -36,7 +36,7 @@
         android:textSize="@dimen/_10sdp"
         android:paddingBottom="@dimen/_20sdp"
         />
-    <TextView
+    <carbon.widget.TextView
         android:id="@+id/user_level"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

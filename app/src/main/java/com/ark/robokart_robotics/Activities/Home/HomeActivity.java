@@ -142,7 +142,9 @@ public static String img_url;
     public static FragmentManager fm;
     public static BottomNavigationView bottomNavigationView;
     String mail;
-
+    TextView user_level;
+    SharedPreferences sharedpreferences;
+    int level=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +166,7 @@ public static String img_url;
         setBottomNav();
 
         gotDynamicLink();
+        getLevel();
 
         //getInvitedUsers();
 
@@ -444,6 +447,11 @@ public static FrameLayout container;
 
         logout_btn = findViewById(R.id.logout_btn);
 
+        sharedpreferences= getSharedPreferences("level_details", Context.MODE_PRIVATE);
+        user_level=findViewById(R.id.user_level);
+
+        //user_level.setText(sharedpreferences.getString("user_level","1"));
+
         courses=findViewById(R.id.courses_linear);
         terms=findViewById(R.id.terms);
         support=findViewById(R.id.support);
@@ -541,6 +549,46 @@ getBanner();
 
         tvGood.setText(greeting);
 
+
+    }
+
+    private void getLevel(){
+        StringRequest request2 = new StringRequest(Request.Method.POST, ApiConstants.HOST +"get_level_detail", response -> {
+            try {
+                Log.d("home level detail",response);
+                JSONObject jsonObject = new JSONObject(response);
+
+                String level_string = jsonObject.getString("current_level");
+                level=Integer.parseInt(level_string)+1;
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Log.e("home act editor",""+level);
+                editor.putString("user_level",""+level);
+                editor.apply();
+
+                user_level.setText(""+level);
+
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                //Log.d(TAG, "fetchLocationListing: "+e.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Volley error: "+error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("cust_id",HomeActivity.user_id);
+                return parameters;
+            }
+        };
+        requestQueue.add(request2);
     }
 
     public void listeners(){

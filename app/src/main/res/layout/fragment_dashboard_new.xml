@@ -109,9 +109,7 @@
 
                 </LinearLayout>
 
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardMaker"
@@ -144,7 +142,6 @@
                         android:textSize="18dp"/>
 
                 </LinearLayout>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -183,13 +180,9 @@
 
                 </LinearLayout>
 
-
             </androidx.cardview.widget.CardView>
 
         </com.google.android.flexbox.FlexboxLayout>
-
-
-
 
         <RelativeLayout
             android:id="@+id/popularVideosRelative"
