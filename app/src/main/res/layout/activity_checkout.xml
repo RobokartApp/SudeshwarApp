@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/purple_bg">
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:adjustViewBounds="true"
+        android:rotation="180"
+        android:src="@drawable/right_gt"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toTopOf="0" />
+
+    <TextView
+        android:id="@+id/text_mycart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:padding="5dp"
+        android:text="Checkout"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/back_btn"
+        app:layout_constraintTop_toTopOf="0" />
+
+    <TextView
+        android:id="@+id/address_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:text="Delivery Address"
+        android:textColor="@color/carbon_white"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/text_mycart" />
+
+    <TextView
+        android:id="@+id/selected_address"
+        android:layout_width="294dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="653 Nostrand Ave.,Brooklyn, NY 11216, Mumbai 400091"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/change_btn_tv"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/address_text" />
+
+    <TextView
+        android:id="@+id/change_btn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
+        android:text="Change"
+        android:textColor="#fff75e"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/address_text" />
+
+    <TextView
+        android:id="@+id/payment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="payment Method"
+        android:textColor="@color/carbon_white"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/selected_address" />
+
+    <RadioGroup
+        android:id="@+id/payment_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:checkedButton="@+id/rpay_radio"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/payment_text">
+
+        <RadioButton
+            android:id="@+id/cod_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/exo_rounded_rectangle"
+            android:buttonTint="@color/white"
+            android:padding="5dp"
+            android:text=" Cash On Delivery"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rpay_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/exo_rounded_rectangle"
+            android:buttonTint="@color/white"
+            android:checked="true"
+            android:padding="5dp"
+            android:text=" Card / Upi / Emi (Razorpay)"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/base_line"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/payment_rg" />
+
+    <CheckBox
+        android:id="@+id/gst_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:buttonTint="#ffffff"
+        android:text="Use GST Invoice"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Place Order"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="0"
+        app:layout_constraintStart_toStartOf="0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,10 @@
         android:id="@+id/courses"
         android:icon="@drawable/courses"
         android:title="@string/courses" />
-
+    <item
+        android:id="@+id/shop"
+        android:icon="@drawable/shop"
+        android:title="@string/shop" />
     <item
         android:id="@+id/stories"
         android:icon="@drawable/stories"

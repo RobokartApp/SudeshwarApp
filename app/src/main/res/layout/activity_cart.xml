@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#a2a002bc">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="5dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/checkout_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_mycart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="@dimen/_21sdp"
+                android:padding="5dp"
+                android:text="My Cart"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                app:layout_constraintStart_toEndOf="@+id/back_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cart_item_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/d_round_white_background"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_mycart" />
+
+            <TextView
+                android:id="@+id/apply_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/d_round_white_background"
+                android:drawableStart="@drawable/coupon"
+                android:drawableEnd="@drawable/right_gt"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:text="   APPLY COUPON"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cart_item_recycle" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/d_round_white_background"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apply_coupon">
+
+                <TextView
+                    android:id="@+id/cart_total_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Cart Total :"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/price_cart_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0000"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/cart_discount_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cart_total_tv"
+                    android:padding="5dp"
+                    android:text="Cart Discount :"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/price_cart_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price_cart_total"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/del_charge_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cart_discount_tv"
+                    android:padding="5dp"
+                    android:text="Delivery Charges :"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/price_del_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price_cart_discount"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="40"
+                    android:textColor="#3f3f3f" />
+
+                <TextView
+                    android:id="@+id/coupon_disc_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/del_charge_tv"
+                    android:padding="5dp"
+                    android:text="Coupon Discouunt :"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/coupon_disc_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price_del_charge"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0"
+                    android:textColor="@color/colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/coupon_disc_amount"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/base_line" />
+
+                <TextView
+                    android:id="@+id/product_cost_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line1"
+                    android:padding="5dp"
+                    android:text="Product Cost :"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/product_cost_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line1"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0000"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/gst_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/product_cost_tv"
+                    android:padding="5dp"
+                    android:text="GST(18%) :"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/gst_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/product_cost_price"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/subtotal_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gst_tv"
+                    android:padding="5dp"
+                    android:text="Subtotal :"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/subtotal_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gst_amount"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0000"
+                    android:textColor="@color/darkgrey" />
+
+                <TextView
+                    android:id="@+id/payable_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/subtotal_tv"
+                    android:padding="5dp"
+                    android:text="Payable Amount :"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/payable_amnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/subtotal_price"
+                    android:layout_alignParentEnd="true"
+                    android:padding="5dp"
+                    android:text="0000"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/checkout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="checkout"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

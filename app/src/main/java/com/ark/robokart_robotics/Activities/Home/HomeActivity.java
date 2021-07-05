@@ -41,6 +41,7 @@ import com.ark.robokart_robotics.Activities.NotifyAct;
 import com.ark.robokart_robotics.Activities.Profile.NewProfileAct;
 import com.ark.robokart_robotics.Activities.Profile.ProfileActivity;
 import com.ark.robokart_robotics.Activities.Refer.ReferActivity;
+import com.ark.robokart_robotics.Activities.shop.ShopActivity;
 import com.ark.robokart_robotics.Activities.terms.TermsActivity;
 import com.ark.robokart_robotics.Adapters.SlidingImage_Adapter;
 import com.ark.robokart_robotics.Common.ApiConstants;
@@ -767,6 +768,9 @@ if(slidingRootNav.isMenuClosed()) {
 
                     fragment = new CoursesFragment();
                     setFragment(fragment);
+                    return true;
+                case R.id.shop:
+                    startActivity(new Intent(this, ShopActivity.class));
                     return true;
                 case R.id.stories:
 
