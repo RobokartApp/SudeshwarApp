@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 52
-        versionName "2.4.7"
+        versionName "2.4.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.sign
     }
@@ -30,7 +30,6 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-
 }
 
 
@@ -44,10 +43,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.firebase:firebase-analytics:18.0.2'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
 
     implementation 'com.google.android.play:core:1.10.0'
-    implementation 'com.google.firebase:firebase-dynamic-links:19.1.1'
+    implementation 'com.google.firebase:firebase-dynamic-links:20.1.0'
 
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
 
@@ -55,9 +54,13 @@ dependencies {
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android:flexbox:2.0.1'
+
+    //shimmer layout
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 
     //Carbon material library
     //Used for colored shadow
@@ -70,6 +73,7 @@ dependencies {
 
     //button shadow library
     implementation "com.subsub.libs:buttoncustomshadow:1.1.1"
+
 
 
     //facebook library
@@ -86,11 +90,11 @@ dependencies {
     //MVVM library
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
 
 
     //  Material Design
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
 
     //  Volley
     implementation 'com.android.volley:volley:1.2.0'
@@ -199,10 +203,13 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
     //firebase notification
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    //implementation 'com.google.firebase:firebase-inappmessaging-display'
 
     //sticky scrollview
     implementation 'com.github.amarjain07:StickyScrollView:1.0.2'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 }
 

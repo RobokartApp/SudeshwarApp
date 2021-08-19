@@ -133,7 +133,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
 
     }
 
-
     //Initialise UI
     public void init(){
         share_btn=findViewById(R.id.share_btn);
@@ -156,7 +155,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         mVideoView.setVideoViewCallback(this);
         mVideoView.seekTo(mSeekPosition);
 
-
         back_btn = findViewById(R.id.back_btn);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -164,7 +162,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         courseInclusionRecyclerview = findViewById(R.id.courseInclusionRecyclerview);
 
         alsoviewedRecyclerview = findViewById(R.id.alsoviewedRecyclerview);
-
 
         courseInclusionViewModel = new ViewModelProvider(this).get(CourseInclusionViewModel.class);
 
@@ -264,8 +261,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             }
         });
 
-
-
         enroll_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -311,11 +306,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         });
 
     }
-
-
-
-
-
 
     private void prepareRecyclerView(List<CourseInclusionModel> courseInclusionModelList) {
         courseInclusionAdapter = new CourseInclusionAdapter(getApplicationContext(),courseInclusionModelList);
@@ -387,7 +377,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         });
     }
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -401,7 +390,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
         mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
         Log.d(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
     }
-
 
     @Override
     public void onScaleChange(boolean isFullscreen) {
@@ -420,7 +408,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
             mVideoLayout.setLayoutParams(layoutParams);
             mBottomLayout.setVisibility(View.VISIBLE);
         }
-
         //switchTitleBar(!isFullscreen);
     }
 
@@ -432,7 +419,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Universa
     @Override
     public void onStart(MediaPlayer mediaPlayer) {
         Log.d(TAG, "onStart UniversalVideoView callback");
-
     }
 
     @Override

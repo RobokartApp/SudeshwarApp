@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".Fragments.Dashboard.New_Dashboard"
-
+    android:layout_marginEnd="18dp"
     android:id="@+id/parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
         <RelativeLayout
             android:id="@+id/story_holder"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:paddingBottom="@dimen/_5sdp"
@@ -54,7 +54,7 @@
             <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/stories_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginStart="5dp"
@@ -63,99 +63,203 @@
 
         </RelativeLayout>
 
-        <com.google.android.flexbox.FlexboxLayout
+        <LinearLayout
             android:id="@+id/flexLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/story_holder"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/story_holder">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardFreeCourse"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:outlineSpotShadowColor="@color/purple"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/free_courses"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Free Courses"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="5dp"
+                            android:textSize="18dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMaker"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    android:padding="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:outlineSpotShadowColor="@color/purple" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/maker_space_ic"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maker Space Courses"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:gravity="center"
+                            android:layout_marginTop="0dp"
+                            android:textSize="18dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAtl"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    android:padding="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:outlineSpotShadowColor="@color/purple" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/atl_courses"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ATL Courses"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="10dp"
+                            android:textSize="18dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_coding_cource"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    android:padding="20dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:outlineSpotShadowColor="@color/purple">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <!--<ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/code_cou rce"/>-->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ATL Courses"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginTop="10dp"
+                            android:textSize="18dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:flexWrap="wrap"
-            app:alignItems="center"
-            app:alignContent="center"
             app:justifyContent="space_evenly"
             android:paddingTop="10dp"
-            android:paddingStart="15dp"
+            android:paddingStart="20dp"
             android:paddingEnd="20dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardFreeCourse"
-                android:layout_width="150dp"
-                android:layout_height="120dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                android:padding="10dp"
-                android:layout_margin="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/free_courses"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Free Courses"
-                        android:textColor="@color/black"
-                        android:textStyle="normal"
-                        android:layout_marginTop="5dp"
-                        android:textSize="18dp"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardMaker"
-                android:layout_width="150dp"
-                android:layout_height="120dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/maker_space_ic"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maker Space Courses"
-                        android:textColor="@color/black"
-                        android:textStyle="normal"
-                        android:gravity="center"
-                        android:layout_marginTop="0dp"
-                        android:textSize="18dp"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
                 android:id="@+id/cardAtl"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="120dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 android:padding="10dp"
                 app:layout_flexGrow="1"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp">
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="@color/purple" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -182,7 +286,7 @@
 
             </androidx.cardview.widget.CardView>
 
-        </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>-->
 
         <RelativeLayout
             android:id="@+id/popularVideosRelative"

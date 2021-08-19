@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_80sdp"
+    android:id="@+id/order_item"
     android:background="@color/white">
 
     <ImageView
@@ -28,12 +29,12 @@
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/delete_ic"
+        app:layout_constraintEnd_toStartOf="@+id/expand_ic"
         app:layout_constraintStart_toEndOf="@+id/item_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/delete_ic"
+        android:id="@+id/expand_ic"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_80sdp"
         android:src="@drawable/right_gt"
@@ -42,6 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/delivery_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"

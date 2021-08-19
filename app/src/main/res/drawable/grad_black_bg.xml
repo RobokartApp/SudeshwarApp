@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
-    <gradient android:startColor="#106a6a69" android:endColor="#c5313030" android:angle="90" android:type="linear"/>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <gradient
+        android:angle="90"
+        android:endColor="#70313030"
+        android:startColor="#109E9E9B"
+        android:type="linear" />
 </shape>

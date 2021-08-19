@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/category_relative" android:layout_width="120dp" android:layout_height="wrap_content" android:layout_margin="4dp">
-    <com.google.android.material.card.MaterialCardView android:id="@+id/cvVideo" android:padding="5dp" android:layout_width="match_parent" android:layout_height="100dp" app:cardCornerRadius="10dp">
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
-            <ImageView android:id="@+id/cat_img" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/download" android:scaleType="fitXY" android:adjustViewBounds="true"/>
-            <ImageView android:id="@+id/overlay" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" android:adjustViewBounds="true"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/category_relative"
+    android:layout_width="120dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <ImageView
+        android:id="@+id/cat_img"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/download" />
+    <!--<com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvVideo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
         </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:layout_below="@+id/cvVideo">
-        <TextView android:textSize="12sp" android:textStyle="bold" android:textColor="@color/black" android:ellipsize="end" android:gravity="center" android:id="@+id/tv_category_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6dp" android:layout_marginTop="4dp" android:layout_marginRight="4dp" android:text="Drone Kits" android:maxLines="1"/>
-    </RelativeLayout>
-</RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>-->
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Drone Kits"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+</LinearLayout>

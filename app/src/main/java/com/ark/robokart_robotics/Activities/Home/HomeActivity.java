@@ -50,6 +50,8 @@ import com.ark.robokart_robotics.Fragments.AskDoubt.AskDoubtFragment;
 import com.ark.robokart_robotics.Fragments.Courses.CoursesFragment;
 import com.ark.robokart_robotics.Fragments.Dashboard.New_Dashboard;
 import com.ark.robokart_robotics.Fragments.Stories.StoriesFragment;
+import com.ark.robokart_robotics.Fragments.shop.FavListFragment;
+import com.ark.robokart_robotics.Fragments.shop.MyOrderFragment;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -96,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private ImageView drawer_btn, back_arrow;
 
-    private TextView name,version;
+    private TextView name, version;
 
     private android.widget.TextView tvGood, tvName;
 
@@ -108,7 +110,7 @@ public class HomeActivity extends AppCompatActivity {
 
     LinearLayout llDashboard, llCourse, llSupport;
 
-    ImageView imgdashboard,imgCourses, imgsupport;
+    ImageView imgdashboard, imgCourses, imgsupport;
 
     Handler mHandler;
 
@@ -118,22 +120,23 @@ public class HomeActivity extends AppCompatActivity {
 
     public Fragment fragment;
 
-     LinearLayout profile_linear,rate_linear,courses,terms,support,share_linear,notify_linear;
+    LinearLayout profile_linear, rate_linear, courses, terms, support, share_linear, notify_linear,
+            my_order_linear, wishlist_linear;
 
     private Button logout_btn;
 
     private CircleImageView profile_image;
 
     SharedPref sharedPref;
-    public static String user_id,version_server;
+    public static String user_id, version_server;
     String customer_email;
     public static String invited_users;
 
     //GoogleSignInClient mGoogleSignInClient;
 
-public static String img_url;
+    public static String img_url;
 
-    private RequestQueue requestQueue,requestQueue2,requestQueue3;
+    private RequestQueue requestQueue, requestQueue2, requestQueue3;
 
     private static ViewPager mPager;
     private static int currentPage = 0;
@@ -145,7 +148,7 @@ public static String img_url;
     String mail;
     TextView user_level;
     SharedPreferences sharedpreferences;
-    int level=1;
+    int level = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,9 +158,9 @@ public static String img_url;
 
         //startActivity(new Intent(this, TestDevaAct.class));
 
-        frmCont=findViewById(R.id.frame_container);
+        frmCont = findViewById(R.id.frame_container);
         fm = getSupportFragmentManager();
-        ft=fm.beginTransaction();
+        ft = fm.beginTransaction();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue2 = Volley.newRequestQueue(getApplicationContext());
         requestQueue3 = Volley.newRequestQueue(getApplicationContext());
@@ -184,43 +187,48 @@ public static String img_url;
         RateThisApp.init(config);
 
 */
-        Intent bundle=getIntent();
+        Intent bundle = getIntent();
 
-        if(getIntent().hasExtra("payment")){
-            if(bundle.getStringExtra("payment").equals("ok"))
+        if (getIntent().hasExtra("payment")) {
+            if (bundle.getStringExtra("payment").equals("ok"))
                 openCourses();
         }
-        if(getIntent().hasExtra("post")){
-            if(bundle.getStringExtra("post").equals("ok"))
+        if (getIntent().hasExtra("order")) {
+            if (bundle.getStringExtra("order").equals("ok"))
+                openMyOrders();
+        }
+        if (getIntent().hasExtra("post")) {
+            if (bundle.getStringExtra("post").equals("ok"))
                 openAskDoubt();
-            else if(bundle.getStringExtra("post").equals("story"))
+            else if (bundle.getStringExtra("post").equals("story"))
                 openStory();
 
-            Log.i("HomePost","came:"+bundle.getStringExtra("post"));
+            Log.i("HomePost", "came:" + bundle.getStringExtra("post"));
             bundle.removeExtra("post");
-        }else if(getIntent().hasExtra("story")){
-            if(bundle.getStringExtra("story").equals("go"))
+        } else if (getIntent().hasExtra("story")) {
+            if (bundle.getStringExtra("story").equals("go"))
                 openStory();
 
-            Log.i("HomeStory","came:"+bundle.getStringExtra("story"));
+            Log.i("HomeStory", "came:" + bundle.getStringExtra("story"));
             bundle.removeExtra("story");
         }
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
-        mail = sharedPreferences.getString("stud_number","Def9657048200");
-        user_id = sharedPreferences.getString("customer_id","848");
+        SharedPreferences sharedPreferences = getSharedPreferences("userdetails", Context.MODE_PRIVATE);
+        mail = sharedPreferences.getString("stud_number", "Def9657048200");
+        user_id = sharedPreferences.getString("customer_id", "848");
         //Toast.makeText(mContext, "Mail: "+mail, Toast.LENGTH_SHORT).show();
 
-        FirebaseMessaging.getInstance().subscribeToTopic("RBK"+mail);
+        FirebaseMessaging.getInstance().subscribeToTopic("RBK" + mail);
         FirebaseMessaging.getInstance().subscribeToTopic("Robokart");
-        Log.i("topic subscribe Home","robokart");
-        
+        Log.i("topic subscribe Home", "robokart");
+
         checkUpdate();
 
     }
+
     private void gotDynamicLink() {
-        Log.e("getdynamic link","came to link");
+        Log.e("getdynamic link", "came to link");
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new com.google.android.gms.tasks.OnSuccessListener<PendingDynamicLinkData>() {
@@ -230,13 +238,12 @@ public static String img_url;
                         Uri deepLink = null;
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
-                            String[] arr=deepLink.toString().split("=");
-                            String refer_id=arr[1];
-                            Log.i("Refer Link","referID:"+refer_id);
+                            String[] arr = deepLink.toString().split("=");
+                            String refer_id = arr[1];
+                            Log.i("Refer Link", "referID:" + refer_id);
                             sendReferToServer(refer_id);
                             //Toast.makeText(MainActivity.this, "linkis: "+deepLink, Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -252,7 +259,7 @@ public static String img_url;
             try {
 
                 JSONObject jsonObject = new JSONObject(response);
-                Log.e("SendRefer Respo",response);
+                Log.e("SendRefer Respo", response);
                 JSONObject refer = jsonObject.getJSONObject("refer");
                 int status = refer.getInt("status");
                 String msg = refer.getString("message");
@@ -260,9 +267,9 @@ public static String img_url;
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 if (status == 1) {
 
-                }else if (status == 0) {
+                } else if (status == 0) {
 
-                }else {
+                } else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }
 
@@ -277,16 +284,16 @@ public static String img_url;
                 //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 //Log.d(TAG, "Volley error: "+error.getMessage());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("User_id",user_id);
-                parameters.put("refered_by",refer_id);
+                parameters.put("User_id", user_id);
+                parameters.put("refered_by", refer_id);
                 return parameters;
             }
         };
-        RequestQueue requestQueue2=Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
         requestQueue2.add(request);
         requestQueue2.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
             @Override
@@ -298,7 +305,7 @@ public static String img_url;
 
 
     private void showReview() {
-        Activity activity=this;
+        Activity activity = this;
         ReviewManager manager = ReviewManagerFactory.create(activity);
         Task<ReviewInfo> request = manager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
@@ -311,14 +318,14 @@ public static String img_url;
                         // The flow has finished. The API does not indicate whether the user
                         // reviewed or not, or even whether the review dialog was shown. Thus, no
                         // matter the result, we continue our app flow.
-                        Log.i("activity", "In-app review returned."+reviewInfo);
+                        Log.i("activity", "In-app review returned." + reviewInfo);
                     });
                 } else {
                     // There was some problem, continue regardless of the result.
                     Toast.makeText(activity, "problem in review", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
-                Log.i("activity", "Exception from openReview():"+ex);
+                Log.i("activity", "Exception from openReview():" + ex);
             }
         });
 
@@ -330,13 +337,13 @@ public static String img_url;
 
 // Returns an intent object that you use to check for an update.
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-Log.i("HomeAct app update",""+appUpdateInfoTask);
+        Log.i("HomeAct app update", "" + appUpdateInfoTask);
 // Checks whether the platform allows the specified type of update,
 // and checks the update priority.
         appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
             @Override
             public void onSuccess(AppUpdateInfo result) {
-                Log.i("HomeAct app update",""+result);
+                Log.i("HomeAct app update", "" + result);
                 if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                         && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                     // Request an immediate update.
@@ -351,11 +358,11 @@ Log.i("HomeAct app update",""+appUpdateInfoTask);
                                 HomeActivity.this,
                                 // Include a request code to later monitor this update request.
                                 143);
-                    }catch (Exception e){
-                        Log.e("error in update",e.getMessage());
+                    } catch (Exception e) {
+                        Log.e("error in update", e.getMessage());
                     }
-                }else
-                    Log.i("Home Act","No update found!");
+                } else
+                    Log.i("Home Act", "No update found!");
             }
         });
 
@@ -365,20 +372,19 @@ Log.i("HomeAct app update",""+appUpdateInfoTask);
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 143){
-            if (resultCode != RESULT_OK){
-                Log.i("Update flow failed!" ,""+ resultCode);
+        if (requestCode == 143) {
+            if (resultCode != RESULT_OK) {
+                Log.i("Update flow failed!", "" + resultCode);
                 // If the update is cancelled or fails,
                 // you can request to start the update again.
             }
-        }else if(requestCode==1012){
-            if (resultCode==RESULT_OK) {
+        } else if (requestCode == 1012) {
+            if (resultCode == RESULT_OK) {
                 //Toast.makeText(mContext, "activity result for 1012&" +, Toast.LENGTH_SHORT).show();
                 //data.getIntExtra("id",69);
-                gotoStory(data.getIntExtra("id",69));
-            }
-            else
-                Log.i("Home Act Result","failed from profile act");
+                gotoStory(data.getIntExtra("id", 69));
+            } else
+                Log.i("Home Act Result", "failed from profile act");
         }
     }
 
@@ -386,17 +392,19 @@ Log.i("HomeAct app update",""+appUpdateInfoTask);
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
-        String url = sharedPreferences.getString("customer_image","https://img.icons8.com/officel/2x/user.png");
-        user_id = sharedPreferences.getString("customer_id","");
+        SharedPreferences sharedPreferences = getSharedPreferences("userdetails", Context.MODE_PRIVATE);
+        String url = sharedPreferences.getString("customer_image", "https://img.icons8.com/officel/2x/user.png");
+        user_id = sharedPreferences.getString("customer_id", "");
         Glide.with(getApplicationContext()).load(url).disallowHardwareConfig().into(profile_image);
-        Log.i("img url",url);
+        Log.i("img url", url);
         //Toast.makeText(mContext, "url: "+url, Toast.LENGTH_SHORT).show();
     }
-public static FrameLayout container;
-    public void init(Bundle savedInstanceState){
 
-        container=findViewById(R.id.frame_container);
+    public static FrameLayout container;
+
+    public void init(Bundle savedInstanceState) {
+
+        container = findViewById(R.id.frame_container);
         container.setVisibility(View.GONE);
         mContext = HomeActivity.this;
 
@@ -448,44 +456,48 @@ public static FrameLayout container;
 
         logout_btn = findViewById(R.id.logout_btn);
 
-        sharedpreferences= getSharedPreferences("level_details", Context.MODE_PRIVATE);
-        user_level=findViewById(R.id.user_level);
+        sharedpreferences = getSharedPreferences("level_details", Context.MODE_PRIVATE);
+        user_level = findViewById(R.id.user_level);
 
         //user_level.setText(sharedpreferences.getString("user_level","1"));
 
-        courses=findViewById(R.id.courses_linear);
-        terms=findViewById(R.id.terms);
-        support=findViewById(R.id.support);
+        courses = findViewById(R.id.courses_linear);
+        terms = findViewById(R.id.terms);
+        support = findViewById(R.id.support);
 
         profile_linear = findViewById(R.id.profile_linear);
         rate_linear = findViewById(R.id.rate_linear);
-        share_linear=findViewById(R.id.app_share_linear);
-        notify_linear=findViewById(R.id.notify_linear);
-        version=findViewById(R.id.menu_version);
+        share_linear = findViewById(R.id.app_share_linear);
+        notify_linear = findViewById(R.id.notify_linear);
+
+        my_order_linear = findViewById(R.id.orders_linear);
+        wishlist_linear = findViewById(R.id.fav_linear);
+
+        version = findViewById(R.id.menu_version);
 
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(getPackageName(), 0);
             String ver = pInfo.versionName;
-            version.setText("Version \n "+ver);
+            version.setText("Version \n " + ver);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
         //for(int i=0;i<IMAGES.length;i++)
-          //  ImagesArray.add(IMAGES[i]);
+        //  ImagesArray.add(IMAGES[i]);
 
         mPager = findViewById(R.id.pager);
 
-getBanner();
+        getBanner();
 //getVersion();
         new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-               // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
             }
 
             public void onFinish() {
-               // mTextField.setText("done!");
+                // mTextField.setText("done!");
                 showReview();
             }
         }.start();
@@ -500,27 +512,26 @@ getBanner();
         setFragment("dashboard");
 
         try {
-            SharedPreferences sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
-            SharedPreferences sharedPreferences1 = getSharedPreferences("userdetails",MODE_PRIVATE);
-            String url = sharedPreferences1.getString("customer_image","https://img.icons8.com/officel/2x/user.png");
+            SharedPreferences sharedPreferences = getSharedPreferences("userdetails", MODE_PRIVATE);
+            SharedPreferences sharedPreferences1 = getSharedPreferences("userdetails", MODE_PRIVATE);
+            String url = sharedPreferences1.getString("customer_image", "https://img.icons8.com/officel/2x/user.png");
             Glide.with(getApplicationContext()).load(Uri.parse(url).toString().trim()).into(profile_image);
-            name.setText(sharedPreferences.getString("fullname","-"));
+            name.setText(sharedPreferences.getString("fullname", "-"));
 
-            String fullname = sharedPreferences.getString("fullname","-");
-            customer_email = sharedPreferences.getString("customer_email","");
+            String fullname = sharedPreferences.getString("fullname", "-");
+            customer_email = sharedPreferences.getString("customer_email", "");
 
-            String image = sharedPreferences.getString("customer_image","");
+            String image = sharedPreferences.getString("customer_image", "");
 
             Glide.with(getApplicationContext()).load(image).into(profile_image);
             //Toast.makeText(mContext, "img link: "+image, Toast.LENGTH_SHORT).show();
             String lastName = "";
-            String firstName= "";
-            if(fullname.split("\\w+").length>1){
+            String firstName = "";
+            if (fullname.split("\\w+").length > 1) {
 
-                lastName = fullname.substring(fullname.lastIndexOf(" ")+1);
+                lastName = fullname.substring(fullname.lastIndexOf(" ") + 1);
                 firstName = fullname.substring(0, fullname.lastIndexOf(' '));
-            }
-            else{
+            } else {
                 firstName = fullname;
             }
 
@@ -537,14 +548,13 @@ getBanner();
 
         //Set greeting
         String greeting = null;
-        if(hour>=6 && hour<12){
+        if (hour >= 6 && hour < 12) {
             greeting = "Good Morning,";
-        } else if(hour>= 12 && hour < 17){
+        } else if (hour >= 12 && hour < 17) {
             greeting = "Good Afternoon,";
-        } else if(hour >= 17 && hour < 24){
+        } else if (hour >= 17 && hour < 24) {
             greeting = "Good Evening,";
-        }
-        else if(hour >= 0 && hour < 4){
+        } else if (hour >= 0 && hour < 4) {
             greeting = "Good Night,";
         }
 
@@ -553,21 +563,21 @@ getBanner();
 
     }
 
-    private void getLevel(){
-        StringRequest request2 = new StringRequest(Request.Method.POST, ApiConstants.HOST +"get_level_detail", response -> {
+    private void getLevel() {
+        StringRequest request2 = new StringRequest(Request.Method.POST, ApiConstants.HOST + "get_level_detail", response -> {
             try {
-                Log.d("home level detail",response);
+                Log.d("home level detail", response);
                 JSONObject jsonObject = new JSONObject(response);
 
                 String level_string = jsonObject.getString("current_level");
-                level=Integer.parseInt(level_string)+1;
+                level = Integer.parseInt(level_string) + 1;
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                Log.e("home act editor",""+level);
-                editor.putString("user_level",""+level);
+                Log.e("home act editor", "" + level);
+                editor.putString("user_level", "" + level);
                 editor.apply();
 
-                user_level.setText(""+level);
+                user_level.setText("" + level);
 
 
             } catch (JSONException e) {
@@ -585,19 +595,19 @@ getBanner();
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("cust_id",HomeActivity.user_id);
+                parameters.put("cust_id", HomeActivity.user_id);
                 return parameters;
             }
         };
         requestQueue.add(request2);
     }
 
-    public void listeners(){
+    public void listeners() {
 
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getApplicationContext(), NewProfileAct.class),1012);
+                startActivityForResult(new Intent(getApplicationContext(), NewProfileAct.class), 1012);
             }
         });
 
@@ -611,23 +621,23 @@ getBanner();
         drawer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-if(slidingRootNav.isMenuClosed()) {
-    slidingRootNav.openMenu();
-    trans_layout.setVisibility(View.VISIBLE);
-}else{
-    slidingRootNav.closeMenu();
-    //v.setVisibility(View.GONE);
-}
+                if (slidingRootNav.isMenuClosed()) {
+                    slidingRootNav.openMenu();
+                    trans_layout.setVisibility(View.VISIBLE);
+                } else {
+                    slidingRootNav.closeMenu();
+                    //v.setVisibility(View.GONE);
+                }
             }
         });
 
         trans_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(slidingRootNav.isMenuOpened()) {
+                if (slidingRootNav.isMenuOpened()) {
                     slidingRootNav.closeMenu();
                     v.setVisibility(View.GONE);
-                }else{
+                } else {
                     slidingRootNav.openMenu();
                     //trans_layout.setVisibility(View.VISIBLE);
                 }
@@ -646,7 +656,7 @@ if(slidingRootNav.isMenuClosed()) {
                     public void run() {
                         logoutDialog();
                     }
-                },300);
+                }, 300);
 
 
             }
@@ -674,6 +684,20 @@ if(slidingRootNav.isMenuClosed()) {
             }
         });
 */
+        my_order_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingRootNav.closeMenu();
+                loadFragment(new MyOrderFragment());
+            }
+        });
+        wishlist_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingRootNav.closeMenu();
+                loadFragment(new FavListFragment());
+            }
+        });
         profile_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -683,13 +707,13 @@ if(slidingRootNav.isMenuClosed()) {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent=new Intent(HomeActivity.this, NewProfileAct.class);
+                        Intent intent = new Intent(HomeActivity.this, NewProfileAct.class);
 
                         //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         if (intent.resolveActivity(getPackageManager()).getPackageName().equals("com.ark.robokart_robotics"))
-                            startActivityForResult(intent,1012);
+                            startActivityForResult(intent, 1012);
                     }
-                },100);
+                }, 100);
 
             }
         });
@@ -698,7 +722,7 @@ if(slidingRootNav.isMenuClosed()) {
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
 
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getApplication().getPackageName())));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getApplication().getPackageName())));
             }
         });
 
@@ -727,7 +751,7 @@ if(slidingRootNav.isMenuClosed()) {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                Intent intent=new Intent(HomeActivity.this, NotifyAct.class);
+                Intent intent = new Intent(HomeActivity.this, NotifyAct.class);
                 startActivity(intent);
             }
         });
@@ -737,7 +761,7 @@ if(slidingRootNav.isMenuClosed()) {
             @Override
             public void onClick(View v) {
                 slidingRootNav.closeMenu();
-                Intent intent=new Intent(HomeActivity.this, TermsActivity.class);
+                Intent intent = new Intent(HomeActivity.this, TermsActivity.class);
                 startActivity(intent);
             }
         });
@@ -787,17 +811,16 @@ if(slidingRootNav.isMenuClosed()) {
         });
     }
 
-    public void setFragment(String screen){
+    public void setFragment(String screen) {
         findViewById(R.id.frame_container).setVisibility(View.GONE);
-        if(screen.equals("courses")){
+        if (screen.equals("courses")) {
             imgCourses.setBackground(getResources().getDrawable(R.drawable.ic_course_btn_selected));
             imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_deselected));
             imgsupport.setImageDrawable(getResources().getDrawable(R.drawable.technical_support));
 
             fragment = new CoursesFragment();
             setFragment(fragment);
-        }
-        else if(screen.equals("dashboard")){
+        } else if (screen.equals("dashboard")) {
             imgCourses.setBackground(getResources().getDrawable(R.drawable.ic_course_btn_deselected));
             imgdashboard.setBackground(getResources().getDrawable(R.drawable.dashboard_btn_active));
             imgsupport.setImageDrawable(getResources().getDrawable(R.drawable.technical_support));
@@ -808,15 +831,15 @@ if(slidingRootNav.isMenuClosed()) {
 
     }
 
-    private void gotoStory(int position){
-        Bundle bundle=new Bundle();
-        bundle.putString("id",""+position );
-        StoriesFragment storiesFragment=new StoriesFragment();
+    private void gotoStory(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", "" + position);
+        StoriesFragment storiesFragment = new StoriesFragment();
         storiesFragment.setArguments(bundle);
         loadFragment(storiesFragment);
     }
 
-    public static void setFragment( Fragment fragment) {
+    public static void setFragment(Fragment fragment) {
         container.setVisibility(View.GONE);
         try {
             FragmentManager fragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
@@ -831,12 +854,13 @@ if(slidingRootNav.isMenuClosed()) {
                 fragmentTransaction.replace(R.id.mainFrameLayout, fragment);
                 fragmentTransaction.commit();
             }
-        }catch (Exception e){
-            Log.d("fragment err",e.getMessage());
+        } catch (Exception e) {
+            Log.d("fragment err", e.getMessage());
             Toast.makeText(mContext, "Memory management error!", Toast.LENGTH_LONG).show();
         }
 
     }
+
     private void loadFragment(Fragment fragment) {
         findViewById(R.id.frame_container).setVisibility(View.VISIBLE);
         // load fragment
@@ -853,25 +877,23 @@ if(slidingRootNav.isMenuClosed()) {
         //finish();
         Fragment f = fm.findFragmentById(R.id.mainFrameLayout);
         Fragment f2 = fm.findFragmentById(R.id.frame_container);
-         if(f2 instanceof StoriesFragment && container.getVisibility()==View.VISIBLE) {
-             //finish();
-             //startActivity(new Intent(HomeActivity.this,HomeActivity.class));
-             setFragment(new New_Dashboard());
+        if (f2 instanceof StoriesFragment && container.getVisibility() == View.VISIBLE) {
+            //finish();
+            //startActivity(new Intent(HomeActivity.this,HomeActivity.class));
+            setFragment(new New_Dashboard());
 
-        }
-        else if(f2 instanceof AskDoubtFragment && container.getVisibility()==View.VISIBLE) {
-             //finish();
+        } else if (f2 instanceof AskDoubtFragment && container.getVisibility() == View.VISIBLE) {
+            //finish();
 
-             Intent intent=new Intent(HomeActivity.this,HomeActivity.class);
-             //startActivity(intent);
-             setFragment(new New_Dashboard());
+            Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+            //startActivity(intent);
+            setFragment(new New_Dashboard());
 
 
-        }
-        else if(f instanceof New_Dashboard)
+        } else if (f instanceof New_Dashboard)
             makeDialog();
-        else if(f instanceof CoursesFragment)
-            fm.beginTransaction().replace(R.id.mainFrameLayout,new New_Dashboard()).commit();
+        else if (f instanceof CoursesFragment)
+            fm.beginTransaction().replace(R.id.mainFrameLayout, new New_Dashboard()).commit();
         else
             super.onBackPressed();
     }
@@ -906,15 +928,15 @@ if(slidingRootNav.isMenuClosed()) {
                     // do something when the button is clicked
                     public void onClick(DialogInterface arg0, int arg1) {
                         sharedPref = new SharedPref();
-                        sharedPref.setLoginStatus(HomeActivity.this,0);
-                        SharedPreferences sharedPreferences = getSharedPreferences("userdetails",Context.MODE_PRIVATE);
+                        sharedPref.setLoginStatus(HomeActivity.this, 0);
+                        SharedPreferences sharedPreferences = getSharedPreferences("userdetails", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.clear();
                         editor.apply();
                         // mGoogleSignInClient.signOut();
                         finish();
                         FirebaseMessaging.getInstance().unsubscribeFromTopic("Robokart");
-                        FirebaseMessaging.getInstance().unsubscribeFromTopic("RBK"+mail);
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("RBK" + mail);
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     }
                 })
@@ -940,19 +962,18 @@ if(slidingRootNav.isMenuClosed()) {
                 //Toast.makeText(context, ""+response, Toast.LENGTH_LONG).show();
                 ImagesArray.clear();
                 if (status == 1) {
-                    try{
-                        for(int i = 0; i< atl.length();i++){
-                            ImagesArray.add(i,""+atl.getString(i));
+                    try {
+                        for (int i = 0; i < atl.length(); i++) {
+                            ImagesArray.add(i, "" + atl.getString(i));
                             //break;
                         }
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
 //                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
-                }else if (status == 0) {
+                } else if (status == 0) {
                     //Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     //Toast.makeText(getApplicationContext(), "No internet connection. Try again!", Toast.LENGTH_LONG).show();
                 }
 
@@ -974,7 +995,7 @@ if(slidingRootNav.isMenuClosed()) {
             public void onRequestFinished(Request<String> request) {
                 mPager.setAdapter(new SlidingImage_Adapter(getApplicationContext(), ImagesArray));
 
-                NUM_PAGES =ImagesArray.size();
+                NUM_PAGES = ImagesArray.size();
 
                 // Auto start of viewpager
                 final Handler handler = new Handler();
@@ -998,19 +1019,27 @@ if(slidingRootNav.isMenuClosed()) {
 
     }
 
-    public void openCourses(){
+    public void openCourses() {
 
         fragment = new CoursesFragment();
         setFragment(fragment);
     }
-    public void openStory(){
+
+    public void openStory() {
         findViewById(R.id.frame_container).setVisibility(View.VISIBLE);
         fragment = new StoriesFragment();
         loadFragment(fragment);
     }
-    public void openAskDoubt(){
+
+    public void openAskDoubt() {
         container.setVisibility(View.VISIBLE);
         fragment = new AskDoubtFragment();
+        loadFragment(fragment);
+    }
+
+    public void openMyOrders() {
+        container.setVisibility(View.VISIBLE);
+        fragment = new MyOrderFragment();
         loadFragment(fragment);
     }
 

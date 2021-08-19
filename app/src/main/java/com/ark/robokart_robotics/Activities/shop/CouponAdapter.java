@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,27 +14,31 @@ import java.util.ArrayList;
 
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> {
     Context context;
-    ArrayList<String> coupon;
-    ArrayList<String> details;
+    ArrayList<CouponItem> coupon;
+    public final OnItemClickListener listener;
 
-    public CouponAdapter(Context context2, ArrayList<String> coupon2, ArrayList<String> details2) {
-        this.details = details2;
-        this.coupon = coupon2;
+    public CouponAdapter(Context context2, ArrayList<CouponItem> coupon, OnItemClickListener listener) {
+        this.coupon = coupon;
         this.context = context2;
+        this.listener=listener;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int i);
+    }
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_coupon, parent, false));
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final String name = this.coupon.get(position);
+        final String name = coupon.get(position).getCode();
         holder.cpn_name.setText(name);
-        holder.cpn_details.setText(this.details.get(position));
+        holder.cpn_details.setText(coupon.get(position).getDetail());
         holder.apply_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Context context = view.getContext();
-                Toast.makeText(context, "click on item: " + name, Toast.LENGTH_SHORT).show();
+                listener.onItemClick(position);
+                //Toast.makeText(context, "click on item: " + name, Toast.LENGTH_SHORT).show();
             }
         });
     }

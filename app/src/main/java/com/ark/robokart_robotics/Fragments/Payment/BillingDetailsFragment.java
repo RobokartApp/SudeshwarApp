@@ -57,8 +57,6 @@ public class BillingDetailsFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         payment_btn = view.findViewById(R.id.payment_btn);
         Ename=view.findViewById(R.id.fullname_edt_txt);
         Emobile=view.findViewById(R.id.mobile_edt_txt);
@@ -68,8 +66,6 @@ public class BillingDetailsFragment extends Fragment{
         Estate=view.findViewById(R.id.state_edt_txt);
         Ecity=view.findViewById(R.id.city_edt_txt);
         Elandmark=view.findViewById(R.id.street_edt_txt);
-
-
 
         payment_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,9 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.shop.OrderDetailActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_my_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:padding="5dp"
+        android:text=" Order Details"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/back_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_my_order"
+        app:layout_constraintBottom_toTopOf="@id/track_btn"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_items_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/base_line"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/row_order_detail_item"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+    <TextView
+        android:id="@+id/delivered_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Order Placed"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_items_recycler" />
+
+    <TextView
+        android:id="@+id/order_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
+        android:text="---"
+        android:textColor="@color/darkgrey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delivered_date_tv" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/empty_bg_rect"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_address">
+
+        <TextView
+            android:id="@+id/text_order_date"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="Order date"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/text_order_date"
+            android:padding="5dp"
+            android:text="DD-MM-YYYY"
+            android:textColor="@color/darkgrey" />
+
+        <TextView
+            android:id="@+id/text_order_id"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_order_date"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="Order id"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_date"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/text_order_id"
+            android:padding="5dp"
+            android:text="---"
+            android:textColor="@color/darkgrey" />
+
+        <TextView
+            android:id="@+id/text_items_total"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_order_id"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="Items total"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/items_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_id"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/text_order_id"
+            android:padding="5dp"
+            android:text="Rs. 00"
+            android:textColor="@color/darkgrey" />
+
+        <TextView
+            android:id="@+id/text_gst"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_items_total"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="GST(18%)"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/gst_tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/items_total"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/text_order_id"
+            android:padding="5dp"
+            android:text="Rs. 00"
+            android:textColor="@color/darkgrey" />
+
+        <TextView
+            android:id="@+id/text_order_total"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_gst"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="Order total"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/order_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gst_tax"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/text_order_total"
+            android:padding="5dp"
+            android:text="Rs. 000 (0 item)"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/text_payment_method"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_order_total"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="Payment Method"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/payment_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_total"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/text_payment_method"
+            android:padding="5dp"
+            android:text="Online"
+            android:textColor="@color/darkgrey" />
+    </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/track_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:drawableEnd="@drawable/map_pin"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Track my order"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_140sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

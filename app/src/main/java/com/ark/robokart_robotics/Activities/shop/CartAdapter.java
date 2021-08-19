@@ -52,7 +52,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         CartItem shopItem = this.listdata.get(position);
         holder.name.setText(this.listdata.get(position).getName());
-        Glide.with(this.context).load(shopItem.getImages()).into(holder.item_img);
+
+        String[] sArr=shopItem.getImages().split("/");
+        //"1aNjZyQ1Eeb3guDE9x8ca0OiVm_JVzJqC";
+        String link="https://robokart.com/app_robo.png";
+        if(sArr[2].equalsIgnoreCase("drive.google.com")) {
+            String img_id=sArr[5];
+            link = "https://drive.google.com/uc?id=" + img_id;
+        }
+        else
+            link=shopItem.getImages();
+        Glide.with(this.context).load(link).into(holder.item_img);
         TextView textView = holder.offer_price;
         textView.setText("₹" + shopItem.getOffer_price());
         this.listdata.size();

@@ -142,7 +142,7 @@ public class StoriesFragment extends Fragment implements Player.EventListener{
 
 
         Menu menu= HomeActivity.bottomNavigationView.getMenu();
-        MenuItem menuItem=menu.getItem(2);
+        MenuItem menuItem=menu.getItem(3);
         menuItem.setChecked(true);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 

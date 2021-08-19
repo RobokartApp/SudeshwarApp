@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:layout_alignParentBottom="true"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingBottom="2dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginEnd="6.5dp"
+        android:shadowColor="#FF0000"
+        android:shadowDx="30"
+        android:shadowDy="30"
+        android:shadowRadius="50"
+        android:id="@+id/shop_relative_1"
+        android:layout_weight="1"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:padding="5dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvVideo_1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shimmer_bg">
+
+                    <ImageView
+                        android:id="@+id/ivVideo_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/robokart_logo" />
+
+                    <ImageView
+                        android:id="@+id/overlay_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/wish_list_card"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="3dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:src="@drawable/heart_empty" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cvVideo_1"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:id="@+id/item_name_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:background="@drawable/shimmer_bg"
+                    android:text="-----------"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/offer_price_tv_1"
+                    android:textColor="@color/carbon_green_600"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:text="₹ ------"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/shimmer_bg"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mrp_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_1"
+                    android:layout_toEndOf="@+id/offer_price_tv_1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shimmer_bg"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:text="₹ ------"
+                    android:textColor="@color/red"
+                    android:textSize="10sp"  />
+
+                <TextView
+                    android:id="@+id/dot_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mrp_tv_1"
+                    android:padding="5dp"
+                    android:layout_marginStart="10dp"
+                    android:text="•"
+                    android:visibility="gone"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:id="@+id/category_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dot_tv_1"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="5dp"
+                    android:textSize="12sp"
+                    android:text="------------------"
+                    android:background="@drawable/shimmer_bg"
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:id="@+id/dot2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_1"
+                    android:layout_toEndOf="@+id/category_tv_1"
+                    android:padding="5dp"
+                    android:text="•"
+                    android:visibility="gone"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:id="@+id/subcat_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/category_tv_1"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:text="--------------"
+                    android:background="@drawable/shimmer_bg"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginStart="6.5dp"
+        android:shadowColor="#FF0000"
+        android:shadowDx="30"
+        android:shadowDy="30"
+        android:shadowRadius="50"
+        android:id="@+id/shop_relative_2"
+        android:layout_weight="1"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:padding="5dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvVideo_2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shimmer_bg">
+
+                    <ImageView
+                        android:id="@+id/ivVideo_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/robokart_logo" />
+
+                    <ImageView
+                        android:id="@+id/overlay_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/wish_list_card_"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="3dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:src="@drawable/heart_empty" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cvVideo_2"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:id="@+id/item_name_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:background="@drawable/shimmer_bg"
+                    android:text="-----------"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/offer_price_tv_2"
+                    android:textColor="@color/carbon_green_600"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_2"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:text="₹ ------"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/shimmer_bg"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mrp_tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_2"
+                    android:layout_toEndOf="@+id/offer_price_tv_2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shimmer_bg"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:text="₹ ------"
+                    android:textColor="@color/red"
+                    android:textSize="10sp"  />
+
+                <TextView
+                    android:id="@+id/dot_tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mrp_tv_2"
+                    android:padding="5dp"
+                    android:layout_marginStart="10dp"
+                    android:text="•"
+                    android:visibility="gone"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:id="@+id/category_tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dot_tv_2"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="5dp"
+                    android:textSize="12sp"
+                    android:text="------------------"
+                    android:background="@drawable/shimmer_bg"
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:id="@+id/dot2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name_2"
+                    android:layout_toEndOf="@+id/category_tv_2"
+                    android:padding="5dp"
+                    android:text="•"
+                    android:visibility="gone"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:id="@+id/subcat_tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/category_tv_2"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:text="--------------"
+                    android:background="@drawable/shimmer_bg"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

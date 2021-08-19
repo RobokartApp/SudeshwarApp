@@ -44,7 +44,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".Activities.shop.ShopActivity"></activity>
+        <activity android:name=".Activities.Quiz.PlayContestAct" />
+        <activity android:name=".Activities.Quiz.QuizContestActivity" />
+        <activity android:name=".Activities.shop.ShopActivity" />
         <activity android:name=".Activities.shop.OrderDetailActivity" />
         <activity android:name=".Activities.shop.MyOrderActivity" />
         <activity android:name=".Activities.shop.ItemDetailActivity" />

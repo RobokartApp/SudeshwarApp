@@ -64,7 +64,7 @@ public class AskDoubtFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         Menu menu= HomeActivity.bottomNavigationView.getMenu();
-        MenuItem menuItem=menu.getItem(3);
+        MenuItem menuItem=menu.getItem(4);
         menuItem.setChecked(true);
 
         context=getActivity();

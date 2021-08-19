@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.ark.robokart_robotics.Activities.Home.HomeActivity;
 import com.ark.robokart_robotics.Activities.NotifyAct;
 import com.ark.robokart_robotics.Activities.Quiz.DailyQuizActivity;
+import com.ark.robokart_robotics.Activities.Quiz.QuizContestActivity;
 import com.ark.robokart_robotics.Activities.Splash.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -29,7 +30,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     DBHelper dbHelper;
@@ -40,9 +40,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
          database = dbHelper.getWritableDatabase();
         Log.i("notification recieved",""+remoteMessage.getData());
 
-
+        if (remoteMessage.getData().get("title").equalsIgnoreCase("Quiz Contest"))
+            popupDialog();
+        else
             sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));
 
+    }
+
+    private void popupDialog() {
+        Intent intent=new Intent(getApplicationContext(), QuizContestActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(intent);
     }
 
     public void insert(String title1, String body1, String time) {

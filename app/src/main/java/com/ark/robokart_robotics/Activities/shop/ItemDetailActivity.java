@@ -2,34 +2,54 @@ package com.ark.robokart_robotics.Activities.shop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+
+import com.ark.robokart_robotics.Fragments.shop.FavListFragment;
 import com.ark.robokart_robotics.R;
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vimeo.networking.Vimeo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ItemDetailActivity extends AppCompatActivity {
     RelativeLayout addToCart;
     ImageView addtofav;
     ImageView back_btn;
-    ImageView cart_btn;
+    ImageView cart_btn, wishlist;
     TextView description;
-    String getprice;
     ImageView minus_btn;
     TextView mrp;
     TextView name;
-    ImageView plus_btn,share_btn;
+    ImageView plus_btn, share_btn, left_arrow, right_arrow;
     TextView price;
     TextView qty;
     TextView total_price;
-    boolean favFlag=true;
+    boolean favFlag = true;
     DBHelper dbHelper;
-    String getname,getmrp;
+    String getname, getmrp, getdesc, getimgs, getprice, getItemid;
+    ViewPager viewPager;
+    ImageAdapter adapterView;
+    long last_id = 0;
+    TextView badge,countFavTv;
+    int cartCount,countFav;
+    String[] imgs;
+
+
+    Handler handler = new Handler();
+    Runnable runnable;
+    int delay = 100;
+
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +58,30 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         init();
         listener();
+
+        cartCount = dbHelper.countCart();
+        if (cartCount == 0) {
+            badge.setVisibility(View.GONE);
+        } else {
+            badge.setVisibility(View.VISIBLE);
+            badge.setText("" + cartCount);
+        }
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                handler.postDelayed(runnable, delay);
+                extractedFavCount();
+            }
+        }, delay);
+
         Intent intent = getIntent();
-         getname = intent.getStringExtra("name");
-         getmrp = intent.getStringExtra("mrp");
-        this.getprice = intent.getStringExtra(FirebaseAnalytics.Param.PRICE);
-        String getdesc = intent.getStringExtra(Vimeo.SORT_DIRECTION_DESCENDING);
+        getname = intent.getStringExtra("name");
+        getmrp = intent.getStringExtra("mrp");
+        this.getprice = intent.getStringExtra("price");
+        getdesc = intent.getStringExtra("desc");
+        getimgs = intent.getStringExtra("images");
+        getItemid = intent.getStringExtra("item_id");
+        imgs = getimgs.split(",");
+
         this.name.setText(getname);
         this.mrp.setText("₹" + getmrp);
         TextView textView = this.mrp;
@@ -50,10 +89,37 @@ public class ItemDetailActivity extends AppCompatActivity {
         this.price.setText("₹" + this.getprice);
         this.description.setText(getdesc);
         this.total_price.setText("₹ " + this.getprice);
+
+        ArrayList<String> images = new ArrayList<String>(Arrays.asList(imgs));
+        adapterView = new ImageAdapter(this, images);
+        viewPager.setAdapter(adapterView);
+
+        ArrayList<String> favList = dbHelper.getAllFav();
+        if (favList.contains(getItemid)) {
+            favFlag = false;
+            addtofav.setImageResource(R.drawable.heart_filled);
+        }
+
+    }
+
+    private void extractedFavCount() {
+        countFav = dbHelper.countFev();
+        if (countFav == 0) {
+            countFavTv.setVisibility(View.GONE);
+        } else {
+            countFavTv.setVisibility(View.VISIBLE);
+            countFavTv.setText("" + countFav);
+        }
     }
 
     private void init() {
-        share_btn=findViewById(R.id.share_btn);
+        wishlist = findViewById(R.id.wishlist_btn);
+        countFavTv = findViewById(R.id.cart_wish_list_badge);
+        badge = findViewById(R.id.cart_badge);
+        left_arrow = findViewById(R.id.left_arrow);
+        right_arrow = findViewById(R.id.right_arrow);
+        viewPager = findViewById(R.id.images_pager);
+        share_btn = findViewById(R.id.share_btn);
         this.cart_btn = (ImageView) findViewById(R.id.cart_btn);
         this.back_btn = (ImageView) findViewById(R.id.back_btn);
         this.plus_btn = (ImageView) findViewById(R.id.plus_btn);
@@ -69,6 +135,37 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void listener() {
+        wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left);
+                transaction.replace(R.id.frame_container, new FavListFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        left_arrow.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (viewPager.getCurrentItem() != 0)
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true); //getItem(-1) for previous
+                else
+                    viewPager.setCurrentItem(adapterView.getCount());
+            }
+        });
+        right_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewPager.getCurrentItem() != adapterView.getCount() - 1)
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+                else
+                    viewPager.setCurrentItem(0);
+
+            }
+        });
+
         this.cart_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ItemDetailActivity.this.startActivity(new Intent(ItemDetailActivity.this, CartActivity.class));
@@ -81,26 +178,50 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
         this.addToCart.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View view) {
-                dbHelper.insertCart(getname,"https://robokart.com/app/app_robo.png",qty.getText().toString(),getmrp,getprice,"1");
-                Toast.makeText(ItemDetailActivity.this, "Item has been added to cart!", Toast.LENGTH_SHORT).show();
+                if (dbHelper.isInCart(getname)) {
+                    Toast.makeText(ItemDetailActivity.this, "Already in the cart!", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbHelper.insertCart(getname, imgs[0], qty.getText().toString(), getmrp, getprice, getdesc);
+                    Toast.makeText(ItemDetailActivity.this, "Item has been added to cart!", Toast.LENGTH_SHORT).show();
+                    cartCount = dbHelper.countCart();
+                    badge.setVisibility(View.VISIBLE);
+                    badge.setText("" + cartCount);
+                }
+
             }
         });
 
         share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Robokart - Learn Robotics");
+                    String shareMessage = "\nRobokart app रोबोटिक्स हो या कोडिंग सब कुछ इतने मजे से सीखते है कि एक बार में सब दिमाग में.. \n" +
+                            "खुद ही देखलो.... मान जाओगे \uD83D\uDE07\n\n";
+                    shareMessage = shareMessage + "https://robokart.com/app/share";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Choose one to share the app"));
+                } catch (Exception e) {
+                    //e.toString();
+                }
             }
         });
+
         this.addtofav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(favFlag) {
-                    favFlag=false;
+                if (favFlag) {
+                    favFlag = false;
                     addtofav.setImageResource(R.drawable.heart_filled);
-                }else{
-                    favFlag=true;
+                    last_id = dbHelper.insertFavSudesh(getname, imgs[0], getmrp, getprice, getItemid);
+                } else {
+                    favFlag = true;
                     addtofav.setImageResource(R.drawable.heart_empty);
+//                    dbHelper.deleteFav(getname);
+                    dbHelper.deleteFavInShopAdapter(getItemid);
                 }
+                extractedFavCount();
                 //Toast.makeText(ItemDetailActivity.this, "Added to Favorite!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -122,4 +243,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cartCount = dbHelper.countCart();
+        if (cartCount == 0) {
+            badge.setVisibility(View.GONE);
+        } else {
+            badge.setVisibility(View.VISIBLE);
+            badge.setText("" + cartCount);
+        }
+        extractedFavCount();
+    }
 }

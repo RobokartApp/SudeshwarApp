@@ -35,8 +35,8 @@ public class AtlCourseDetails extends AppCompatActivity {
         init();
 
         listeners();
-docTitle.setText(std+"."+(indx)+" "+title);
-String circuit=""+AtlChooseLevel.circuit.get(indx-1);
+        docTitle.setText(std+"."+(indx)+" "+title);
+        String circuit=""+AtlChooseLevel.circuit.get(indx-1);
         String code=""+AtlChooseLevel.code.get(indx-1);
         //Toast.makeText(this, ": "+circuit+", "+code, Toast.LENGTH_SHORT).show();
         tabLayout.addTab(tabLayout.newTab().setText("Problem Statement"));

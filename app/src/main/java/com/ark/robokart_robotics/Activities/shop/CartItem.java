@@ -6,17 +6,25 @@ public class CartItem {
     int f6id;
     private String images;
     private String mrp;
-    private String name;
+    private String name,description;
     private String offer_price;
     int qty;
 
-    public CartItem(int id, String images2, String name2, String offer_price2, String mrp2, int qty2) {
+    public CartItem() {
+    }
+
+    public CartItem(int id, String images2, String name2, String offer_price2, String mrp2, int qty2, String description) {
         this.f6id = id;
         this.images = images2;
         this.name = name2;
         this.offer_price = offer_price2;
         this.mrp = mrp2;
         this.qty = qty2;
+        this.description=description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getQty() {

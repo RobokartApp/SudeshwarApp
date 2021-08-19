@@ -6,17 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ark.robokart_robotics.R;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     Context context;
-    private CatItem[] listdata;
+    private ArrayList<CatItem> listdata;
 
-    public CategoryAdapter(Context context2, CatItem[] listdata2) {
+    public CategoryAdapter(Context context2, ArrayList<CatItem>  listdata2) {
         this.listdata = listdata2;
         this.context = context2;
     }
@@ -26,8 +29,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final CatItem catItem = this.listdata[position];
-        holder.cat_name.setText(this.listdata[position].getCat_name());
+        final CatItem catItem = this.listdata.get(position);
+        holder.cat_name.setText(this.listdata.get(position).getCat_name());
+
         Glide.with(this.context).load(catItem.cat_img).into(holder.cat_img);
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -39,19 +43,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public int getItemCount() {
-        return this.listdata.length;
+        return this.listdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView cat_img;
         public TextView cat_name;
-        public RelativeLayout relativeLayout;
+        public LinearLayout relativeLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.cat_img = (ImageView) itemView.findViewById(R.id.cat_img);
             this.cat_name = (TextView) itemView.findViewById(R.id.tv_category_name);
-            this.relativeLayout = (RelativeLayout) itemView.findViewById(R.id.category_relative);
+            this.relativeLayout = (LinearLayout) itemView.findViewById(R.id.category_relative);
         }
     }
 }

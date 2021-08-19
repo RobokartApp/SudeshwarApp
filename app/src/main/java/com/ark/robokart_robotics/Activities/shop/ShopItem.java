@@ -27,6 +27,11 @@ public class ShopItem {
         this.tags = tags2;
     }
 
+    public ShopItem(String images, String name) {
+        this.images = images;
+        this.name = name;
+    }
+
     public int getId() {
         return this.f8id;
     }

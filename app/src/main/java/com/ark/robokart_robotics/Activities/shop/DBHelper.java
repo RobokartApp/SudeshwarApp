@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CONTACTS_COLUMN_PHONE = "price";
     public static final String CONTACTS_COLUMN_STREET = "qty";
     public static final String CONTACTS_TABLE_NAME = "cart";
+    public static final String FAV_TABLE_NAME = "fav";
     public static final String DATABASE_NAME = "Robokartshop.db";
 
     /* renamed from: hp */
@@ -50,7 +54,21 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(CONTACTS_TABLE_NAME, (String) null, contentValues);
         return true;
     }
-    public boolean insertFav(String name, String image, String mrp, String price, String item_id) {
+
+    public int countCart() {
+        Cursor res=null;
+        try {
+            res = getReadableDatabase().rawQuery("select * from cart", (String[]) null);
+            res.moveToFirst();
+        } catch (Exception e) {
+            Log.d("Coursor Exception: ", e.getMessage());
+        } finally {
+            res.close();
+        }
+        return res.getCount();
+    }
+
+    public long insertFav(String name, String image, String mrp, String price, String item_id) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
@@ -58,15 +76,47 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(CONTACTS_COLUMN_CITY, mrp);
         contentValues.put("price", price);
         contentValues.put(FirebaseAnalytics.Param.ITEM_ID, item_id);
-        db.insert("fav", (String) null, contentValues);
-        return true;
+        return db.insert("fav", (String) null, contentValues);
+
+    }
+
+    public int countFev() {
+        int countFav = 0;
+        Cursor res = null;
+        try {
+            res = getReadableDatabase().rawQuery("select * from fav", (String[]) null);
+            res.moveToFirst();
+            countFav = res.getCount();
+        } catch (Exception e) {
+            Log.e("fav count exception: ", e.getMessage());
+        } finally {
+            res.close();
+        }
+        return countFav;
     }
 
     public Cursor getData() {
         return getReadableDatabase().rawQuery("select * from cart", (String[]) null);
     }
+
     public Cursor getFavData() {
         return getReadableDatabase().rawQuery("select * from fav", (String[]) null);
+    }
+
+    public boolean isInCart(String name) {
+        Cursor res = null;
+        try {
+            res = getReadableDatabase().rawQuery("select * from cart where name=?", new String[]{name});
+            res.moveToFirst();
+        } catch (Exception e) {
+            Log.e("fav count exception: ", e.getMessage());
+        } finally {
+            res.close();
+        }
+        if (res.getCount() < 1)
+            return false;
+        else
+            return true;
     }
 
     public int numberOfRows() {
@@ -84,32 +134,68 @@ public class DBHelper extends SQLiteOpenHelper {
     public Integer deleteContact(Integer id) {
         return Integer.valueOf(getWritableDatabase().delete(CONTACTS_TABLE_NAME, "id = ? ", new String[]{Integer.toString(id.intValue())}));
     }
-    public Integer deleteFav(Integer id) {
-        return Integer.valueOf(getWritableDatabase().delete("fav", "id = ? ", new String[]{Integer.toString(id.intValue())}));
+
+    public Integer deleteFav(String name) {
+        return Integer.valueOf(getWritableDatabase().delete("fav", "name = ? ", new String[]{name}));
     }
 
+    //Sudesh
+
+    public long insertFavSudesh(String name, String image, String mrp, String price, String item_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("image", image);
+        contentValues.put(CONTACTS_COLUMN_CITY, mrp);
+        contentValues.put("price", price);
+        contentValues.put(FirebaseAnalytics.Param.ITEM_ID, item_id);
+        return db.insert(FAV_TABLE_NAME, (String) null, contentValues);
+    }
+
+    public Integer deleteFavInShopAdapter(String reg_id) {
+        return Integer.valueOf(getWritableDatabase().delete("fav", "item_id = ? ", new String[]{reg_id}));
+    }
+    //Sudesh
+
     public boolean fireSql(String sql) {
-        getReadableDatabase().rawQuery(sql, (String[]) null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql); //delete all rows in a table
+        db.close();
         return true;
     }
 
     public ArrayList<String> getAllCart() {
         ArrayList<String> array_list = new ArrayList<>();
-        Cursor res = getReadableDatabase().rawQuery("select * from cart", (String[]) null);
-        res.moveToFirst();
-        while (!res.isAfterLast()) {
-            array_list.add(res.getString(res.getColumnIndex("name")));
-            res.moveToNext();
+        Cursor res = null;
+        try {
+            res = getReadableDatabase().rawQuery("select * from cart", (String[]) null);
+            res.moveToFirst();
+            while (!res.isAfterLast()) {
+                array_list.add(res.getString(res.getColumnIndex("name")));
+                res.moveToNext();
+            }
+        } catch (Exception e) {
+            Log.e("fav count exception: ", e.getMessage());
+        } finally {
+            res.close();
         }
         return array_list;
     }
+
     public ArrayList<String> getAllFav() {
         ArrayList<String> array_list = new ArrayList<>();
-        Cursor res = getReadableDatabase().rawQuery("select * from fav", (String[]) null);
-        res.moveToFirst();
-        while (!res.isAfterLast()) {
-            array_list.add(res.getString(res.getColumnIndex("name")));
-            res.moveToNext();
+        Cursor res = null;
+        try {
+            res = getReadableDatabase().rawQuery("select * from fav", (String[]) null);
+            res.moveToFirst();
+            while (!res.isAfterLast()) {
+                array_list.add(res.getString(res.getColumnIndex("item_id")));
+                res.moveToNext();
+            }
+        } catch (Exception e) {
+            Log.e("Cursor Exception", e.getMessage());
+        } finally {
+            res.close();
         }
         return array_list;
     }

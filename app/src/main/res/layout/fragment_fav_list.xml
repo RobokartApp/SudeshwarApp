@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.shop.FavListFragment"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        android:id="@+id/top_lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        >
+        <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/text_mycart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/_21sdp"
+            android:padding="5dp"
+            android:text="My Wishlist"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empty_wishlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Wishlist is empty!"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fav_item_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="visible"
+        android:background="@drawable/d_round_white_background"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_fav_item"
+        android:layout_below="@id/top_lin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+         />
+
+</RelativeLayout>

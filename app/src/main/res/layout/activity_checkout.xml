@@ -13,22 +13,22 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="@dimen/_20sdp"
         android:adjustViewBounds="true"
-        android:rotation="180"
-        android:src="@drawable/right_gt"
-        app:layout_constraintStart_toStartOf="0"
-        app:layout_constraintTop_toTopOf="0" />
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_mycart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginStart="10dp"
         android:padding="5dp"
         android:text="Checkout"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/back_btn"
-        app:layout_constraintTop_toTopOf="0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/address_text"
@@ -39,14 +39,14 @@
         android:padding="5dp"
         android:text="Delivery Address"
         android:textColor="@color/carbon_white"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_mycart" />
 
     <TextView
         android:id="@+id/selected_address"
-        android:layout_width="294dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="3"
@@ -55,7 +55,7 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/change_btn_tv"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address_text" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:textColor="#fff75e"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address_text" />
 
     <TextView
@@ -80,7 +80,7 @@
         android:layout_marginTop="30dp"
         android:text="payment Method"
         android:textColor="@color/carbon_white"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selected_address" />
 
     <RadioGroup
@@ -91,7 +91,7 @@
         android:layout_marginEnd="20dp"
         android:checkedButton="@+id/rpay_radio"
         android:padding="5dp"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payment_text">
 
         <RadioButton
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:src="@drawable/base_line"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payment_rg" />
 
     <CheckBox
@@ -138,10 +138,11 @@
         android:buttonTint="#ffffff"
         android:text="Use GST Invoice"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <TextView
+        android:id="@+id/place_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
@@ -152,6 +153,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="0"
-        app:layout_constraintStart_toStartOf="0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

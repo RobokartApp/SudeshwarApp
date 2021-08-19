@@ -34,7 +34,7 @@
             android:layout_margin="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/empty_bg_rect"
-            android:hint="Full Name"
+            android:hint="Full Name *"
             android:inputType="textPersonName"
             android:padding="15dp" />
 
@@ -44,7 +44,7 @@
             android:layout_height="70dp"
             android:layout_margin="5dp"
             android:background="@drawable/empty_bg_rect"
-            android:hint="Address line 1"
+            android:hint="Address line 1 *"
             android:inputType="textMultiLine"
             android:maxLines="2"
             android:padding="15dp" />
@@ -55,7 +55,7 @@
             android:layout_height="70dp"
             android:layout_margin="5dp"
             android:background="@drawable/empty_bg_rect"
-            android:hint="Address line 2"
+            android:hint="Address line 2 *"
             android:inputType="textMultiLine"
             android:maxLines="2"
             android:padding="15dp" />
@@ -87,7 +87,7 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:background="@drawable/empty_bg_rect"
-            android:hint="Pincode"
+            android:hint="Pincode *"
             android:inputType="number"
             android:padding="15dp" />
 
@@ -97,7 +97,7 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:background="@drawable/empty_bg_rect"
-            android:hint="Mobile number"
+            android:hint="Mobile number *"
             android:inputType="phone"
             android:padding="15dp" />
     </LinearLayout>

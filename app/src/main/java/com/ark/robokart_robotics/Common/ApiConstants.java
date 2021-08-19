@@ -2,7 +2,7 @@ package com.ark.robokart_robotics.Common;
 
 public class ApiConstants {
 
-    public static final String HOST = "https://robokart.com/Api/";
+    public static final String  HOST = "https://robokart.com/Api/";
     public static final String local_HOST = "http://192.168.0.103/robokart/webservices/";
     public static final String image_HOST = "https://robokart.com/";
 

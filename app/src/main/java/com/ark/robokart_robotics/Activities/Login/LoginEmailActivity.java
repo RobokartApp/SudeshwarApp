@@ -47,11 +47,11 @@ public class LoginEmailActivity extends AppCompatActivity {
     private Button btn_login, btn_phone_login;
 
     private ProgressBar login_progress;
-/*
-    private CallbackManager callbackManager;
+    /*
+        private CallbackManager callbackManager;
 
-    GoogleSignInClient mGoogleSignInClient;
-*/
+        GoogleSignInClient mGoogleSignInClient;
+    */
     SignInButton signInButton;
 
 
@@ -90,7 +90,7 @@ public class LoginEmailActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-      //  mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //  mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
@@ -107,20 +107,18 @@ public class LoginEmailActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(email_edt_text.getText().toString().trim().equals("")){
+                if (email_edt_text.getText().toString().trim().equals("")) {
                     //layout.setError("Please Enter Email ID");
                     textview_email_error.setVisibility(View.VISIBLE);
                     drawable_anim_email.setAnimation("error.json");
                     drawable_anim_email.playAnimation();
-                }
-                else{
-                    if(email_edt_text.getText().toString().trim().matches(emailPattern) ){
+                } else {
+                    if (email_edt_text.getText().toString().trim().matches(emailPattern)) {
                         //layout.setError(null);
                         textview_email_error.setVisibility(View.GONE);
                         drawable_anim_email.setAnimation("check.json");
                         drawable_anim_email.playAnimation();
-                    }
-                    else{
+                    } else {
                         drawable_anim_email.setAnimation("error.json");
                         drawable_anim_email.playAnimation();//layout.setError("Please Enter Valid Email ID");
                         textview_email_error.setVisibility(View.VISIBLE);
@@ -133,7 +131,7 @@ public class LoginEmailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
@@ -201,35 +199,35 @@ public class LoginEmailActivity extends AppCompatActivity {
                     drawable_anim_pass.pauseAnimation();
 
 
-                loginViewModel.loginwithEmail(email, pass).observe(LoginEmailActivity.this, new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                        v.animate().alpha(1.0f);
-                        login_progress.setVisibility(View.GONE);
-                        if (s.equals("Login Successfull")) {
+                    loginViewModel.loginwithEmail(email, pass).observe(LoginEmailActivity.this, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                            v.animate().alpha(1.0f);
+                            login_progress.setVisibility(View.GONE);
+                            if (s.equals("Login Successfull")) {
 
 
-                            SharedPref sharedPref = new SharedPref();
-                            sharedPref.setLoginStatus(LoginEmailActivity.this, 1);
+                                SharedPref sharedPref = new SharedPref();
+                                sharedPref.setLoginStatus(LoginEmailActivity.this, 1);
 
-                            int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
+                                int status_recom = sharedPref.checkRecommendationStatus(getApplicationContext());
 
-                            if (1 == 1) {
-                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                finish();
+                                if (1 == 1) {
+                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                    finish();
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
+                                    finish();
+                                }
                             } else {
-                                startActivity(new Intent(getApplicationContext(), Collect_RecommendationActivity.class));
-                                finish();
+                                Log.e("Login status", s);
+                                makeDialog();
                             }
-                        }else{
-                            Log.e("Login status",s);
-                            makeDialog();
-                        }
 
-                    }
-                });
-            }
+                        }
+                    });
+                }
             }
         });
 
@@ -267,8 +265,8 @@ public class LoginEmailActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-           // Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-           // handleSignInResult(task);
+            // Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            // handleSignInResult(task);
         }
     }
 /*
@@ -292,12 +290,12 @@ public class LoginEmailActivity extends AppCompatActivity {
                 Uri personPhoto = account.getPhotoUrl();
 
                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
-                intent.putExtra("fullname",personName);
-                intent.putExtra("email",personEmail);
-                intent.putExtra("profilepic",personPhoto);
+                intent.putExtra("fullname", personName);
+                intent.putExtra("email", personEmail);
+                intent.putExtra("profilepic", personPhoto);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(),"Welcome "+personName,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Welcome " + personName, Toast.LENGTH_SHORT).show();
             }
             // Signed in successfully, show authenticated UI.
 //            updateUI(account);
